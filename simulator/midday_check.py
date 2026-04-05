@@ -26,6 +26,8 @@ from pathlib import Path
 import pytz
 import yfinance as yf
 
+from market_calendar import is_trading_day
+
 # ---------------------------------------------------------------------------
 REPO_ROOT      = Path(__file__).parent.parent
 PORTFOLIO_F    = REPO_ROOT / "simulator" / "portfolio.json"
@@ -249,6 +251,25 @@ def run_midday_check(extra_note: str = "", dry_run: bool = False) -> dict:
     now_et   = datetime.now(ET)
     date_str = now_et.strftime("%Y-%m-%d")
     time_str = now_et.strftime("%H:%M ET")
+
+    # ── Market holiday guard ─────────────────────────────────────────────────
+    if not is_trading_day():
+        msg = f"Market closed today ({date_str}) — no midday check needed."
+        print(f"🔴 {msg}")
+        if not dry_run:
+            try:
+                strategy_log = load_json(STRATEGY_LOG_F)
+                strategy_log.append({
+                    "date":    date_str,
+                    "type":    "midday_skipped",
+                    "note":    msg,
+                    "tags":    ["midday", "market-closed", "holiday"],
+                })
+                save_json(STRATEGY_LOG_F, strategy_log)
+            except Exception:
+                pass
+        return {"date": date_str, "skipped": True, "reason": "market_closed"}
+    # ─────────────────────────────────────────────────────────────────────────
 
     print(f"\n🕛 Midday Check — {date_str} {time_str}")
     print("=" * 62)
