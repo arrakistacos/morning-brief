@@ -29,8 +29,6 @@
   .card-themes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
   .theme{background:var(--surface2);color:var(--accent);padding:2px 10px;border-radius:12px;font-size:0.75rem}
   .card-summary{font-size:0.85rem;color:var(--muted);line-height:1.5}
-  .secrets-notice{background:#1a1500;border:1px solid #ff8f0066;border-radius:8px;padding:16px;margin-bottom:24px;font-size:0.88rem;display:block}
-  .secrets-notice h3{color:#ff8f00;margin-bottom:8px}
   code{background:#111;padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.85em}
 </style>
 </head>
@@ -42,25 +40,14 @@
       <p>AI-powered market intelligence &middot; Updated daily at 6 AM ET</p>
     </div>
     <div style="color:var(--muted);font-size:0.85rem">
-      0 reports &middot; Last updated Apr 04, 2026
+      1 reports &middot; Last updated Apr 05, 2026
     </div>
-  </div>
-
-  <div class="secrets-notice">
-    <h3>&#9881;&#65039; Setup Required</h3>
-    <p>No reports yet. Add these GitHub Secrets to activate the daily brief:</p>
-    <ul style="margin:8px 0 0 16px;line-height:2">
-      <li><code>CLAUDE_API_KEY</code> &mdash; from console.anthropic.com</li>
-      <li><code>GMAIL_USER</code> &mdash; your Gmail address for sending</li>
-      <li><code>GMAIL_APP_PASSWORD</code> &mdash; Gmail app password (myaccount.google.com &rarr; Security &rarr; App passwords)</li>
-    </ul>
-    <p style="margin-top:8px">Then trigger the workflow manually: Actions &rarr; Morning Brief &rarr; Run workflow</p>
   </div>
 
   <div class="stat-row">
     <div class="stat-card">
       <div class="stat-label">Total Reports</div>
-      <div class="stat-value" style="color:var(--accent)">0</div>
+      <div class="stat-value" style="color:var(--accent)">1</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Latest Sentiment</div>
@@ -83,7 +70,13 @@
   
 
   <div class="reports-grid">
-    <div style="color:var(--muted);text-align:center;padding:40px">No reports yet. Trigger the workflow to generate your first brief.</div>
+    
+        <a href="reports/2026-04-05.html" class="report-card">
+          <div class="card-header">
+            <span class="card-date">2026-04-05</span>
+          </div>
+          <div class="card-summary">View full report</div>
+        </a>
   </div>
 </div>
 
