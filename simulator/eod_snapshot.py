@@ -11,6 +11,13 @@ With --midday flag: takes an intraday snapshot without T+2 settlement processing
   Appends to performance.json with "type": "midday" so the dashboard can
   differentiate intraday datapoints from official daily closes.
 
+Holiday / early-close handling:
+  - If today is not a NYSE trading day (holiday or weekend), the script skips
+    all processing and logs "market closed" to strategy_log.json.
+  - For EOD mode, get_market_hours() is used to determine the actual close time.
+    If the script runs after close (including early-close days like the day before
+    Thanksgiving), it proceeds. If it runs before close, it warns and exits.
+
 Usage:
     python simulator/eod_snapshot.py
     python simulator/eod_snapshot.py --note "Volatile day; held through dip on conviction."
@@ -25,6 +32,8 @@ from pathlib import Path
 import pytz
 import yfinance as yf
 
+from market_calendar import is_trading_day, get_market_hours
+
 # ---------------------------------------------------------------------------
 REPO_ROOT      = Path(__file__).parent.parent
 PORTFOLIO_F    = REPO_ROOT / "simulator" / "portfolio.json"
@@ -33,15 +42,6 @@ PERFORMANCE_F  = REPO_ROOT / "simulator" / "performance.json"
 STRATEGY_LOG_F = REPO_ROOT / "simulator" / "strategy_log.json"
 
 ET = pytz.timezone("America/New_York")
-
-US_HOLIDAYS = {
-    "2025-01-01","2025-01-20","2025-02-17","2025-04-18",
-    "2025-05-26","2025-06-19","2025-07-04","2025-09-01",
-    "2025-11-27","2025-12-25",
-    "2026-01-01","2026-01-19","2026-02-16","2026-04-03",
-    "2026-05-25","2026-06-19","2026-07-03","2026-09-07",
-    "2026-11-26","2026-12-25",
-}
 # ---------------------------------------------------------------------------
 
 
@@ -101,6 +101,38 @@ def take_snapshot(extra_note: str = "", midday: bool = False) -> dict:
     date_str = now_et.strftime("%Y-%m-%d")
     time_str = now_et.strftime("%H:%M ET")
     snap_type = "midday" if midday else "eod"
+
+    # ── Market holiday guard ─────────────────────────────────────────────────
+    if not is_trading_day():
+        msg = f"Market closed today ({date_str}) — {'midday snapshot' if midday else 'EOD snapshot'} skipped."
+        print(f"🔴 {msg}")
+        try:
+            strategy_log = load_json(STRATEGY_LOG_F)
+            strategy_log.append({
+                "date":  date_str,
+                "type":  "snapshot_skipped",
+                "note":  msg,
+                "tags":  ["market-closed", "holiday", snap_type],
+            })
+            save_json(STRATEGY_LOG_F, strategy_log)
+        except Exception:
+            pass
+        return {}
+    # ─────────────────────────────────────────────────────────────────────────
+
+    # ── Early-close guard (EOD mode only) ───────────────────────────────────
+    # Use get_market_hours() so early-close days (e.g. day before Thanksgiving,
+    # July 3 when July 4 falls on a weekend, Christmas Eve) are respected.
+    if not midday:
+        try:
+            _, market_close_et = get_market_hours()
+            if now_et < market_close_et:
+                print(f"⚠️  Market hasn't closed yet (closes {market_close_et.strftime('%H:%M %Z')}). "
+                      f"Run EOD snapshot after market close.")
+                return {}
+        except Exception:
+            pass  # If we can't get hours, proceed anyway
+    # ─────────────────────────────────────────────────────────────────────────
 
     portfolio   = load_json(PORTFOLIO_F)
     performance = load_json(PERFORMANCE_F)
@@ -280,6 +312,10 @@ def main():
     print("-" * 62)
 
     snapshot = take_snapshot(args.note, midday=args.midday)
+
+    if not snapshot:
+        # Skipped (holiday, weekend, or pre-close)
+        return
 
     print("-" * 62)
     daily_sign = "+" if snapshot["daily_pnl"] >= 0 else ""
