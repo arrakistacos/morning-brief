@@ -56,6 +56,21 @@ Produce a comprehensive morning trading brief in the following JSON structure:
   "sentiment_score": <-10 to +10, where -10 is extremely bearish, +10 is extremely bullish>,
   "sentiment_reasoning": "<2-3 sentence summary of why>",
 
+  "summary": {{
+    "gist": "<2-3 sentences capturing the single most important market narrative of the day. Write like a sharp analyst briefing a fund manager — no hedging, no 'it could go either way', just the signal. State the dominant force, its mechanism, and the directional bet it implies.>",
+    "actionable_items": [
+      "<Specific, concrete thing to watch or act on today — include ticker, condition, and expected move. Example: 'Watch XOM pre-market — oil above $90 + refinery disruption = gap up likely'>",
+      "<Another specific actionable item with ticker and condition>",
+      "<Another specific actionable item>",
+      "<Another specific actionable item>",
+      "<Another specific actionable item>"
+    ],
+    "stoic_quote": {{
+      "text": "<One stoic quote from Marcus Aurelius, Epictetus, or Seneca that is genuinely relevant to today's market conditions. If markets are in panic or fear, choose something about equanimity. If it is a greed rally, choose something about restraint. If there is uncertainty, choose something about focusing on what you control.>",
+      "attribution": "<Author name — Work title if applicable, e.g. 'Marcus Aurelius — Meditations'>"
+    }}
+  }},
+
   "top_themes": [
     "<theme 1>",
     "<theme 2>",
