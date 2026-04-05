@@ -41,25 +41,37 @@ def build_dashboard():
           <div class="card-summary">{summary}</div>
         </a>"""
 
+    # Also check for HTML reports if no JSON reports
+    html_reports = []
+    if not reports:
+        for html_file in sorted(reports_dir.glob("*.html"), reverse=True):
+            html_reports.append({"date": html_file.stem, "filename": html_file.name})
+            cards_html += f"""
+        <a href="reports/{html_file.name}" class="report-card">
+          <div class="card-header">
+            <span class="card-date">{html_file.stem}</span>
+          </div>
+          <div class="card-summary">View full report</div>
+        </a>"""
+
     # Score sparkline data
     score_data = [(r.get("_filename", ""), r.get("sentiment_score", 0)) for r in reversed(reports[-30:])]
     sparkline_js = f"const scoreData = {json.dumps(score_data)};"
 
     # Pre-compute conditional values to avoid nested f-string issues
-    secrets_display = "none" if reports else "block"
     latest_sentiment = reports[0].get("overall_sentiment", "—") if reports else "—"
     latest_color = "#00c853" if reports and reports[0].get("sentiment_score", 0) > 2 else "#ff1744" if reports and reports[0].get("sentiment_score", 0) < -2 else "#ff8f00"
     avg_score = f'{sum(r.get("sentiment_score", 0) for r in reports[:30]) / max(len(reports[:30]), 1):+.1f}' if reports else "—"
     bullish_count = sum(1 for r in reports[:30] if r.get("overall_sentiment") == "BULLISH")
     bearish_count = sum(1 for r in reports[:30] if r.get("overall_sentiment") == "BEARISH")
-    report_count = len(reports)
+    report_count = len(reports) + len(html_reports)
     last_updated = datetime.now().strftime("%b %d, %Y")
     chart_section = """
   <div class="chart-wrap">
     <div class="chart-title">30-Day Sentiment Score</div>
     <canvas id="sparkline"></canvas>
   </div>""" if reports else ""
-    no_reports_msg = '<div style="color:var(--muted);text-align:center;padding:40px">No reports yet. Trigger the workflow to generate your first brief.</div>'
+    no_reports_msg = '<div style="color:var(--muted);text-align:center;padding:40px">No reports yet. Check back soon.</div>'
     reports_content = cards_html if cards_html else no_reports_msg
 
     dashboard_html = f"""<!DOCTYPE html>
@@ -93,8 +105,6 @@ def build_dashboard():
   .card-themes{{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}}
   .theme{{background:var(--surface2);color:var(--accent);padding:2px 10px;border-radius:12px;font-size:0.75rem}}
   .card-summary{{font-size:0.85rem;color:var(--muted);line-height:1.5}}
-  .secrets-notice{{background:#1a1500;border:1px solid #ff8f0066;border-radius:8px;padding:16px;margin-bottom:24px;font-size:0.88rem;display:{secrets_display}}}
-  .secrets-notice h3{{color:#ff8f00;margin-bottom:8px}}
   code{{background:#111;padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.85em}}
 </style>
 </head>
@@ -108,17 +118,6 @@ def build_dashboard():
     <div style="color:var(--muted);font-size:0.85rem">
       {report_count} reports &middot; Last updated {last_updated}
     </div>
-  </div>
-
-  <div class="secrets-notice">
-    <h3>&#9881;&#65039; Setup Required</h3>
-    <p>No reports yet. Add these GitHub Secrets to activate the daily brief:</p>
-    <ul style="margin:8px 0 0 16px;line-height:2">
-      <li><code>CLAUDE_API_KEY</code> &mdash; from console.anthropic.com</li>
-      <li><code>GMAIL_USER</code> &mdash; your Gmail address for sending</li>
-      <li><code>GMAIL_APP_PASSWORD</code> &mdash; Gmail app password (myaccount.google.com &rarr; Security &rarr; App passwords)</li>
-    </ul>
-    <p style="margin-top:8px">Then trigger the workflow manually: Actions &rarr; Morning Brief &rarr; Run workflow</p>
   </div>
 
   <div class="stat-row">
@@ -184,7 +183,7 @@ if (canvas && scoreData.length > 1) {{
     for html_file in reports_dir.glob("*.html"):
         shutil.copy(html_file, docs_reports / html_file.name)
 
-    print(f"Dashboard built with {len(reports)} reports")
+    print(f"Dashboard built with {report_count} reports")
 
 
 if __name__ == "__main__":
