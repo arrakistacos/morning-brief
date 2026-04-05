@@ -10,11 +10,22 @@ Rules enforced:
   - Max 30% of total portfolio value in any single position.
   - Market-open warning (does not block — this is a simulator with --force override).
 
+BUY orders now capture full trade setup at entry time:
+  stop_loss_price, stop_loss_pct, target_price, target_pct,
+  risk_reward_ratio, risk_per_trade, setup_type, timeframe,
+  entry_trigger, exit_plan
+
 Usage:
     python simulator/execute_trade.py --action BUY  --ticker AAPL --shares 10 \\
         --strategy "momentum breakout" \\
         --thesis "Breaking above 200DMA with volume, AI hardware tailwinds" \\
-        --pattern "bull flag"
+        --pattern "bull flag" \\
+        --setup-type "bull flag breakout" \\
+        --timeframe "3-7 days" \\
+        --entry-trigger "Price broke above $175 resistance with 2x avg volume" \\
+        --exit-plan "Sell half at $198 (+15%), trail stop on remainder. Hard stop at $161." \\
+        --stop-loss-pct 8.0 \\
+        --target-pct 15.0
 
     python simulator/execute_trade.py --action SELL --ticker AAPL --shares 5 \\
         --strategy "partial profit" \\
@@ -43,6 +54,9 @@ US_HOLIDAYS = {
     "2026-05-25","2026-06-19","2026-07-03","2026-09-07",
     "2026-11-26","2026-12-25",
 }
+# Default stop/target percentages (can be overridden per trade)
+DEFAULT_STOP_LOSS_PCT = 8.0
+DEFAULT_TARGET_PCT    = 15.0
 # ---------------------------------------------------------------------------
 
 
@@ -106,7 +120,6 @@ def fetch_price(ticker: str) -> float:
 def portfolio_total_value(portfolio: dict) -> float:
     """Settled cash + unsettled proceeds + current market value of positions."""
     total = portfolio["cash"]
-    # Include unsettled cash in total value (it exists, just can't be used to buy)
     for u in portfolio.get("unsettled_cash", []):
         total += u["amount"]
     for pos in portfolio["positions"]:
@@ -133,6 +146,46 @@ def settle_pending_cash(portfolio: dict, today_str: str) -> float:
     return round(settled_amount, 2)
 
 
+def compute_trade_setup(price: float, shares: int, args) -> dict:
+    """
+    Compute and return trade setup fields for a BUY order.
+    All values are calculated from the entry price unless explicitly provided.
+    """
+    stop_pct   = float(args.stop_loss_pct)  if args.stop_loss_pct  else DEFAULT_STOP_LOSS_PCT
+    target_pct = float(args.target_pct)     if args.target_pct     else DEFAULT_TARGET_PCT
+
+    # Prices
+    stop_price   = round(price * (1 - stop_pct / 100), 4)
+    target_price = round(price * (1 + target_pct / 100), 4)
+
+    # Override if explicit prices were passed
+    if args.stop_loss_price:
+        stop_price = float(args.stop_loss_price)
+        stop_pct   = round(((price - stop_price) / price) * 100, 2)
+    if args.target_price:
+        target_price = float(args.target_price)
+        target_pct   = round(((target_price - price) / price) * 100, 2)
+
+    risk_per_trade   = round((price - stop_price) * shares, 2)
+    risk_reward_ratio = round(target_pct / stop_pct, 3) if stop_pct > 0 else None
+
+    return {
+        "stop_loss_price":  stop_price,
+        "stop_loss_pct":    round(stop_pct, 2),
+        "target_price":     target_price,
+        "target_pct":       round(target_pct, 2),
+        "risk_reward_ratio": risk_reward_ratio,
+        "risk_per_trade":   risk_per_trade,
+        "setup_type":       args.setup_type   or "",
+        "timeframe":        args.timeframe    or "",
+        "entry_trigger":    args.entry_trigger or "",
+        "exit_plan":        args.exit_plan    or (
+            f"Sell half at ${target_price:.2f} (+{target_pct:.1f}%), "
+            f"trail stop on remainder. Hard stop at ${stop_price:.2f} (-{stop_pct:.1f}%)."
+        ),
+    }
+
+
 # ---------------------------------------------------------------------------
 # BUY
 # ---------------------------------------------------------------------------
@@ -144,7 +197,6 @@ def execute_buy(portfolio: dict, trades: list, args) -> dict:
     thesis   = args.thesis or ""
     pattern  = args.pattern or ""
 
-    # Long-only: BUY only if we have a bullish thesis
     price = fetch_price(ticker)
     total = round(price * shares, 2)
 
@@ -179,22 +231,30 @@ def execute_buy(portfolio: dict, trades: list, args) -> dict:
             f"Reduce share count."
         )
 
+    # Compute trade setup (stop loss, target, R:R, etc.)
+    setup = compute_trade_setup(price, shares, args)
+
     # Update or create position
     now_et = datetime.now(ET)
     if existing:
-        old_total     = existing["avg_cost"] * existing["shares"]
-        existing["shares"]   += shares
-        existing["avg_cost"]  = round((old_total + total) / existing["shares"], 4)
-        existing["strategy"]  = strategy or existing["strategy"]
-        existing["thesis"]    = thesis or existing["thesis"]
+        old_total               = existing["avg_cost"] * existing["shares"]
+        existing["shares"]     += shares
+        existing["avg_cost"]    = round((old_total + total) / existing["shares"], 4)
+        existing["strategy"]    = strategy or existing["strategy"]
+        existing["thesis"]      = thesis or existing["thesis"]
+        # Update stop/target on the position record too
+        existing["stop_loss_price"] = setup["stop_loss_price"]
+        existing["target_price"]    = setup["target_price"]
     else:
         portfolio["positions"].append({
-            "ticker":     ticker,
-            "shares":     shares,
-            "avg_cost":   price,
-            "entry_date": now_et.strftime("%Y-%m-%d"),
-            "strategy":   strategy,
-            "thesis":     thesis,
+            "ticker":           ticker,
+            "shares":           shares,
+            "avg_cost":         price,
+            "entry_date":       now_et.strftime("%Y-%m-%d"),
+            "strategy":         strategy,
+            "thesis":           thesis,
+            "stop_loss_price":  setup["stop_loss_price"],
+            "target_price":     setup["target_price"],
         })
 
     portfolio["cash"]         = round(portfolio["cash"] - total, 2)
@@ -204,20 +264,31 @@ def execute_buy(portfolio: dict, trades: list, args) -> dict:
     port_val  = portfolio_total_value(portfolio)
     trade_id  = max((t["id"] for t in trades), default=0) + 1
     trade = {
-        "id":              trade_id,
-        "date":            now_et.strftime("%Y-%m-%d"),
-        "time":            now_et.strftime("%H:%M ET"),
-        "ticker":          ticker,
-        "action":          "BUY",
-        "shares":          shares,
-        "price":           price,
-        "total":           total,
-        "cash_after":      portfolio["cash"],
-        "portfolio_value": port_val,
-        "strategy":        strategy,
-        "thesis":          thesis,
-        "pattern":         pattern,
-        "sentiment_score": args.sentiment_score,
+        "id":               trade_id,
+        "date":             now_et.strftime("%Y-%m-%d"),
+        "time":             now_et.strftime("%H:%M ET"),
+        "ticker":           ticker,
+        "action":           "BUY",
+        "shares":           shares,
+        "price":            price,
+        "total":            total,
+        "cash_after":       portfolio["cash"],
+        "portfolio_value":  port_val,
+        "strategy":         strategy,
+        "thesis":           thesis,
+        "pattern":          pattern,
+        "sentiment_score":  args.sentiment_score,
+        # Trade setup fields
+        "stop_loss_price":   setup["stop_loss_price"],
+        "stop_loss_pct":     setup["stop_loss_pct"],
+        "target_price":      setup["target_price"],
+        "target_pct":        setup["target_pct"],
+        "risk_reward_ratio": setup["risk_reward_ratio"],
+        "risk_per_trade":    setup["risk_per_trade"],
+        "setup_type":        setup["setup_type"],
+        "timeframe":         setup["timeframe"],
+        "entry_trigger":     setup["entry_trigger"],
+        "exit_plan":         setup["exit_plan"],
     }
     trades.append(trade)
     return {"trade": trade, "portfolio": portfolio}
@@ -257,6 +328,10 @@ def execute_sell(portfolio: dict, trades: list, args) -> dict:
     realized_pnl = round((price - pos["avg_cost"]) * shares, 2)
     realized_pct = round(((price - pos["avg_cost"]) / pos["avg_cost"]) * 100, 2)
 
+    # Reference original trade setup if available on the position
+    entry_stop   = pos.get("stop_loss_price")
+    entry_target = pos.get("target_price")
+
     # Update position
     pos["shares"] -= shares
     if pos["shares"] == 0:
@@ -277,32 +352,34 @@ def execute_sell(portfolio: dict, trades: list, args) -> dict:
     })
     portfolio["last_updated"] = now_et.isoformat()
 
-    # Total cash available display (settled + unsettled)
     settled     = portfolio["cash"]
     unsettled   = sum(u["amount"] for u in portfolio["unsettled_cash"])
     total_cash  = round(settled + unsettled, 2)
     port_val    = portfolio_total_value(portfolio)
 
     trade = {
-        "id":              trade_id,
-        "date":            now_et.strftime("%Y-%m-%d"),
-        "time":            now_et.strftime("%H:%M ET"),
-        "ticker":          ticker,
-        "action":          "SELL",
-        "shares":          shares,
-        "price":           price,
-        "total":           total,
-        "cash_after":      total_cash,
-        "settled_cash":    settled,
-        "unsettled_cash":  unsettled,
-        "portfolio_value": port_val,
-        "realized_pnl":    realized_pnl,
+        "id":               trade_id,
+        "date":             now_et.strftime("%Y-%m-%d"),
+        "time":             now_et.strftime("%H:%M ET"),
+        "ticker":           ticker,
+        "action":           "SELL",
+        "shares":           shares,
+        "price":            price,
+        "total":            total,
+        "cash_after":       total_cash,
+        "settled_cash":     settled,
+        "unsettled_cash":   unsettled,
+        "portfolio_value":  port_val,
+        "realized_pnl":     realized_pnl,
         "realized_pnl_pct": realized_pct,
-        "settlement_date": settlement_str,
-        "strategy":        strategy,
-        "thesis":          thesis,
-        "pattern":         pattern,
-        "sentiment_score": args.sentiment_score,
+        "settlement_date":  settlement_str,
+        "strategy":         strategy,
+        "thesis":           thesis,
+        "pattern":          pattern,
+        "sentiment_score":  args.sentiment_score,
+        # Reference entry setup prices for context
+        "entry_stop_loss_price": entry_stop,
+        "entry_target_price":    entry_target,
     }
     trades.append(trade)
     return {"trade": trade, "portfolio": portfolio}
@@ -314,16 +391,33 @@ def execute_sell(portfolio: dict, trades: list, args) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description="Execute a paper trade (long-only, T+2 settlement)")
-    parser.add_argument("--action",          required=True, choices=["BUY","SELL"])
-    parser.add_argument("--ticker",          required=True)
-    parser.add_argument("--shares",          required=True, type=int)
-    parser.add_argument("--strategy",        default="")
-    parser.add_argument("--thesis",          default="")
-    parser.add_argument("--pattern",         default="")
-    parser.add_argument("--sentiment-score", default=0, type=int,
+    parser.add_argument("--action",           required=True, choices=["BUY","SELL"])
+    parser.add_argument("--ticker",           required=True)
+    parser.add_argument("--shares",           required=True, type=int)
+    parser.add_argument("--strategy",         default="")
+    parser.add_argument("--thesis",           default="")
+    parser.add_argument("--pattern",          default="")
+    parser.add_argument("--sentiment-score",  default=0, type=int,
                         help="Morning brief sentiment score (-10 to +10)")
-    parser.add_argument("--force",           action="store_true",
+    parser.add_argument("--force",            action="store_true",
                         help="Suppress market-closed warning")
+    # BUY-only trade setup fields
+    parser.add_argument("--stop-loss-pct",    default=None, type=float,
+                        help=f"Stop loss %% distance from entry (default: {DEFAULT_STOP_LOSS_PCT}%%)")
+    parser.add_argument("--stop-loss-price",  default=None, type=float,
+                        help="Explicit stop loss price (overrides --stop-loss-pct)")
+    parser.add_argument("--target-pct",       default=None, type=float,
+                        help=f"Profit target %% from entry (default: {DEFAULT_TARGET_PCT}%%)")
+    parser.add_argument("--target-price",     default=None, type=float,
+                        help="Explicit target price (overrides --target-pct)")
+    parser.add_argument("--setup-type",       default="",
+                        help='Chart setup type (e.g. "bull flag breakout", "support bounce")')
+    parser.add_argument("--timeframe",        default="",
+                        help='Expected hold duration (e.g. "2-5 days", "1-2 weeks")')
+    parser.add_argument("--entry-trigger",    default="",
+                        help='What specifically triggered the entry')
+    parser.add_argument("--exit-plan",        default="",
+                        help='Plain English exit strategy')
     args = parser.parse_args()
 
     now_et = datetime.now(ET)
@@ -341,10 +435,14 @@ def main():
     if auto_settled > 0:
         print(f"✅ Auto-settled ${auto_settled:,.2f} from previous trades")
 
-    if args.action == "BUY":
-        result = execute_buy(portfolio, trades, args)
-    else:
-        result = execute_sell(portfolio, trades, args)
+    try:
+        if args.action == "BUY":
+            result = execute_buy(portfolio, trades, args)
+        else:
+            result = execute_sell(portfolio, trades, args)
+    except ValueError as e:
+        print(f"\n❌ Trade rejected: {e}")
+        sys.exit(1)
 
     save_json(PORTFOLIO_F, result["portfolio"])
     save_json(TRADES_F, trades)
@@ -356,6 +454,19 @@ def main():
     print(f"  Trade value:       ${t['total']:,.2f}")
     if t["action"] == "BUY":
         print(f"  Settled cash:      ${t['cash_after']:,.2f}")
+        print(f"  Stop loss:         ${t['stop_loss_price']:,.2f}  (-{t['stop_loss_pct']:.1f}%)")
+        print(f"  Target:            ${t['target_price']:,.2f}  (+{t['target_pct']:.1f}%)")
+        if t["risk_reward_ratio"]:
+            print(f"  Risk/Reward:       {t['risk_reward_ratio']:.2f}×")
+        print(f"  Risk per trade:    ${t['risk_per_trade']:,.2f}")
+        if t["setup_type"]:
+            print(f"  Setup:             {t['setup_type']}")
+        if t["timeframe"]:
+            print(f"  Timeframe:         {t['timeframe']}")
+        if t["entry_trigger"]:
+            print(f"  Entry trigger:     {t['entry_trigger']}")
+        if t["exit_plan"]:
+            print(f"  Exit plan:         {t['exit_plan']}")
     else:
         pnl_sign = "+" if t["realized_pnl"] >= 0 else ""
         print(f"  Realized P&L:      {pnl_sign}${t['realized_pnl']:,.2f} ({pnl_sign}{t['realized_pnl_pct']:.2f}%)")
