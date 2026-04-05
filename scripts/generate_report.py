@@ -20,6 +20,91 @@ def sentiment_color(sentiment):
     return "#78909c"
 
 
+def generate_summary_card_html(analysis: dict) -> str:
+    """Generate the prominent executive summary card HTML for the full report."""
+    summary = analysis.get("summary", {})
+    if not summary:
+        return ""
+
+    gist = summary.get("gist", "")
+    actionable_items = summary.get("actionable_items", [])
+    stoic = summary.get("stoic_quote", {})
+    stoic_text = stoic.get("text", "")
+    stoic_attr = stoic.get("attribution", "")
+
+    items_html = "".join([
+        f'<li class="action-item"><span class="action-check">☐</span>{item}</li>'
+        for item in actionable_items
+    ])
+
+    return f"""
+  <div class="exec-card">
+    <div class="exec-card-header">
+      <span class="exec-card-label">⚡ EXECUTIVE SUMMARY</span>
+    </div>
+
+    <div class="exec-gist-section">
+      <div class="exec-section-label">THE GIST</div>
+      <p class="exec-gist-text">{gist}</p>
+    </div>
+
+    <div class="exec-actions-section">
+      <div class="exec-section-label">ACTIONABLE ITEMS</div>
+      <ul class="action-list">{items_html}</ul>
+    </div>
+
+    <blockquote class="stoic-quote">
+      <p class="stoic-text">"{stoic_text}"</p>
+      <footer class="stoic-attr">— {stoic_attr}</footer>
+    </blockquote>
+  </div>"""
+
+
+def generate_summary_card_email_html(analysis: dict) -> str:
+    """Generate the prominent executive summary card HTML for the email version."""
+    summary = analysis.get("summary", {})
+    if not summary:
+        return ""
+
+    gist = summary.get("gist", "")
+    actionable_items = summary.get("actionable_items", [])
+    stoic = summary.get("stoic_quote", {})
+    stoic_text = stoic.get("text", "")
+    stoic_attr = stoic.get("attribution", "")
+
+    items_html = "".join([
+        f'<li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px">'
+        f'<span style="color:#f59e0b;margin-right:6px">☐</span>{item}</li>'
+        for item in actionable_items
+    ])
+
+    return f"""
+  <!-- Executive Summary Card -->
+  <div style="background:#1e2d47;border:1px solid #2d4a6e;border-radius:10px;padding:24px;margin-bottom:24px;position:relative">
+    <div style="font-size:10px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">
+      ⚡ Executive Summary
+    </div>
+
+    <!-- The Gist -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">The Gist</div>
+      <p style="margin:0;font-size:14px;line-height:1.7;color:#e2e8f0;font-weight:500">{gist}</p>
+    </div>
+
+    <!-- Actionable Items -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Actionable Items</div>
+      <ul style="margin:0;padding:0;list-style:none">{items_html}</ul>
+    </div>
+
+    <!-- Stoic Quote -->
+    <div style="border-left:3px solid #f59e0b;padding:12px 16px;background:#0f1a2e;border-radius:0 6px 6px 0">
+      <p style="margin:0 0 6px;font-style:italic;color:#fcd34d;font-size:13px;line-height:1.6">"{stoic_text}"</p>
+      <footer style="font-size:11px;color:#94a3b8;font-style:normal">— {stoic_attr}</footer>
+    </div>
+  </div>"""
+
+
 def generate_html_report(analysis: dict, articles: list) -> str:
     date = analysis.get("date", datetime.now().strftime("%A, %B %d, %Y"))
     sentiment = analysis.get("overall_sentiment", "NEUTRAL")
@@ -87,6 +172,8 @@ def generate_html_report(analysis: dict, articles: list) -> str:
           <td>{', '.join(data.get('key_names',[]))}</td>
         </tr>"""
 
+    summary_card = generate_summary_card_html(analysis)
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,13 +186,17 @@ def generate_html_report(analysis: dict, articles: list) -> str:
     --bg: #0a0e1a;
     --surface: #111827;
     --surface2: #1a2236;
+    --surface3: #1e2d47;
     --border: #1e2d47;
+    --border2: #2d4a6e;
     --text: #e2e8f0;
     --muted: #64748b;
     --accent: #3b82f6;
     --bull: #00c853;
     --bear: #ff1744;
     --warn: #ff8f00;
+    --gold: #f59e0b;
+    --gold-light: #fcd34d;
   }}
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
   body {{ background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }}
@@ -114,6 +205,84 @@ def generate_html_report(analysis: dict, articles: list) -> str:
   .header {{ border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 32px; }}
   .header h1 {{ font-size: 1.8rem; font-weight: 700; color: #60cfff; }}
   .header .date {{ color: var(--muted); font-size: 0.95rem; margin-top: 4px; }}
+
+  /* ── Executive Summary Card ── */
+  .exec-card {{
+    background: var(--surface3);
+    border: 1px solid var(--border2);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 36px;
+    position: relative;
+  }}
+  .exec-card-header {{
+    margin-bottom: 20px;
+  }}
+  .exec-card-label {{
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }}
+  .exec-section-label {{
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }}
+  .exec-gist-section {{
+    margin-bottom: 20px;
+  }}
+  .exec-gist-text {{
+    font-size: 0.97rem;
+    line-height: 1.75;
+    color: var(--text);
+    font-weight: 500;
+  }}
+  .exec-actions-section {{
+    margin-bottom: 20px;
+  }}
+  .action-list {{
+    list-style: none;
+    padding: 0;
+  }}
+  .action-item {{
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 0.875rem;
+    color: var(--text);
+    border-bottom: 1px solid #ffffff08;
+  }}
+  .action-item:last-child {{ border-bottom: none; }}
+  .action-check {{
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }}
+  .stoic-quote {{
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    background: #0a0e1a;
+    border-radius: 0 8px 8px 0;
+    margin-top: 4px;
+  }}
+  .stoic-text {{
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 6px;
+  }}
+  .stoic-attr {{
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: normal;
+  }}
 
   .sentiment-bar-wrap {{ display: flex; align-items: center; gap: 16px; margin: 24px 0; }}
   .sentiment-label {{ font-size: 1.4rem; font-weight: 700; }}
@@ -170,6 +339,8 @@ def generate_html_report(analysis: dict, articles: list) -> str:
     <div class="date">{date} · Generated at {datetime.utcnow().strftime('%H:%M UTC')}</div>
   </div>
 
+  {summary_card}
+
   <div class="themes">
     {''.join([f'<span class="theme-tag">{t}</span>' for t in analysis.get('top_themes',[])])}
   </div>
@@ -220,6 +391,8 @@ def generate_email_html(analysis: dict) -> str:
     score = analysis.get("sentiment_score", 0)
     score_color = "#00c853" if score > 2 else "#ff1744" if score < -2 else "#ff8f00"
 
+    summary_card = generate_summary_card_email_html(analysis)
+
     watchlist_rows = ""
     for item in analysis.get("watchlist", [])[:8]:
         action_color = {"WATCH_LONG": "#00c853", "WATCH_SHORT": "#ff1744", "AVOID": "#888"}.get(item.get("action", ""), "#888")
@@ -246,6 +419,8 @@ def generate_email_html(analysis: dict) -> str:
   <div style="border-bottom:1px solid #1e2d47;padding-bottom:16px;margin-bottom:20px">
     <h1 style="color:#60cfff;font-size:1.4rem;margin:0">📊 Morning Brief — {date}</h1>
   </div>
+
+  {summary_card}
 
   <div style="background:#111827;border-radius:8px;padding:16px;margin-bottom:20px">
     <div style="font-size:1.3rem;font-weight:700;color:{score_color}">{sentiment} ({score:+d}/10)</div>
