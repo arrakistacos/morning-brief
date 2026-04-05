@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Brief — April 5, 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: #0d0f14;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #0d0f14;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #0d0f14 0%, #161b22 100%);
+    border-bottom: 1px solid #21262d;
+    padding: 28px 32px 24px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .brand {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #58a6ff;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e6edf3;
+    letter-spacing: -0.3px;
+  }
+  .header-date {
+    font-size: 12px;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+  .sentiment-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: #1a1f2e;
+    border: 1px solid #f85149;
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .sentiment-score {
+    font-size: 28px;
+    font-weight: 800;
+    color: #f85149;
+    line-height: 1;
+  }
+  .sentiment-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+  .sentiment-word {
+    font-size: 11px;
+    font-weight: 700;
+    color: #f85149;
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Alert banner */
+  .alert-banner {
+    background: linear-gradient(90deg, #2d1b1b 0%, #1a1f2e 100%);
+    border-left: 3px solid #f85149;
+    padding: 12px 32px;
+    font-size: 12px;
+    color: #ffa198;
+    letter-spacing: 0.3px;
+  }
+  .alert-banner strong { color: #ff7b72; }
+
+  /* Sections */
+  .section {
+    padding: 24px 32px;
+    border-bottom: 1px solid #21262d;
+  }
+  .section-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #58a6ff;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #21262d;
+  }
+
+  /* Causal chains */
+  .causal-chain {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+  }
+  .causal-chain-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .causal-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+  .chain-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+  .badge-critical { background: #3d1f1f; color: #f85149; border: 1px solid #5a2626; }
+  .badge-bearish { background: #2d1b1b; color: #ffa198; border: 1px solid #4a2020; }
+  .badge-bullish { background: #1b2d1b; color: #7ee787; border: 1px solid #204a20; }
+  .badge-watch { background: #2a2310; color: #e3b341; border: 1px solid #4a3a10; }
+
+  .causal-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .causal-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+  .step-arrow {
+    color: #30363d;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-arrow.first { color: #58a6ff; }
+  .step-text em {
+    font-style: normal;
+    color: #c9d1d9;
+    font-weight: 600;
+  }
+  .step-text .impact {
+    font-style: normal;
+    color: #e3b341;
+    font-weight: 500;
+  }
+
+  /* Grid layouts */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+  /* Sector cards */
+  .sector-card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .sector-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .sector-rating {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .sector-thesis {
+    font-size: 11px;
+    color: #8b949e;
+    line-height: 1.4;
+  }
+  .red { color: #f85149; }
+  .orange { color: #ffa198; }
+  .yellow { color: #e3b341; }
+  .green { color: #7ee787; }
+  .blue { color: #58a6ff; }
+
+  /* Commodity / FX table */
+  .market-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .market-table th {
+    text-align: left;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #58a6ff;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #21262d;
+  }
+  .market-table td {
+    padding: 9px 0;
+    border-bottom: 1px solid #161b22;
+    font-size: 12px;
+    vertical-align: top;
+  }
+  .market-table td:first-child { color: #e6edf3; font-weight: 600; width: 110px; }
+  .market-table td:nth-child(2) { width: 90px; }
+  .market-table .dir-up { color: #7ee787; }
+  .market-table .dir-down { color: #f85149; }
+  .market-table .dir-flat { color: #e3b341; }
+  .market-table .notes { color: #8b949e; font-size: 11px; }
+
+  /* Watchlist */
+  .watchlist-item {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .ticker-block {
+    min-width: 70px;
+  }
+  .ticker {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .watchlist-dir {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 3px;
+  }
+  .long-label { color: #7ee787; }
+  .short-label { color: #f85149; }
+  .watchlist-thesis {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .watchlist-thesis strong { color: #c9d1d9; font-weight: 600; }
+
+  /* Risks */
+  .risk-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #161b22;
+    align-items: flex-start;
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: #f85149;
+    background: #2d1b1b;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .risk-content strong {
+    font-size: 13px;
+    color: #e6edf3;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .risk-content p {
+    font-size: 12px;
+    color: #8b949e;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 20px 32px;
+    text-align: center;
+    background: #0d0f14;
+  }
+  .footer p {
+    font-size: 11px;
+    color: #484f58;
+    line-height: 1.6;
+  }
+
+  /* Inline highlight */
+  .hl { color: #e3b341; font-weight: 600; }
+  .hl-red { color: #f85149; font-weight: 600; }
+  .hl-green { color: #7ee787; font-weight: 600; }
+  .hl-blue { color: #58a6ff; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">Morning Brief</div>
+    <div class="header-top">
+      <div>
+        <h1>Market Intelligence Report</h1>
+        <div class="header-date">Sunday, April 5, 2026 &nbsp;·&nbsp; 79 articles analyzed across 17 sources</div>
+      </div>
+      <div class="sentiment-badge">
+        <div class="sentiment-score">-6</div>
+        <div class="sentiment-word">Bearish</div>
+        <div class="sentiment-label">/ 10</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert-banner">
+    ⚠️ <strong>BINARY EVENT RISK:</strong> Trump deadline for Iran to reopen Strait of Hormuz expires <strong>Tuesday</strong>. Infrastructure strikes threatened. 15% of global oil supply at stake. Markets face critical open Monday.
+  </div>
+
+  <!-- CAUSAL CHAINS -->
+  <div class="section">
+    <div class="section-title">Top Macro Events &amp; Causal Chains</div>
+
+    <div class="causal-chain">
+      <div class="causal-chain-header">
+        <div class="causal-title">🛢️ Hormuz Blockade → Oil Shock → Stagflation Trap</div>
+        <div class="chain-badge badge-critical">CRITICAL</div>
+      </div>
+      <div class="causal-steps">
+        <div class="causal-step">
+          <span class="step-arrow first">●</span>
+          <span class="step-text"><em>Iran closes Strait of Hormuz</em> (20M bbl/day, ~20% of global oil trade, + 25% of global LNG)</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">15% of global oil supply offline → <em class="impact">Brent likely $115–140/bbl</em>; US gas avg now $4+ and rising</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Energy drives CPI re-acceleration: <em class="impact">core PCE may re-test 3.5–4%</em> within 60 days; transport, food, manufacturing all feel secondary shock</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text"><em>Fed CANNOT cut</em> in this environment — any rate cuts invite runaway inflation expectations; markets price out all 2026 cuts</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Higher rates + weaker consumer = P/E multiple compression across equities; <em class="impact">growth stocks bear the brunt</em></span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">GDP growth slows while inflation rises = <em>stagflation trap</em> — hardest environment for passive 60/40 portfolios since 1980</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="causal-chain">
+      <div class="causal-chain-header">
+        <div class="causal-title">💣 Trump Tuesday Ultimatum → Binary Strike Risk → Volatility Spike</div>
+        <div class="chain-badge badge-critical">CRITICAL</div>
+      </div>
+      <div class="causal-steps">
+        <div class="causal-step">
+          <span class="step-arrow first">●</span>
+          <span class="step-text"><em>Trump threatens to destroy Iran's power plants and bridges</em> by Tuesday if Hormuz not reopened — explicitly posted on Truth Social</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Simultaneously: Fox News reports deal possible by Monday; Zarif proposes peace roadmap; Iran allows Iraqi ships through (3M bbl/day partial relief)</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text"><em class="impact">Binary resolution by Tuesday open:</em> (A) Deal = oil -15%, airlines +10%, energy -8%, broad equity relief; (B) Strikes = oil +20%, broad equities -5–8%</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Pre-positioning: <em>risk-off dominates Sunday/Monday</em>; VIX likely elevated; market makers widen spreads; options premiums spiking for energy, defense</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Safe-haven flows intensify: <em class="impact">Gold targets $3,300–3,600</em>, USD strengthens, 10Y yields volatile around 4.5–5% range</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="causal-chain">
+      <div class="causal-chain-header">
+        <div class="causal-title">🇷🇸 Serbia Pipeline Sabotage → European Energy Security Crack</div>
+        <div class="chain-badge badge-bearish">BEARISH</div>
+      </div>
+      <div class="causal-steps">
+        <div class="causal-step">
+          <span class="step-arrow first">●</span>
+          <span class="step-text"><em>Explosives found near Serbian gas pipeline</em> carrying Russian gas — sabotage attempt on European energy infrastructure</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Europe simultaneously faces Hormuz LNG disruption + overland pipeline risk → <em class="impact">European natural gas prices spike</em>; industrial users face curtailment</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">German manufacturing already in recession → energy costs push it deeper; ECB dovish pressure intensifies despite inflation</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text"><em>EUR/USD breaks lower</em>; European equities underperform US; Italian PM visiting Gulf to shore up energy security = diplomatic scramble</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="causal-chain">
+      <div class="causal-chain-header">
+        <div class="causal-title">🤖 AGI Declaration → AI Capex Cycle Immunity → Semis Defensive</div>
+        <div class="chain-badge badge-bullish">BULLISH</div>
+      </div>
+      <div class="causal-steps">
+        <div class="causal-step">
+          <span class="step-arrow first">●</span>
+          <span class="step-text"><em>Jensen Huang declares AGI has arrived</em>; South Korea AI memory boom drives Samsung/SK Hynix strategic shift</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Hyperscalers (MSFT, GOOGL, AMZN, META) unlikely to cut AI capex even in stagflation — <em>AI infrastructure is competitively existential</em></span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">NVDA, AMD, TSM relatively defensive within tech; HBM3e memory demand from Samsung/Hynix = capacity sold out 18 months forward</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text"><em class="impact">AI data center power demand</em> amplifies nuclear/power energy stocks: Vistra, Constellation, NuScale benefit from both AI AND energy crisis</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="causal-chain">
+      <div class="causal-chain-header">
+        <div class="causal-title">🚀 War Economy → Defense Budget Surge → Contractor Rally</div>
+        <div class="chain-badge badge-bullish">BULLISH</div>
+      </div>
+      <div class="causal-steps">
+        <div class="causal-step">
+          <span class="step-arrow first">●</span>
+          <span class="step-text"><em>Active US-Israel-Iran military conflict</em>; F-15E shot down over Iran; US special forces deployed; Lebanon strikes Easter Sunday</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Emergency defense supplemental likely → <em class="impact">LMT, RTX, NOC, GD, HII</em> accelerate deliveries; munitions restocking cycle begins</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Europe independently accelerates rearmament post-Serbia sabotage; NATO members hit 3% GDP defense targets — multi-year contracts for contractors</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">BUT: defense spending = debt-financed → <em>bond issuance surge</em> → yield curve steepens → TLT/long-duration assets hurt</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="causal-chain">
+      <div class="causal-chain-header">
+        <div class="causal-title">⛽ Airlines Under Pressure → Delta Earnings as Sentiment Barometer</div>
+        <div class="chain-badge badge-bearish">BEARISH</div>
+      </div>
+      <div class="causal-steps">
+        <div class="causal-step">
+          <span class="step-arrow first">●</span>
+          <span class="step-text"><em>Delta kicks off Q1 earnings Wednesday</em>; jet fuel now largest cost line with WTI at $115+</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Every $10 increase in oil = ~$1.8B annual hit to airline industry → guidance downgrades inevitable unless hedges held</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text">Consumer discretionary travel demand softens as $4–5 gas prices consume household budgets → forward bookings likely cut</span>
+        </div>
+        <div class="causal-step">
+          <span class="step-arrow">→</span>
+          <span class="step-text"><em class="impact">DAL earnings = proxy for consumer health</em>; ugly print likely = selling pressure across consumer discretionary sector Wednesday</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SECTOR OUTLOOK -->
+  <div class="section">
+    <div class="section-title">Sector Outlook</div>
+    <div class="grid-3" style="margin-bottom:10px;">
+      <div class="sector-card">
+        <div class="sector-name">Technology</div>
+        <div class="sector-rating orange">CAUTIOUS</div>
+        <div class="sector-thesis">AI infra (NVDA, AMD) holds; software at risk from rate-driven multiple compression. Bifurcated — own AI picks, avoid high-multiple SaaS.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-name">Energy</div>
+        <div class="sector-rating green">STRONG BUY</div>
+        <div class="sector-thesis">Direct beneficiary of $115–140 oil. XOM, CVX, COP, MPC, VLO, HAL. Oil services seeing pricing power return. Best absolute return sector.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-name">Financials</div>
+        <div class="sector-rating yellow">NEUTRAL</div>
+        <div class="sector-thesis">Higher rates help NIMs short-term, but credit stress from slowing economy emerging. Trading desks volatile. Avoid regional banks with consumer exposure.</div>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="sector-card">
+        <div class="sector-name">Healthcare</div>
+        <div class="sector-rating yellow">MILD BUY</div>
+        <div class="sector-thesis">Defensive play in risk-off environment. Biotech watch: Bangladesh measles outbreak could drive near-term vaccine demand. UnitedHealth saga ongoing.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-name">Consumer</div>
+        <div class="sector-rating red">AVOID</div>
+        <div class="sector-thesis">Gas prices directly compress discretionary spend. Airlines crushed by fuel. Retail faces margin squeeze. EBT fraud signals stress at lower income levels.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-name">Defense/Aero</div>
+        <div class="sector-rating green">STRONG BUY</div>
+        <div class="sector-thesis">Active conflict = emergency procurement cycles. LMT, RTX, NOC, GD seeing multi-year order backlogs. European NATO rearmament adds upside.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMODITIES & FX -->
+  <div class="section">
+    <div class="section-title">Commodity &amp; FX Outlook</div>
+    <div class="grid-2">
+      <div>
+        <table class="market-table">
+          <thead>
+            <tr>
+              <th>Commodity</th>
+              <th>Bias</th>
+              <th>Thesis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>WTI Crude</td>
+              <td class="dir-up">▲▲ BULL</td>
+              <td class="notes">Hormuz blockade = supply shortage. $115–$140 target. Spike to $150+ if strikes materialize. Watch Iraqi corridor relief.</td>
+            </tr>
+            <tr>
+              <td>Brent Crude</td>
+              <td class="dir-up">▲▲ BULL</td>
+              <td class="notes">Premium to WTI widens on Gulf risk. European buyers scrambling for non-Gulf alternatives. OPEC+ "paper" hike won't fill the gap.</td>
+            </tr>
+            <tr>
+              <td>Gold</td>
+              <td class="dir-up">▲▲ BULL</td>
+              <td class="notes">Safe haven + inflation hedge + CB buying. Target $3,300–$3,600. Only reverses on confirmed deal and oil collapse.</td>
+            </tr>
+            <tr>
+              <td>Natural Gas</td>
+              <td class="dir-up">▲ BULL</td>
+              <td class="notes">Serbia pipeline sabotage + Hormuz LNG disruption. EU winter storage replenishment now threatened. US LNG exporters benefit (LNG, TELL).</td>
+            </tr>
+            <tr>
+              <td>Copper</td>
+              <td class="dir-down">▼ BEAR</td>
+              <td class="notes">Recession risk from energy crisis reduces industrial demand. China import costs spiking on oil. Downside to $3.80–$4.00/lb near-term.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="market-table">
+          <thead>
+            <tr>
+              <th>FX Pair</th>
+              <th>Bias</th>
+              <th>Thesis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DXY</td>
+              <td class="dir-up">▲▲ BULL</td>
+              <td class="notes">Safe haven + petrodollar recycling + US energy self-sufficiency advantage vs Europe/Asia. Target 108–112.</td>
+            </tr>
+            <tr>
+              <td>EUR/USD</td>
+              <td class="dir-down">▼▼ BEAR</td>
+              <td class="notes">European energy double-whammy (Hormuz + Serbia pipeline). Industrial recession deepens. ECB dovish pressure despite inflation. Target 1.02–1.05.</td>
+            </tr>
+            <tr>
+              <td>USD/JPY</td>
+              <td class="dir-flat">◆ MIXED</td>
+              <td class="notes">Yen safe-haven demand vs. BOJ normalization path. Risk-off likely drives yen strength. Target 148–150 range as flows compete.</td>
+            </tr>
+            <tr>
+              <td>USD/CNY</td>
+              <td class="dir-down">▼ CNY WEAK</td>
+              <td class="notes">China pays more for oil imports, squeezing manufacturing margins. PBOC may allow controlled depreciation. Watch for capital flight signals.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- WATCHLIST -->
+  <div class="section">
+    <div class="section-title">Watchlist — Stocks &amp; ETFs</div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker green">XOM / CVX</div>
+        <div class="watchlist-dir long-label">▲ LONG</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Oil majors — direct Hormuz beneficiary.</strong> Every $10 rise in oil adds ~$2B+ in annual free cash flow for each. Strong balance sheets, high dividend cover, and buyback capacity provide downside support even in deal scenario. Add on dips.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker green">LMT / RTX</div>
+        <div class="watchlist-dir long-label">▲ LONG</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Defense duopoly — war economy play.</strong> Active US-Iran conflict triggers emergency procurement. LMT's F-35 and PAC-3 missile systems in acute demand. RTX's Patriot and Pratt engines essential. Both stocks historically lag the news then accelerate on budget confirmation.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker green">GLD / IAU</div>
+        <div class="watchlist-dir long-label">▲ LONG</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Gold — safe haven + inflation hedge.</strong> Three drivers stacking simultaneously: geopolitical risk premium, inflation re-acceleration, and central bank diversification from USD. Only risk is sharp deal resolution causing fast unwind — size accordingly.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker green">NVDA</div>
+        <div class="watchlist-dir long-label">▲ LONG</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>AI secular leader — immune to geopolitical disruption.</strong> Jensen Huang's AGI declaration signals demand inflection point for H100/H200/B200 systems. Hyperscaler capex commitments locked in for 18+ months. Buy pullbacks driven by macro fear, not AI fundamentals.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker green">VST / CEG</div>
+        <div class="watchlist-dir long-label">▲ LONG</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Nuclear power — AI demand + energy crisis double tailwind.</strong> Data center power demand was already explosive; now energy crisis makes reliable baseload even scarcer. Nuclear contracts commanding premium pricing. Vistra and Constellation are the rare stocks that benefit from both AI <em>and</em> the Iran war.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker red">DAL / JETS</div>
+        <div class="watchlist-dir short-label">▼ SHORT</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Airlines — fuel cost catastrophe.</strong> Delta earnings Wednesday will crystallize the pain: $115+ oil means jet fuel at $3.50+/gal, destroying Q1 margins. Guidance cuts likely. JETS ETF gives broader exposure. Avoid rallies — this is a structural headwind, not a blip.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker red">TLT</div>
+        <div class="watchlist-dir short-label">▼ SHORT</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Long-duration treasuries — multiple headwinds.</strong> Inflation re-acceleration takes Fed cuts off the table. Defense spending surge = debt issuance surge = supply overhang on long end. Duration is the most crowded wrong position in this environment.
+      </div>
+    </div>
+
+    <div class="watchlist-item">
+      <div class="ticker-block">
+        <div class="ticker yellow">USO / XLE</div>
+        <div class="watchlist-dir long-label">▲ LONG</div>
+      </div>
+      <div class="watchlist-thesis">
+        <strong>Oil ETFs — tactical exposure to Hormuz premium.</strong> USO for pure crude exposure; XLE for broader energy sector with diversified names. High binary risk: both scenarios (strike OR deal) create volatility. Size for the risk you can absorb. Stop loss below pre-crisis oil levels.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- KEY RISKS -->
+  <div class="section">
+    <div class="section-title">Key Risks to Monitor</div>
+
+    <div class="risk-item">
+      <div class="risk-num">1</div>
+      <div class="risk-content">
+        <strong>Tuesday Strike Binary — Oil to $140+ or Reversal to $90</strong>
+        <p>If Trump executes strikes on Iranian infrastructure, WTI could spike toward $140–150 in initial reaction, with global equity markets opening -5–8% Monday/Tuesday. If a deal materializes (Zarif proposal + Fox reporting suggest it's possible), expect a sharp oil reversal and broad risk-on rally. This is the defining event of the week.</p>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-num">2</div>
+      <div class="risk-content">
+        <strong>Bushehr Nuclear Plant Strike — Persian Gulf Contamination Risk</strong>
+        <p>Al Jazeera reporting US/Israel have already hit Bushehr. A direct hit on reactor coolant systems risks radioactive contamination across the Persian Gulf — rendering Gulf shipping lanes uninhabitable and triggering a humanitarian/economic catastrophe beyond the oil shock. This is the tail risk that transforms from financial crisis to civilizational crisis.</p>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-num">3</div>
+      <div class="risk-content">
+        <strong>China Taiwan Opportunism — US Distraction Window</strong>
+        <p>With US military assets concentrated in Middle East, this is historically when Taiwan strait tensions escalate. Any PLA naval exercise uptick or rhetoric shift around Taiwan is an independent shock that semiconductors (TSM) and US-China equities cannot absorb on top of the Iran crisis.</p>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-num">4</div>
+      <div class="risk-content">
+        <strong>Stagflation Fed Trap — Policy Error Risk</strong>
+        <p>The Fed is stuck: cut rates and inflation re-accelerates; hold rates and recession deepens from energy shock. Any signal of premature dovish pivot triggers bond selloff AND doesn't help growth. The 1980 Volcker analog is the only precedent — and he needed 20%+ rates to break it.</p>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-num">5</div>
+      <div class="risk-content">
+        <strong>Serbia Pipeline State Actor — NATO Article 5 Trigger</strong>
+        <p>If the explosives near the Serbian Russian-gas pipeline are confirmed to be state-sponsored (likely Russian retaliation for EU sanctions), NATO Article 5 discussions begin. European defense stocks spike; EUR collapses further; risk of multi-front conflict escalation compounds the Middle East crisis.</p>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-num">6</div>
+      <div class="risk-content">
+        <strong>Consumer Balance Sheet Fragility — Credit Cycle Inflection</strong>
+        <p>The EBT fraud case, duplex-buying Gen Z renters, and Alabama underwater auto loan story all point to the same thing: consumer financial stress is broader than headline numbers suggest. Add $4–5 gas and inflation resurgence — credit card delinquencies and auto loan defaults could spike in Q2/Q3, hitting regional banks and consumer finance names hard.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Morning Brief &nbsp;·&nbsp; Generated April 5, 2026 &nbsp;·&nbsp; arrakistacos/morning-brief<br>
+    Analysis based on 79 articles from Reuters, FT, CNBC, MarketWatch, Bloomberg, Yahoo Finance, Seeking Alpha, Al Jazeera, BBC, Investing.com, Fed Reserve, BLS &amp; IMF feeds.<br>
+    <span style="color:#30363d;">Not financial advice. For informational purposes only.</span></p>
+  </div>
+
+</div>
+</body>
+</html>
