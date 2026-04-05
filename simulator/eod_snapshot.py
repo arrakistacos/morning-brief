@@ -7,9 +7,14 @@ Run at 4:05 PM ET Mon–Fri. Does three things:
   2. Fetches closing prices → updates performance.json
   3. Appends EOD reflection to strategy_log.json
 
+With --midday flag: takes an intraday snapshot without T+2 settlement processing.
+  Appends to performance.json with "type": "midday" so the dashboard can
+  differentiate intraday datapoints from official daily closes.
+
 Usage:
     python simulator/eod_snapshot.py
     python simulator/eod_snapshot.py --note "Volatile day; held through dip on conviction."
+    python simulator/eod_snapshot.py --midday
 """
 
 import argparse
@@ -91,20 +96,25 @@ def settle_pending_cash(portfolio: dict, today_str: str) -> float:
     return round(settled_amount, 2)
 
 
-def take_snapshot(extra_note: str = "") -> dict:
+def take_snapshot(extra_note: str = "", midday: bool = False) -> dict:
     now_et   = datetime.now(ET)
     date_str = now_et.strftime("%Y-%m-%d")
+    time_str = now_et.strftime("%H:%M ET")
+    snap_type = "midday" if midday else "eod"
 
     portfolio   = load_json(PORTFOLIO_F)
     performance = load_json(PERFORMANCE_F)
     trades      = load_json(TRADES_F)
 
-    # Step 1: Settle matured T+2 funds
-    settled = settle_pending_cash(portfolio, date_str)
-    if settled > 0:
-        print(f"  Total settled today: ${settled:,.2f}")
+    # Step 1: Settle matured T+2 funds (EOD only — T+2 runs once per day at close)
+    if not midday:
+        settled = settle_pending_cash(portfolio, date_str)
+        if settled > 0:
+            print(f"  Total settled today: ${settled:,.2f}")
+    else:
+        print(f"  ⏭  Midday mode — skipping T+2 settlement (runs at EOD only)")
 
-    # Step 2: Fetch closing prices for open positions
+    # Step 2: Fetch current prices for open positions
     positions_value  = 0.0
     position_details = []
     for pos in portfolio["positions"]:
@@ -140,8 +150,12 @@ def take_snapshot(extra_note: str = "") -> dict:
     total_pnl        = round(portfolio_value - starting_capital, 2)
     total_pnl_pct    = round((total_pnl / starting_capital) * 100, 2)
 
-    # Daily P&L
-    if performance:
+    # Daily P&L vs previous EOD snapshot (compare to last EOD, not last midday)
+    eod_snapshots = [s for s in performance if s.get("type", "eod") == "eod"]
+    if eod_snapshots:
+        prev_value = eod_snapshots[-1]["portfolio_value"]
+        daily_pnl  = round(portfolio_value - prev_value, 2)
+    elif performance:
         prev_value = performance[-1]["portfolio_value"]
         daily_pnl  = round(portfolio_value - prev_value, 2)
     else:
@@ -149,6 +163,8 @@ def take_snapshot(extra_note: str = "") -> dict:
 
     snapshot = {
         "date":              date_str,
+        "time":              time_str,
+        "type":              snap_type,
         "portfolio_value":   portfolio_value,
         "settled_cash":      settled_cash,
         "unsettled_cash":    unsettled_total,
@@ -161,93 +177,115 @@ def take_snapshot(extra_note: str = "") -> dict:
         "unsettled_lots":    portfolio.get("unsettled_cash", []),
     }
 
-    # Upsert by date
-    existing_dates = {s["date"] for s in performance}
-    if date_str in existing_dates:
-        for i, s in enumerate(performance):
-            if s["date"] == date_str:
-                performance[i] = snapshot
-                break
+    # For EOD: upsert by date (one official record per day)
+    # For midday: always append (multiple intraday points allowed)
+    if not midday:
+        existing_dates = {s["date"] for s in performance if s.get("type", "eod") == "eod"}
+        if date_str in existing_dates:
+            for i, s in enumerate(performance):
+                if s["date"] == date_str and s.get("type", "eod") == "eod":
+                    performance[i] = snapshot
+                    break
+        else:
+            performance.append(snapshot)
     else:
-        performance.append(snapshot)
+        # Midday: replace any existing midday snapshot for same date+time window,
+        # or append new one
+        existing_midday_idx = None
+        for i, s in enumerate(performance):
+            if s.get("date") == date_str and s.get("type") == "midday":
+                existing_midday_idx = i
+                break
+        if existing_midday_idx is not None:
+            performance[existing_midday_idx] = snapshot
+        else:
+            performance.append(snapshot)
 
     save_json(PERFORMANCE_F, performance)
 
-    # Update portfolio timestamp and persist
-    portfolio["last_updated"] = now_et.isoformat()
-    save_json(PORTFOLIO_F, portfolio)
+    # Update portfolio timestamp and persist (EOD only — midday doesn't update portfolio file)
+    if not midday:
+        portfolio["last_updated"] = now_et.isoformat()
+        save_json(PORTFOLIO_F, portfolio)
 
-    # Step 3: Strategy log entry
-    strategy_log = load_json(STRATEGY_LOG_F)
-    today_trades = [t for t in trades if t.get("date") == date_str]
+    # Step 3: Strategy log entry (EOD only — midday_check.py writes its own log entries)
+    if not midday:
+        strategy_log = load_json(STRATEGY_LOG_F)
+        today_trades = [t for t in trades if t.get("date") == date_str]
 
-    trade_lines = []
-    for t in today_trades:
-        if t["action"] == "SELL" and "realized_pnl" in t:
-            sign = "+" if t["realized_pnl"] >= 0 else ""
-            trade_lines.append(
-                f"{t['action']} {t['shares']}× {t['ticker']} @ ${t['price']:.2f} "
-                f"({sign}${t['realized_pnl']:,.2f} / {sign}{t.get('realized_pnl_pct',0):.2f}%) "
-                f"[settles {t.get('settlement_date','?')}]"
-            )
-        else:
-            trade_lines.append(
-                f"{t['action']} {t['shares']}× {t['ticker']} @ ${t['price']:.2f}"
-            )
+        trade_lines = []
+        for t in today_trades:
+            if t["action"] == "SELL" and "realized_pnl" in t:
+                sign = "+" if t["realized_pnl"] >= 0 else ""
+                trade_lines.append(
+                    f"{t['action']} {t['shares']}× {t['ticker']} @ ${t['price']:.2f} "
+                    f"({sign}${t['realized_pnl']:,.2f} / {sign}{t.get('realized_pnl_pct',0):.2f}%) "
+                    f"[settles {t.get('settlement_date','?')}]"
+                )
+            else:
+                trade_lines.append(
+                    f"{t['action']} {t['shares']}× {t['ticker']} @ ${t['price']:.2f}"
+                )
 
-    trade_summary = (
-        "Trades today: " + " | ".join(trade_lines)
-        if trade_lines
-        else "No trades today — held positions / cash preservation."
-    )
+        trade_summary = (
+            "Trades today: " + " | ".join(trade_lines)
+            if trade_lines
+            else "No trades today — held positions / cash preservation."
+        )
 
-    pos_lines = [
-        f"{p['ticker']}: {'+' if p['unrealized_pnl']>=0 else ''}${p['unrealized_pnl']:,.2f} "
-        f"({'+' if p['unrealized_pct']>=0 else ''}{p['unrealized_pct']:.2f}%)"
-        for p in position_details
-    ]
-    pos_summary = ("Open positions: " + " | ".join(pos_lines)) if pos_lines else "No open positions."
+        pos_lines = [
+            f"{p['ticker']}: {'+' if p['unrealized_pnl']>=0 else ''}${p['unrealized_pnl']:,.2f} "
+            f"({'+' if p['unrealized_pct']>=0 else ''}{p['unrealized_pct']:.2f}%)"
+            for p in position_details
+        ]
+        pos_summary = ("Open positions: " + " | ".join(pos_lines)) if pos_lines else "No open positions."
 
-    daily_sign = "+" if daily_pnl >= 0 else ""
-    total_sign = "+" if total_pnl >= 0 else ""
-    auto_note = (
-        f"EOD {date_str} | Portfolio: ${portfolio_value:,.2f} "
-        f"({daily_sign}${daily_pnl:,.2f} today, "
-        f"{total_sign}${total_pnl:,.2f} total / {total_sign}{total_pnl_pct:.2f}%) | "
-        f"Cash: ${settled_cash:,.2f} settled"
-        + (f" + ${unsettled_total:,.2f} unsettled" if unsettled_total > 0 else "")
-        + f" | {trade_summary} | {pos_summary}"
-    )
-    if extra_note:
-        auto_note += f" | Reflection: {extra_note}"
+        daily_sign = "+" if daily_pnl >= 0 else ""
+        total_sign = "+" if total_pnl >= 0 else ""
+        auto_note = (
+            f"EOD {date_str} | Portfolio: ${portfolio_value:,.2f} "
+            f"({daily_sign}${daily_pnl:,.2f} today, "
+            f"{total_sign}${total_pnl:,.2f} total / {total_sign}{total_pnl_pct:.2f}%) | "
+            f"Cash: ${settled_cash:,.2f} settled"
+            + (f" + ${unsettled_total:,.2f} unsettled" if unsettled_total > 0 else "")
+            + f" | {trade_summary} | {pos_summary}"
+        )
+        if extra_note:
+            auto_note += f" | Reflection: {extra_note}"
 
-    log_entry = {
-        "date":     date_str,
-        "type":     "eod_snapshot",
-        "note":     auto_note,
-        "snapshot": snapshot,
-        "tags":     ["eod", "daily-review"],
-    }
-    strategy_log.append(log_entry)
-    save_json(STRATEGY_LOG_F, strategy_log)
+        log_entry = {
+            "date":     date_str,
+            "type":     "eod_snapshot",
+            "note":     auto_note,
+            "snapshot": snapshot,
+            "tags":     ["eod", "daily-review"],
+        }
+        strategy_log.append(log_entry)
+        save_json(STRATEGY_LOG_F, strategy_log)
 
     return snapshot
 
 
 def main():
     parser = argparse.ArgumentParser(description="EOD portfolio snapshot with T+2 settlement")
-    parser.add_argument("--note", default="", help="Manual reflection note")
+    parser.add_argument("--note",   default="", help="Manual reflection note (EOD only)")
+    parser.add_argument("--midday", action="store_true",
+                        help="Intraday snapshot: skip T+2 settlement, mark type=midday in performance.json")
     args = parser.parse_args()
 
-    print(f"\n📸 EOD Snapshot — {datetime.now(ET).strftime('%Y-%m-%d %H:%M ET')}")
+    if args.midday:
+        print(f"\n📸 Midday Snapshot — {datetime.now(ET).strftime('%Y-%m-%d %H:%M ET')}")
+    else:
+        print(f"\n📸 EOD Snapshot — {datetime.now(ET).strftime('%Y-%m-%d %H:%M ET')}")
     print("-" * 62)
 
-    snapshot = take_snapshot(args.note)
+    snapshot = take_snapshot(args.note, midday=args.midday)
 
     print("-" * 62)
     daily_sign = "+" if snapshot["daily_pnl"] >= 0 else ""
     total_sign = "+" if snapshot["total_pnl"] >= 0 else ""
-    print(f"✅ Snapshot saved to simulator/performance.json")
+    label = "Midday" if args.midday else "EOD"
+    print(f"✅ {label} snapshot saved to simulator/performance.json (type={snapshot['type']})")
     print(f"   Portfolio value  : ${snapshot['portfolio_value']:,.2f}")
     print(f"   Settled cash     : ${snapshot['settled_cash']:,.2f}")
     if snapshot["unsettled_cash"] > 0:
