@@ -8,7 +8,8 @@ Rules enforced:
     Using unsettled cash for a BUY constitutes a "good faith violation" — blocked.
   - Max 3 concurrent open positions.
   - Max 30% of total portfolio value in any single position.
-  - Market-open warning (does not block — this is a simulator with --force override).
+  - Market-open check uses market_calendar.py (NYSE official calendar, including
+    holidays and early-close days). Market closed → trade refused unless --force.
 
 BUY orders now capture full trade setup at entry time:
   stop_loss_price, stop_loss_pct, target_price, target_pct,
@@ -40,20 +41,14 @@ from pathlib import Path
 
 import pytz
 
+from market_calendar import is_market_open, is_trading_day
+
 # ---------------------------------------------------------------------------
 REPO_ROOT   = Path(__file__).parent.parent
 PORTFOLIO_F = REPO_ROOT / "simulator" / "portfolio.json"
 TRADES_F    = REPO_ROOT / "simulator" / "trades.json"
 ET          = pytz.timezone("America/New_York")
 
-US_HOLIDAYS = {
-    "2025-01-01","2025-01-20","2025-02-17","2025-04-18",
-    "2025-05-26","2025-06-19","2025-07-04","2025-09-01",
-    "2025-11-27","2025-12-25",
-    "2026-01-01","2026-01-19","2026-02-16","2026-04-03",
-    "2026-05-25","2026-06-19","2026-07-03","2026-09-07",
-    "2026-11-26","2026-12-25",
-}
 # Default stop/target percentages (can be overridden per trade)
 DEFAULT_STOP_LOSS_PCT = 8.0
 DEFAULT_TARGET_PCT    = 15.0
@@ -71,25 +66,15 @@ def save_json(path, data):
 
 
 def add_business_days(start_date: date, n: int) -> date:
-    """Add n business days to start_date, skipping weekends and US holidays."""
+    """Add n business days to start_date, skipping weekends and NYSE holidays."""
+    from market_calendar import is_trading_day as _is_trading_day
     d = start_date
     added = 0
     while added < n:
         d += timedelta(days=1)
-        if d.weekday() < 5 and d.strftime("%Y-%m-%d") not in US_HOLIDAYS:
+        if _is_trading_day(d):
             added += 1
     return d
-
-
-def is_market_open() -> bool:
-    from datetime import time as dtime
-    now = datetime.now(ET)
-    if now.weekday() >= 5:
-        return False
-    if now.strftime("%Y-%m-%d") in US_HOLIDAYS:
-        return False
-    t = now.time().replace(second=0, microsecond=0)
-    return dtime(9, 30) <= t < dtime(16, 0)
 
 
 def fetch_price(ticker: str) -> float:
@@ -400,7 +385,7 @@ def main():
     parser.add_argument("--sentiment-score",  default=0, type=int,
                         help="Morning brief sentiment score (-10 to +10)")
     parser.add_argument("--force",            action="store_true",
-                        help="Suppress market-closed warning")
+                        help="Override market-closed check (allow off-hours simulation)")
     # BUY-only trade setup fields
     parser.add_argument("--stop-loss-pct",    default=None, type=float,
                         help=f"Stop loss %% distance from entry (default: {DEFAULT_STOP_LOSS_PCT}%%)")
@@ -423,9 +408,17 @@ def main():
     now_et = datetime.now(ET)
     today  = now_et.strftime("%Y-%m-%d")
 
-    if not is_market_open() and not args.force:
-        print("⚠️  WARNING: Market is currently closed. Price is last known. "
-              "Pass --force to suppress.")
+    # ── Market holiday / closed guard ────────────────────────────────────────
+    if not args.force:
+        if not is_trading_day():
+            print("❌ Market is closed today (holiday or weekend). Trade not executed.")
+            print("   Use --force to override and simulate at last known prices.")
+            sys.exit(1)
+        if not is_market_open():
+            print("Market is closed today (holiday or outside hours). Trade not executed.")
+            print("   Use --force to override and simulate at last known prices.")
+            sys.exit(1)
+    # ─────────────────────────────────────────────────────────────────────────
 
     portfolio = load_json(PORTFOLIO_F)
     trades    = load_json(TRADES_F)
