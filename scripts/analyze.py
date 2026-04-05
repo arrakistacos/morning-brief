@@ -136,13 +136,29 @@ Produce a comprehensive morning trading brief in the following JSON structure:
   ],
 
   "risks_to_watch": [
-    "<key risk 1 that could surprise markets today>",
-    "<key risk 2>",
-    "<key risk 3>"
+    {{
+      "risk": "<concise title of the risk event>",
+      "severity": "CRITICAL|HIGH|MEDIUM|LOW",
+      "causal_chain": "<step-by-step chain: trigger → mechanism → market impact. Example: Blockade → oil supply shock → WTI >$110 → energy CPI spike → Fed forced hawkish → equity multiple compression>",
+      "sources": [
+        {{
+          "title": "<exact article headline that informed this risk>",
+          "outlet": "<news outlet name, e.g. Reuters, Financial Times, Bloomberg, Al Jazeera>",
+          "url": "<article URL if available from the RSS feed, or null if not available>"
+        }}
+      ]
+    }}
   ],
 
   "executive_summary": "<4-6 sentence executive summary a busy trader reads in 30 seconds. Lead with the most important market-moving developments. Include overall directional bias for the day.>"
 }}
+
+IMPORTANT for risks_to_watch:
+- Each risk MUST include a "sources" array citing the specific RSS feed articles that informed it.
+- If a risk is derived from multiple articles, list all of them.
+- Use the exact article titles and outlet names from the news feed provided above.
+- If a risk is based purely on Claude's general knowledge with no specific article, use: {{"title": "Market analysis", "outlet": "Claude synthesis", "url": null}}
+- Do NOT fabricate article titles or URLs — only cite articles actually present in the news feed above.
 
 Be thorough, specific, and actionable. Include real ticker symbols. Prioritize events by market impact."""
 
