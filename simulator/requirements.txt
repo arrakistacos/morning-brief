@@ -1,0 +1,10 @@
+# Paper Trading Simulator requirements
+# Install with: pip install -r simulator/requirements.txt
+
+yfinance>=0.2.40
+pandas>=2.0.0
+numpy>=1.24.0
+pytz>=2024.1
+
+# Already in root requirements.txt but listed here for completeness
+# anthropic>=0.40.0

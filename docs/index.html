@@ -5,21 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Morning Brief Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-  :root { --bg:#0a0e1a;--surface:#111827;--surface2:#1a2236;--border:#1e2d47;--text:#e2e8f0;--muted:#64748b;--accent:#3b82f6;--bull:#00c853;--bear:#ff1744; }
+  :root {
+    --bg:#0a0e1a; --surface:#111827; --surface2:#1a2236; --border:#1e2d47;
+    --text:#e2e8f0; --muted:#64748b; --accent:#3b82f6; --bull:#00c853; --bear:#ff1744;
+    --gold:#f59e0b; --purple:#a855f7;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6}
   .container{max-width:1100px;margin:0 auto;padding:32px 20px}
-  .header{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px;display:flex;justify-content:space-between;align-items:flex-end}
+  .header{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:0;display:flex;justify-content:space-between;align-items:flex-end}
   .header h1{font-size:1.8rem;font-weight:700;color:#60cfff}
   .header p{color:var(--muted);font-size:0.9rem;margin-top:4px}
-  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:32px}
+
+  /* ── Tab nav ── */
+  .tab-nav{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:28px;margin-top:24px}
+  .tab-btn{background:none;border:none;color:var(--muted);font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:600;padding:10px 22px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color 0.2s,border-color 0.2s}
+  .tab-btn:hover{color:var(--text)}
+  .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .tab-content{display:none}
+  .tab-content.active{display:block}
+
+  /* ── Shared card styles ── */
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:24px}
   .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px}
-  .stat-label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}
-  .stat-value{font-size:1.6rem;font-weight:700;font-family:'JetBrains Mono',monospace;margin-top:4px}
-  .chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:32px}
-  .chart-title{font-size:0.85rem;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em}
-  canvas{width:100%;height:80px}
+  .stat-label{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em}
+  .stat-value{font-size:1.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;margin-top:4px}
+  .stat-sub{font-size:0.75rem;color:var(--muted);margin-top:2px}
+  .chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:24px}
+  .chart-title{font-size:0.82rem;color:var(--muted);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.05em;display:flex;justify-content:space-between;align-items:center}
+  .section-title{font-size:0.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;margin-top:24px}
+
+  /* ── Reports tab ── */
   .reports-grid{display:grid;gap:12px}
   .report-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;text-decoration:none;color:inherit;transition:border-color 0.2s;display:block}
   .report-card:hover{border-color:var(--accent)}
@@ -29,7 +47,51 @@
   .card-themes{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
   .theme{background:var(--surface2);color:var(--accent);padding:2px 10px;border-radius:12px;font-size:0.75rem}
   .card-summary{font-size:0.85rem;color:var(--muted);line-height:1.5}
+
+  /* ── Simulator tab ── */
+  .sim-loading{color:var(--muted);text-align:center;padding:60px;font-size:0.9rem}
+  .sim-error{color:var(--bear);text-align:center;padding:40px;font-size:0.85rem}
+
+  /* Positions table */
+  .sim-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin-bottom:8px}
+  .sim-table th{color:var(--muted);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.04em;padding:8px 10px;border-bottom:1px solid var(--border);text-align:left;font-weight:600}
+  .sim-table td{padding:9px 10px;border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace;font-size:0.83rem}
+  .sim-table tr:last-child td{border-bottom:none}
+  .sim-table tr:hover td{background:var(--surface2)}
+  .sim-table .ticker-cell{font-weight:700;color:var(--accent);font-family:'Inter',sans-serif}
+  .bull{color:var(--bull)} .bear{color:var(--bear)} .neutral{color:var(--muted)}
+
+  /* Trade history */
+  .trade-row-buy td:first-child::before{content:"▲ ";color:var(--bull)}
+  .trade-row-sell td:first-child::before{content:"▼ ";color:var(--bear)}
+  .action-buy{color:var(--bull);font-weight:700}
+  .action-sell{color:var(--bear);font-weight:700}
+
+  /* Strategy log */
+  .log-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px}
+  .log-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+  .log-date{font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .log-type{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:10px;background:var(--surface2)}
+  .log-note{font-size:0.84rem;color:var(--text);line-height:1.6}
+  .log-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .log-tag{background:var(--surface2);color:var(--purple);padding:1px 8px;border-radius:10px;font-size:0.7rem}
+  .type-eod_snapshot .log-type{color:#60cfff;border:1px solid #1e4a6e}
+  .type-reflection .log-type{color:var(--gold);border:1px solid #5a3e0a}
+  .type-initialization .log-type{color:var(--accent);border:1px solid var(--border)}
+  .type-trade_decision .log-type{color:var(--bull);border:1px solid #0a3a1a}
+
+  /* Win rate */
+  .win-rate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px}
+
+  /* Unsettled cash indicator */
+  .unsettled-pill{background:#1a2e0e;border:1px solid #2a5020;border-radius:6px;padding:8px 14px;font-size:0.8rem;color:#86efac;margin-bottom:16px;display:inline-flex;align-items:center;gap:8px}
+  .unsettled-pill .label{color:var(--muted)}
+
+  /* Empty state */
+  .empty-state{color:var(--muted);font-size:0.85rem;padding:24px;text-align:center;background:var(--surface2);border-radius:8px}
+
   code{background:#111;padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:0.85em}
+  canvas{max-height:260px}
 </style>
 </head>
 <body>
@@ -39,58 +101,90 @@
       <h1>&#128202; Morning Brief</h1>
       <p>AI-powered market intelligence &middot; Updated daily at 6 AM ET</p>
     </div>
-    <div style="color:var(--muted);font-size:0.85rem">
+    <div style="color:var(--muted);font-size:0.85rem" id="header-meta">
       1 reports &middot; Last updated Apr 05, 2026
     </div>
   </div>
 
-  <div class="stat-row">
-    <div class="stat-card">
-      <div class="stat-label">Total Reports</div>
-      <div class="stat-value" style="color:var(--accent)">1</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Latest Sentiment</div>
-      <div class="stat-value" style="color:#ff8f00">—</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">30-Day Avg Score</div>
-      <div class="stat-value">—</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Bullish Days (30d)</div>
-      <div class="stat-value" style="color:var(--bull)">0</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Bearish Days (30d)</div>
-      <div class="stat-value" style="color:var(--bear)">0</div>
-    </div>
+  <!-- Tab navigation -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('reports')">&#128240; Morning Briefs</button>
+    <button class="tab-btn" onclick="switchTab('simulator')">&#127381; Paper Trader</button>
   </div>
 
-  
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  TAB: REPORTS                                              -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="tab-content active" id="tab-reports">
 
-  <div class="reports-grid">
-    
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Reports</div>
+        <div class="stat-value" style="color:var(--accent)">1</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Latest Sentiment</div>
+        <div class="stat-value" style="color:#ff8f00">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">30-Day Avg Score</div>
+        <div class="stat-value">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bullish Days (30d)</div>
+        <div class="stat-value" style="color:var(--bull)">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bearish Days (30d)</div>
+        <div class="stat-value" style="color:var(--bear)">0</div>
+      </div>
+    </div>
+
+    <div class="reports-grid">
         <a href="reports/2026-04-05.html" class="report-card">
           <div class="card-header">
             <span class="card-date">2026-04-05</span>
           </div>
           <div class="card-summary">View full report</div>
         </a>
-  </div>
-</div>
+    </div>
+  </div><!-- /tab-reports -->
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  TAB: SIMULATOR                                            -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="tab-content" id="tab-simulator">
+    <div id="sim-content">
+      <div class="sim-loading">&#9203; Loading simulator data…</div>
+    </div>
+  </div><!-- /tab-simulator -->
+
+</div><!-- /container -->
 
 <script>
+// ─────────────────────────────────────────────────────────────────
+// Tab switching
+// ─────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`#tab-${name}`).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (name === 'simulator' && !window._simLoaded) loadSimulator();
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Morning Brief sparkline (reports tab)
+// ─────────────────────────────────────────────────────────────────
 const scoreData = [];
-const canvas = document.getElementById('sparkline');
-if (canvas && scoreData.length > 1) {
-  const ctx = canvas.getContext('2d');
-  canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-  canvas.height = 80 * window.devicePixelRatio;
+const sparkCanvas = document.getElementById('sparkline');
+if (sparkCanvas && scoreData.length > 1) {
+  const ctx = sparkCanvas.getContext('2d');
+  sparkCanvas.width = sparkCanvas.offsetWidth * window.devicePixelRatio;
+  sparkCanvas.height = 80 * window.devicePixelRatio;
   ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  const w = canvas.offsetWidth, h = 80;
-  const min = -10, max = 10;
-  const pts = scoreData.map((d,i) => [i/(scoreData.length-1)*w, h/2 - (d[1]/(max-min))*h*0.8]);
+  const w = sparkCanvas.offsetWidth, h = 80;
+  const pts = scoreData.map((d,i) => [i/(scoreData.length-1)*w, h/2 - (d[1]/20)*h*0.8]);
   ctx.strokeStyle='#3b82f6';ctx.lineWidth=2;ctx.beginPath();
   pts.forEach((p,i)=>i===0?ctx.moveTo(...p):ctx.lineTo(...p));ctx.stroke();
   ctx.fillStyle='rgba(59,130,246,0.1)';ctx.beginPath();
@@ -98,6 +192,337 @@ if (canvas && scoreData.length > 1) {
   ctx.lineTo(w,h/2);ctx.lineTo(0,h/2);ctx.closePath();ctx.fill();
   ctx.strokeStyle='#1e2d47';ctx.lineWidth=1;ctx.setLineDash([4,4]);
   ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+}
+
+// ─────────────────────────────────────────────────────────────────
+// Simulator loader
+// ─────────────────────────────────────────────────────────────────
+const RAW = 'https://raw.githubusercontent.com/arrakistacos/morning-brief/main/simulator/';
+const YF_QUOTE = ticker =>
+  `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`;
+
+window._simLoaded = false;
+window._perfChart = null;
+
+async function fetchJSON(url) {
+  const r = await fetch(url + '?cb=' + Date.now());
+  if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+  return r.json();
+}
+
+async function fetchLivePrice(ticker) {
+  try {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d&cors=true`;
+    const r = await fetch(url);
+    if (!r.ok) return null;
+    const d = await r.json();
+    const meta = d?.chart?.result?.[0]?.meta;
+    return meta?.regularMarketPrice || meta?.previousClose || null;
+  } catch { return null; }
+}
+
+function fmt$(n) {
+  if (n == null) return '—';
+  const abs = Math.abs(n);
+  return (n < 0 ? '-' : '') + '$' + abs.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function fmtPct(n) {
+  if (n == null) return '—';
+  return (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
+}
+function pnlClass(n) { return n > 0 ? 'bull' : n < 0 ? 'bear' : 'neutral'; }
+
+async function loadSimulator() {
+  window._simLoaded = true;
+  const el = document.getElementById('sim-content');
+  try {
+    const [portfolio, trades, performance, strategyLog] = await Promise.all([
+      fetchJSON(RAW + 'portfolio.json'),
+      fetchJSON(RAW + 'trades.json'),
+      fetchJSON(RAW + 'performance.json'),
+      fetchJSON(RAW + 'strategy_log.json'),
+    ]);
+
+    // Live prices for open positions
+    const livePrices = {};
+    await Promise.all(portfolio.positions.map(async pos => {
+      const p = await fetchLivePrice(pos.ticker);
+      if (p) livePrices[pos.ticker] = p;
+    }));
+
+    renderSimulator(el, portfolio, trades, performance, strategyLog, livePrices);
+  } catch(e) {
+    el.innerHTML = `<div class="sim-error">
+      ⚠️ Could not load simulator data.<br>
+      <small style="color:var(--muted)">${e.message}</small><br><br>
+      <small>Data loads from GitHub raw files. Make sure simulator/ JSON files have been pushed.</small>
+    </div>`;
+  }
+}
+
+function renderSimulator(el, portfolio, trades, perf, strategyLog, livePrices) {
+  const startingCapital = portfolio.starting_capital || 25000;
+  const settledCash = portfolio.cash || 0;
+  const unsettledLots = portfolio.unsettled_cash || [];
+  const unsettledTotal = unsettledLots.reduce((s, u) => s + u.amount, 0);
+  const totalCash = settledCash + unsettledTotal;
+
+  // Compute positions value with live prices
+  let positionsValue = 0;
+  const positionsWithPrices = portfolio.positions.map(pos => {
+    const live = livePrices[pos.ticker] || pos.avg_cost;
+    const mktVal = live * pos.shares;
+    const unrealized = (live - pos.avg_cost) * pos.shares;
+    const unrealizedPct = ((live - pos.avg_cost) / pos.avg_cost) * 100;
+    positionsValue += mktVal;
+    return { ...pos, live_price: live, market_value: mktVal, unrealized_pnl: unrealized, unrealized_pct: unrealizedPct };
+  });
+  const totalPortfolio = totalCash + positionsValue;
+  const totalPnl = totalPortfolio - startingCapital;
+  const totalPnlPct = (totalPnl / startingCapital) * 100;
+
+  // Win rate stats from closed trades
+  const sells = trades.filter(t => t.action === 'SELL' && t.realized_pnl != null);
+  const wins  = sells.filter(t => t.realized_pnl > 0);
+  const losses= sells.filter(t => t.realized_pnl <= 0);
+  const winRate = sells.length ? (wins.length / sells.length * 100) : 0;
+  const avgWin  = wins.length  ? wins.reduce((s,t)=>s+t.realized_pnl,0)/wins.length : 0;
+  const avgLoss = losses.length? Math.abs(losses.reduce((s,t)=>s+t.realized_pnl,0)/losses.length) : 0;
+  const profitFactor = avgLoss > 0 ? (avgWin / avgLoss) : (avgWin > 0 ? '∞' : '—');
+
+  // ── Build HTML ──────────────────────────────────────────────────
+  let html = '';
+
+  // ── 1. Portfolio overview cards ──
+  html += `<div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Value</div>
+      <div class="stat-value" style="color:var(--accent)">${fmt$(totalPortfolio)}</div>
+      <div class="stat-sub">Started at ${fmt$(startingCapital)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total P&amp;L</div>
+      <div class="stat-value ${pnlClass(totalPnl)}">${fmt$(totalPnl)}</div>
+      <div class="stat-sub ${pnlClass(totalPnlPct)}">${fmtPct(totalPnlPct)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Settled Cash</div>
+      <div class="stat-value">${fmt$(settledCash)}</div>
+      <div class="stat-sub" style="color:var(--muted)">Available to trade</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Positions Value</div>
+      <div class="stat-value">${fmt$(positionsValue)}</div>
+      <div class="stat-sub">${portfolio.positions.length} open position${portfolio.positions.length !== 1 ? 's' : ''}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Win Rate</div>
+      <div class="stat-value ${winRate >= 50 ? 'bull' : 'bear'}">${sells.length ? winRate.toFixed(0)+'%' : '—'}</div>
+      <div class="stat-sub">${wins.length}W / ${losses.length}L of ${sells.length} closed</div>
+    </div>
+  </div>`;
+
+  // Unsettled cash alert
+  if (unsettledLots.length > 0) {
+    const lotItems = unsettledLots.map(u =>
+      `<span>${u.ticker}: ${fmt$(u.amount)} (settles ${u.settlement_date})</span>`
+    ).join(' &nbsp;·&nbsp; ');
+    html += `<div style="margin-bottom:16px">
+      <div class="unsettled-pill">
+        <span>⏳</span>
+        <span class="label">T+2 Unsettled:</span>
+        <span>${fmt$(unsettledTotal)}</span>
+        <span style="color:var(--muted);font-size:0.75rem">— ${lotItems}</span>
+      </div>
+    </div>`;
+  }
+
+  // ── 2. Performance chart ──
+  html += `<div class="chart-wrap">
+    <div class="chart-title">
+      <span>Portfolio Value Over Time</span>
+      <span style="color:var(--muted);font-size:0.78rem">— — — $25,000 baseline</span>
+    </div>
+    <canvas id="perfChart" height="200"></canvas>
+  </div>`;
+
+  // ── 3. Open positions table ──
+  html += `<div class="section-title">Open Positions</div>`;
+  if (positionsWithPrices.length === 0) {
+    html += `<div class="empty-state">No open positions — fully in cash.</div>`;
+  } else {
+    html += `<div class="chart-wrap" style="padding:0;overflow:hidden">
+    <table class="sim-table">
+      <thead><tr>
+        <th>Ticker</th><th>Shares</th><th>Avg Cost</th>
+        <th>Live Price</th><th>Mkt Value</th>
+        <th>Unrealized P&amp;L</th><th>Entry</th><th>Strategy</th>
+      </tr></thead><tbody>`;
+    for (const p of positionsWithPrices) {
+      html += `<tr>
+        <td class="ticker-cell">${p.ticker}</td>
+        <td>${p.shares}</td>
+        <td>${fmt$(p.avg_cost)}</td>
+        <td>${fmt$(p.live_price)}</td>
+        <td>${fmt$(p.market_value)}</td>
+        <td class="${pnlClass(p.unrealized_pnl)}">${fmt$(p.unrealized_pnl)} (${fmtPct(p.unrealized_pct)})</td>
+        <td style="font-size:0.78rem;color:var(--muted)">${p.entry_date||'—'}</td>
+        <td style="font-size:0.78rem;color:var(--muted);max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${(p.thesis||'').replace(/"/g,'&quot;')}">${p.strategy||'—'}</td>
+      </tr>`;
+    }
+    html += `</tbody></table></div>`;
+  }
+
+  // ── 4. Trade history ──
+  html += `<div class="section-title">Trade History</div>`;
+  const recentTrades = [...trades].reverse().slice(0, 50);
+  if (recentTrades.length === 0) {
+    html += `<div class="empty-state">No trades yet. Start trading with execute_trade.py.</div>`;
+  } else {
+    html += `<div class="chart-wrap" style="padding:0;overflow:hidden;overflow-x:auto">
+    <table class="sim-table">
+      <thead><tr>
+        <th>#</th><th>Date</th><th>Time</th><th>Action</th><th>Ticker</th>
+        <th>Shares</th><th>Price</th><th>Total</th>
+        <th>P&amp;L</th><th>Port. Value</th><th>Thesis</th>
+      </tr></thead><tbody>`;
+    for (const t of recentTrades) {
+      const pnlCell = t.action === 'SELL' && t.realized_pnl != null
+        ? `<span class="${pnlClass(t.realized_pnl)}">${fmt$(t.realized_pnl)}</span>`
+        : '<span style="color:var(--muted)">—</span>';
+      html += `<tr class="trade-row-${t.action.toLowerCase()}">
+        <td style="color:var(--muted)">#${t.id}</td>
+        <td>${t.date}</td>
+        <td style="color:var(--muted)">${t.time||'—'}</td>
+        <td class="action-${t.action.toLowerCase()}">${t.action}</td>
+        <td class="ticker-cell">${t.ticker}</td>
+        <td>${t.shares}</td>
+        <td>${fmt$(t.price)}</td>
+        <td>${fmt$(t.total)}</td>
+        <td>${pnlCell}</td>
+        <td>${fmt$(t.portfolio_value)}</td>
+        <td style="font-size:0.75rem;color:var(--muted);max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${(t.thesis||'').replace(/"/g,'&quot;')}">${(t.thesis||'').substring(0,60)}${(t.thesis||'').length>60?'…':''}</td>
+      </tr>`;
+    }
+    html += `</tbody></table></div>`;
+  }
+
+  // ── 5. Win rate stats ──
+  html += `<div class="section-title">Performance Stats</div>
+  <div class="win-rate-grid">
+    <div class="stat-card">
+      <div class="stat-label">Closed Trades</div>
+      <div class="stat-value">${sells.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Win Rate</div>
+      <div class="stat-value ${winRate >= 50 ? 'bull' : 'bear'}">${sells.length ? winRate.toFixed(1)+'%' : '—'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg Win</div>
+      <div class="stat-value bull">${wins.length ? fmt$(avgWin) : '—'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg Loss</div>
+      <div class="stat-value bear">${losses.length ? fmt$(avgLoss) : '—'}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Profit Factor</div>
+      <div class="stat-value ${typeof profitFactor === 'number' && profitFactor >= 1 ? 'bull' : 'bear'}">${typeof profitFactor === 'number' ? profitFactor.toFixed(2) : profitFactor}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total P&amp;L</div>
+      <div class="stat-value ${pnlClass(totalPnl)}">${fmt$(totalPnl)}</div>
+    </div>
+  </div>`;
+
+  // ── 6. Strategy Log ──
+  html += `<div class="section-title">Strategy Log &amp; Reflections</div>`;
+  const recentLog = [...strategyLog].reverse().slice(0, 20);
+  for (const entry of recentLog) {
+    const typeClass = `type-${entry.type||'note'}`;
+    const typeLabel = (entry.type||'note').replace('_',' ').toUpperCase();
+    const tags = (entry.tags||[]).map(tag => `<span class="log-tag">#${tag}</span>`).join('');
+    html += `<div class="log-card ${typeClass}">
+      <div class="log-card-header">
+        <span class="log-date">${entry.date}</span>
+        <span class="log-type">${typeLabel}</span>
+      </div>
+      <div class="log-note">${entry.note || ''}</div>
+      ${tags ? `<div class="log-tags">${tags}</div>` : ''}
+    </div>`;
+  }
+
+  el.innerHTML = html;
+
+  // ── Draw performance chart ──
+  if (perf && perf.length > 0) {
+    const ctx = document.getElementById('perfChart')?.getContext('2d');
+    if (ctx) {
+      if (window._perfChart) window._perfChart.destroy();
+      const labels = perf.map(p => p.date);
+      const values = perf.map(p => p.portfolio_value);
+      const baseline = perf.map(() => startingCapital);
+      window._perfChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Portfolio Value',
+              data: values,
+              borderColor: '#3b82f6',
+              backgroundColor: 'rgba(59,130,246,0.08)',
+              borderWidth: 2.5,
+              pointRadius: values.length > 30 ? 0 : 4,
+              pointHoverRadius: 5,
+              fill: true,
+              tension: 0.3,
+            },
+            {
+              label: '$25,000 Baseline',
+              data: baseline,
+              borderColor: '#1e2d47',
+              borderWidth: 1.5,
+              borderDash: [6, 4],
+              pointRadius: 0,
+              fill: false,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: '#64748b', font: { size: 11 } } },
+            tooltip: {
+              backgroundColor: '#111827',
+              borderColor: '#1e2d47',
+              borderWidth: 1,
+              titleColor: '#e2e8f0',
+              bodyColor: '#94a3b8',
+              callbacks: {
+                label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits:2})}`
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: { color: '#4b5563', font: { size: 10 }, maxTicksLimit: 10 },
+              grid: { color: '#1a2236' }
+            },
+            y: {
+              ticks: {
+                color: '#4b5563', font: { size: 10 },
+                callback: v => '$' + v.toLocaleString('en-US', {minimumFractionDigits:0})
+              },
+              grid: { color: '#1a2236' }
+            }
+          }
+        }
+      });
+    }
+  }
 }
 </script>
 </body>

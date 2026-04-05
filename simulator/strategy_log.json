@@ -1,0 +1,8 @@
+[
+  {
+    "date": "2026-04-05",
+    "type": "initialization",
+    "note": "Simulator initialized. Starting capital: $25,000. Strategy: combine morning brief sentiment with chart pattern signals. Max 3 concurrent positions, 30% position size limit, 8% hard stop loss. Target: 15%+ partial profit-taking. Rule: never trade on emotion or FOMO — require concrete thesis with both sentiment AND chart signal alignment.",
+    "tags": ["initialization", "rules", "capital"]
+  }
+]
