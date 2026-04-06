@@ -1,88 +1,59 @@
-# 📊 Morning Brief
+# Muad'Dib Market Intelligence
 
-AI-powered daily market intelligence — news analysis, causal reasoning, and trading signals delivered every morning before the market opens.
+Automated daily trading intelligence, paper trading simulator, and market dashboard.
 
-## What It Does
-
-Every weekday at **6:00 AM ET**, this system:
-
-1. Fetches overnight news from 17+ financial, geopolitical, and economic RSS feeds
-2. Sends all headlines + summaries to Claude for deep macro analysis
-3. Generates a structured briefing with causal chains, sector outlooks, commodity forecasts, and a specific watchlist
-4. Emails the brief to your inbox
-5. Publishes the full HTML report to the GitHub Pages dashboard
-6. Tracks 30-day sentiment history with a sparkline chart
-
-## Dashboard
+## Live Dashboard
 
 **[https://arrakistacos.github.io/morning-brief/](https://arrakistacos.github.io/morning-brief/)**
 
-## Setup
+## What This Is
 
-### 1. Add GitHub Secrets
+Every weekday this system delivers a structured morning brief covering overnight news, sentiment analysis, and causal reasoning across macro, geopolitical, and sector-level inputs. It also runs a paper trading simulator with a $25k starting portfolio, executing swing trades with full chart analysis and bracket orders. Three scheduled tasks at **4:45 AM**, **12:00 PM**, and **3:15 PM CT** keep the briefing, position monitoring, and end-of-day review automated.
 
-Go to your repo → **Settings → Secrets and variables → Actions → New repository secret**
+## 📱 Schwab Android Execution Guide
 
-| Secret | Description |
-|--------|-------------|
-| `CLAUDE_API_KEY` | Your Anthropic API key from [console.anthropic.com](https://console.anthropic.com) |
-| `GMAIL_USER` | Gmail address used to send the brief (e.g. `you@gmail.com`) |
-| `GMAIL_APP_PASSWORD` | Gmail App Password — [create one here](https://myaccount.google.com/apppasswords) (requires 2FA) |
+[📱 Schwab Android Execution Guide](docs/Schwab_Android_Execution_Guide.docx)
 
-> **Note:** The recipient email is hardcoded as `capt.computermail@gmail.com`. To change it, update `RECIPIENT_EMAIL` in `config.py` or set it as a secret.
+Translates every simulator trade signal (entry price, stop loss, take profit, OCO bracket orders) into step-by-step Charles Schwab Android app instructions.
 
-### 2. Trigger Your First Run
+## Schedule
 
-Go to **Actions → Morning Brief → Run workflow** to test immediately without waiting for the scheduled run.
+| Task | Time (CT) | Description |
+|------|-----------|-------------|
+| Morning Brief | 4:45 AM Mon-Fri | News analysis, trading decisions, email |
+| Midday Check | 12:00 PM Mon-Fri | Stop-loss monitor, thesis check |
+| EOD Review | 3:15 PM Mon-Fri | Closing prices, P&L snapshot, reflection |
 
-### 3. Watch It Work
+## Simulator Rules
 
-- The workflow runs, fetches news, calls Claude, and commits the report to `reports/`
-- The Pages workflow triggers automatically and publishes the dashboard
-- You'll receive an email with the brief
+- $25k starting capital
+- Longs only — no shorting
+- Max 3 open positions at a time
+- Max 30% of portfolio per position
+- 8% hard stop loss on all positions
+- T+2 settlement enforced
+- NYSE holiday-aware scheduling
 
-## Scheduled Time
-
-The cron is set to `0 10 * * 1-5` — **10:00 AM UTC = 6:00 AM ET** on weekdays. This gives you 3.5 hours before the US market opens at 9:30 AM ET.
-
-To change the time, edit `.github/workflows/morning-brief.yml`.
-
-## Project Structure
+## Repo Structure
 
 ```
 morning-brief/
 ├── .github/workflows/
-│   ├── morning-brief.yml   # Daily scheduler + analysis runner
-│   └── pages.yml           # GitHub Pages deploy
+│   ├── morning-brief.yml    # Daily scheduler + analysis runner
+│   └── pages.yml            # GitHub Pages deploy
 ├── scripts/
-│   ├── analyze.py          # Claude AI analysis engine
-│   ├── fetch_news.py       # RSS news aggregator (17 sources)
-│   ├── generate_report.py  # HTML report + email generator
-│   ├── send_email.py       # Gmail SMTP sender
-│   └── build_dashboard.py  # GitHub Pages dashboard builder
-├── reports/                # Auto-generated daily reports (JSON + HTML)
-├── docs/                   # GitHub Pages source
-├── main.py                 # Main orchestrator
-├── config.py               # Non-secret configuration
+│   ├── analyze.py           # Claude AI analysis engine
+│   ├── fetch_news.py        # RSS news aggregator (17 sources)
+│   ├── generate_report.py   # HTML report + email generator
+│   ├── send_email.py        # Gmail SMTP sender
+│   └── build_dashboard.py   # GitHub Pages dashboard builder
+├── docs/
+│   ├── index.html                        # GitHub Pages dashboard
+│   └── Schwab_Android_Execution_Guide.docx  # Schwab Android trade execution guide
+├── reports/                 # Auto-generated daily reports (JSON + HTML)
+├── main.py                  # Main orchestrator
+├── config.py                # Non-secret configuration
 └── requirements.txt
-```
-
-## Data Sources
-
-**Financial:** Reuters Business, Reuters Markets, AP Business, CNBC, MarketWatch, Financial Times, Seeking Alpha, Benzinga, Investing.com, Yahoo Finance
-
-**Geopolitical:** BBC World, Al Jazeera, Foreign Policy
-
-**Economic:** Federal Reserve, Bureau of Labor Statistics, IMF
-
-## Running Locally
-
-```bash
-pip install -r requirements.txt
-export CLAUDE_API_KEY=your_key_here
-export GMAIL_USER=your@gmail.com
-export GMAIL_APP_PASSWORD=your_app_password
-python main.py
 ```
 
 ---
