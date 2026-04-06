@@ -1,1 +1,764 @@
-�W�y�5���ѽ�q�\�������q�_�ͺ
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0807">
+  <meta name="description" content="Muad'Dib Market Intelligence — AI-powered daily market brief and paper trader dashboard">
+  <title>Muad'Dib Market Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #0a0807;
+  --surface: #13100c;
+  --surface2: #1c1810;
+  --surface3: #231e14;
+  --border: #2d2315;
+  --text: #E8DCC8;
+  --muted: #8a7660;
+  --sand: #C4A265;
+  --spice: #E07B2A;
+  --atreides: #4A8FCC;
+  --bull: #6ECB63;
+  --bear: #E05252;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Layout */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; width: 100%; }
+
+/* Hero Header */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(ellipse at top, rgba(196,162,101,.08) 0%, transparent 65%);
+}
+.hawk-emblem {
+  margin: 0 auto 1.5rem;
+  color: var(--sand);
+  opacity: .88;
+  width: clamp(55px, 12vw, 88px);
+}
+.hawk-emblem svg { width: 100%; height: auto; display: block; }
+.hero h1 {
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  color: var(--sand);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.hero-tagline {
+  font-size: clamp(.82rem, 2.5vw, 1rem);
+  color: var(--spice);
+  font-style: italic;
+  margin-top: .5rem;
+  opacity: .9;
+}
+.hero-sub { font-size: .8rem; color: var(--muted); margin-top: .3rem; }
+
+/* Tab Navigation */
+.tab-nav {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--muted);
+  font-size: .9rem;
+  cursor: pointer;
+  min-height: 48px;
+  font-family: inherit;
+  font-weight: 500;
+  transition: color .2s, border-color .2s;
+}
+.tab-btn.active { color: var(--sand); border-bottom-color: var(--sand); }
+.tab-btn:hover:not(.active) { color: var(--text); }
+.tab-content { display: none; padding: 1.75rem 0 3rem; }
+.tab-content.active { display: block; }
+
+/* Stat Cards */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+}
+.stat-label {
+  font-size: .68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-weight: 600;
+}
+.stat-value {
+  font-size: 1.45rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: .25rem;
+  word-break: break-all;
+}
+
+/* Charts */
+.chart-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.chart-title {
+  font-size: .73rem;
+  color: var(--muted);
+  margin-bottom: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 600;
+}
+.chart-container { position: relative; height: 350px; width: 100%; }
+.chart-container-sm { position: relative; height: 130px; width: 100%; }
+
+/* Section Headers */
+.section-header {
+  font-size: .92rem;
+  color: var(--sand);
+  font-weight: 600;
+  margin-bottom: .875rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* Report Cards */
+.reports-grid { display: grid; gap: .75rem; }
+.report-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: border-color .2s, background .2s;
+}
+.report-card:hover { border-color: var(--sand); background: var(--surface2); }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: .5rem;
+}
+.card-date {
+  font-weight: 600;
+  font-size: .92rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+.card-themes { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .6rem; }
+.theme {
+  background: var(--surface2);
+  color: var(--atreides);
+  padding: .15rem .6rem;
+  border-radius: 12px;
+  font-size: .72rem;
+  font-weight: 500;
+  border: 1px solid rgba(74,143,204,.2);
+}
+.card-summary { font-size: .84rem; color: var(--muted); line-height: 1.55; }
+
+/* Tables */
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+}
+table { width: 100%; border-collapse: collapse; min-width: 540px; }
+thead th {
+  background: var(--surface2);
+  color: var(--sand);
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: .75rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  font-weight: 700;
+}
+tbody td {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: .84rem;
+  vertical-align: middle;
+  color: var(--text);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(196,162,101,.03); }
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 2.5rem 1rem;
+  font-style: italic;
+  font-size: .88rem;
+}
+
+/* Mobile Card Table */
+@media (max-width: 768px) {
+  .mobile-card-table-wrap { border: none; background: transparent; overflow-x: visible; }
+  .mobile-card-table { min-width: unset; width: 100%; }
+  .mobile-card-table thead { display: none; }
+  .mobile-card-table tbody tr {
+    display: block;
+    background: var(--surface2);
+    margin-bottom: .75rem;
+    border-radius: 10px;
+    padding: .875rem;
+    border: 1px solid var(--border);
+  }
+  .mobile-card-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: .3rem 0;
+    border: none;
+    font-size: .84rem;
+    gap: .5rem;
+  }
+  .mobile-card-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--sand);
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 90px;
+  }
+  .mobile-card-table tbody tr:last-child td { border: none; }
+  .mobile-card-table td[colspan] { display: block; }
+  .mobile-card-table td[colspan]::before { display: none; }
+}
+
+/* Sentiment Colors */
+.bull { color: var(--bull); font-weight: 600; }
+.bear { color: var(--bear); font-weight: 600; }
+.neutral { color: var(--spice); }
+
+/* Expandable Thesis Rows */
+.expand-btn {
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--sand);
+  font-size: .7rem;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background .15s, transform .2s;
+  margin-right: .35rem;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.expand-btn:hover { background: var(--surface2); }
+.expand-btn.open { transform: rotate(90deg); }
+.thesis-row { display: none; }
+.thesis-row.open { display: table-row; }
+.thesis-content {
+  padding: 1rem 1.25rem;
+  background: var(--surface2);
+  border-radius: 6px;
+  font-size: .84rem;
+  line-height: 1.65;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.thesis-content p { margin-bottom: .5rem; }
+.thesis-content p:last-child { margin-bottom: 0; }
+.thesis-content strong { color: var(--sand); }
+
+/* Strategy Journal */
+.journal-grid { display: grid; gap: .75rem; margin-bottom: 1.5rem; }
+.journal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.125rem;
+}
+.journal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: .75rem;
+}
+.journal-date {
+  font-size: .78rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+.journal-type {
+  font-size: .68rem;
+  padding: .18rem .6rem;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.journal-note { font-size: .85rem; color: var(--text); line-height: 1.65; }
+.journal-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
+.journal-tag {
+  font-size: .68rem;
+  background: var(--surface2);
+  color: var(--muted);
+  padding: .18rem .55rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  padding: .75rem 1.25rem;
+  border-radius: 8px;
+  font-size: .88rem;
+  font-family: inherit;
+  text-decoration: none;
+  font-weight: 600;
+  min-height: 44px;
+  cursor: pointer;
+  border: none;
+  transition: opacity .2s;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--sand); color: #0a0807; }
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--sand);
+  border: 1px solid var(--border);
+}
+.btn:hover { opacity: .82; }
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .8rem;
+  background: radial-gradient(ellipse at bottom, rgba(196,162,101,.04) 0%, transparent 65%);
+}
+.dune-quote { font-style: italic; color: var(--sand); margin-bottom: .4rem; font-size: .88rem; opacity: .85; }
+.dune-attribution { font-size: .72rem; color: var(--muted); opacity: .65; margin-bottom: .75rem; }
+
+/* Responsive — 768px breakpoint */
+@media (max-width: 768px) {
+  .container { padding: 0 .875rem; }
+  .hero { padding: 1.75rem .875rem 1.5rem; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+  .chart-container { height: 250px; }
+  .tab-btn { padding: .85rem 1rem; font-size: .84rem; }
+  .section-header { font-size: .86rem; }
+  .btn-row { flex-direction: column; }
+  .btn { width: 100%; }
+  tbody td { padding: .6rem .75rem; }
+  .stat-value { font-size: 1.2rem; }
+}
+
+/* Responsive — 480px breakpoint */
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.1rem; }
+  .hero-tagline { font-size: .8rem; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+  .stat-card { padding: .75rem; }
+  .stat-value { font-size: 1.05rem; }
+  .tab-btn { padding: .75rem .85rem; font-size: .78rem; }
+  .report-card, .journal-card { padding: .875rem; }
+  .chart-container { height: 210px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ── Hero Header ───────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hawk-emblem"><svg viewBox="0 0 120 75" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true"><path d="M60 22 C48 13 28 7 4 15 C16 17 30 22 38 27 C30 29 18 36 8 47 C22 39 38 35 46 36 L60 63 L74 36 C82 35 98 39 112 47 C102 36 90 29 82 27 C90 22 104 17 116 15 C92 7 72 13 60 22 Z"/><ellipse cx="60" cy="15" rx="6" ry="7"/><path d="M60 20 L65 24 L60 26 Z"/></svg></div>
+    <h1>Muad'Dib Market Intelligence</h1>
+    <p class="hero-tagline">The Sleeper Has Awakened</p>
+    <p class="hero-sub">Daily market intelligence &middot; Updated at 6 AM ET &middot; Apr 06, 2026</p>
+  </header>
+
+  <!-- ── Tab Navigation ────────────────────────────────────────────────── -->
+  <nav class="tab-nav" role="tablist" aria-label="Dashboard sections">
+    <button class="tab-btn active" data-tab="reports" role="tab" aria-selected="true" aria-controls="tab-reports">
+      &#128202; Daily Reports
+    </button>
+    <button class="tab-btn" data-tab="trader" role="tab" aria-selected="false" aria-controls="tab-trader">
+      &#9876; Paper Trader
+    </button>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- REPORTS TAB                                                           -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-reports" class="tab-content active" role="tabpanel" aria-labelledby="tab-reports-btn">
+
+    <!-- Sentiment Stats -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Reports</div>
+        <div class="stat-value" style="color:var(--atreides)">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Latest Sentiment</div>
+        <div class="stat-value" style="color:var(--spice)">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">30-Day Avg Score</div>
+        <div class="stat-value">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bullish Days (30d)</div>
+        <div class="stat-value" style="color:var(--bull)">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bearish Days (30d)</div>
+        <div class="stat-value" style="color:var(--bear)">0</div>
+      </div>
+    </div>
+
+    
+
+    <!-- Report Cards -->
+    <div class="section-header">&#128203; Recent Reports</div>
+    <div class="reports-grid">
+      <div class="empty-state">No reports yet. The spice will flow soon.</div>
+    </div>
+
+  </div><!-- /tab-reports -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- PAPER TRADER TAB                                                      -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div id="tab-trader" class="tab-content" role="tabpanel" aria-labelledby="tab-trader-btn">
+
+    <!-- Portfolio Overview -->
+    <div class="section-header">&#128176; Portfolio Overview</div>
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Value</div>
+        <div class="stat-value" style="color:var(--sand)">$25,000.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Settled Cash</div>
+        <div class="stat-value">$25,000.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total P&amp;L</div>
+        <div class="stat-value" style="color:var(--bull)">+$0.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Return</div>
+        <div class="stat-value" style="color:var(--bull)">+0.00%</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Unsettled Cash</div>
+        <div class="stat-value" style="color:var(--muted)">$0.00</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Open Positions</div>
+        <div class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Trades</div>
+        <div class="stat-value">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Win Rate</div>
+        <div class="stat-value" style="color:var(--bull)">—</div>
+      </div>
+    </div>
+
+    <!-- Current Positions -->
+    <div class="section-header">&#128200; Current Positions</div>
+    <div class="table-wrap mobile-card-table-wrap">
+      <table class="mobile-card-table">
+        <thead>
+          <tr>
+            <th>Ticker</th><th>Shares</th><th>Avg Cost</th>
+            <th>Cost Basis</th><th>Entry</th><th>Stop</th>
+            <th>Target</th><th>Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="8" class="empty-state">No open positions — fully in cash. Walk without rhythm.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+      <div class="chart-wrap">
+        <div class="chart-title">Portfolio Value Over Time</div>
+        <div class="chart-container">
+          <canvas id="perfChart"></canvas>
+        </div>
+      </div>
+
+    <!-- Trade History -->
+    <div class="section-header">&#128221; Trade History</div>
+    <div class="table-wrap mobile-card-table-wrap">
+      <table class="mobile-card-table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Date</th><th>Action</th><th>Ticker</th>
+            <th>Shares</th><th>Price</th><th>Total</th>
+            <th>P&amp;L / R:R</th><th>Strategy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="9" class="empty-state">No trades yet. The patient hunter waits for the right moment.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+
+    <!-- Strategy Journal -->
+    <div class="section-header">&#128211; Strategy Journal</div>
+    <div class="journal-grid">
+      
+        <div class="journal-card">
+          <div class="journal-card-header">
+            <span class="journal-date">2026-04-06</span>
+            <span class="journal-type" style="color:#C4A265;background:#2a1f10">Trade Decision</span>
+          </div>
+          <div class="journal-note">No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) — all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&S bearish patterns + below all DMAs, GLD double-top pattern + below all DMAs. Market in binary mode with Trump's Iran Strait of Hormuz Tuesda…</div>
+          <div class='journal-tags'><span class="journal-tag">trade-decision</span><span class="journal-tag">watchlist</span><span class="journal-tag">no-trade</span></div>
+        </div>
+        <div class="journal-card">
+          <div class="journal-card-header">
+            <span class="journal-date">2026-04-05</span>
+            <span class="journal-type" style="color:#8a7660;background:#1c1810">Midday Check</span>
+          </div>
+          <div class="journal-note">MIDDAY 2026-04-05 16:01 ET | Portfolio: $25,000.00 | No action — held all positions. | Observations: No open positions — fully in cash. | No morning watchlist available for entry scan.</div>
+          <div class='journal-tags'><span class="journal-tag">midday</span><span class="journal-tag">daily-review</span></div>
+        </div>
+        <div class="journal-card">
+          <div class="journal-card-header">
+            <span class="journal-date">2026-04-05</span>
+            <span class="journal-type" style="color:#4A8FCC;background:#0d1f35">Initialization</span>
+          </div>
+          <div class="journal-note">Simulator initialized. Starting capital: $25,000. Strategy: combine morning brief sentiment with chart pattern signals. Max 3 concurrent positions, 30% position size limit, 8% hard stop loss. Target: 15%+ partial profit-taking. Rule: never trade on emotion or FOMO — require concrete thesis with both sentiment AND chart signal alignment.</div>
+          <div class='journal-tags'><span class="journal-tag">initialization</span><span class="journal-tag">rules</span><span class="journal-tag">capital</span></div>
+        </div>
+    </div>
+
+  </div><!-- /tab-trader -->
+
+</div><!-- /container -->
+
+<!-- ── Footer ──────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <p class="dune-quote">&ldquo;I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration.&rdquo;</p>
+  <p class="dune-attribution">&mdash; Frank Herbert, Dune</p>
+  <p>Muad'Dib Market Intelligence &middot; 0 reports &middot; Apr 06, 2026</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const SCORE_DATA = [];
+const PERF_LABELS = ["2026-04-05", "2026-04-05", "2026-04-05 16:01 ET"];
+const PERF_VALUES = [25000.0, 25000.0, 25000.0];
+const STARTING_CAPITAL = 25000.0;
+
+
+// Tab switching
+function initTabs() {
+  const btns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-content');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      const panel = document.getElementById('tab-' + tab);
+      if (panel) panel.classList.add('active');
+      if (window.perfChart) window.perfChart.resize();
+      if (window.sparkChart) window.sparkChart.resize();
+    });
+  });
+}
+
+// Expandable thesis rows
+function toggleThesis(id) {
+  const row = document.getElementById('thesis-' + id);
+  const btn = document.querySelector('[data-trade-id="' + id + '"]');
+  if (!row) return;
+  const isOpen = row.classList.toggle('open');
+  if (btn) btn.classList.toggle('open', isOpen);
+}
+
+// Sentiment sparkline (small Chart.js line chart)
+function initSparkline(scoreData) {
+  const canvas = document.getElementById('sparkline');
+  if (!canvas || scoreData.length < 2) return;
+  window.sparkChart = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: scoreData.map(d => d[0]),
+      datasets: [{
+        data: scoreData.map(d => d[1]),
+        borderColor: '#C4A265',
+        backgroundColor: 'rgba(196,162,101,0.08)',
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: scoreData.map(d => d[1] > 2 ? '#6ECB63' : d[1] < -2 ? '#E05252' : '#E07B2A'),
+        tension: 0.35,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1c1810', titleColor: '#C4A265',
+          bodyColor: '#E8DCC8', borderColor: '#2d2315', borderWidth: 1,
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#8a7660', font: { size: 10 }, maxRotation: 45 }, grid: { color: '#2d2315' } },
+        y: { ticks: { color: '#8a7660', font: { size: 10 } }, grid: { color: '#2d2315' }, suggestedMin: -10, suggestedMax: 10 }
+      }
+    }
+  });
+}
+
+// Portfolio performance chart
+function initPerfChart(labels, values, startingCapital) {
+  const canvas = document.getElementById('perfChart');
+  if (!canvas || values.length < 1) return;
+  window.perfChart = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Portfolio Value',
+          data: values,
+          borderColor: '#C4A265',
+          backgroundColor: 'rgba(196,162,101,0.07)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: values.map(v => v >= startingCapital ? '#6ECB63' : '#E05252'),
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: 'Starting Capital',
+          data: values.map(() => startingCapital),
+          borderColor: '#3d3020',
+          borderWidth: 1,
+          borderDash: [5, 4],
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, labels: { color: '#8a7660', font: { size: 11 }, boxWidth: 14 } },
+        tooltip: {
+          backgroundColor: '#1c1810', titleColor: '#C4A265',
+          bodyColor: '#E8DCC8', borderColor: '#2d2315', borderWidth: 1,
+          callbacks: {
+            label: ctx => {
+              const v = ctx.raw;
+              if (ctx.datasetIndex === 0) {
+                const diff = v - startingCapital;
+                const pct = startingCapital ? ((diff / startingCapital) * 100).toFixed(2) : 0;
+                const sign = diff >= 0 ? '+' : '';
+                return ' $' + v.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' (' + sign + pct + '%)';
+              }
+              return ' $' + v.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' (baseline)';
+            }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#8a7660', font: { size: 10 }, maxRotation: 45 }, grid: { color: '#2d2315' } },
+        y: {
+          ticks: {
+            color: '#8a7660', font: { size: 10 },
+            callback: v => '$' + v.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0})
+          },
+          grid: { color: '#2d2315' }
+        }
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTabs();
+  if (typeof SCORE_DATA !== 'undefined') initSparkline(SCORE_DATA);
+  if (typeof PERF_LABELS !== 'undefined' && typeof PERF_VALUES !== 'undefined') {
+    initPerfChart(PERF_LABELS, PERF_VALUES, STARTING_CAPITAL);
+  }
+});
+
+</script>
+</body>
+</html>
