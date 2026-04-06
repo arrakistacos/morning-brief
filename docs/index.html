@@ -458,11 +458,11 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
       </div>
       <div class="stat-card">
         <div class="stat-label">Latest Sentiment</div>
-        <div class="stat-value" style="color:var(--spice)">—</div>
+        <div class="stat-value" style="color:var(--spice)">MIXED</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">30-Day Avg Score</div>
-        <div class="stat-value">—</div>
+        <div class="stat-value">-4.0</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Bullish Days (30d)</div>
@@ -470,11 +470,17 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
       </div>
       <div class="stat-card">
         <div class="stat-label">Bearish Days (30d)</div>
-        <div class="stat-value" style="color:var(--bear)">0</div>
+        <div class="stat-value" style="color:var(--bear)">1</div>
       </div>
     </div>
 
     
+  <div class="chart-wrap">
+    <div class="chart-title">30-Day Sentiment Score Trend</div>
+    <div class="chart-container-sm">
+      <canvas id="sparkline"></canvas>
+    </div>
+  </div>
 
     <!-- Report Cards -->
     <div class="section-header">&#128203; Recent Reports</div>
@@ -483,13 +489,17 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
         <a href="reports/2026-04-06.html" class="report-card">
           <div class="card-header">
             <span class="card-date">2026-04-06</span>
+            <span style="color:var(--spice);font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700">MIXED (-2)</span>
           </div>
+          
           <div class="card-summary">View full report →</div>
         </a>
         <a href="reports/2026-04-05.html" class="report-card">
           <div class="card-header">
             <span class="card-date">2026-04-05</span>
+            <span style="color:var(--bear);font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700">BEARISH (-6)</span>
           </div>
+          
           <div class="card-summary">View full report →</div>
         </a>
     </div>
@@ -641,7 +651,7 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-const SCORE_DATA = [];
+const SCORE_DATA = [["2026-04-05", -6], ["2026-04-06", -2]];
 const PERF_LABELS = ["2026-04-05", "2026-04-05", "2026-04-05 16:01 ET", "2026-04-06 16:28 ET"];
 const PERF_VALUES = [25000.0, 25000.0, 25000.0, 25000.0];
 const STARTING_CAPITAL = 25000.0;

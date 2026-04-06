@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Brief</title>
+<style>
+  /* Browser-only responsive overrides — email clients ignore this entire <style> block */
+  * { box-sizing: border-box; }
+  body { background: #0A0E1A !important; }
+
+  /* Container */
+  .container { width: 100% !important; max-width: 600px !important; margin: 0 auto !important; }
+
+  /* Typography */
+  body, td, th, p { font-family: Arial, sans-serif !important; }
+  p { font-size: 15px !important; line-height: 1.6 !important; margin: 8px 0 !important; }
+
+  /* Responsive layout */
+  @media only screen and (max-width: 620px) {
+    .container { width: 100% !important; padding: 0 !important; }
+    table { width: 100% !important; }
+    td { display: block !important; width: 100% !important; }
+
+    /* Make stat cells 2-up on mobile */
+    .stat-cell { display: inline-block !important; width: 48% !important; vertical-align: top !important; }
+
+    /* Full width sections */
+    .section-cell { width: 100% !important; padding: 12px 16px !important; }
+
+    /* Tables that should scroll horizontally on mobile */
+    .scroll-table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+
+    /* Hide less critical columns on mobile */
+    .hide-mobile { display: none !important; }
+
+    /* Larger touch targets for links */
+    a { padding: 2px 0 !important; display: inline-block !important; }
+
+    /* Header scaling */
+    .header-title { font-size: 20px !important; }
+    .header-subtitle { font-size: 14px !important; }
+
+    /* Badges */
+    .badge { font-size: 10px !important; padding: 2px 6px !important; }
+
+    /* Risk cards */
+    .risk-row td { padding: 10px 14px !important; }
+
+    /* Watchlist table: stack on mobile */
+    .watchlist-table td { display: block !important; border-bottom: none !important; }
+    .watchlist-ticker { font-size: 16px !important; font-weight: bold !important; }
+  }
+</style>
+</head>
+<body style="background:#0a0e1a;color:#e2e8f0;font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:24px;line-height:1.6">
+<div style="background:#0A0E1A;">
+<div class="container">
+
+  <!-- Header -->
+  <div style="border-bottom:1px solid #1e2d47;padding-bottom:16px;margin-bottom:20px">
+    <h1 style="color:#60cfff;font-size:1.4rem;margin:0" class="header-title">📊 Morning Brief</h1>
+    <div style="color:#64748b;font-size:0.85rem;margin-top:4px" class="header-subtitle">Monday, April 6, 2026 · Generated at 10:50 UTC · Day 38 of Iran Conflict</div>
+  </div>
+
+  <!-- Executive Summary Card -->
+  <div style="background:#1e2d47;border:1px solid #2d4a6e;border-radius:10px;padding:24px;margin-bottom:24px">
+    <div style="font-size:10px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">⚡ Executive Summary</div>
+
+    <!-- The Gist -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">The Gist</div>
+      <p style="margin:0;font-size:14px;line-height:1.7;color:#e2e8f0;font-weight:500">The Iran Strait of Hormuz crisis enters its most binary moment yet — Trump's Tuesday deadline to reopen the Strait or face destruction of power plants and bridges is either the off-ramp that ends 38 days of war, or the match that lights a regional inferno sending Brent to $120+. US stock futures are rising on ceasefire optimism after Iran signaled it has formulated a response to proposals, but Tehran's public rejection of the deadline keeps the bear case very much alive. The dominant trade setup this week: position for resolution, not extension — but with defined risk given the binary outcome.</p>
+    </div>
+
+    <!-- Actionable Items -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Actionable Items</div>
+      <ul style="margin:0;padding:0;list-style:none">
+        <li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px"><span style="color:#f59e0b;margin-right:6px">☐</span>Watch XOM pre-market — if Brent holds above $108 post-open and Iran rejects deal definitively, gap-up toward $170 resistance; avoid new longs with MACD bearish crossover.</li>
+        <li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px"><span style="color:#f59e0b;margin-right:6px">☐</span>FRO/DHT tanker names: if Tuesday deadline passes without deal, these gap up 8-15% on rerouting premium surge — watch for breakout above $38.66 on FRO with volume confirmation.</li>
+        <li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px"><span style="color:#f59e0b;margin-right:6px">☐</span>GLD: Double-top pattern warns of near-term pullback from $481 highs, but $422 support and MACD bullish crossover suggest a bounce entry — watch $422-425 zone for long setup if Iran escalates.</li>
+        <li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px"><span style="color:#f59e0b;margin-right:6px">☐</span>NFLX: Goldman upgraded to Buy — RSI 65 elevated and R/R unfavorable (resistance $100.19 only 1.5% away). Wait for a pullback to $93-94 support before entering; don't chase the upgrade gap.</li>
+        <li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px"><span style="color:#f59e0b;margin-right:6px">☐</span>Avoid all airline longs (DAL, UAL, LUV, AAL) until Strait resolution — $110 Brent = ~40% of airline operating costs; any gap-down on Tuesday non-deal is brutal. Cash is the position until Wednesday.</li>
+      </ul>
+    </div>
+
+    <!-- Stoic Quote -->
+    <div style="border-left:3px solid #f59e0b;padding:12px 16px;background:#0f1a2e;border-radius:0 6px 6px 0">
+      <p style="margin:0 0 6px;font-style:italic;color:#fcd34d;font-size:13px;line-height:1.6">"You have power over your mind — not outside events. Realize this, and you will find strength."</p>
+      <footer style="font-size:11px;color:#94a3b8;font-style:normal">— Marcus Aurelius — Meditations</footer>
+    </div>
+  </div>
+
+  <!-- Sentiment block -->
+  <div style="background:#111827;border-radius:8px;padding:16px;margin-bottom:20px">
+    <div style="font-size:1.3rem;font-weight:700;color:#ff8f00">MIXED (-2/10)</div>
+    <p style="margin:10px 0 0;font-size:14px;color:#aac8ff">The market is caught between two irreconcilable forces: genuine ceasefire momentum (Iran formulating a response, OPEC ready to boost output, futures rising) and Trump's most aggressive ultimatum yet (threatening to destroy power plants and bridges). Brent holding above $110 signals the risk premium is not going away, while thin European liquidity today (Easter Monday) will amplify any headline-driven move in either direction. The week of April 6 will likely define the market narrative for Q2 — either a sharp relief rally on Strait reopening, or a catastrophic escalation spike toward $120+ crude.</p>
+  </div>
+
+  <!-- Macro Events -->
+  <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 12px">🌐 Key Macro Events &amp; Causal Analysis</h2>
+
+  <!-- Event 1: Iran Strait of Hormuz Tuesday Deadline -->
+  <div style="background:#1a0f0f;border-left:3px solid #ff1744;padding:14px 16px;margin:10px 0;border-radius:4px">
+    <div style="font-size:11px;color:#ff1744;font-weight:700;margin-bottom:6px">CRITICAL IMPACT · INTRADAY TO WEEKS</div>
+    <div style="font-weight:600;margin-bottom:8px">Trump Issues Tuesday Ultimatum: Open Strait of Hormuz or Face Destruction of Iran's Power Grid &amp; Infrastructure</div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px">
+      <strong style="color:#e2e8f0">Causal chain (Escalation):</strong> Tuesday deadline expires → Iran refuses → US strikes power plants, bridges, industrial targets → Iranian military responds with mining/blockade of Strait reinforcement → 21% of global oil + 20% of LNG trade disrupted → Brent spikes to $120-130 in 24h → Asian refiners reroute via Cape of Good Hope (+12-14 days voyage, +$2M per trip in fuel) → war-risk insurance premiums on VLCCs triple → freight indices spike 40-60% → global supply chain second shock → US/EU CPI gets a new energy pulse (already elevated from 38 days of war) → Fed trapped between stagflation and recession → S&P multiple compression 10-15% additional downside.<br><br>
+      <strong style="color:#e2e8f0">Causal chain (De-escalation):</strong> Iran accepts ceasefire framework before Tuesday → Strait reopens within 72h → OPEC immediately releases pledged extra output → Brent falls 15-20% to $90-95 range → energy sector selloff (XOM, CVX, OXY down 8-12%) → airlines rally 10-15% (DAL, UAL, LUV) → consumer discretionary recovers → bond yields fall as inflation narrative softens → equities broadly up 3-5%.<br><br>
+      <strong style="color:#e2e8f0">Geographic dimension:</strong> The Strait of Hormuz at its narrowest is 21 miles wide; it connects the Persian Gulf to the Gulf of Oman. Qatar (LNG), UAE (oil), Kuwait, Iraq, and Saudi Arabia all depend on it for exports. An extended closure would directly impact Dutch TTF gas futures (+8-15% spike), European energy security, and South Asian import bills (India, Pakistan, Sri Lanka).<br><br>
+      <strong style="color:#e2e8f0">Historical analog:</strong> September 2019 Abqaiq/Khurais drone attack on Saudi Aramco — Brent +15% in 24 hours, tanker stocks ran 20-35% in one week, then faded over 3 weeks as supply was restored. The key difference: this is a prolonged blockade, not a one-day attack. Analog closer to 1973 Arab oil embargo: S&P -15% over 6 months, energy sector tripled.
+    </div>
+    <div style="font-size:12px;color:#ff8f00;margin-bottom:10px">⚠️ Counterargument: Iran's foreign ministry signaling a "formulated response" to ceasefire proposals suggests back-channel diplomacy is active. Trump's rhetoric may be maximalist positioning before a deal — the Tuesday deadline could be an orchestrated pressure move, not an actual trigger. Oil sliding today despite the ultimatum suggests markets are pricing de-escalation.</div>
+    <!-- Stock tags -->
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">XOM ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">CVX ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">OXY ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">FRO ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">DHT ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">INSW ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">LMT ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">RTX ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">GLD ▲</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">DAL ▼</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">UAL ▼</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">LUV ▼</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">AAL ▼</span>
+    </div>
+  </div>
+
+  <!-- Event 2: Dual Oil Supply Disruption — Iran + Ukraine -->
+  <div style="background:#1a0f0f;border-left:3px solid #ff1744;padding:14px 16px;margin:10px 0;border-radius:4px">
+    <div style="font-size:11px;color:#ff1744;font-weight:700;margin-bottom:6px">HIGH IMPACT · WEEKS TO MONTHS</div>
+    <div style="font-weight:600;margin-bottom:8px">Dual Oil Supply Shock: Strait of Hormuz Blockade + Ukraine Drone Strikes on Russian Oil Infrastructure Keep Brent Above $110</div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px">
+      <strong style="color:#e2e8f0">Causal chain:</strong> Brent already above $110 on Strait disruption → Ukraine drones simultaneously hitting Russian oil export infrastructure → removes Russia as compensating supplier → OPEC spare capacity pledged but inaccessible while Strait is blocked → FT analysis: "govts and central banks are out of policy ammunition" → energy CPI stays elevated → real consumer purchasing power erosion → retail sales disappoint → S&P earnings estimates revised down 5-8% for consumer sectors → PE buyout activity slumps (already down 36% per FT) as LBO financing costs spike on rate uncertainty.<br><br>
+      <strong style="color:#e2e8f0">Geographic dimension:</strong> Russian oil exports flow primarily through Baltic (Primorsk, Ust-Luga) and Black Sea (Novorossiysk) terminals — all within Ukrainian drone range. Iranian blockade = Persian Gulf/Hormuz. Two simultaneous disruption vectors means there is no easy backstop supplier.<br><br>
+      <strong style="color:#e2e8f0">Historical analog:</strong> 1973 Arab embargo + Soviet grain export disruption created the stagflation decade. Today's analog: Iran blockade + Ukraine drone campaign = 1973-style supply squeeze without the policy tools to respond (rates already elevated, fiscal space limited per EU warning).
+    </div>
+    <div style="font-size:12px;color:#ff8f00;margin-bottom:10px">⚠️ Counterargument: A Hormuz deal would unlock OPEC spare capacity fast — Saudi Arabia and UAE can add 2-3M bbl/day quickly, offsetting Russian disruption. Don't assume both vectors persist simultaneously.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">XOM ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">CVX ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">PSX ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">VLO ▲</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">XRT ▼</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">AMZN ▼</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">TGT ▼</span>
+    </div>
+  </div>
+
+  <!-- Event 3: Iran university bombing, civilian casualties, Houthis enter war -->
+  <div style="background:#1a0f0f;border-left:3px solid #ff1744;padding:14px 16px;margin:10px 0;border-radius:4px">
+    <div style="font-size:11px;color:#ff1744;font-weight:700;margin-bottom:6px">HIGH IMPACT · DAYS TO WEEKS</div>
+    <div style="font-weight:600;margin-bottom:8px">Iran's Top University Bombed (34 Killed), Houthis Enter Iran War — Conflict Widening Risk Accelerates</div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px">
+      <strong style="color:#e2e8f0">Causal chain:</strong> Bombing of civilian infrastructure (university, 34 killed) + Houthis now active in conflict → Iran domestic political pressure to retaliate overwhelms diplomats → risk of Iranian ballistic missile strikes on US bases (Qatar, Bahrain, Kuwait) or Israeli cities → US carrier group response → conflict becomes multi-front regional war → Saudi Arabia potentially drawn in → risk-off spike globally → Gold +5-8%, TLT +3-4%, EM equities -8-12%, EUR/USD -1.5-2%.<br><br>
+      Yemen's Houthis entering the war adds a second front against Red Sea shipping (Bab-el-Mandeb Strait) — potentially closing BOTH major Middle East chokepoints simultaneously. This is the extreme tail risk scenario: Hormuz + Bab-el-Mandeb closed = 40% of global seaborne oil off market.<br><br>
+      <strong style="color:#e2e8f0">Geographic dimension:</strong> Lebanon (Israeli attacks, 1M+ displaced), Yemen (Houthis), Iran — three simultaneous conflict zones. US has carrier groups in Persian Gulf and Eastern Mediterranean.<br><br>
+      <strong style="color:#e2e8f0">Historical analog:</strong> 1982 Falklands crisis widened unexpectedly from a limited conflict; 2006 Lebanon war + simultaneous Gaza operation stretched Israeli military. Multi-front conflicts historically last 2-3x longer than market initially prices.
+    </div>
+    <div style="font-size:12px;color:#ff8f00;margin-bottom:10px">⚠️ Counterargument: US rescue of American airman (BBC confirms successful operation) gives Trump a political "win" that may create political space for ceasefire — a victory narrative that doesn't require further escalation.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">GLD ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">TLT ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">LMT ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">NOC ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">HII ▲</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">EEM ▼</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">VT ▼</span>
+    </div>
+  </div>
+
+  <!-- Event 4: OPEC pledges output boost + India returns to Iranian oil -->
+  <div style="background:#1a1000;border-left:3px solid #ff8f00;padding:14px 16px;margin:10px 0;border-radius:4px">
+    <div style="font-size:11px;color:#ff8f00;font-weight:700;margin-bottom:6px">MEDIUM IMPACT · WEEKS</div>
+    <div style="font-weight:600;margin-bottom:8px">OPEC Pledges Output Boost Post-Reopening; India Resumes Iranian Oil Imports (7-Year Hiatus)</div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px">
+      <strong style="color:#e2e8f0">OPEC Causal chain:</strong> OPEC publicly commits to immediate output boost once Strait opens → asymmetric dynamic: creates a powerful de-escalation incentive for all parties → oil market pricing this in (Brent sliding today despite Trump threats) → in a ceasefire scenario, OPEC output + Strait reopening = Brent could fall to $85-90 in 2-3 weeks → energy stocks recalibrate 12-18% lower in that scenario.<br><br>
+      <strong style="color:#e2e8f0">India Causal chain:</strong> India resuming Iranian crude imports (7-year hiatus) after US-Iran war signals India's independent foreign policy posture → India buys at steep discount (Iranian crude -$15-20/bbl vs market) → this limits upside pressure on Indian CPI → positive for Indian equities (INDA) and rupee stability → but signals limits of US coercive diplomacy, weakening diplomatic leverage over Iran → geopolitically prolongs conflict dynamic.<br><br>
+      <strong style="color:#e2e8f0">Historical analog:</strong> India's continued purchases of Russian oil post-2022 despite sanctions pressure — India consistently prioritizes energy security over US geopolitical demands.
+    </div>
+    <div style="font-size:12px;color:#ff8f00;margin-bottom:10px">⚠️ Counterargument: OPEC's pledge is only deliverable if Strait opens — it's a conditional signal, not actual supply. India's move could trigger US sanctions secondary pressure on Indian banks.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">INDA ▲</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">XOM ▼ (ceasefire)</span>
+      <span style="border:1px solid #ff1744;color:#ff1744;font-size:11px;padding:2px 8px;border-radius:4px">CVX ▼ (ceasefire)</span>
+    </div>
+  </div>
+
+  <!-- Event 5: Paramount $24B Gulf deal + Netflix Goldman upgrade -->
+  <div style="background:#0f1a0f;border-left:3px solid #78909c;padding:14px 16px;margin:10px 0;border-radius:4px">
+    <div style="font-size:11px;color:#78909c;font-weight:700;margin-bottom:6px">LOW-MEDIUM IMPACT · INTRADAY TO WEEKS</div>
+    <div style="font-weight:600;margin-bottom:8px">Media Sector Catalyst: Paramount Secures $24B from Gulf Sovereign Funds for Warner Deal; Goldman Upgrades Netflix to Buy</div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px">
+      <strong style="color:#e2e8f0">Paramount Causal chain:</strong> WSJ reports $24B Gulf sovereign wealth fund backing for Paramount-Warner deal → deal certainty increases significantly → PARA ▲ on funding confirmation → WBD (Warner Bros Discovery) ▲ → media sector M&A premium re-rate → CMCSA, DIS may attract speculation. Gulf sovereign funds (Saudi PIF, Abu Dhabi's Mubadala) diversifying media investments despite — or perhaps because of — the oil war generating massive windfall revenues. "Petrodollar recycling" into US entertainment assets is a historical pattern.<br><br>
+      <strong style="color:#e2e8f0">Netflix Goldman upgrade causal chain:</strong> Goldman raises NFLX to Buy citing "more positive risk-reward from current levels" → institutional buy pressure → NFLX currently above 50-DMA at $88 with RSI 65 → elevated but not extreme. In a war environment, streaming benefits from increased home entertainment as travel demand softens.
+    </div>
+    <div style="font-size:12px;color:#ff8f00;margin-bottom:10px">⚠️ Counterargument: PE buyouts already down 36% (FT) — deal-making environment is tough. NFLX RSI 65 with resistance at $100.19 just 1.5% away makes chasing the Goldman upgrade risky intraday.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">PARA ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">WBD ▲</span>
+      <span style="border:1px solid #00c853;color:#00c853;font-size:11px;padding:2px 8px;border-radius:4px">NFLX ▲</span>
+    </div>
+  </div>
+
+  <!-- Sector Outlook -->
+  <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">📊 Sector Outlook (GICS)</h2>
+  <div class="scroll-table"><table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
+    <tr style="color:#64748b;font-size:11px;text-transform:uppercase;border-bottom:1px solid #1e2d47">
+      <td style="padding:6px 8px">Sector</td><td style="padding:6px 8px">Call</td><td style="padding:6px 8px">Key Names</td><td style="padding:6px 8px">Rationale</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">⚡ Energy (XLE)</td>
+      <td style="padding:8px;color:#00c853;font-weight:700">BULLISH</td>
+      <td style="padding:8px">XOM, CVX, OXY, PSX</td>
+      <td style="padding:8px;color:#94a3b8">Brent >$110 structural support; dual disruption (Iran + Russia) removes supply cushion</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">🛡️ Defense (ITA/XAR)</td>
+      <td style="padding:8px;color:#00c853;font-weight:700">BULLISH</td>
+      <td style="padding:8px">LMT, RTX, NOC, GD, HII</td>
+      <td style="padding:8px;color:#94a3b8">38-day active war; US airman rescue signals ongoing ops; Congress will authorize more spending</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">🚢 Tankers/Shipping</td>
+      <td style="padding:8px;color:#00c853;font-weight:700">BULLISH</td>
+      <td style="padding:8px">FRO, DHT, INSW, STNG</td>
+      <td style="padding:8px;color:#94a3b8">Cape of Good Hope rerouting premium; war-risk insurance surcharge; longer voyage days = tighter supply</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">🏥 Healthcare (XLV)</td>
+      <td style="padding:8px;color:#78909c;font-weight:700">NEUTRAL</td>
+      <td style="padding:8px">JNJ, UNH, LLY</td>
+      <td style="padding:8px;color:#94a3b8">Defensive haven but no specific catalyst; watch LLY on GLP-1 demand data</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">⚙️ Industrials (XLI)</td>
+      <td style="padding:8px;color:#ff8f00;font-weight:700">MIXED</td>
+      <td style="padding:8px">CAT, DE, GE, UPS</td>
+      <td style="padding:8px;color:#94a3b8">Fuel cost headwinds for logistics (UPS, FDX); infrastructure rebuild thesis benefits CAT long-term</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">💻 Technology (XLK)</td>
+      <td style="padding:8px;color:#ff8f00;font-weight:700">MIXED</td>
+      <td style="padding:8px">NVDA, MSFT, AAPL</td>
+      <td style="padding:8px;color:#94a3b8">AI data center boom intact (CNBC); but war risk-off pressure weighs on high-multiple growth; PE deals down 36%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">📺 Comm. Services (XLC)</td>
+      <td style="padding:8px;color:#00c853;font-weight:700">BULLISH</td>
+      <td style="padding:8px">NFLX, PARA, WBD</td>
+      <td style="padding:8px;color:#94a3b8">Goldman NFLX upgrade; Paramount $24B Gulf deal; streaming benefits from wartime home entertainment demand</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">🛍️ Cons. Discretionary (XLY)</td>
+      <td style="padding:8px;color:#ff1744;font-weight:700">BEARISH</td>
+      <td style="padding:8px">AMZN, TGT, HD</td>
+      <td style="padding:8px;color:#94a3b8">$110 oil → fuel surcharges on everything; consumer squeezed; Vietnam gig workers signal emerging market demand destruction</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px">🏦 Financials (XLF)</td>
+      <td style="padding:8px;color:#ff8f00;font-weight:700">MIXED-BEARISH</td>
+      <td style="padding:8px">JPM, GS, MS, BAC</td>
+      <td style="padding:8px;color:#94a3b8">PE buyouts down 36% (FT); M&A pipeline frozen; but PARA deal shows some capital markets activity resuming</td>
+    </tr>
+  </table></div>
+
+  <!-- Commodity Outlook -->
+  <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 12px">🛢️ Commodity &amp; Currency Outlook</h2>
+  <div class="scroll-table"><table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
+    <tr style="color:#64748b;font-size:11px;text-transform:uppercase;border-bottom:1px solid #1e2d47">
+      <td style="padding:6px 8px">Asset</td><td style="padding:6px 8px">Level</td><td style="padding:6px 8px">Bias</td><td style="padding:6px 8px">Key driver</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">Brent Crude</td><td style="padding:8px">~$110/bbl</td><td style="padding:8px;color:#00c853">BULLISH</td><td style="padding:8px;color:#94a3b8">Dual supply disruption; Tuesday deadline binary risk; OPEC conditional pledge limits upside</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">WTI Crude</td><td style="padding:8px">~$106/bbl est.</td><td style="padding:8px;color:#00c853">BULLISH</td><td style="padding:8px;color:#94a3b8">Follows Brent; US shale can't compensate for 20M bbl/day Hormuz displacement</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">Natural Gas (TTF)</td><td style="padding:8px">Elevated</td><td style="padding:8px;color:#00c853">BULLISH</td><td style="padding:8px;color:#94a3b8">Qatar LNG at risk via Hormuz; EU energy crunch warning (FT); Ukraine drones add risk premium</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">Gold (GLD)</td><td style="padding:8px">$429/oz</td><td style="padding:8px;color:#ff8f00">MIXED-BULLISH</td><td style="padding:8px;color:#94a3b8">Double-top pattern warns of near-term pullback; but war escalation = safe-haven demand spike; MACD bullish crossover</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">Silver</td><td style="padding:8px">—</td><td style="padding:8px;color:#00c853">BULLISH</td><td style="padding:8px;color:#94a3b8">Follows gold; industrial demand softens on growth fears but precious metal bid dominates</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">Copper</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff1744">BEARISH</td><td style="padding:8px;color:#94a3b8">Demand destruction from oil shock → manufacturing slowdown; China macro uncertainty</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">Wheat</td><td style="padding:8px">—</td><td style="padding:8px;color:#00c853">BULLISH</td><td style="padding:8px;color:#94a3b8">Ukraine conflict + energy cost pass-through to food production; fertilizer (natural gas derived) prices elevated</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">DXY (Dollar Index)</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff8f00">MIXED</td><td style="padding:8px;color:#94a3b8">Safe-haven bid but US running energy inflation; treasury issuance concerns; dollar loses reserve appeal in Iran dispute</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">EUR/USD</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff1744">BEARISH EUR</td><td style="padding:8px;color:#94a3b8">EU fiscal crisis risk from energy costs; ECB constrained; European markets closed today (thin liquidity)</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">USD/JPY</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff8f00">MIXED</td><td style="padding:8px;color:#94a3b8">Risk-off = yen safe haven bid; BOJ normalization offsets; war escalation = yen strengthens</td></tr>
+    <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">USD/CNH</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff8f00">MIXED</td><td style="padding:8px;color:#94a3b8">China major oil importer; $110 oil pressures trade balance; but China-India both buying discounted Iranian crude</td></tr>
+  </table></div>
+
+  <!-- Watchlist -->
+  <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">🎯 Today's Watchlist</h2>
+  <div class="scroll-table"><table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px" class="watchlist-table">
+    <tr style="color:#64748b;font-size:11px;text-transform:uppercase;border-bottom:1px solid #1e2d47">
+      <td style="padding:6px 8px">Ticker</td><td style="padding:6px 8px">Signal</td><td style="padding:6px 8px">Catalyst</td><td style="padding:6px 8px">Entry Idea</td><td style="padding:6px 8px">Risk</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">XOM</td>
+      <td style="padding:8px;color:#ff8f00">WATCH (neutral chart)</td>
+      <td style="padding:8px;color:#94a3b8">Brent >$110, Iran deadline</td>
+      <td style="padding:8px;color:#94a3b8">Wait for pullback to $154 support; MACD bearish crossover → avoid chase</td>
+      <td style="padding:8px;color:#94a3b8">Ceasefire tanks oil -15%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">FRO</td>
+      <td style="padding:8px;color:#ff8f00">WATCH (neutral chart)</td>
+      <td style="padding:8px;color:#94a3b8">Tanker war-risk premium; rerouting demand</td>
+      <td style="padding:8px;color:#94a3b8">Breakout above $38.66 on volume; currently RSI 64 elevated</td>
+      <td style="padding:8px;color:#94a3b8">R/R 0.6x — insufficient; wait for pullback to $33</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">GLD</td>
+      <td style="padding:8px;color:#ff8f00">WATCH (mixed)</td>
+      <td style="padding:8px;color:#94a3b8">Safe-haven demand; Iran escalation; inflation hedge</td>
+      <td style="padding:8px;color:#94a3b8">$422-425 support zone entry; MACD bullish crossover favorable</td>
+      <td style="padding:8px;color:#94a3b8">Double-top pattern suggests $400 target on ceasefire deal</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">NFLX</td>
+      <td style="padding:8px;color:#ff8f00">WATCH (neutral)</td>
+      <td style="padding:8px;color:#94a3b8">Goldman Buy upgrade; streaming wartime demand</td>
+      <td style="padding:8px;color:#94a3b8">Wait for pullback to $93-94 support; RSI 65 + R/R 0.3x = don't chase</td>
+      <td style="padding:8px;color:#94a3b8">Earnings miss on subscribers would gap-down 10%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">LMT</td>
+      <td style="padding:8px;color:#ff8f00">WATCH (neutral)</td>
+      <td style="padding:8px;color:#94a3b8">38-day war, US airman rescue, defense spending</td>
+      <td style="padding:8px;color:#94a3b8">Below all DMAs; double-top + H&amp;S patterns — wait for $618 support test</td>
+      <td style="padding:8px;color:#94a3b8">Bearish chart patterns override bullish macro thesis</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">DAL</td>
+      <td style="padding:8px;color:#ff1744">AVOID</td>
+      <td style="padding:8px;color:#94a3b8">—</td>
+      <td style="padding:8px;color:#94a3b8">No entry — fuel cost headwind is structural until Strait reopens</td>
+      <td style="padding:8px;color:#94a3b8">$110 oil = margin destruction</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1e2d47">
+      <td style="padding:8px;font-weight:700">PARA</td>
+      <td style="padding:8px;color:#ff8f00">WATCH</td>
+      <td style="padding:8px;color:#94a3b8">$24B Gulf SWF funding for Warner deal (WSJ)</td>
+      <td style="padding:8px;color:#94a3b8">Monitor for pre-market gap; watch for deal confirmation from company</td>
+      <td style="padding:8px;color:#94a3b8">Financing could fall through; PE markets frozen (deals -36%)</td>
+    </tr>
+  </table></div>
+
+  <!-- Trading Decisions Summary -->
+  <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">💼 Trading Decisions — April 6, 2026</h2>
+  <div style="background:#111827;border-left:3px solid #60a5fa;padding:14px 16px;border-radius:4px;margin-bottom:20px">
+    <div style="font-size:13px;color:#e2e8f0;margin-bottom:8px"><strong>Portfolio:</strong> $25,000 cash · 0 open positions · All settled</div>
+    <div style="font-size:13px;color:#e2e8f0;margin-bottom:8px"><strong>Decision: NO TRADES TODAY</strong></div>
+    <div style="font-size:13px;color:#94a3b8">Reviewed XOM (NEUTRAL -1, R/R 1.2x), GLD (NEUTRAL 0, double-top pattern), LMT (NEUTRAL -1, H&amp;S + double-top), NFLX (NEUTRAL +1, RSI 65, R/R 0.3x), FRO (NEUTRAL +1, RSI 64, R/R 0.6x). Rules require BUY/STRONG_BUY signal AND ≥1.5x risk-reward — none qualify. More critically: the Tuesday Iran deadline creates a binary macro event where weak chart signals in either direction could be overwhelmed by a 10-15% gap move. Cash preservation until Wednesday post-deadline resolution is the disciplined choice. "Cash is a position."</div>
+  </div>
+
+  <!-- Risks -->
+  <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">⚠️ Key Risks to Watch Today</h2>
+
+  <div style="background:#1a0808;border:1px solid #ff1744;border-radius:6px;padding:14px;margin:10px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-weight:700;color:#ff1744">🔴 CRITICAL — Trump Tuesday Deadline Triggers Direct Strike on Iranian Infrastructure</span>
+    </div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px"><strong style="color:#e2e8f0">Causal chain:</strong> Deadline passes without deal → US/Israel strike Iranian power plants + bridges → Iran retaliates (mining Strait, missile strikes) → Brent spikes to $120-130 → global equity risk-off (-5 to -10% S&amp;P intraday) → energy/defense gap up, everything else gaps down</div>
+    <div style="font-size:11px;color:#64748b">Sources:
+      <a href="https://www.cnbc.com/2026/04/05/crude-oil-prices-iran-war-strait-hormuz.html" style="color:#60a5fa">Oil prices slide as Trump warns Iran to open Strait by Tuesday or face 'hell' — CNBC</a> ·
+      <a href="https://www.ft.com/content/50943619-f694-4f49-bacf-6191b9096215" style="color:#60a5fa">Trump vows to destroy Iran's power plants and bridges — FT</a> ·
+      <a href="https://www.aljazeera.com/news/liveblog/2026/4/6/iran-war-live-tehran-rejects-trumps-tuesday-deadline-on-strait-of-hormuz" style="color:#60a5fa">Iran war live: Tehran rejects Trump's Hormuz deadline — Al Jazeera</a>
+    </div>
+  </div>
+
+  <div style="background:#1a0808;border:1px solid #ff4444;border-radius:6px;padding:14px;margin:10px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-weight:700;color:#ff4444">🔴 HIGH — Houthis + Lebanon = Multi-Front Conflict; Red Sea Second Closure (Bab-el-Mandeb)</span>
+    </div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px"><strong style="color:#e2e8f0">Causal chain:</strong> Houthis entering Iran war → resume Red Sea shipping attacks → Bab-el-Mandeb closure + Hormuz blockade = 40% of global seaborne oil off market simultaneously → supply shock of historic scale → tanker FRO/DHT surge 25-40%, but global growth collapses → stagflation shock</div>
+    <div style="font-size:11px;color:#64748b">Sources:
+      <a href="https://www.aljazeera.com/news/2026/4/6/yemens-civilians-fear-fallout-after-houthis-enter-iran-war" style="color:#60a5fa">Yemen's civilians fear fallout after Houthis enter Iran war — Al Jazeera</a> ·
+      <a href="https://www.aljazeera.com/news/2026/4/6/families-fleeing-israeli-attacks-take-refuge-in-lebanon-mountains" style="color:#60a5fa">Families fleeing Israeli attacks take refuge in Lebanon's mountains — Al Jazeera</a>
+    </div>
+  </div>
+
+  <div style="background:#1a1000;border:1px solid #ff8f00;border-radius:6px;padding:14px;margin:10px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-weight:700;color:#ff8f00">🟠 HIGH — EU Fiscal Crisis from Energy Costs; Sovereign Spread Risk</span>
+    </div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px"><strong style="color:#e2e8f0">Causal chain:</strong> EU governments deploying energy subsidies → EU warns excessive spending has "serious fiscal implications" → sovereign bond spreads widen (Italy, Spain risk) → EUR/USD breaks lower → EUR-denominated assets reprice → European bank stress → contagion to US credit markets</div>
+    <div style="font-size:11px;color:#64748b">Sources:
+      <a href="https://www.ft.com/content/cee4cbc8-95ff-4c10-83fa-a5bdb1833baf" style="color:#60a5fa">EU warns capitals against turning energy crunch into fiscal crisis — FT</a> ·
+      <a href="https://www.ft.com/content/2b6afabf-6193-4339-b084-a0fb927a8f1d" style="color:#60a5fa">Why this oil shock is different — FT</a>
+    </div>
+  </div>
+
+  <div style="background:#1a1000;border:1px solid #ff8f00;border-radius:6px;padding:14px;margin:10px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-weight:700;color:#ff8f00">🟠 MEDIUM — Thin Liquidity Today (European Markets Closed — Easter Monday) Amplifies Moves</span>
+    </div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px"><strong style="color:#e2e8f0">Causal chain:</strong> Major European stock markets closed → US market participants reduced → any Iran headline (positive or negative) creates outsized price swing in thin liquidity → bid-ask spreads widen → algorithmic stops trigger prematurely → intraday volatility 2x normal on news-driven moves. This is a day to WIDEN stops and REDUCE size if entering at all.</div>
+    <div style="font-size:11px;color:#64748b">Source: <span style="color:#60a5fa">Oil turns lower amid Iran ceasefire hopes; major European stock markets closed — Investing.com</span></div>
+  </div>
+
+  <div style="background:#0f1000;border:1px solid #78909c;border-radius:6px;padding:14px;margin:10px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-weight:700;color:#78909c">⚪ MEDIUM — Hungary Gas Pipeline Attack Plot Ahead of Election</span>
+    </div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px"><strong style="color:#e2e8f0">Causal chain:</strong> Alleged plot to blow up Hungarian gas pipeline 1 week before elections → if successful/credible, adds new European energy security fear → Dutch TTF natural gas spike → European inflation narrative worsens → ECB constrained longer → EUR negative, TLT potential safe haven play</div>
+    <div style="font-size:11px;color:#64748b">Source:
+      <a href="https://www.bbc.com/news/articles/cj60x206dx1o" style="color:#60a5fa">Hungary alleges plot to blow up gas pipeline ahead of election — BBC</a>
+    </div>
+  </div>
+
+  <div style="background:#0f1000;border:1px solid #78909c;border-radius:6px;padding:14px;margin:10px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-weight:700;color:#78909c">⚪ LOW-MEDIUM — PE Buyouts Down 36%; Credit Markets Tightening</span>
+    </div>
+    <div style="font-size:13px;color:#aac8ff;margin-bottom:8px"><strong style="color:#e2e8f0">Causal chain:</strong> PE acquisitions $172B in Q1 2026, down 36% from prior quarter → LBO financing costs elevated → deal-making freeze → investment banking revenue miss → major bank earnings miss on advisory/IB fees → XLF underperforms → signals broader credit tightening</div>
+    <div style="font-size:11px;color:#64748b">Source:
+      <a href="https://www.ft.com/content/52ba3545-72ae-4bb6-86dd-1f892adccecf" style="color:#60a5fa">Private equity buyouts slump as AI fears and war dent dealmaking — FT</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top:28px;padding-top:16px;border-top:1px solid #1e2d47;font-size:11px;color:#64748b;text-align:center">
+    <a href="https://arrakistacos.github.io/morning-brief/" style="color:#3b82f6">View Full Dashboard &amp; Historical Reports</a>
+    &nbsp;·&nbsp; Powered by Anthropic Claude
+  </div>
+
+</div>
+</div>
+</body>
+</html>
