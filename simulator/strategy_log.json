@@ -29,5 +29,20 @@
       "midday",
       "daily-review"
     ]
+  },
+  {
+    "date": "2026-04-06",
+    "type": "trade_decision",
+    "note": "No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) \u2014 all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&S bearish patterns + below all DMAs, GLD double-top pattern + below all DMAs. Market in binary mode with Trump's Iran Strait of Hormuz Tuesday deadline \u2014 entering with weak signals during a potential volatility binary event violates the 'no fighting the tape' rule. Holding $25,000 cash. Will reassess Wednesday once Tuesday deadline resolution is known. Key watch: if Iran ceases hostilities \u2192 oil drops, airlines/consumer rally; if deadline fails \u2192 escalation, oil spikes to $120+, energy/defense outperform.",
+    "tags": [
+      "no_trade",
+      "iran_deadline",
+      "cash_preservation",
+      "XOM",
+      "GLD",
+      "LMT",
+      "NFLX",
+      "FRO"
+    ]
   }
 ]
