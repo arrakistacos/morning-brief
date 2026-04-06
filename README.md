@@ -12,7 +12,7 @@ Every weekday this system delivers a structured morning brief covering overnight
 
 ## 📱 Schwab Android Execution Guide
 
-[📱 Schwab Android Execution Guide](docs/Schwab_Android_Execution_Guide.docx)
+[📱 Schwab Android Execution Guide](docs/schwab-execution-guide.md)
 
 Translates every simulator trade signal (entry price, stop loss, take profit, OCO bracket orders) into step-by-step Charles Schwab Android app instructions.
 
@@ -49,7 +49,7 @@ morning-brief/
 │   └── build_dashboard.py   # GitHub Pages dashboard builder
 ├── docs/
 │   ├── index.html                        # GitHub Pages dashboard
-│   └── Schwab_Android_Execution_Guide.docx  # Schwab Android trade execution guide
+│   └── schwab-execution-guide.md        # Schwab Android trade execution guide
 ├── reports/                 # Auto-generated daily reports (JSON + HTML)
 ├── main.py                  # Main orchestrator
 ├── config.py                # Non-secret configuration
