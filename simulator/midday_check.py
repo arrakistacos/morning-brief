@@ -27,6 +27,7 @@ import pytz
 import yfinance as yf
 
 from market_calendar import is_trading_day
+from email_helper import build_midday_email, send_email_via_gmail_mcp
 
 # ---------------------------------------------------------------------------
 REPO_ROOT      = Path(__file__).parent.parent
@@ -569,6 +570,105 @@ def run_midday_check(extra_note: str = "", dry_run: bool = False) -> dict:
             print(f"  ⚠️  Snapshot warning: {snap_result.stderr}")
     else:
         print("  [DRY RUN] Would run eod_snapshot.py --midday")
+
+    # ── 5. Conditional email — only if an action was taken ──────────────────
+    if actions_taken and not dry_run:
+        print("\n📧 Actions detected — building midday alert email...")
+        try:
+            # Reload portfolio for accurate cash snapshot
+            portfolio = load_json(PORTFOLIO_F)
+            settled_cash_now   = portfolio.get("cash", 0)
+            unsettled_now      = sum(u["amount"] for u in portfolio.get("unsettled_cash", []))
+
+            # Parse actions_taken strings into structured dicts for email_helper
+            email_actions = []
+            for a_str in actions_taken:
+                entry: dict = {"ticker": "?", "price": 0.0, "pnl_pct": 0.0, "shares": 0, "reason": a_str}
+                if a_str.startswith("STOP LOSS:"):
+                    entry["type"] = "STOP_LOSS"
+                    # e.g. "STOP LOSS: SOLD 10× XOM at -8.20% loss"
+                    parts = a_str.split()
+                    for i, p in enumerate(parts):
+                        if p.startswith("SOLD"):
+                            pass
+                        if "×" in p and i > 0:
+                            try:
+                                entry["shares"] = int(parts[i - 1])
+                            except Exception:
+                                pass
+                            entry["ticker"] = parts[i + 1] if i + 1 < len(parts) else "?"
+                        if p.startswith("-") and "%" in p:
+                            try:
+                                entry["pnl_pct"] = float(p.replace("%", ""))
+                            except Exception:
+                                pass
+                    try:
+                        entry["price"] = fetch_current_price(entry["ticker"])
+                    except Exception:
+                        pass
+                    entry["reason"] = "8% hard stop triggered — price action invalidated thesis."
+                elif a_str.startswith("PARTIAL PROFIT:"):
+                    entry["type"] = "STOP_LOSS"  # Treat as sell action for email
+                    entry["reason"] = a_str
+                elif a_str.startswith("MIDDAY ENTRY:"):
+                    entry["type"] = "NEW_ENTRY"
+                    # e.g. "MIDDAY ENTRY: BUY 5× NVDA @ $123.45 (STRONG_BUY signal)"
+                    parts = a_str.split()
+                    for i, p in enumerate(parts):
+                        if "×" in p and i > 0:
+                            try:
+                                entry["shares"] = int(parts[i - 1])
+                            except Exception:
+                                pass
+                            entry["ticker"] = parts[i + 1] if i + 1 < len(parts) else "?"
+                        if p.startswith("$") and i > 0:
+                            try:
+                                entry["price"] = float(p.replace("$", "").replace(",", ""))
+                            except Exception:
+                                pass
+                    entry["reason"] = "STRONG_BUY chart signal confirmed morning sentiment."
+                else:
+                    entry["type"] = "NEWS_ALERT"
+                    entry["reason"] = a_str
+
+                email_actions.append(entry)
+
+            # Calculate day P&L vs previous EOD snapshot
+            try:
+                performance = load_json(PERFORMANCE_F)
+                eod_snaps = [s for s in performance if s.get("type", "eod") == "eod"]
+                prev_val  = eod_snaps[-1]["portfolio_value"] if eod_snaps else portfolio_value
+                day_pnl   = round(portfolio_value - prev_val, 2)
+            except Exception:
+                day_pnl = 0.0
+
+            subject, html_body = build_midday_email(
+                actions_taken=email_actions,
+                portfolio_value=portfolio_value,
+                settled_cash=settled_cash_now,
+                positions_value=round(positions_value, 2),
+                daily_pnl=day_pnl,
+                date_str=date_str,
+                time_str=time_str,
+            )
+            send_email_via_gmail_mcp(subject, html_body)
+            print("  ✅ Midday email queued (pending_email.json written)")
+        except Exception as e:
+            print(f"  ⚠️  Could not build midday email: {e}")
+    elif not dry_run:
+        # Log that no email was sent
+        print("\n📭 No midday email sent — no actions taken")
+        try:
+            strategy_log = load_json(STRATEGY_LOG_F)
+            strategy_log.append({
+                "date": date_str,
+                "type": "midday_email_skipped",
+                "note": "No midday email sent — no actions taken",
+                "tags": ["midday", "email", "no-action"],
+            })
+            save_json(STRATEGY_LOG_F, strategy_log)
+        except Exception:
+            pass
 
     print("\n" + "=" * 62)
     print(f"✅ Midday check complete")

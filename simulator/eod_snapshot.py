@@ -26,6 +26,8 @@ Usage:
 
 import argparse
 import json
+import subprocess
+import sys
 from datetime import datetime, date, timedelta
 from pathlib import Path
 
@@ -33,6 +35,7 @@ import pytz
 import yfinance as yf
 
 from market_calendar import is_trading_day, get_market_hours
+from email_helper import build_eod_email, send_email_via_gmail_mcp
 
 # ---------------------------------------------------------------------------
 REPO_ROOT      = Path(__file__).parent.parent
@@ -94,6 +97,52 @@ def settle_pending_cash(portfolio: dict, today_str: str) -> float:
             remaining.append(lot)
     portfolio["unsettled_cash"] = remaining
     return round(settled_amount, 2)
+
+
+def get_tomorrow_watchlist(strategy_log: list, date_str: str) -> list[dict]:
+    """
+    Build a tomorrow watchlist by scanning today's morning watchlist tickers
+    through chart_analysis.py.  Returns up to 5 dicts with ticker/signal/note.
+    """
+    # Find today's morning-analysis entry to get watchlist tickers
+    tickers = []
+    for entry in reversed(strategy_log):
+        if entry.get("date") == date_str and "morning" in " ".join(entry.get("tags", [])):
+            wl = entry.get("watchlist", [])
+            if wl:
+                tickers = [w["ticker"] for w in wl if "ticker" in w]
+            else:
+                note = entry.get("note", "")
+                for word in note.split():
+                    clean = word.strip(".,;:()")
+                    if clean.isupper() and 1 <= len(clean) <= 5 and clean.isalpha():
+                        tickers.append(clean)
+                tickers = tickers[:5]
+            break
+
+    if not tickers:
+        return []
+
+    results = []
+    for ticker in tickers[:5]:
+        try:
+            result = subprocess.run(
+                [sys.executable, str(REPO_ROOT / "simulator" / "chart_analysis.py"),
+                 "--ticker", ticker, "--json"],
+                capture_output=True, text=True, timeout=60,
+            )
+            if result.returncode == 0:
+                data   = json.loads(result.stdout.strip())
+                signal = data.get("composite", {}).get("signal", "—")
+                rsi    = data.get("rsi", {}).get("value")
+                note   = f"RSI {rsi:.0f}" if rsi else ""
+                results.append({"ticker": ticker, "signal": signal, "note": note})
+            else:
+                results.append({"ticker": ticker, "signal": "—", "note": "scan failed"})
+        except Exception as e:
+            results.append({"ticker": ticker, "signal": "—", "note": str(e)[:40]})
+
+    return results
 
 
 def take_snapshot(extra_note: str = "", midday: bool = False) -> dict:
@@ -294,6 +343,24 @@ def take_snapshot(extra_note: str = "", midday: bool = False) -> dict:
         }
         strategy_log.append(log_entry)
         save_json(STRATEGY_LOG_F, strategy_log)
+
+        # ── EOD Email — always send on trading days ──────────────────────
+        print("\n📧 Building EOD summary email...")
+        try:
+            watchlist_tomorrow = get_tomorrow_watchlist(strategy_log, date_str)
+            subj, html_body = build_eod_email(
+                snapshot=snapshot,
+                trades=today_trades,
+                position_details=position_details,
+                extra_note=extra_note,
+                watchlist_tomorrow=watchlist_tomorrow,
+                date_str=date_str,
+            )
+            send_email_via_gmail_mcp(subj, html_body)
+            print("  ✅ EOD email queued (pending_email.json written)")
+        except Exception as e:
+            print(f"  ⚠️  Could not build EOD email: {e}")
+        # ─────────────────────────────────────────────────────────────────
 
     return snapshot
 
