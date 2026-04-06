@@ -78,7 +78,7 @@ def generate_summary_card_html(analysis: dict) -> str:
 
 
 def generate_summary_card_email_html(analysis: dict) -> str:
-    """Generate the prominent executive summary card HTML for the email version."""
+    """Generate mobile-friendly executive summary card for email (table-based, inline CSS)."""
     summary = analysis.get("summary", {})
     if not summary:
         return ""
@@ -89,37 +89,41 @@ def generate_summary_card_email_html(analysis: dict) -> str:
     stoic_text = stoic.get("text", "")
     stoic_attr = stoic.get("attribution", "")
 
-    items_html = "".join([
-        f'<li style="margin:6px 0;font-size:13px;color:#e2e8f0;padding-left:4px">' 
-        f'<span style="color:#f59e0b;margin-right:6px">☐</span>{item}</li>'
-        for item in actionable_items
-    ])
+    items_html = ""
+    for item in actionable_items:
+        items_html += (
+            f'<tr><td style="padding:7px 0;font-size:14px;color:#e2e8f0;font-family:Arial,sans-serif;'
+            f'border-bottom:1px solid #1e2d47;line-height:1.5;">'
+            f'<span style="color:#C4A265;margin-right:8px;">&#9634;</span>{item}</td></tr>'
+        )
 
     return f"""
   <!-- Executive Summary Card -->
-  <div style="background:#1e2d47;border:1px solid #2d4a6e;border-radius:10px;padding:24px;margin-bottom:24px;position:relative">
-    <div style="font-size:10px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">
-      ⚡ Executive Summary
-    </div>
-
-    <!-- The Gist -->
-    <div style="margin-bottom:18px">
-      <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">The Gist</div>
-      <p style="margin:0;font-size:14px;line-height:1.7;color:#e2e8f0;font-weight:500">{gist}</p>
-    </div>
-
-    <!-- Actionable Items -->
-    <div style="margin-bottom:18px">
-      <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Actionable Items</div>
-      <ul style="margin:0;padding:0;list-style:none">{items_html}</ul>
-    </div>
-
-    <!-- Stoic Quote -->
-    <div style="border-left:3px solid #f59e0b;padding:12px 16px;background:#0f1a2e;border-radius:0 6px 6px 0">
-      <p style="margin:0 0 6px;font-style:italic;color:#fcd34d;font-size:13px;line-height:1.6">"{stoic_text}"</p>
-      <footer style="font-size:11px;color:#94a3b8;font-style:normal">— {stoic_attr}</footer>
-    </div>
-  </div>"""
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#1e2d47;border:1px solid #2d4a6e;border-radius:10px;margin-bottom:20px;">
+    <tr>
+      <td style="padding:20px 20px 16px;">
+        <div style="font-size:10px;font-weight:700;color:#60a5fa;text-transform:uppercase;letter-spacing:2px;font-family:Arial,sans-serif;margin-bottom:14px;">&#9889; EXECUTIVE SUMMARY</div>
+        <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;margin-bottom:8px;">THE GIST</div>
+        <p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#e2e8f0;font-family:Arial,sans-serif;font-weight:500;">{gist}</p>
+        <div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;margin-bottom:8px;">ACTIONABLE ITEMS</div>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:16px;">
+          {items_html}
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:0 20px 20px;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td style="border-left:3px solid #C4A265;padding:10px 14px;background-color:#0f1a2e;border-radius:0 6px 6px 0;">
+              <p style="margin:0 0 6px;font-style:italic;color:#fcd34d;font-size:13px;line-height:1.6;font-family:Arial,sans-serif;">&#8220;{stoic_text}&#8221;</p>
+              <div style="font-size:11px;color:#94a3b8;font-family:Arial,sans-serif;">&#8212; {stoic_attr}</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>"""
 
 
 def generate_html_report(analysis: dict, articles: list) -> str:
@@ -475,97 +479,301 @@ def generate_html_report(analysis: dict, articles: list) -> str:
 
 
 def generate_email_html(analysis: dict) -> str:
-    """Simplified email-friendly HTML version."""
+    """
+    Mobile-first email HTML using table-based layout and fully inline CSS.
+    Renders correctly in Gmail Android, iOS Mail, and Outlook.
+    Rules enforced:
+      - All CSS inline (no <style> blocks except a <head> media-query block for Apple Mail/Outlook)
+      - Table-based layout only — no flexbox, no CSS grid
+      - Max width 600px, 100% on mobile
+      - No web fonts (Arial / Georgia only)
+      - Images get explicit width/height
+      - Touch-friendly links (padding on anchors)
+      - Min 14px body text, 1.5-1.6 line-height
+    """
     date = analysis.get("date", "")
     sentiment = analysis.get("overall_sentiment", "NEUTRAL")
     score = analysis.get("sentiment_score", 0)
     score_color = "#00c853" if score > 2 else "#ff1744" if score < -2 else "#ff8f00"
+    score_display = f"{score:+d}"
+
+    # Preheader text (hidden in body but visible in inbox preview)
+    risks_list = analysis.get("risks_to_watch", [])
+    top_risk_obj = risks_list[0] if risks_list else None
+    if isinstance(top_risk_obj, dict):
+        top_risk_label = top_risk_obj.get("risk", "")[:70]
+    elif isinstance(top_risk_obj, str):
+        top_risk_label = top_risk_obj[:70]
+    else:
+        top_risk_label = ""
+    preheader = f"{date} \u2014 Sentiment: {score:+d}/10 \u2014 {top_risk_label}"
 
     summary_card = generate_summary_card_email_html(analysis)
 
-    watchlist_rows = ""
-    for item in analysis.get("watchlist", [])[:8]:
-        action_color = {"WATCH_LONG": "#00c853", "WATCH_SHORT": "#ff1744", "AVOID": "#888"}.get(item.get("action", ""), "#888")
-        watchlist_rows += f"""
-        <tr>
-          <td style="font-family:monospace;font-weight:700;color:{action_color}">{item.get('ticker','')}</td>
-          <td>{item.get('action','').replace('_',' ')}</td>
-          <td>{item.get('catalyst','')}</td>
-        </tr>"""
-
-    macro_html = ""
+    # ── Macro events (max 5) ──────────────────────────────────────────────────
+    macro_rows = ""
     for event in analysis.get("macro_events", [])[:5]:
         sig = event.get("significance", "")
-        sig_color = {"HIGH": "#ff1744", "MEDIUM": "#ff8f00", "LOW": "#888"}.get(sig, "#888")
-        macro_html += f"""
-        <div style="background:#1a2236;border-left:3px solid {sig_color};padding:12px 16px;margin:10px 0;border-radius:4px">
-          <div style="font-size:11px;color:{sig_color};font-weight:700;margin-bottom:6px">{sig} IMPACT · {event.get('time_horizon','')}</div>
-          <div style="font-weight:600;margin-bottom:8px">{event.get('event','')}</div>
-          <div style="font-size:13px;color:#aac8ff">{event.get('causal_chain','')[:400]}...</div>
-        </div>"""
+        sig_color = {
+            "CRITICAL": "#ff1744", "HIGH": "#ff8f00",
+            "MEDIUM": "#f59e0b", "LOW": "#78909c",
+        }.get(sig, "#78909c")
+        causal = event.get("causal_chain", "")
+        if len(causal) > 420:
+            causal = causal[:420] + "&#8230;"
+        time_horizon = event.get("time_horizon", "")
+        event_title = event.get("event", "")
+        macro_rows += f"""
+        <tr><td style="padding:0 0 12px 0;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:3px solid {sig_color};border-radius:0 4px 4px 0;background-color:#1a2236;">
+            <tr><td style="padding:12px 14px;">
+              <div style="font-size:11px;font-weight:700;color:{sig_color};text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;margin-bottom:5px;">{sig} &middot; {time_horizon}</div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0;font-family:Arial,sans-serif;line-height:1.5;margin-bottom:7px;">{event_title}</div>
+              <div style="font-size:13px;color:#93c5fd;font-family:Arial,sans-serif;line-height:1.6;">{causal}</div>
+            </td></tr>
+          </table>
+        </td></tr>"""
 
-    # Build risks for email — supports both old (string) and new (object) formats
-    risks_email_html = ""
-    for risk in analysis.get("risks_to_watch", [])[:4]:
+    # ── Sector outlook rows ───────────────────────────────────────────────────
+    sector_rows = ""
+    for sector, data in analysis.get("sector_outlook", {}).items():
+        color = sentiment_color(data.get("sentiment", ""))
+        sector_name = sector.replace("_", " ").title()
+        sentiment_val = data.get("sentiment", "")
+        reasoning = data.get("reasoning", "")
+        reasoning_short = (reasoning[:120] + "&#8230;") if len(reasoning) > 120 else reasoning
+        sector_rows += f"""
+        <tr>
+          <td style="padding:9px 10px 9px 0;border-bottom:1px solid #1e2d47;font-size:13px;color:#e2e8f0;font-family:Arial,sans-serif;font-weight:600;">{sector_name}</td>
+          <td style="padding:9px 10px;border-bottom:1px solid #1e2d47;font-size:13px;color:{color};font-family:Arial,sans-serif;font-weight:700;white-space:nowrap;">{sentiment_val}</td>
+          <td class="hide-mobile" style="padding:9px 8px;border-bottom:1px solid #1e2d47;font-size:12px;color:#94a3b8;font-family:Arial,sans-serif;line-height:1.5;">{reasoning_short}</td>
+        </tr>"""
+
+    # ── Watchlist rows ────────────────────────────────────────────────────────
+    watchlist_rows = ""
+    for item in analysis.get("watchlist", [])[:8]:
+        action = item.get("action", "")
+        action_color = {
+            "WATCH_LONG": "#00c853", "WATCH_SHORT": "#ff1744", "AVOID": "#888888",
+        }.get(action, "#888888")
+        ticker = item.get("ticker", "")
+        catalyst = item.get("catalyst", "")
+        watchlist_rows += f"""
+        <tr>
+          <td style="padding:10px 8px 10px 0;border-bottom:1px solid #1e2d47;font-family:Arial,sans-serif;font-weight:700;font-size:14px;color:{action_color};white-space:nowrap;">{ticker}</td>
+          <td style="padding:10px 8px;border-bottom:1px solid #1e2d47;font-family:Arial,sans-serif;font-size:13px;color:#94a3b8;white-space:nowrap;">{action.replace('_', ' ')}</td>
+          <td style="padding:10px 8px;border-bottom:1px solid #1e2d47;font-family:Arial,sans-serif;font-size:13px;color:#e2e8f0;line-height:1.5;">{catalyst}</td>
+        </tr>"""
+
+    # ── Key risks (max 4) ─────────────────────────────────────────────────────
+    risks_rows = ""
+    for risk in risks_list[:4]:
         if isinstance(risk, str):
-            risks_email_html += (
-                f'<div style="background:#1a1f2e;border-left:3px solid #ff1744;' 
-                f'padding:10px 14px;margin:8px 0;border-radius:4px;font-size:13px">{risk}</div>'
-            )
+            risks_rows += f"""
+        <tr><td style="padding:0 0 10px 0;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:3px solid #ff1744;border-radius:0 4px 4px 0;background-color:#1a1f2e;">
+            <tr><td style="padding:10px 14px;font-size:14px;color:#e2e8f0;font-family:Arial,sans-serif;line-height:1.5;">{risk}</td></tr>
+          </table>
+        </td></tr>"""
         else:
             sev = risk.get("severity", "")
-            sev_color = {"CRITICAL": "#ff1744", "HIGH": "#ff8f00", "MEDIUM": "#f59e0b", "LOW": "#888"}.get(sev, "#888")
-            sources = risk.get("sources", [])
+            sev_color = {
+                "CRITICAL": "#ff1744", "HIGH": "#ff8f00",
+                "MEDIUM": "#f59e0b", "LOW": "#78909c",
+            }.get(sev, "#78909c")
+            risk_title = risk.get("risk", "")
+            causal = risk.get("causal_chain", "")
+            # Source links — touch-friendly padding
             src_parts = []
-            for s in sources:
+            for s in risk.get("sources", []):
                 outlet = s.get("outlet", s.get("title", ""))
                 url = s.get("url")
                 if url:
-                    src_parts.append(f'<a href="{url}" style="color:#9CA3AF;text-decoration:none">[{outlet}]</a>')
+                    src_parts.append(
+                        f'<a href="{url}" target="_blank" rel="noopener" '
+                        f'style="color:#9CA3AF;text-decoration:none;padding:3px 0;display:inline-block;">[{outlet}]</a>'
+                    )
                 else:
-                    src_parts.append(f'<span style="color:#9CA3AF">[{outlet}]</span>')
-            src_html = ' '.join(src_parts)
-            sources_line = (
-                f'<div style="margin-top:4px;font-size:11px;color:#9CA3AF">Sources: {src_html}</div>'
-                if src_html else ""
-            )
-            risks_email_html += f"""
-            <div style="background:#1a1f2e;border-left:3px solid {sev_color};padding:10px 14px;margin:8px 0;border-radius:4px">
-              <div style="font-size:10px;font-weight:700;color:{sev_color};margin-bottom:4px">⚠️ {sev}</div>
-              <div style="font-size:13px;font-weight:600;margin-bottom:4px">{risk.get('risk','')}</div>
-              <div style="font-size:12px;color:#94a3b8">{risk.get('causal_chain','')}</div>
-              {sources_line}
-            </div>"""
+                    src_parts.append(f'<span style="color:#9CA3AF;font-family:Arial,sans-serif;">[{outlet}]</span>')
+            sources_row = ""
+            if src_parts:
+                sources_row = (
+                    f'<div style="margin-top:6px;font-size:12px;color:#9CA3AF;font-family:Arial,sans-serif;">'
+                    f'Sources: {" ".join(src_parts)}</div>'
+                )
+            risks_rows += f"""
+        <tr><td style="padding:0 0 10px 0;">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-left:3px solid {sev_color};border-radius:0 4px 4px 0;background-color:#1a1f2e;">
+            <tr><td style="padding:12px 14px;">
+              <div style="font-size:11px;font-weight:700;color:{sev_color};text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;margin-bottom:4px;">&#9888; {sev}</div>
+              <div style="font-size:14px;font-weight:700;color:#e2e8f0;font-family:Arial,sans-serif;line-height:1.5;margin-bottom:5px;">{risk_title}</div>
+              <div style="font-size:13px;color:#94a3b8;font-family:Arial,sans-serif;line-height:1.5;">{causal}</div>
+              {sources_row}
+            </td></tr>
+          </table>
+        </td></tr>"""
 
-    return f"""
-<html><body style="background:#0a0e1a;color:#e2e8f0;font-family:Inter,Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px">
-  <div style="border-bottom:1px solid #1e2d47;padding-bottom:16px;margin-bottom:20px">
-    <h1 style="color:#60cfff;font-size:1.4rem;margin:0">📊 Morning Brief — {date}</h1>
-  </div>
+    exec_summary_text = analysis.get("executive_summary", "")
 
-  {summary_card}
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Morning Brief &#8212; {date}</title>
+  <style>
+    /* Media queries for Apple Mail and Outlook — Gmail ignores these */
+    @media only screen and (max-width: 600px) {{
+      .container {{ width: 100% !important; }}
+      .stat-cell {{ width: 50% !important; display: inline-block !important; }}
+      .full-mobile {{ width: 100% !important; display: block !important; }}
+      .hide-mobile {{ display: none !important; }}
+      .td-pad {{ padding-left: 14px !important; padding-right: 14px !important; }}
+      h1 {{ font-size: 20px !important; }}
+    }}
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#0A0E1A;font-family:Arial,sans-serif;">
 
-  <div style="background:#111827;border-radius:8px;padding:16px;margin-bottom:20px">
-    <div style="font-size:1.3rem;font-weight:700;color:{score_color}">{sentiment} ({score:+d}/10)</div>
-    <p style="margin:10px 0 0;font-size:14px;line-height:1.6">{analysis.get('executive_summary','')}</p>
-  </div>
+  <!-- Preheader (hidden preview text) -->
+  <div style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:#0A0E1A;mso-hide:all;">{preheader}&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;</div>
 
-  <h2 style="color:#3b82f6;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em">Key Macro Events</h2>
-  {macro_html}
+  <!-- ═══════════ OUTER WRAPPER ═══════════ -->
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0A0E1A;">
+    <tr>
+      <td align="center" style="padding:20px 10px;">
 
-  <h2 style="color:#3b82f6;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em;margin-top:24px">Today's Watchlist</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:13px">
-    <tr style="color:#64748b;font-size:11px;text-transform:uppercase">
-      <td style="padding:6px">Ticker</td><td>Action</td><td>Catalyst</td>
+        <!-- ═══════════ INNER CONTAINER (max 600px) ═══════════ -->
+        <table class="container" width="600" cellpadding="0" cellspacing="0" border="0"
+               style="max-width:600px;width:100%;background-color:#111827;border-radius:8px;">
+
+          <!-- ── HEADER ── -->
+          <tr>
+            <td style="background-color:#0D1B2A;padding:22px 24px 18px;border-radius:8px 8px 0 0;border-bottom:1px solid #1e2d47;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td valign="middle">
+                    <div style="font-size:10px;font-weight:700;color:#C4A265;text-transform:uppercase;letter-spacing:2px;font-family:Arial,sans-serif;margin-bottom:5px;">Morning Brief</div>
+                    <div style="font-size:22px;font-weight:700;color:#FFFFFF;font-family:Arial,sans-serif;line-height:1.2;">MUAD&#8217;DIB MARKET INTELLIGENCE</div>
+                    <div style="font-size:14px;color:#C4A265;font-family:Arial,sans-serif;margin-top:4px;font-style:italic;">The Sleeper Has Awakened</div>
+                    <div style="font-size:12px;color:#64748b;font-family:Arial,sans-serif;margin-top:8px;">{date}</div>
+                  </td>
+                  <td align="right" valign="middle" style="padding-left:12px;">
+                    <table cellpadding="0" cellspacing="0" border="0"
+                           style="background-color:#1a1f2e;border:2px solid {score_color};border-radius:8px;text-align:center;">
+                      <tr><td style="padding:10px 14px;">
+                        <div style="font-size:30px;font-weight:800;color:{score_color};font-family:Arial,sans-serif;line-height:1;">{score_display}</div>
+                        <div style="font-size:10px;font-weight:700;color:{score_color};font-family:Arial,sans-serif;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">{sentiment}</div>
+                        <div style="font-size:10px;color:#94a3b8;font-family:Arial,sans-serif;">/10</div>
+                      </td></tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── BODY ── -->
+          <tr>
+            <td class="td-pad" style="padding:20px 24px;">
+
+              {summary_card}
+
+              <!-- Executive summary paragraph -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr>
+                  <td style="background-color:#1a2236;border-left:4px solid #3b82f6;border-radius:0 6px 6px 0;padding:14px 16px;">
+                    <p style="margin:0;font-size:14px;line-height:1.6;color:#e2e8f0;font-family:Arial,sans-serif;">{exec_summary_text}</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- ── MACRO EVENTS ── -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;">
+                <tr>
+                  <td style="padding:0 0 12px;border-bottom:1px solid #1e2d47;">
+                    <span style="font-size:12px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">&#127760; Key Macro Events</span>
+                  </td>
+                </tr>
+                <tr><td style="padding-top:12px;">
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    {macro_rows}
+                  </table>
+                </td></tr>
+              </table>
+
+              <!-- ── SECTOR OUTLOOK ── -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr>
+                  <td style="padding:14px 0 10px;border-bottom:1px solid #1e2d47;">
+                    <span style="font-size:12px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">&#128200; Sector Outlook</span>
+                  </td>
+                </tr>
+                <tr><td>
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="padding:6px 10px 6px 0;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;border-bottom:1px solid #1e2d47;">Sector</td>
+                      <td style="padding:6px 10px;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;border-bottom:1px solid #1e2d47;">Outlook</td>
+                      <td class="hide-mobile" style="padding:6px 8px;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;border-bottom:1px solid #1e2d47;">Notes</td>
+                    </tr>
+                    {sector_rows}
+                  </table>
+                </td></tr>
+              </table>
+
+              <!-- ── WATCHLIST ── -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr>
+                  <td style="padding:14px 0 10px;border-bottom:1px solid #1e2d47;">
+                    <span style="font-size:12px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">&#127919; Today&#8217;s Watchlist</span>
+                  </td>
+                </tr>
+                <tr><td>
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="padding:6px 8px 6px 0;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;border-bottom:1px solid #1e2d47;">Ticker</td>
+                      <td style="padding:6px 8px;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;border-bottom:1px solid #1e2d47;">Action</td>
+                      <td style="padding:6px 8px;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;border-bottom:1px solid #1e2d47;">Catalyst</td>
+                    </tr>
+                    {watchlist_rows}
+                  </table>
+                </td></tr>
+              </table>
+
+              <!-- ── KEY RISKS ── -->
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;">
+                <tr>
+                  <td style="padding:14px 0 12px;border-bottom:1px solid #1e2d47;">
+                    <span style="font-size:12px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">&#9888; Key Risks to Monitor</span>
+                  </td>
+                </tr>
+                <tr><td style="padding-top:12px;">
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    {risks_rows}
+                  </table>
+                </td></tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- ── FOOTER ── -->
+          <tr>
+            <td style="background-color:#0D1B2A;padding:16px 24px;border-top:1px solid #1e2d47;border-radius:0 0 8px 8px;text-align:center;">
+              <p style="margin:0 0 6px;font-size:12px;color:#64748b;font-family:Arial,sans-serif;">
+                <a href="https://arrakistacos.github.io/morning-brief/" target="_blank"
+                   style="color:#C4A265;text-decoration:none;padding:4px 0;display:inline-block;">View Full Dashboard</a>
+                &nbsp;&middot;&nbsp; Powered by Anthropic Claude
+              </p>
+              <p style="margin:0;font-size:11px;color:#374151;font-family:Arial,sans-serif;">Not financial advice. For informational purposes only.</p>
+            </td>
+          </tr>
+
+        </table><!-- /inner container -->
+      </td>
     </tr>
-    {watchlist_rows}
-  </table>
+  </table><!-- /outer wrapper -->
 
-  <h2 style="color:#3b82f6;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em;margin-top:24px">⚠️ Key Risks to Monitor</h2>
-  {risks_email_html}
+</body>
+</html>"""
 
-  <div style="margin-top:24px;font-size:12px;color:#64748b;text-align:center">
-    <a href="https://arrakistacos.github.io/morning-brief/" style="color:#3b82f6">View Full Dashboard</a>
-    &nbsp;·&nbsp; Powered by Anthropic Claude
-  </div>
-</body></html>"""
