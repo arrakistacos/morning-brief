@@ -2,9 +2,9 @@
 
 Automated daily trading intelligence, paper trading simulator, and market dashboard.
 
-## Live Dashboard
+## Live Dashboard & Data
 
-**[https://arrakistacos.github.io/morning-brief/](https://arrakistacos.github.io/morning-brief/)**
+**[📊 Dashboard](https://arrakistacos.github.io/morning-brief/)** | **[📊 Google Sheet](https://docs.google.com/spreadsheets/d/1SptFol_qs9fmxLmCB5z_ELkOK0oZXBJbSa8VfZ-JEVg/edit)**
 
 ## What This Is
 
