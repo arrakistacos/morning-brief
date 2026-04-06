@@ -147,10 +147,10 @@ def generate_html_report(analysis: dict, articles: list) -> str:
         sectors_html = " ".join([f'<span class="tag">{s}</span>' for s in event.get("affected_sectors", [])])
 
         macro_events_html += f"""
-        <div class="event-card">
+        <div class="event-card section-cell">
           <div class="event-header">
-            <span class="significance-badge" style="background:{sig_color}">{event.get('significance','')}</span>
-            <span class="time-horizon">{event.get('time_horizon','')}</span>
+            <span class="significance-badge badge" style="background:{sig_color}">{event.get('significance','')}</span>
+            <span class="time-horizon badge">{event.get('time_horizon','')}</span>
           </div>
           <h3>{event.get('event','')}</h3>
           <div class="causal-chain">
@@ -175,8 +175,8 @@ def generate_html_report(analysis: dict, articles: list) -> str:
     for item in analysis.get("watchlist", []):
         action_color = {"WATCH_LONG": "#00c853", "WATCH_SHORT": "#ff1744", "AVOID": "#78909c"}.get(item.get("action", ""), "#78909c")
         watchlist_html += f"""
-        <div class="watch-item">
-          <div class="watch-ticker" style="color:{action_color}">{item.get('ticker','')} <span class="watch-action">{item.get('action','').replace('_',' ')}</span></div>
+        <div class="watch-item section-cell">
+          <div class="watch-ticker watchlist-ticker" style="color:{action_color}">{item.get('ticker','')} <span class="watch-action">{item.get('action','').replace('_',' ')}</span></div>
           <div class="watch-catalyst">{item.get('catalyst','')}</div>
           <div class="watch-entry"><strong>Entry idea:</strong> {item.get('entry_idea','')}</div>
           <div class="watch-risk"><strong>Risk:</strong> {item.get('risk','')}</div>
@@ -186,11 +186,11 @@ def generate_html_report(analysis: dict, articles: list) -> str:
     for sector, data in analysis.get("sector_outlook", {}).items():
         color = sentiment_color(data.get("sentiment", ""))
         sector_rows += f"""
-        <tr>
-          <td>{sector.replace('_', ' ').title()}</td>
-          <td style="color:{color};font-weight:700">{data.get('sentiment','')}</td>
-          <td>{data.get('reasoning','')}</td>
-          <td>{', '.join(data.get('key_names',[]))}</td>
+        <tr class="sector-row">
+          <td class="sector-cell">{sector.replace('_', ' ').title()}</td>
+          <td class="sector-cell" style="color:{color};font-weight:700">{data.get('sentiment','')}</td>
+          <td class="sector-cell hide-mobile">{data.get('reasoning','')}</td>
+          <td class="sector-cell hide-mobile">{', '.join(data.get('key_names',[]))}</td>
         </tr>"""
 
     # Build risks HTML — supports both old (string) and new (object) formats
@@ -214,7 +214,7 @@ def generate_html_report(analysis: dict, articles: list) -> str:
                 f'<div class="risk-sources">Sources: {sources_html}</div>'
                 if sources_html else ""
             )
-            risks_html += f"""<li>
+            risks_html += f"""<li class="risk-row">
               <div class="risk-severity" style="color:{sev_color}">⚠️ {sev}</div>
               <div class="risk-text"><strong>{risk.get('risk','')}</strong></div>
               <div class="risk-causal">{causal}</div>
@@ -231,6 +231,54 @@ def generate_html_report(analysis: dict, articles: list) -> str:
 <title>Morning Brief — {date}</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  /* Browser-only responsive overrides — email clients ignore this entire <style> block */
+  * {{ box-sizing: border-box; }}
+  body {{ background: #0A0E1A !important; }}
+
+  /* Container */
+  .container {{ width: 100% !important; max-width: 600px !important; margin: 0 auto !important; }}
+
+  /* Typography */
+  body, td, th, p {{ font-family: Arial, sans-serif !important; }}
+  p {{ font-size: 15px !important; line-height: 1.6 !important; margin: 8px 0 !important; }}
+
+  /* Responsive layout */
+  @media only screen and (max-width: 620px) {{
+    .container {{ width: 100% !important; padding: 0 !important; }}
+    table {{ width: 100% !important; }}
+    td {{ display: block !important; width: 100% !important; }}
+
+    /* Make stat cells 2-up on mobile */
+    .stat-cell {{ display: inline-block !important; width: 48% !important; vertical-align: top !important; }}
+
+    /* Full width sections */
+    .section-cell {{ width: 100% !important; padding: 12px 16px !important; }}
+
+    /* Tables that should scroll horizontally on mobile */
+    .scroll-table {{ display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }}
+
+    /* Hide less critical columns on mobile */
+    .hide-mobile {{ display: none !important; }}
+
+    /* Larger touch targets for links */
+    a {{ padding: 2px 0 !important; display: inline-block !important; }}
+
+    /* Header scaling */
+    .header-title {{ font-size: 20px !important; }}
+    .header-subtitle {{ font-size: 14px !important; }}
+
+    /* Badges */
+    .badge {{ font-size: 10px !important; padding: 2px 6px !important; }}
+
+    /* Risk cards */
+    .risk-row td {{ padding: 10px 14px !important; }}
+
+    /* Watchlist table: stack on mobile */
+    .watchlist-table td {{ display: block !important; border-bottom: none !important; }}
+    .watchlist-ticker {{ font-size: 16px !important; font-weight: bold !important; }}
+  }}
+
+  /* Desktop styles for the browser view */
   :root {{
     --bg: #0a0e1a;
     --surface: #111827;
@@ -427,10 +475,11 @@ def generate_html_report(analysis: dict, articles: list) -> str:
 </style>
 </head>
 <body>
+<div style="background:#0A0E1A;">
 <div class="container">
   <div class="header">
-    <h1>📊 Morning Brief</h1>
-    <div class="date">{date} · Generated at {datetime.utcnow().strftime('%H:%M UTC')}</div>
+    <h1 class="header-title">📊 Morning Brief</h1>
+    <div class="header-subtitle date">{date} · Generated at {datetime.utcnow().strftime('%H:%M UTC')}</div>
   </div>
 
   {summary_card}
@@ -451,10 +500,10 @@ def generate_html_report(analysis: dict, articles: list) -> str:
   {macro_events_html}
 
   <div class="section-title">📈 Sector Outlook</div>
-  <table class="sector-table">
-    <thead><tr><th>Sector</th><th>Sentiment</th><th>Reasoning</th><th>Key Names</th></tr></thead>
+  <div class="scroll-table"><table class="sector-table">
+    <thead><tr><th>Sector</th><th>Sentiment</th><th class="hide-mobile">Reasoning</th><th class="hide-mobile">Key Names</th></tr></thead>
     <tbody>{sector_rows}</tbody>
-  </table>
+  </table></div>
 
   <div class="section-title">🛢 Commodity Outlook</div>
   <div class="commodity-grid">
@@ -473,6 +522,7 @@ def generate_html_report(analysis: dict, articles: list) -> str:
   </ul>
 
   <footer>Generated by Morning Brief · <a href="https://arrakistacos.github.io/morning-brief/">Dashboard</a> · Powered by Anthropic Claude</footer>
+</div>
 </div>
 </body>
 </html>"""

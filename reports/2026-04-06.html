@@ -1,11 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Brief</title>
+<style>
+  /* Browser-only responsive overrides — email clients ignore this entire <style> block */
+  * { box-sizing: border-box; }
+  body { background: #0A0E1A !important; }
+
+  /* Container */
+  .container { width: 100% !important; max-width: 600px !important; margin: 0 auto !important; }
+
+  /* Typography */
+  body, td, th, p { font-family: Arial, sans-serif !important; }
+  p { font-size: 15px !important; line-height: 1.6 !important; margin: 8px 0 !important; }
+
+  /* Responsive layout */
+  @media only screen and (max-width: 620px) {
+    .container { width: 100% !important; padding: 0 !important; }
+    table { width: 100% !important; }
+    td { display: block !important; width: 100% !important; }
+
+    /* Make stat cells 2-up on mobile */
+    .stat-cell { display: inline-block !important; width: 48% !important; vertical-align: top !important; }
+
+    /* Full width sections */
+    .section-cell { width: 100% !important; padding: 12px 16px !important; }
+
+    /* Tables that should scroll horizontally on mobile */
+    .scroll-table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+
+    /* Hide less critical columns on mobile */
+    .hide-mobile { display: none !important; }
+
+    /* Larger touch targets for links */
+    a { padding: 2px 0 !important; display: inline-block !important; }
+
+    /* Header scaling */
+    .header-title { font-size: 20px !important; }
+    .header-subtitle { font-size: 14px !important; }
+
+    /* Badges */
+    .badge { font-size: 10px !important; padding: 2px 6px !important; }
+
+    /* Risk cards */
+    .risk-row td { padding: 10px 14px !important; }
+
+    /* Watchlist table: stack on mobile */
+    .watchlist-table td { display: block !important; border-bottom: none !important; }
+    .watchlist-ticker { font-size: 16px !important; font-weight: bold !important; }
+  }
+</style>
+</head>
 <body style="background:#0a0e1a;color:#e2e8f0;font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:24px;line-height:1.6">
+<div style="background:#0A0E1A;">
+<div class="container">
 
   <!-- Header -->
   <div style="border-bottom:1px solid #1e2d47;padding-bottom:16px;margin-bottom:20px">
-    <h1 style="color:#60cfff;font-size:1.4rem;margin:0">📊 Morning Brief</h1>
-    <div style="color:#64748b;font-size:0.85rem;margin-top:4px">Monday, April 6, 2026 · Generated at 10:50 UTC · Day 38 of Iran Conflict</div>
+    <h1 style="color:#60cfff;font-size:1.4rem;margin:0" class="header-title">📊 Morning Brief</h1>
+    <div style="color:#64748b;font-size:0.85rem;margin-top:4px" class="header-subtitle">Monday, April 6, 2026 · Generated at 10:50 UTC · Day 38 of Iran Conflict</div>
   </div>
 
   <!-- Executive Summary Card -->
@@ -153,7 +208,7 @@
 
   <!-- Sector Outlook -->
   <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">📊 Sector Outlook (GICS)</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
+  <div class="scroll-table"><table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
     <tr style="color:#64748b;font-size:11px;text-transform:uppercase;border-bottom:1px solid #1e2d47">
       <td style="padding:6px 8px">Sector</td><td style="padding:6px 8px">Call</td><td style="padding:6px 8px">Key Names</td><td style="padding:6px 8px">Rationale</td>
     </tr>
@@ -211,11 +266,11 @@
       <td style="padding:8px">JPM, GS, MS, BAC</td>
       <td style="padding:8px;color:#94a3b8">PE buyouts down 36% (FT); M&A pipeline frozen; but PARA deal shows some capital markets activity resuming</td>
     </tr>
-  </table>
+  </table></div>
 
   <!-- Commodity Outlook -->
   <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:0 0 12px">🛢️ Commodity &amp; Currency Outlook</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
+  <div class="scroll-table"><table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
     <tr style="color:#64748b;font-size:11px;text-transform:uppercase;border-bottom:1px solid #1e2d47">
       <td style="padding:6px 8px">Asset</td><td style="padding:6px 8px">Level</td><td style="padding:6px 8px">Bias</td><td style="padding:6px 8px">Key driver</td>
     </tr>
@@ -230,11 +285,11 @@
     <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">EUR/USD</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff1744">BEARISH EUR</td><td style="padding:8px;color:#94a3b8">EU fiscal crisis risk from energy costs; ECB constrained; European markets closed today (thin liquidity)</td></tr>
     <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">USD/JPY</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff8f00">MIXED</td><td style="padding:8px;color:#94a3b8">Risk-off = yen safe haven bid; BOJ normalization offsets; war escalation = yen strengthens</td></tr>
     <tr style="border-bottom:1px solid #1e2d47"><td style="padding:8px">USD/CNH</td><td style="padding:8px">—</td><td style="padding:8px;color:#ff8f00">MIXED</td><td style="padding:8px;color:#94a3b8">China major oil importer; $110 oil pressures trade balance; but China-India both buying discounted Iranian crude</td></tr>
-  </table>
+  </table></div>
 
   <!-- Watchlist -->
   <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">🎯 Today's Watchlist</h2>
-  <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px">
+  <div class="scroll-table"><table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:20px" class="watchlist-table">
     <tr style="color:#64748b;font-size:11px;text-transform:uppercase;border-bottom:1px solid #1e2d47">
       <td style="padding:6px 8px">Ticker</td><td style="padding:6px 8px">Signal</td><td style="padding:6px 8px">Catalyst</td><td style="padding:6px 8px">Entry Idea</td><td style="padding:6px 8px">Risk</td>
     </tr>
@@ -287,7 +342,7 @@
       <td style="padding:8px;color:#94a3b8">Monitor for pre-market gap; watch for deal confirmation from company</td>
       <td style="padding:8px;color:#94a3b8">Financing could fall through; PE markets frozen (deals -36%)</td>
     </tr>
-  </table>
+  </table></div>
 
   <!-- Trading Decisions Summary -->
   <h2 style="color:#3b82f6;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;margin:24px 0 12px">💼 Trading Decisions — April 6, 2026</h2>
@@ -368,5 +423,7 @@
     &nbsp;·&nbsp; Powered by Anthropic Claude
   </div>
 
+</div>
+</div>
 </body>
 </html>
