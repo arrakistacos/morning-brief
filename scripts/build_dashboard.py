@@ -692,9 +692,17 @@ def build_dashboard():
             chart_values.append(p.get("portfolio_value", 0))
 
     # ── Report cards HTML ──────────────────────────────────────────────────────
+    def fmt_report_date(stem: str) -> str:
+        """Format a YYYY-MM-DD filename stem as 'Apr 7, 2026'."""
+        try:
+            d = datetime.strptime(stem, "%Y-%m-%d")
+            return f"{d.strftime('%b')} {d.day}, {d.year}"
+        except Exception:
+            return stem
+
     report_cards_html = ""
     for r in reports_json:
-        date = r.get("date", r["_filename"])
+        date = fmt_report_date(r["_filename"])
         sentiment = r.get("overall_sentiment", "")
         score = r.get("sentiment_score", 0)
         if score > 2:
@@ -727,7 +735,7 @@ def build_dashboard():
         report_cards_html += f"""
         <a href="reports/{r['filename']}" class="report-card">
           <div class="card-header">
-            <span class="card-date">{r['date']}</span>
+            <span class="card-date">{fmt_report_date(r['date'])}</span>
           </div>
           <div class="card-summary">View full report →</div>
         </a>"""

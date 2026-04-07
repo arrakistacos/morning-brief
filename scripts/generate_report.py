@@ -223,6 +223,16 @@ def generate_html_report(analysis: dict, articles: list) -> str:
 
     summary_card = generate_summary_card_html(analysis)
 
+    # Pre-compute commodity HTML (avoids nested triple-quote f-string issue on Python < 3.12)
+    commodity_html = "".join(
+        f'<div class="commodity-card">'
+        f'<div class="commodity-name">{k.replace("_", " ")}</div>'
+        f'<div class="commodity-dir" style="color:{sentiment_color(v.get("direction", ""))}">{v.get("direction", "")}</div>'
+        f'<div class="commodity-driver">{v.get("key_driver", "")}</div>'
+        f'</div>'
+        for k, v in analysis.get("commodity_outlook", {}).items()
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -507,10 +517,7 @@ def generate_html_report(analysis: dict, articles: list) -> str:
 
   <div class="section-title">🛢 Commodity Outlook</div>
   <div class="commodity-grid">
-    {''.join([f"""<div class="commodity-card"><div class="commodity-name">{k.replace('_',' ')}</div>
-    <div class="commodity-dir" style="color:{sentiment_color(v.get('direction',''))}">{v.get('direction','')}</div>
-    <div class="commodity-driver">{v.get('key_driver','')}</div></div>"""
-    for k, v in analysis.get('commodity_outlook',{}).items()])}
+    {commodity_html}
   </div>
 
   <div class="section-title">🎯 Watchlist</div>
@@ -826,4 +833,23 @@ def generate_email_html(analysis: dict) -> str:
 
 </body>
 </html>"""
+
+
+if __name__ == "__main__":
+    import sys
+    from pathlib import Path
+
+    if len(sys.argv) < 2:
+        print("Usage: python generate_report.py <json_file> [output_html]")
+        sys.exit(1)
+
+    json_path = Path(sys.argv[1])
+    with open(json_path, encoding="utf-8") as f:
+        analysis = json.load(f)
+
+    html = generate_html_report(analysis, [])
+
+    out_path = Path(sys.argv[2]) if len(sys.argv) >= 3 else json_path.with_suffix(".html")
+    out_path.write_text(html, encoding="utf-8")
+    print(f"Wrote {out_path}")
 
