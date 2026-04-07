@@ -58,6 +58,36 @@ def main():
     else:
         print("WARNING: Gmail credentials not set, skipping email")
 
+    # 6. Queue trade signals for Phase 2 market-open execution (8:35 AM CT)
+    # Reads watchlist from the analysis, runs chart signals, and writes
+    # simulator/pending_trades.json. Actual execution happens at market open.
+    print("Queuing trade signals for market-open execution...")
+    try:
+        from scripts.main import build_pending_trades, get_chart_signal, fetch_price, compute_shares
+        import pytz
+
+        portfolio_path = Path("simulator/pending_trades.json")
+        portfolio_data_path = Path("simulator/portfolio.json")
+
+        if portfolio_data_path.exists():
+            with open(portfolio_data_path) as f:
+                portfolio = json.load(f)
+
+            watchlist = analysis.get("watchlist", [])
+            if watchlist:
+                pending_trades = build_pending_trades(watchlist, portfolio)
+                with open(portfolio_path, "w") as f:
+                    json.dump(pending_trades, f, indent=2)
+                print(f"Queued {len(pending_trades)} trade signal(s) to simulator/pending_trades.json")
+                print("Phase 2 execution runs at 8:35 AM CT via simulator/market_open_execution.py")
+            else:
+                print("No watchlist signals in analysis — pending_trades.json not updated")
+        else:
+            print("WARNING: simulator/portfolio.json not found — skipping trade queuing")
+    except Exception as e:
+        # Non-fatal: analysis and email are the primary deliverables
+        print(f"WARNING: Could not queue trade signals: {e}")
+
     print("Done!")
 
 
