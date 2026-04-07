@@ -58,13 +58,15 @@ body{margin:0;padding:0;background:#0d0d0d;font-family:'Georgia',serif;color:#c8
 .card{background:#0d0d08;border:1px solid #2a2a1e;border-left:3px solid #8b6914;
       padding:12px 14px;margin-bottom:10px;border-radius:2px;}
 .card.stop-loss{border-left-color:#8b1414;}
+.card.partial-profit{border-left-color:#b8860b;}
 .card.new-entry{border-left-color:#148b14;}
 .card.news-alert{border-left-color:#8b6914;}
 .card .badge{display:inline-block;padding:2px 8px;font-size:10px;font-weight:bold;
              letter-spacing:1px;border-radius:2px;margin-bottom:6px;}
 .badge-stop{background:#8b1414;color:#ffd0d0;}
+.badge-profit{background:#4a3000;color:#f0c040;}
 .badge-entry{background:#1a4a1a;color:#90ee90;}
-.badge-news{background:#4a3a00;color:#f0c040;}
+.badge-news{background:#4a3a00;color:#c8a040;}
 .card .ticker{font-size:18px;font-weight:bold;color:#c8961e;margin:0 0 4px;}
 .card .detail{font-size:12px;color:#8a7a64;line-height:1.6;}
 .card .pnl-pos{color:#90ee90;}
@@ -144,6 +146,8 @@ def build_midday_email(
     first = actions_taken[0]
     if first["type"] == "STOP_LOSS":
         action_summary = f"STOP LOSS: {first['ticker']} sold at {first['pnl_pct']:+.1f}%"
+    elif first["type"] == "PARTIAL_PROFIT":
+        action_summary = f"Partial profit: {first['ticker']} at {first['pnl_pct']:+.1f}%"
     elif first["type"] == "NEW_ENTRY":
         action_summary = f"Entered {first['ticker']} (midday momentum)"
     else:
@@ -171,6 +175,14 @@ def build_midday_email(
             detail = (
                 f"Sold {shares} shares @ ${price:.2f} &nbsp;|&nbsp; "
                 f'P&amp;L: <span class="{pnl_class}">{pnl_pct:+.2f}%</span>'
+                f"<br>Reason: {reason}"
+            )
+        elif atype == "PARTIAL_PROFIT":
+            badge = '<span class="badge badge-profit">PARTIAL PROFIT</span>'
+            card_class = "card partial-profit"
+            detail = (
+                f"Sold {shares} shares @ ${price:.2f} &nbsp;|&nbsp; "
+                f'P&amp;L: <span class="pnl-pos">{pnl_pct:+.2f}%</span>'
                 f"<br>Reason: {reason}"
             )
         elif atype == "NEW_ENTRY":
