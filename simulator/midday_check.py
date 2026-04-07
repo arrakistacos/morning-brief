@@ -18,6 +18,7 @@ Usage:
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime
@@ -608,8 +609,21 @@ def run_midday_check(extra_note: str = "", dry_run: bool = False) -> dict:
                         pass
                     entry["reason"] = "8% hard stop triggered — price action invalidated thesis."
                 elif a_str.startswith("PARTIAL PROFIT:"):
-                    entry["type"] = "STOP_LOSS"  # Treat as sell action for email
-                    entry["reason"] = a_str
+                    entry["type"] = "PARTIAL_PROFIT"
+                    # Format: "PARTIAL PROFIT: SOLD 5× NVDA at +15.20% (reason)"
+                    m = re.search(r'SOLD\s+(\d+)[×x]\s+(\w+)\s+at\s+([+-][\d.]+)%', a_str)
+                    if m:
+                        entry["shares"]  = int(m.group(1))
+                        entry["ticker"]  = m.group(2)
+                        entry["pnl_pct"] = float(m.group(3))
+                    try:
+                        entry["price"] = fetch_current_price(entry["ticker"])
+                    except Exception:
+                        pass
+                    entry["reason"] = (
+                        f"Partial profit at {entry.get('pnl_pct', 0):+.1f}% — "
+                        "letting remainder run with trailing stop."
+                    )
                 elif a_str.startswith("MIDDAY ENTRY:"):
                     entry["type"] = "NEW_ENTRY"
                     # e.g. "MIDDAY ENTRY: BUY 5× NVDA @ $123.45 (STRONG_BUY signal)"
