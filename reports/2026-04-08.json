@@ -1,0 +1,229 @@
+{
+  "date": "2026-04-08",
+  "overall_sentiment": "BULLISH",
+  "sentiment_score": 6,
+  "sentiment_reasoning": "Trump-Iran ceasefire collapses WTI crude -16%, triggering broad equity risk-on across all indices. Rotation trade from energy into tech, transports, and consumer discretionary is mechanical and sharp. Two-week ceasefire window creates urgency but also fragility — strong bullish with tight stops.",
+  "summary": {
+    "gist": "Trump-Iran two-week ceasefire removes the Strait of Hormuz premium overnight. WTI plunges from $117 to ~$94, equity futures surge 2.5–3.5%, and the dominant trade is energy-short / cyclical-long. The rotation is mechanical: airlines, trucking, cruise lines, retailers — anything with fuel as a cost input re-rates sharply higher. Ceasefire expires ~April 22; keep stops tight on cyclical longs.",
+    "actionable_items": [
+      {
+        "ticker": "MU",
+        "action": "BUY",
+        "rationale": "Memory and storage demand directly benefits from energy cost normalization; breakout on volume with +10% pre-market move; prime beneficiary of risk-on rotation back into tech",
+        "entry_price": null,
+        "stop_loss_price": null,
+        "stop_loss_pct": 8.0,
+        "target_price": null,
+        "target_pct": 15.0,
+        "setup_type": "breakout",
+        "timeframe": "swing 3-7 days"
+      },
+      {
+        "ticker": "DAL",
+        "action": "BUY",
+        "rationale": "Wait for Q1 earnings print at 10 AM ET — buy if guidance raised on fuel savings; options pricing 7-10.5% move; first airline bellwether in oil crisis era",
+        "entry_price": null,
+        "stop_loss_price": null,
+        "stop_loss_pct": 8.0,
+        "target_price": null,
+        "target_pct": 15.0,
+        "setup_type": "earnings_catalyst",
+        "timeframe": "swing 3-7 days"
+      },
+      {
+        "ticker": "UAL",
+        "action": "BUY",
+        "rationale": "DAL proxy — airlines re-rate on oil collapse; fuel is 25-30% of operating costs; WTI -16% = significant margin expansion",
+        "entry_price": null,
+        "stop_loss_price": null,
+        "stop_loss_pct": 8.0,
+        "target_price": null,
+        "target_pct": 15.0,
+        "setup_type": "sector_rotation",
+        "timeframe": "swing 3-7 days"
+      },
+      {
+        "ticker": "XOM",
+        "action": "AVOID",
+        "rationale": "Oil down 16% — energy majors face sustained margin pressure during ceasefire window; avoid or short on any bounce",
+        "entry_price": null,
+        "stop_loss_price": null,
+        "stop_loss_pct": null,
+        "target_price": null,
+        "target_pct": null,
+        "setup_type": "avoidance",
+        "timeframe": "2 weeks"
+      }
+    ],
+    "stoic_quote": {
+      "text": "He who fears death will never do anything worthy of a man who is alive.",
+      "attribution": "Seneca — Letters to Lucilius"
+    }
+  },
+  "executive_summary": "Trump-Iran two-week ceasefire announced late Tuesday. Iran confirmed acceptance contingent on complete Strait of Hormuz reopening. WTI crude collapsed from $117 to ~$94/barrel (-16%), the single largest one-day drop in years. Equity futures across all indices surged 2.5-3.5% with Russell 2000 leading at +3.62%, reflecting small-cap domestic relief from lower fuel costs. The dominant intraday trade is rotation: long airlines, trucking, cruise lines, retailers; short or avoid energy majors. Key risk: ceasefire expires in two weeks — any breakdown reverses the entire move.",
+  "top_themes": [
+    "Trump-Iran ceasefire — Strait of Hormuz reopens",
+    "Oil collapse -16% — energy cost deflation",
+    "Sector rotation: energy-out, transports/tech-in",
+    "Fed minutes read hawkishly — look through them",
+    "Ceasefire fragility — 2-week window expiry risk"
+  ],
+  "macro_events": [
+    {
+      "title": "Trump-Iran Two-Week Ceasefire",
+      "impact_level": "HIGH",
+      "time_horizon": "2 weeks",
+      "causal_chain": "Trump suspends Iran bombing → Iran reopens Strait of Hormuz → WTI -16% from $117 to $94 → energy CPI pressure removes 3-4 months of inflation → Fed gains optionality → equity risk premium falls → S&P futures +2.7%, Nasdaq +3.5%, RTY +3.62%",
+      "geographic_dimension": "Middle East / Global commodity markets",
+      "historical_analog": "Sep 2019 Abqaiq attack reversal — Brent/WTI snapped back 15% in one session, then gave it all back over 3 weeks",
+      "counterargument": "Two weeks is not a peace deal. Iran may stall or demand terms that collapse negotiations. Any breakdown reverses today's entire move in a single session.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "DOWN", "reason": "Crude -16% crushes energy major margins"},
+        {"ticker": "CVX", "direction": "DOWN", "reason": "Same crude price headwind as XOM"},
+        {"ticker": "DAL", "direction": "UP", "reason": "Fuel cost ~25% of airline opex; -16% oil = direct margin expansion"},
+        {"ticker": "UAL", "direction": "UP", "reason": "Same airline fuel tailwind as DAL"},
+        {"ticker": "MU", "direction": "UP", "reason": "Risk-on tech rotation; energy normalization reduces data center cost drag"},
+        {"ticker": "CCL", "direction": "UP", "reason": "Cruise fuel costs normalize; consumer spending confidence improves"},
+        {"ticker": "JBHT", "direction": "UP", "reason": "Trucking fuel savings direct margin lift"}
+      ]
+    },
+    {
+      "title": "FOMC March Meeting Minutes — 2:00 PM ET",
+      "impact_level": "MEDIUM",
+      "time_horizon": "intraday",
+      "causal_chain": "Minutes will read hawkishly (recorded before ceasefire) → short-term rates spike on read → tech gives back some gains → market looks through it given new oil reality",
+      "geographic_dimension": "US domestic / Fed policy",
+      "historical_analog": "Dec 2021 FOMC minutes release caused 1-2% intraday drawdown in Nasdaq before recovering",
+      "counterargument": "Market is so buoyed by oil collapse that hawkish minutes may be ignored entirely",
+      "affected_tickers": [
+        {"ticker": "QQQ", "direction": "MIXED", "reason": "Rate-sensitive tech may dip on hawkish minutes read"},
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Hawkish tone pressures long-duration bonds"}
+      ]
+    },
+    {
+      "title": "DAL Q1 2026 Earnings — 10:00 AM ET",
+      "impact_level": "HIGH",
+      "time_horizon": "intraday to 1 week",
+      "causal_chain": "DAL reports Q1 (consensus EPS $0.62-0.64, Rev ~$14.89B) → if guidance raised citing fuel savings, entire airline sector re-rates → UAL, LUV, AAL follow → if guidance disappoints, airline thesis fails and sector gives back gap-up",
+      "geographic_dimension": "US airlines / consumer travel",
+      "historical_analog": "Q1 2023 DAL earnings beat caused UAL +8%, LUV +5% sympathy moves in same session",
+      "counterargument": "Q1 was recorded during peak oil prices — forward guidance is what matters, not backward Q1 results",
+      "affected_tickers": [
+        {"ticker": "DAL", "direction": "UP", "reason": "Own earnings catalyst; options pricing 7-10.5% move"},
+        {"ticker": "UAL", "direction": "UP", "reason": "Sector sympathy move"},
+        {"ticker": "LUV", "direction": "UP", "reason": "Sector sympathy move"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {"direction": "BULLISH", "key_names": ["MU", "WDC", "NVDA", "AMD"], "rationale": "Risk-on rotation into tech; energy cost normalization benefits data center operators; RTY small-cap leadership suggests broad risk appetite"},
+    "Healthcare": {"direction": "NEUTRAL", "key_names": ["JNJ", "UNH"], "rationale": "Defensive sector; outflows likely as money rotates into cyclicals"},
+    "Financials": {"direction": "BULLISH", "key_names": ["JPM", "BAC", "GS"], "rationale": "Improved economic outlook; lower energy inflation reduces credit risk concerns"},
+    "Energy": {"direction": "BEARISH", "key_names": ["XOM", "CVX", "COP", "SHEL"], "rationale": "WTI -16% — direct margin compression; avoid during ceasefire window"},
+    "Consumer Discretionary": {"direction": "BULLISH", "key_names": ["LEVI", "CCL", "RCL", "AMZN"], "rationale": "Lower gas = consumer tax cut; discretionary spending confidence improves sharply"},
+    "Consumer Staples": {"direction": "NEUTRAL", "key_names": ["PG", "KO"], "rationale": "Limited direct benefit; mild outperformance if inflation data comes in better"},
+    "Industrials": {"direction": "BULLISH", "key_names": ["JBHT", "ODFL", "FDX", "UPS"], "rationale": "Trucking and logistics direct fuel cost savings; supply chain normalization"},
+    "Utilities": {"direction": "NEUTRAL", "key_names": ["NEE", "DUK"], "rationale": "Lower energy costs mixed — cheaper inputs offset by risk-off rotation away from defensives"},
+    "Materials": {"direction": "NEUTRAL", "key_names": ["FCX", "NEM"], "rationale": "Mixed signals; gold +2.83% as safe haven while industrial metals flat"}
+  },
+  "commodity_outlook": {
+    "crude_wti": {"direction": "BEARISH", "price_note": "~$94/bbl from $117 (-16%)", "key_driver": "Trump-Iran ceasefire; Strait of Hormuz reopening"},
+    "crude_brent": {"direction": "BEARISH", "price_note": "~$94/bbl (-14%)", "key_driver": "Same ceasefire driver as WTI; spread narrowed"},
+    "gold": {"direction": "BULLISH", "price_note": "+2.83%", "key_driver": "Safe haven demand despite equity rally; ceasefire uncertainty keeps bid in gold"},
+    "natgas": {"direction": "MIXED", "price_note": "Unknown — monitoring", "key_driver": "LNG supply chain normalization from Hormuz reopening"},
+    "silver": {"direction": "NEUTRAL", "price_note": "Following gold higher", "key_driver": "Industrial demand steady; safe haven bid"},
+    "copper": {"direction": "BULLISH", "price_note": "Mild uptick", "key_driver": "Risk-on; improved global growth outlook"},
+    "wheat": {"direction": "NEUTRAL", "price_note": "Monitoring", "key_driver": "Logistics cost relief from lower fuel"}
+  },
+  "currency_outlook": {
+    "DXY": {"direction": "MIXED", "key_driver": "Lower oil reduces petrodollar demand; risk-on outflows but Fed hawkishness supports"},
+    "EUR_USD": {"direction": "BULLISH", "key_driver": "European energy cost relief from Hormuz reopening; EUR benefits from lower import costs"},
+    "USD_JPY": {"direction": "MIXED", "key_driver": "Risk-on reduces yen safe haven bid; BOJ policy unchanged"},
+    "USD_CNH": {"direction": "BEARISH", "key_driver": "China oil importer benefits from price collapse; CNH strengthens"}
+  },
+  "watchlist": [
+    {
+      "ticker": "MU",
+      "action": "WATCH_LONG",
+      "catalyst": "Tech risk-on rotation; memory demand normalization; +10% pre-market breakout",
+      "entry_idea": "Opens above pre-market high on volume > 1.5x average",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "Gap fade if broader euphoria fades after open; RSI may be overbought",
+      "signal_strength": "STRONG_BUY"
+    },
+    {
+      "ticker": "DAL",
+      "action": "WATCH_LONG",
+      "catalyst": "Q1 earnings at 10 AM ET; buy if guidance raised citing fuel savings",
+      "entry_idea": "Post-earnings: buy above pre-earnings high if guidance is raised",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "Guidance disappointment poisons airline sector rally thesis",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "UAL",
+      "action": "WATCH_LONG",
+      "catalyst": "DAL earnings proxy; fuel cost normalization; airlines re-rate on oil collapse",
+      "entry_idea": "Buy after DAL earnings confirmation; above morning open",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "DAL guidance miss takes UAL down with it",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "XOM",
+      "action": "AVOID",
+      "catalyst": "WTI -16% — direct margin compression; energy majors in headwind period",
+      "entry_idea": "Avoid; if shorting, wait for any bounce toward $100 resistance",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "Ceasefire breakdown reverses oil move; any Iran walkback turns XOM into a strong buy",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "CCL",
+      "action": "WATCH_LONG",
+      "catalyst": "Cruise lines have high fuel cost exposure; consumer discretionary relief trade; gap up expected",
+      "entry_idea": "Buy on any consolidation after opening gap",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "Consumer spending concerns if ceasefire uncertainty persists",
+      "signal_strength": "BUY"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "Ceasefire breakdown — Iran walkback",
+      "severity": "CRITICAL",
+      "causal_chain": "Iran rejects terms → Strait of Hormuz closes again → WTI snaps back above $117 → full reversal of today's equity surge → airlines, tech, discretionary all sell off hard",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    },
+    {
+      "risk": "Gap-and-fade — euphoria priced in at open",
+      "severity": "HIGH",
+      "causal_chain": "Futures +2.5-3.5% means significant premium at open → profit taking by institutional sellers → intraday reversal → stops triggered on gap-buy positions",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    },
+    {
+      "risk": "FOMC minutes hawkish tone",
+      "severity": "MEDIUM",
+      "causal_chain": "2 PM ET minutes release → pre-ceasefire hawkish language → 10Y yield spike → tech and rate-sensitive names give back gains",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    },
+    {
+      "risk": "DAL guidance disappointment",
+      "severity": "HIGH",
+      "causal_chain": "DAL underwhelms on Q1 guidance → airline thesis fails → UAL, LUV, AAL give back gap-up gains → transports sector rotation thesis partially invalidated",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    },
+    {
+      "risk": "Oil snap-back on geopolitical provocation",
+      "severity": "CRITICAL",
+      "causal_chain": "Any Iranian naval incident or US strike resumes → oil war-risk premium returns instantly → WTI rebounds above $110 → inflation narrative reignites → Fed gets re-hawkish → equity rally unwinds",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    }
+  ],
+  "is_trading_day": true
+}
