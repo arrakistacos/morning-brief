@@ -209,5 +209,45 @@
       "ceasefire-trade",
       "oil-collapse"
     ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-08 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-08",
+      "time": "16:40 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "reflection",
+    "note": "EOD Reflection \u2014 April 8, 2026 (Day 3). Third consecutive day at $25,000.00 \u2014 fully in cash, zero P&L. But today was a pivotal day for the strategy.\n\nWHAT WORKED: The two-day cash preservation through the Iran binary event paid off exactly as planned. The Pakistan-brokered ceasefire was announced and WTI crude collapsed 16.3% in a single session. The morning brief correctly identified this as a BULLISH +7/10 session and began screening post-ceasefire rotation plays. The process also correctly REJECTED the obvious momentum plays (UAL, CCL, DAL) \u2014 all had gapped hard at the open and were too extended for safe entry. Chasing a gap-up airline stock after a 16% oil crash would have been textbook FOMO, and the system filtered it out. That discipline is more valuable than any single trade.\n\nWHAT FAILED: We are now three days in with zero trades executed and zero positions. While the first two days were justified by the Iran binary event, today's inaction is harder to defend. MU was identified as a BUY signal with RSI 54, above both MAs, and R/R above 1.5x \u2014 the cleanest setup we have seen in three days. It was queued (6 shares above $410, ~$2,424 / ~9.7% of capital) but did not execute by close. The queuing mechanism needs to be more aggressive on days when a genuine BUY signal finally clears the threshold. Three days of patience followed by a missed entry on the first qualifying setup would undermine the entire strategy.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes \u2014 strongly so. The +7/10 bullish call on the ceasefire session was directionally correct. The screening was disciplined: rejected three extended names and found one legitimate BUY. The concern about ceasefire expiry (April 22) as a risk factor was also well-calibrated \u2014 it correctly sizes the trade window and justifies keeping positions small with hard 8% stops.\n\nLESSONS LEARNED: (1) The Iran cash preservation strategy worked \u2014 we avoided potential whipsaw losses on Days 1-2 and preserved full capital to deploy into the post-event clarity. That is the textbook execution of the binary event rule. (2) MU is the first real BUY signal in three days. If it still qualifies tomorrow morning, it should be the first trade. Hesitation after three days of discipline is the wrong instinct \u2014 the system said BUY, so trust the system. (3) The airlines (UAL, DAL, CCL) gapped too far today but may pull back to the 20-DMA over the next 2-3 sessions. Add them to the watchlist for consolidation entries. (4) Energy names (XOM, FRO) likely in free-fall after a 16% oil crash \u2014 do NOT try to catch the falling knife. Wait for stabilization.\n\nWHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution \u2014 if the BUY signal holds at open, execute the queued order (6 shares above $410). Priority #2: watch UAL/DAL for a 2-3% pullback toward the 20-DMA as a potential entry. Priority #3: monitor oil stabilization \u2014 if WTI finds a floor, XOM and FRO may present mean-reversion setups later in the week. Key risk: ceasefire is temporary (expires April 22) \u2014 all positions must be sized conservatively with hard stops.",
+    "tags": [
+      "reflection",
+      "day3",
+      "ceasefire",
+      "cash_preservation",
+      "MU",
+      "oil_collapse",
+      "UAL",
+      "DAL",
+      "CCL"
+    ]
   }
 ]
