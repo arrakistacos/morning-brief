@@ -199,5 +199,15 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "trade_decision",
+    "note": "BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x \u2014 PASS), CCL (NEUTRAL \u2014 PASS), DAL (NEUTRAL \u2014 PASS), MU (BUY, RSI 54, above both MAs, R/R >1.5x \u2014 QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today \u2014 too extended for entry; wait for consolidation or pullback to 20-DMA before considering. Key risk: ceasefire expires April 22 \u2014 keep all positions sized small with hard 8% stops.",
+    "tags": [
+      "decision",
+      "ceasefire-trade",
+      "oil-collapse"
+    ]
   }
 ]
