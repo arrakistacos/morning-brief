@@ -372,7 +372,22 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
   text-transform: uppercase;
   letter-spacing: .06em;
 }
-.journal-note { font-size: .85rem; color: var(--text); line-height: 1.65; }
+.journal-note { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+.journal-note-preview { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+.journal-note-full { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; display: none; }
+.journal-read-more {
+  display: inline-block;
+  margin-top: .5rem;
+  font-size: .75rem;
+  color: var(--gold, #C4A265);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .journal-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
 .journal-tag {
   font-size: .68rem;
@@ -909,14 +924,23 @@ def build_dashboard():
         tags = entry.get("tags", [])
         tc, tbg = type_colors.get(e_type, ("#8a7660", "#1c1810"))
         tags_html = "".join(f'<span class="journal-tag">{t}</span>' for t in tags)
-        note_display = (note[:500] + "…") if len(note) > 500 else note
+        import html as _html
+        note_escaped = _html.escape(note)
+        PREVIEW_LEN = 400
+        if len(note) > PREVIEW_LEN:
+            preview = _html.escape(note[:PREVIEW_LEN].rstrip())
+            note_block = f"""<div class="journal-note-preview">{preview}…</div>
+          <div class="journal-note-full">{note_escaped}</div>
+          <button class="journal-read-more" onclick="(function(btn){{var card=btn.closest('.journal-card');card.querySelector('.journal-note-preview').style.display='none';card.querySelector('.journal-note-full').style.display='';btn.style.display='none';}})(this)">Read more ↓</button>"""
+        else:
+            note_block = f'<div class="journal-note">{note_escaped}</div>'
         journal_html += f"""
         <div class="journal-card">
           <div class="journal-card-header">
             <span class="journal-date">{e_date}</span>
             <span class="journal-type" style="color:{tc};background:{tbg}">{e_type.replace('_',' ').title()}</span>
           </div>
-          <div class="journal-note">{note_display}</div>
+          {note_block}
           {"<div class='journal-tags'>" + tags_html + "</div>" if tags_html else ""}
         </div>"""
     if not journal_html:
