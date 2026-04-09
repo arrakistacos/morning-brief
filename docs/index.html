@@ -532,23 +532,89 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
     
     <!-- ── Swing Trade Watch List ───────────────────────────────────────── -->
     <div class="wl-card">
-      <div class="section-header">&#9876;&#65039; Swing Trade Watch List <span style="font-size:.7rem;color:var(--muted);font-weight:400">— updated 2026-04-09</span></div>
-      <div class="wl-subtitle">Updated daily — positions held 3–7 days</div>
+      <div class="section-header">&#127919; Swing Trade Watch List<span style="font-size:10px;color:#94a3b8;font-weight:400;"> — updated 2026-04-09</span></div>
+      <div style="font-size:11px;color:#94a3b8;margin:-4px 0 10px;">Updated daily before pre-market &middot; Positions held 3&ndash;7 days</div>
       
-    <div class="table-wrap mobile-card-table-wrap">
-      <table class="mobile-card-table">
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:360px;">
         <thead>
-          <tr>
-            <th>Ticker</th>
-            <th>Status</th>
-            <th class="wl-thesis-col-th">Thesis</th>
-            <th>Entry</th>
-            <th>Stop</th>
-            <th>Target</th>
-            <th>Days</th>
+          <tr style="background:#0d2035;border-bottom:2px solid #E8841A;">
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Ticker / Thesis</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Signal</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Entry</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Stop</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Target</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">R:R</th>
           </tr>
         </thead>
-        <tbody><tr><td data-label="Ticker"><strong style="color:var(--sand);font-family:'JetBrains Mono',monospace">UAL</strong></td><td data-label="Status"><span class="wl-badge">🟡 Watching</span></td><td data-label="Thesis" class="wl-thesis-col">Airline mechanical re-rate; highest fuel cost leverage on WTI collapse</td><td data-label="Entry">$100.00</td><td data-label="Stop">$92.00</td><td data-label="Target">$115.00</td><td data-label="Days">1d</td></tr><tr><td data-label="Ticker"><strong style="color:var(--sand);font-family:'JetBrains Mono',monospace">MU</strong></td><td data-label="Status"><span class="wl-badge">🟡 Watching</span></td><td data-label="Thesis" class="wl-thesis-col">HBM4 mass production + risk-on tech rotation play</td><td data-label="Entry">$410.00</td><td data-label="Stop">$377.20</td><td data-label="Target">$471.50</td><td data-label="Days">1d</td></tr><tr><td data-label="Ticker"><strong style="color:var(--sand);font-family:'JetBrains Mono',monospace">CCL</strong></td><td data-label="Status"><span class="wl-badge">🟡 Watching</span></td><td data-label="Thesis" class="wl-thesis-col">Highest fuel-cost exposure in consumer disc; gap continuation</td><td data-label="Entry">$28.00</td><td data-label="Stop">$25.76</td><td data-label="Target">$32.20</td><td data-label="Days">1d</td></tr><tr><td data-label="Ticker"><strong style="color:var(--sand);font-family:'JetBrains Mono',monospace">DAL</strong></td><td data-label="Status"><span class="wl-badge">🟡 Watching</span></td><td data-label="Thesis" class="wl-thesis-col">Q1 beat; Q2 guidance now conservative; analyst upgrades imminent</td><td data-label="Entry">$70.00</td><td data-label="Stop">$64.40</td><td data-label="Target">$80.50</td><td data-label="Days">1d</td></tr><tr><td data-label="Ticker"><strong style="color:var(--sand);font-family:'JetBrains Mono',monospace">TLT</strong></td><td data-label="Status"><span class="wl-badge">🟡 Watching</span></td><td data-label="Thesis" class="wl-thesis-col">Bond positioning ahead of FOMC minutes; long if 10Y breaks above 4.6%</td><td data-label="Entry">$87.50</td><td data-label="Stop">$80.10</td><td data-label="Target">$100.20</td><td data-label="Days">1d</td></tr><tr><td data-label="Ticker"><strong style="color:var(--sand);font-family:'JetBrains Mono',monospace">XOM</strong></td><td data-label="Status"><span class="wl-badge">🟡 Watching</span></td><td data-label="Thesis" class="wl-thesis-col">WTI -16% = direct margin compression; short above $160</td><td data-label="Entry">$160.00</td><td data-label="Stop">$165.00</td><td data-label="Target">$145.00</td><td data-label="Days">1d</td></tr></tbody>
+        <tbody>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">UAL</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Airline mechanical re-rate; highest fuel cost leverage on WTI collapse</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$100.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$92.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$115.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">MU</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">HBM4 mass production + risk-on tech rotation play</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$410.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$377.20</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$471.50</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">CCL</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Highest fuel-cost exposure in consumer disc; gap continuation</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$28.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$25.76</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$32.20</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">DAL</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Q1 beat; Q2 guidance now conservative; analyst upgrades imminent</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$70.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$64.40</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$80.50</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">TLT</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Bond positioning ahead of FOMC minutes; long if 10Y breaks above 4.6%</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$87.50</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$80.10</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$100.20</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.7:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">XOM</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">WTI -16% = direct margin compression; short above $160</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#ff6b6b;font-weight:700;font-size:11px;">WATCH SHORT ▼</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$160.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$165.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$145.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">3.0:1</td>
+        </tr>
+        </tbody>
       </table>
     </div>
     </div>

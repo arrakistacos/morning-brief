@@ -650,20 +650,19 @@ document.addEventListener('DOMContentLoaded', () => {
 # ── Watchlist section builder ─────────────────────────────────────────────────
 
 def build_watchlist_section(watchlist_path):
-    """Read simulator/watchlist.json and return HTML for the watch list card."""
+    """Read simulator/watchlist.json and return a compact, clean watch list table."""
     from datetime import date as _date
 
     wl = load_json_safe(watchlist_path, {"items": [], "last_updated": ""})
     items = wl.get("items", [])
     last_updated = wl.get("last_updated", "")
-    today = _date.today()
 
     # Only show active items (skip "removed")
     active = [i for i in items if i.get("status") != "removed"]
 
     if not active:
         body = (
-            '<div class="empty-state" style="font-style:italic;color:var(--spice)">'
+            '<div style="padding:14px 0;font-style:italic;color:#E8841A;font-size:13px;">'
             'No active setups \u2014 The desert is quiet.</div>'
         )
     else:
@@ -674,71 +673,76 @@ def build_watchlist_section(watchlist_path):
             entry  = item.get("entry_target")
             stop   = item.get("stop")
             target = item.get("target")
-            added  = item.get("added_date", "")
             status = item.get("status", "watching")
 
-            # Days on list
-            try:
-                added_dt = _date.fromisoformat(added)
-                days = (today - added_dt).days
-                days_str = "today" if days == 0 else f"{days}d"
-            except Exception:
-                days_str = "\u2014"
+            # Detect direction: short if stop is above entry
+            is_short = (stop is not None and entry is not None and stop > entry)
+
+            # R:R ratio
+            rr_str = "\u2014"
+            if entry is not None and stop is not None and target is not None:
+                risk   = (stop - entry)   if is_short else (entry - stop)
+                reward = (entry - target) if is_short else (target - entry)
+                if risk > 0:
+                    rr_str = f"{reward / risk:.1f}:1"
 
             entry_str  = f"${entry:.2f}"  if entry  is not None else "\u2014"
             stop_str   = f"${stop:.2f}"   if stop   is not None else "\u2014"
             target_str = f"${target:.2f}" if target is not None else "\u2014"
 
+            # Signal badge
             if status == "watching":
-                badge = '<span class="wl-badge">\U0001f7e1 Watching</span>'
+                if is_short:
+                    sig = '<span style="color:#ff6b6b;font-weight:700;font-size:11px;">WATCH SHORT \u25bc</span>'
+                else:
+                    sig = '<span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH \u25b2</span>'
             elif status == "queued":
-                badge = '<span class="wl-badge" style="color:var(--bull)">\U0001f7e2 Queued</span>'
+                sig = '<span style="color:#00c853;font-weight:700;font-size:11px;">QUEUED \u25b2</span>'
             elif status == "entered":
-                badge = '<span class="wl-badge" style="color:var(--atreides)">\U0001f535 In Position</span>'
+                sig = '<span style="color:#4fc3f7;font-weight:700;font-size:11px;">IN POSITION</span>'
             else:
-                badge = f'<span class="wl-badge">{status}</span>'
+                sig = f'<span style="color:#94a3b8;font-size:11px;">{status.upper()}</span>'
 
-            rows += (
-                f'<tr>'
-                f'<td data-label="Ticker"><strong style="color:var(--sand);'
-                f'font-family:\'JetBrains Mono\',monospace">{ticker}</strong></td>'
-                f'<td data-label="Status">{badge}</td>'
-                f'<td data-label="Thesis" class="wl-thesis-col">{thesis}</td>'
-                f'<td data-label="Entry">{entry_str}</td>'
-                f'<td data-label="Stop">{stop_str}</td>'
-                f'<td data-label="Target">{target_str}</td>'
-                f'<td data-label="Days">{days_str}</td>'
-                f'</tr>'
-            )
+            rows += f"""
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">{ticker}</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">{thesis}</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;">{sig}</td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">{entry_str}</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">{stop_str}</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">{target_str}</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">{rr_str}</td>
+        </tr>"""
 
         body = f"""
-    <div class="table-wrap mobile-card-table-wrap">
-      <table class="mobile-card-table">
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:360px;">
         <thead>
-          <tr>
-            <th>Ticker</th>
-            <th>Status</th>
-            <th class="wl-thesis-col-th">Thesis</th>
-            <th>Entry</th>
-            <th>Stop</th>
-            <th>Target</th>
-            <th>Days</th>
+          <tr style="background:#0d2035;border-bottom:2px solid #E8841A;">
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Ticker / Thesis</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Signal</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Entry</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Stop</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Target</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">R:R</th>
           </tr>
         </thead>
-        <tbody>{rows}</tbody>
+        <tbody>{rows}
+        </tbody>
       </table>
     </div>"""
 
     updated_note = (
-        f' <span style="font-size:.7rem;color:var(--muted);font-weight:400">'
-        f'\u2014 updated {last_updated}</span>'
+        f'<span style="font-size:10px;color:#94a3b8;font-weight:400;"> \u2014 updated {last_updated}</span>'
     ) if last_updated else ""
 
     return f"""
     <!-- ── Swing Trade Watch List ───────────────────────────────────────── -->
     <div class="wl-card">
-      <div class="section-header">&#9876;&#65039; Swing Trade Watch List{updated_note}</div>
-      <div class="wl-subtitle">Updated daily \u2014 positions held 3\u20137 days</div>
+      <div class="section-header">&#127919; Swing Trade Watch List{updated_note}</div>
+      <div style="font-size:11px;color:#94a3b8;margin:-4px 0 10px;">Updated daily before pre-market &middot; Positions held 3&ndash;7 days</div>
       {body}
     </div>"""
 
