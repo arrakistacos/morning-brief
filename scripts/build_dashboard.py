@@ -373,7 +373,7 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
   letter-spacing: .06em;
 }
 .journal-note { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
-.journal-note-preview { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
+.journal-note-preview { font-size: .85rem; color: var(--text); line-height: 1.65; word-break: break-word; }
 .journal-note-full { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; display: none; }
 .journal-read-more {
   display: inline-block;
@@ -929,9 +929,7 @@ def build_dashboard():
         PREVIEW_LEN = 400
         if len(note) > PREVIEW_LEN:
             preview = _html.escape(note[:PREVIEW_LEN].rstrip())
-            note_block = f"""<div class="journal-note-preview">{preview}…</div>
-          <div class="journal-note-full">{note_escaped}</div>
-          <button class="journal-read-more" onclick="(function(btn){{var card=btn.closest('.journal-card');card.querySelector('.journal-note-preview').style.display='none';card.querySelector('.journal-note-full').style.display='';btn.style.display='none';}})(this)">Read more ↓</button>"""
+            note_block = f"""<span class="journal-note-preview">{preview}…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">{note_escaped}</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){{full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}}else{{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>"""
         else:
             note_block = f'<div class="journal-note">{note_escaped}</div>'
         journal_html += f"""
