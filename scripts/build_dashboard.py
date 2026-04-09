@@ -917,7 +917,7 @@ def build_dashboard():
         "trade": ("#6ECB63", "#0d2010"),
         "note": ("#8a7660", "#1c1810"),
     }
-    for entry in reversed(strategy_log[-25:]):
+    for i, entry in enumerate(reversed(strategy_log[-25:])):
         e_date = entry.get("date", "")
         e_type = entry.get("type", "note")
         note = entry.get("note", "")
@@ -929,7 +929,11 @@ def build_dashboard():
         PREVIEW_LEN = 400
         if len(note) > PREVIEW_LEN:
             preview = _html.escape(note[:PREVIEW_LEN].rstrip())
-            note_block = f"""<span class="journal-note-preview">{preview}…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">{note_escaped}</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){{full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}}else{{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>"""
+            entry_id = f"je{i}"
+            note_block = f'''<span id="preview-{entry_id}" style="white-space:pre-wrap;">{preview}</span>
+<span id="full-{entry_id}" style="display:none;white-space:pre-wrap;">{note_escaped}</span>
+<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
+  onclick="(function(b){{var p=document.getElementById('preview-{entry_id}');var f=document.getElementById('full-{entry_id}');if(f.style.display===\'none\'){{f.style.display=\'block\';p.style.display=\'none\';b.textContent=\'Read less \u2191\';}}else{{f.style.display=\'none\';p.style.display=\'block\';b.textContent=\'Read more \u2193\';}}}})(this)">Read more \u2193</button>'''
         else:
             note_block = f'<div class="journal-note">{note_escaped}</div>'
         journal_html += f"""
