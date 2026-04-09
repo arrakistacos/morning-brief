@@ -1,0 +1,59 @@
+{
+  "last_updated": "2026-04-09",
+  "items": [
+    {
+      "ticker": "UAL",
+      "thesis": "Airline mechanical re-rate; highest fuel cost leverage on WTI collapse",
+      "added_date": "2026-04-08",
+      "status": "watching",
+      "entry_target": 100.00,
+      "stop": 92.00,
+      "target": 115.00
+    },
+    {
+      "ticker": "MU",
+      "thesis": "HBM4 mass production + risk-on tech rotation play",
+      "added_date": "2026-04-08",
+      "status": "watching",
+      "entry_target": 410.00,
+      "stop": 377.20,
+      "target": 471.50
+    },
+    {
+      "ticker": "CCL",
+      "thesis": "Highest fuel-cost exposure in consumer disc; gap continuation",
+      "added_date": "2026-04-08",
+      "status": "watching",
+      "entry_target": 28.00,
+      "stop": 25.76,
+      "target": 32.20
+    },
+    {
+      "ticker": "DAL",
+      "thesis": "Q1 beat; Q2 guidance now conservative; analyst upgrades imminent",
+      "added_date": "2026-04-08",
+      "status": "watching",
+      "entry_target": 70.00,
+      "stop": 64.40,
+      "target": 80.50
+    },
+    {
+      "ticker": "TLT",
+      "thesis": "Bond positioning ahead of FOMC minutes; long if 10Y breaks above 4.6%",
+      "added_date": "2026-04-08",
+      "status": "watching",
+      "entry_target": 87.50,
+      "stop": 80.10,
+      "target": 100.20
+    },
+    {
+      "ticker": "XOM",
+      "thesis": "WTI -16% = direct margin compression; short above $160",
+      "added_date": "2026-04-08",
+      "status": "watching",
+      "entry_target": 160.00,
+      "stop": 165.00,
+      "target": 145.00
+    }
+  ]
+}

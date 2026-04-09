@@ -468,6 +468,38 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
   .report-card, .journal-card { padding: .875rem; }
   .chart-container { height: 210px; }
 }
+
+/* ── Swing Trade Watch List ────────────────────────────────────────────── */
+.wl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--spice);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.wl-subtitle {
+  font-size: .75rem;
+  color: var(--muted);
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+.wl-badge {
+  display: inline-block;
+  font-size: .7rem;
+  padding: .15rem .5rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  font-weight: 600;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+.wl-thesis-col { max-width: 280px; font-size: .82rem; color: var(--muted); }
+@media (max-width: 768px) {
+  .wl-thesis-col { display: none !important; }
+  .wl-thesis-col-th { display: none !important; }
+}
 """
 
 # ── JavaScript (plain string — no f-string) ───────────────────────────────────
@@ -615,6 +647,102 @@ document.addEventListener('DOMContentLoaded', () => {
 """
 
 
+# ── Watchlist section builder ─────────────────────────────────────────────────
+
+def build_watchlist_section(watchlist_path):
+    """Read simulator/watchlist.json and return HTML for the watch list card."""
+    from datetime import date as _date
+
+    wl = load_json_safe(watchlist_path, {"items": [], "last_updated": ""})
+    items = wl.get("items", [])
+    last_updated = wl.get("last_updated", "")
+    today = _date.today()
+
+    # Only show active items (skip "removed")
+    active = [i for i in items if i.get("status") != "removed"]
+
+    if not active:
+        body = (
+            '<div class="empty-state" style="font-style:italic;color:var(--spice)">'
+            'No active setups \u2014 The desert is quiet.</div>'
+        )
+    else:
+        rows = ""
+        for item in active:
+            ticker = item.get("ticker", "\u2014")
+            thesis = item.get("thesis", "\u2014")
+            entry  = item.get("entry_target")
+            stop   = item.get("stop")
+            target = item.get("target")
+            added  = item.get("added_date", "")
+            status = item.get("status", "watching")
+
+            # Days on list
+            try:
+                added_dt = _date.fromisoformat(added)
+                days = (today - added_dt).days
+                days_str = "today" if days == 0 else f"{days}d"
+            except Exception:
+                days_str = "\u2014"
+
+            entry_str  = f"${entry:.2f}"  if entry  is not None else "\u2014"
+            stop_str   = f"${stop:.2f}"   if stop   is not None else "\u2014"
+            target_str = f"${target:.2f}" if target is not None else "\u2014"
+
+            if status == "watching":
+                badge = '<span class="wl-badge">\U0001f7e1 Watching</span>'
+            elif status == "queued":
+                badge = '<span class="wl-badge" style="color:var(--bull)">\U0001f7e2 Queued</span>'
+            elif status == "entered":
+                badge = '<span class="wl-badge" style="color:var(--atreides)">\U0001f535 In Position</span>'
+            else:
+                badge = f'<span class="wl-badge">{status}</span>'
+
+            rows += (
+                f'<tr>'
+                f'<td data-label="Ticker"><strong style="color:var(--sand);'
+                f'font-family:\'JetBrains Mono\',monospace">{ticker}</strong></td>'
+                f'<td data-label="Status">{badge}</td>'
+                f'<td data-label="Thesis" class="wl-thesis-col">{thesis}</td>'
+                f'<td data-label="Entry">{entry_str}</td>'
+                f'<td data-label="Stop">{stop_str}</td>'
+                f'<td data-label="Target">{target_str}</td>'
+                f'<td data-label="Days">{days_str}</td>'
+                f'</tr>'
+            )
+
+        body = f"""
+    <div class="table-wrap mobile-card-table-wrap">
+      <table class="mobile-card-table">
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Status</th>
+            <th class="wl-thesis-col-th">Thesis</th>
+            <th>Entry</th>
+            <th>Stop</th>
+            <th>Target</th>
+            <th>Days</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>"""
+
+    updated_note = (
+        f' <span style="font-size:.7rem;color:var(--muted);font-weight:400">'
+        f'\u2014 updated {last_updated}</span>'
+    ) if last_updated else ""
+
+    return f"""
+    <!-- ── Swing Trade Watch List ───────────────────────────────────────── -->
+    <div class="wl-card">
+      <div class="section-header">&#9876;&#65039; Swing Trade Watch List{updated_note}</div>
+      <div class="wl-subtitle">Updated daily \u2014 positions held 3\u20137 days</div>
+      {body}
+    </div>"""
+
+
 # ── Main build function ───────────────────────────────────────────────────────
 
 def build_dashboard():
@@ -630,6 +758,9 @@ def build_dashboard():
     trades = load_json_safe(simulator_dir / "trades.json", [])
     performance = load_json_safe(simulator_dir / "performance.json", [])
     strategy_log = load_json_safe(simulator_dir / "strategy_log.json", [])
+
+    # ── Watchlist ──────────────────────────────────────────────────────────────
+    watchlist_section = build_watchlist_section(simulator_dir / "watchlist.json")
 
     # ── Load report files ──────────────────────────────────────────────────────
     reports_json = []
@@ -917,7 +1048,7 @@ def build_dashboard():
         "trade": ("#6ECB63", "#0d2010"),
         "note": ("#8a7660", "#1c1810"),
     }
-    for i, entry in enumerate(reversed(strategy_log[-25:])):
+    for entry in reversed(strategy_log[-25:]):
         e_date = entry.get("date", "")
         e_type = entry.get("type", "note")
         note = entry.get("note", "")
@@ -929,11 +1060,7 @@ def build_dashboard():
         PREVIEW_LEN = 400
         if len(note) > PREVIEW_LEN:
             preview = _html.escape(note[:PREVIEW_LEN].rstrip())
-            entry_id = f"je{i}"
-            note_block = f'''<span id="preview-{entry_id}" style="white-space:pre-wrap;">{preview}</span>
-<span id="full-{entry_id}" style="display:none;white-space:pre-wrap;">{note_escaped}</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){{var p=document.getElementById('preview-{entry_id}');var f=document.getElementById('full-{entry_id}');if(f.style.display===\'none\'){{f.style.display=\'block\';p.style.display=\'none\';b.textContent=\'Read less \u2191\';}}else{{f.style.display=\'none\';p.style.display=\'block\';b.textContent=\'Read more \u2193\';}}}})(this)">Read more \u2193</button>'''
+            note_block = f"""<span class="journal-note-preview">{preview}…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">{note_escaped}</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){{full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}}else{{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>"""
         else:
             note_block = f'<div class="journal-note">{note_escaped}</div>'
         journal_html += f"""
@@ -1033,6 +1160,8 @@ def build_dashboard():
     </div>
 
     {sparkline_section}
+
+    {watchlist_section}
 
     <!-- Report Cards -->
     <div class="section-header">&#128203; Recent Reports</div>
