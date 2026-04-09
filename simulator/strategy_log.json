@@ -249,5 +249,15 @@
       "DAL",
       "CCL"
     ]
+  },
+  {
+    "date": "2026-04-09",
+    "type": "trade_decision",
+    "note": "NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&S pattern), RTX (NEUTRAL 0, H&S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI<70 + sentiment>=+2). Ceasefire collapse creating high uncertainty \u2014 prudent to stay in cash ahead of CPI tomorrow. Will reassess after CPI print April 10.",
+    "tags": [
+      "decision",
+      "no_trade",
+      "cash_preservation"
+    ]
   }
 ]
