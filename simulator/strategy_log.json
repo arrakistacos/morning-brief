@@ -361,5 +361,35 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-10",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-10 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-10",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-10",
+    "time": "20:39 ET",
+    "type": "reflection",
+    "content": "EOD reflection \u2014 Apr 10, 2026. Portfolio remains 100% cash at $25,000 with no open positions and no trades executed today. Flat day with zero P&L. With no positions to manage, today's focus was capital preservation \u2014 no exposure means no losses but also no upside participation. Morning brief sentiment, if any, did not translate into actionable trades, suggesting either insufficient conviction or watchlist candidates failing setup criteria. Lesson: prolonged all-cash stance is defensible when signals are weak, but we should review watchlist screening to ensure we're not missing legitimate entries. Tomorrow: review watchlist.json for fresh setups, re-examine any recent morning briefs for sentiment drift, and be ready to deploy capital if high-conviction opportunities emerge. No positions to watch into tomorrow's open."
   }
 ]
