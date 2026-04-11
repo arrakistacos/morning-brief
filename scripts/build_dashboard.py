@@ -468,38 +468,6 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
   .report-card, .journal-card { padding: .875rem; }
   .chart-container { height: 210px; }
 }
-
-/* ── Swing Trade Watch List ────────────────────────────────────────────── */
-.wl-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--spice);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-.wl-subtitle {
-  font-size: .75rem;
-  color: var(--muted);
-  margin-top: -.5rem;
-  margin-bottom: 1rem;
-  font-style: italic;
-}
-.wl-badge {
-  display: inline-block;
-  font-size: .7rem;
-  padding: .15rem .5rem;
-  border-radius: 10px;
-  white-space: nowrap;
-  font-weight: 600;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-}
-.wl-thesis-col { max-width: 280px; font-size: .82rem; color: var(--muted); }
-@media (max-width: 768px) {
-  .wl-thesis-col { display: none !important; }
-  .wl-thesis-col-th { display: none !important; }
-}
 """
 
 # ── JavaScript (plain string — no f-string) ───────────────────────────────────
@@ -647,106 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
 """
 
 
-# ── Watchlist section builder ─────────────────────────────────────────────────
-
-def build_watchlist_section(watchlist_path):
-    """Read simulator/watchlist.json and return a compact, clean watch list table."""
-    from datetime import date as _date
-
-    wl = load_json_safe(watchlist_path, {"items": [], "last_updated": ""})
-    items = wl.get("items", [])
-    last_updated = wl.get("last_updated", "")
-
-    # Only show active items (skip "removed")
-    active = [i for i in items if i.get("status") != "removed"]
-
-    if not active:
-        body = (
-            '<div style="padding:14px 0;font-style:italic;color:#E8841A;font-size:13px;">'
-            'No active setups \u2014 The desert is quiet.</div>'
-        )
-    else:
-        rows = ""
-        for item in active:
-            ticker = item.get("ticker", "\u2014")
-            thesis = item.get("thesis", "\u2014")
-            entry  = item.get("entry_target")
-            stop   = item.get("stop")
-            target = item.get("target")
-            status = item.get("status", "watching")
-
-            # Detect direction: short if stop is above entry
-            is_short = (stop is not None and entry is not None and stop > entry)
-
-            # R:R ratio
-            rr_str = "\u2014"
-            if entry is not None and stop is not None and target is not None:
-                risk   = (stop - entry)   if is_short else (entry - stop)
-                reward = (entry - target) if is_short else (target - entry)
-                if risk > 0:
-                    rr_str = f"{reward / risk:.1f}:1"
-
-            entry_str  = f"${entry:.2f}"  if entry  is not None else "\u2014"
-            stop_str   = f"${stop:.2f}"   if stop   is not None else "\u2014"
-            target_str = f"${target:.2f}" if target is not None else "\u2014"
-
-            # Signal badge
-            if status == "watching":
-                if is_short:
-                    sig = '<span style="color:#ff6b6b;font-weight:700;font-size:11px;">WATCH SHORT \u25bc</span>'
-                else:
-                    sig = '<span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH \u25b2</span>'
-            elif status == "queued":
-                sig = '<span style="color:#00c853;font-weight:700;font-size:11px;">QUEUED \u25b2</span>'
-            elif status == "entered":
-                sig = '<span style="color:#4fc3f7;font-weight:700;font-size:11px;">IN POSITION</span>'
-            else:
-                sig = f'<span style="color:#94a3b8;font-size:11px;">{status.upper()}</span>'
-
-            rows += f"""
-        <tr style="border-bottom:1px solid #162030;">
-          <td style="padding:9px 8px;vertical-align:top;">
-            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">{ticker}</strong>
-            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">{thesis}</div>
-          </td>
-          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;">{sig}</td>
-          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">{entry_str}</td>
-          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">{stop_str}</td>
-          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">{target_str}</td>
-          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">{rr_str}</td>
-        </tr>"""
-
-        body = f"""
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:360px;">
-        <thead>
-          <tr style="background:#0d2035;border-bottom:2px solid #E8841A;">
-            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Ticker / Thesis</th>
-            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Signal</th>
-            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Entry</th>
-            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Stop</th>
-            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Target</th>
-            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">R:R</th>
-          </tr>
-        </thead>
-        <tbody>{rows}
-        </tbody>
-      </table>
-    </div>"""
-
-    updated_note = (
-        f'<span style="font-size:10px;color:#94a3b8;font-weight:400;"> \u2014 updated {last_updated}</span>'
-    ) if last_updated else ""
-
-    return f"""
-    <!-- ── Swing Trade Watch List ───────────────────────────────────────── -->
-    <div class="wl-card">
-      <div class="section-header">&#127919; Swing Trade Watch List{updated_note}</div>
-      <div style="font-size:11px;color:#94a3b8;margin:-4px 0 10px;">Updated daily before pre-market &middot; Positions held 3&ndash;7 days</div>
-      {body}
-    </div>"""
-
-
 # ── Main build function ───────────────────────────────────────────────────────
 
 def build_dashboard():
@@ -762,9 +630,6 @@ def build_dashboard():
     trades = load_json_safe(simulator_dir / "trades.json", [])
     performance = load_json_safe(simulator_dir / "performance.json", [])
     strategy_log = load_json_safe(simulator_dir / "strategy_log.json", [])
-
-    # ── Watchlist ──────────────────────────────────────────────────────────────
-    watchlist_section = build_watchlist_section(simulator_dir / "watchlist.json")
 
     # ── Load report files ──────────────────────────────────────────────────────
     reports_json = []
@@ -1052,7 +917,7 @@ def build_dashboard():
         "trade": ("#6ECB63", "#0d2010"),
         "note": ("#8a7660", "#1c1810"),
     }
-    for entry in reversed(strategy_log[-25:]):
+    for i, entry in enumerate(reversed(strategy_log[-25:])):
         e_date = entry.get("date", "")
         e_type = entry.get("type", "note")
         note = entry.get("note", "")
@@ -1064,7 +929,11 @@ def build_dashboard():
         PREVIEW_LEN = 400
         if len(note) > PREVIEW_LEN:
             preview = _html.escape(note[:PREVIEW_LEN].rstrip())
-            note_block = f"""<span class="journal-note-preview">{preview}…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">{note_escaped}</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){{full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}}else{{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>"""
+            entry_id = f"je{i}"
+            note_block = f'''<span id="preview-{entry_id}" style="white-space:pre-wrap;">{preview}</span>
+<span id="full-{entry_id}" style="display:none;white-space:pre-wrap;">{note_escaped}</span>
+<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
+  onclick="(function(b){{var p=document.getElementById('preview-{entry_id}');var f=document.getElementById('full-{entry_id}');if(f.style.display===\'none\'){{f.style.display=\'block\';p.style.display=\'none\';b.textContent=\'Read less \u2191\';}}else{{f.style.display=\'none\';p.style.display=\'block\';b.textContent=\'Read more \u2193\';}}}})(this)">Read more \u2193</button>'''
         else:
             note_block = f'<div class="journal-note">{note_escaped}</div>'
         journal_html += f"""
@@ -1164,8 +1033,6 @@ def build_dashboard():
     </div>
 
     {sparkline_section}
-
-    {watchlist_section}
 
     <!-- Report Cards -->
     <div class="section-header">&#128203; Recent Reports</div>
