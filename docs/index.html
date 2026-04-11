@@ -437,6 +437,38 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
   .report-card, .journal-card { padding: .875rem; }
   .chart-container { height: 210px; }
 }
+
+/* ── Swing Trade Watch List ────────────────────────────────────────────── */
+.wl-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--spice);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.wl-subtitle {
+  font-size: .75rem;
+  color: var(--muted);
+  margin-top: -.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+.wl-badge {
+  display: inline-block;
+  font-size: .7rem;
+  padding: .15rem .5rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  font-weight: 600;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+.wl-thesis-col { max-width: 280px; font-size: .82rem; color: var(--muted); }
+@media (max-width: 768px) {
+  .wl-thesis-col { display: none !important; }
+  .wl-thesis-col-th { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -469,7 +501,7 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
     <div class="stat-row">
       <div class="stat-card">
         <div class="stat-label">Total Reports</div>
-        <div class="stat-value" style="color:var(--atreides)">5</div>
+        <div class="stat-value" style="color:var(--atreides)">6</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Latest Sentiment</div>
@@ -477,7 +509,7 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
       </div>
       <div class="stat-card">
         <div class="stat-label">30-Day Avg Score</div>
-        <div class="stat-value">-1.4</div>
+        <div class="stat-value">-1.0</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Bullish Days (30d)</div>
@@ -497,10 +529,108 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
     </div>
   </div>
 
+    
+    <!-- ── Swing Trade Watch List ───────────────────────────────────────── -->
+    <div class="wl-card">
+      <div class="section-header">&#127919; Swing Trade Watch List<span style="font-size:10px;color:#94a3b8;font-weight:400;"> — updated 2026-04-09</span></div>
+      <div style="font-size:11px;color:#94a3b8;margin:-4px 0 10px;">Updated daily before pre-market &middot; Positions held 3&ndash;7 days</div>
+      
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:360px;">
+        <thead>
+          <tr style="background:#0d2035;border-bottom:2px solid #E8841A;">
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Ticker / Thesis</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Signal</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Entry</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Stop</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">Target</th>
+            <th style="text-align:left;padding:8px 8px;color:#8b6914;font-size:10px;text-transform:uppercase;letter-spacing:1px;">R:R</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">UAL</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Airline mechanical re-rate; highest fuel cost leverage on WTI collapse</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$100.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$92.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$115.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">MU</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">HBM4 mass production + risk-on tech rotation play</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$410.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$377.20</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$471.50</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">CCL</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Highest fuel-cost exposure in consumer disc; gap continuation</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$28.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$25.76</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$32.20</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">DAL</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Q1 beat; Q2 guidance now conservative; analyst upgrades imminent</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$70.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$64.40</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$80.50</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.9:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">TLT</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">Bond positioning ahead of FOMC minutes; long if 10Y breaks above 4.6%</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#E8841A;font-weight:700;font-size:11px;">WATCH ▲</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$87.50</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$80.10</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$100.20</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">1.7:1</td>
+        </tr>
+        <tr style="border-bottom:1px solid #162030;">
+          <td style="padding:9px 8px;vertical-align:top;">
+            <strong style="color:#C4A265;font-family:'JetBrains Mono',monospace;font-size:13px;">XOM</strong>
+            <div style="font-size:10px;color:#94a3b8;margin-top:3px;line-height:1.4;max-width:200px;">WTI -16% = direct margin compression; short above $160</div>
+          </td>
+          <td style="padding:9px 8px;vertical-align:middle;white-space:nowrap;"><span style="color:#ff6b6b;font-weight:700;font-size:11px;">WATCH SHORT ▼</span></td>
+          <td style="padding:9px 8px;vertical-align:middle;color:#e8dcc8;font-size:12px;white-space:nowrap;">$160.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#ff6b6b;">$165.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#00c853;">$145.00</td>
+          <td style="padding:9px 8px;vertical-align:middle;font-size:12px;white-space:nowrap;color:#E8841A;font-weight:700;">3.0:1</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+
     <!-- Report Cards -->
     <div class="section-header">&#128203; Recent Reports</div>
     <div class="reports-grid">
       
+        <a href="reports/2026-04-10.html" class="report-card">
+          <div class="card-header">
+            <span class="card-date">Apr 10, 2026</span>
+            <span style="color:var(--spice);font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700">MIXED (+1)</span>
+          </div>
+          <div class='card-themes'><span class="theme">CPI split verdict: hot headline (3.3%), cool core (2.6%) — rate-cut hopes alive</span><span class="theme">Iran ceasefire deadline extension hopes keep 7-day rally alive</span><span class="theme">Oil April 9 reversal — WTI ~$90, Hormuz fragility intact</span><span class="theme">Fed higher-for-longer at 3.5-3.75%, next meeting April 29</span></div>
+          <div class="card-summary">US equity futures are flat to marginally positive in pre-market as investors brace for the March CPI report at 8:30 AM ET — the first inflation print since the Iran war erupted on February 28. The 7-d…</div>
+        </a>
         <a href="reports/2026-04-09.html" class="report-card">
           <div class="card-header">
             <span class="card-date">Apr 9, 2026</span>
@@ -637,13 +767,44 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
       
         <div class="journal-card">
           <div class="journal-card-header">
+            <span class="journal-date">2026-04-10</span>
+            <span class="journal-type" style="color:#8a7660;background:#1c1810">Reflection</span>
+          </div>
+          <div class="journal-note"></div>
+          
+        </div>
+        <div class="journal-card">
+          <div class="journal-card-header">
+            <span class="journal-date">2026-04-10</span>
+            <span class="journal-type" style="color:#8a7660;background:#1c1810">Eod Snapshot</span>
+          </div>
+          <div class="journal-note">EOD 2026-04-10 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today — held positions / cash preservation. | No open positions.</div>
+          <div class='journal-tags'><span class="journal-tag">eod</span><span class="journal-tag">daily-review</span></div>
+        </div>
+        <div class="journal-card">
+          <div class="journal-card-header">
+            <span class="journal-date">2026-04-10</span>
+            <span class="journal-type" style="color:#8a7660;background:#1c1810">Midday Email Skipped</span>
+          </div>
+          <div class="journal-note">No midday email sent — no actions taken</div>
+          <div class='journal-tags'><span class="journal-tag">midday</span><span class="journal-tag">email</span><span class="journal-tag">no-action</span></div>
+        </div>
+        <div class="journal-card">
+          <div class="journal-card-header">
+            <span class="journal-date">2026-04-10</span>
+            <span class="journal-type" style="color:#8a7660;background:#1c1810">Midday Check</span>
+          </div>
+          <div class="journal-note">MIDDAY 2026-04-10 13:32 ET | Portfolio: $25,000.00 | No action — held all positions. | Observations: No open positions — fully in cash. | No morning watchlist available for entry scan.</div>
+          <div class='journal-tags'><span class="journal-tag">midday</span><span class="journal-tag">daily-review</span></div>
+        </div>
+        <div class="journal-card">
+          <div class="journal-card-header">
             <span class="journal-date">2026-04-09</span>
             <span class="journal-type" style="color:#8a7660;background:#1c1810">Reflection</span>
           </div>
-          <span id="preview-je0" style="white-space:pre-wrap;">EOD Reflection — April 9, 2026 (Day 4). Fourth consecutive day at $25,000.00 — fully in cash, zero P&amp;L. This is now a pattern that demands honest assessment.
+          <span class="journal-note-preview">EOD Reflection — April 9, 2026 (Day 4). Fourth consecutive day at $25,000.00 — fully in cash, zero P&amp;L. This is now a pattern that demands honest assessment.
 
-WHAT WORKED: The system continued to enforce discipline. Six tickers were screened today (XOM, CVX, AVGO, INTC, LMT, RTX) and every single one was correctly rejected. XOM and CVX both showed SELL signals with double-top patterns — these are</span>
-<span id="full-je0" style="display:none;white-space:pre-wrap;">EOD Reflection — April 9, 2026 (Day 4). Fourth consecutive day at $25,000.00 — fully in cash, zero P&amp;L. This is now a pattern that demands honest assessment.
+WHAT WORKED: The system continued to enforce discipline. Six tickers were screened today (XOM, CVX, AVGO, INTC, LMT, RTX) and every single one was correctly rejected. XOM and CVX both showed SELL signals with double-top patterns — these are…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">EOD Reflection — April 9, 2026 (Day 4). Fourth consecutive day at $25,000.00 — fully in cash, zero P&amp;L. This is now a pattern that demands honest assessment.
 
 WHAT WORKED: The system continued to enforce discipline. Six tickers were screened today (XOM, CVX, AVGO, INTC, LMT, RTX) and every single one was correctly rejected. XOM and CVX both showed SELL signals with double-top patterns — these are falling knives post-ceasefire collapse and the system rightly avoided them. INTC was the most tempting after a +26% surge on the Terafab announcement, but RSI at 72.2 (overbought) is a classic chase trap. Buying a stock after a one-day 26% move with RSI above 70 is exactly the kind of FOMO the rules were designed to prevent. AVGO at NEUTRAL +1 with elevated RSI (64) was correctly held — close but not qualifying. The process is sound.
 
@@ -653,9 +814,7 @@ WAS MORNING BRIEF SENTIMENT ACCURATE? Yes. The trade_decision correctly identifi
 
 LESSONS LEARNED: (1) Four days of cash preservation is not failure when the market provides zero qualifying setups. But it does raise the question: are the criteria too strict for a paper trading simulator? In real capital, this conservatism is a virtue. In a learning environment, the absence of any trades means the system is generating no data on execution, position management, or exit discipline. (2) The ceasefire-to-collapse cycle in 24 hours (April 8 ceasefire → April 9 collapse) vindicates the small position sizing rule. Had we entered MU at 10 yesterday and the macro shifted overnight, the 8% stop would have been our only protection. (3) INTC at RSI 72 post-Terafab is worth watching for a pullback to the 50-60 RSI range — if the AI chip thesis remains intact, a consolidation entry could be strong. (4) The CPI print tomorrow is the next binary catalyst. Stay flat into it.
 
-WHAT TO WATCH TOMORROW (Friday, Apr 10): CPI is the headline event. Three scenarios: (A) CPI comes in hot — Fed stays hawkish, growth/tech sells off, defensive positioning preferred. Watch for TLT short or UNH (healthcare is CPI-defensive). (B) CPI comes in cool — risk-on rally, AVGO and INTC benefit, consider AVGO if it clears BUY threshold. (C) CPI in-line — market likely flat, look for individual stock catalysts. Regardless of CPI: INTC pullback to RSI 55-60 range is the top watchlist item. UNH remains the scenario-neutral play with the MA rate catalyst. Energy (XOM, CVX) — avoid until oil finds a floor. Defense (LMT, RTX) — bearish patterns need to resolve before entry. Patience continues to be the edge, but we need to be ready to act when the first post-CPI qualifying setup appears.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je0');var f=document.getElementById('full-je0');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+WHAT TO WATCH TOMORROW (Friday, Apr 10): CPI is the headline event. Three scenarios: (A) CPI comes in hot — Fed stays hawkish, growth/tech sells off, defensive positioning preferred. Watch for TLT short or UNH (healthcare is CPI-defensive). (B) CPI comes in cool — risk-on rally, AVGO and INTC benefit, consider AVGO if it clears BUY threshold. (C) CPI in-line — market likely flat, look for individual stock catalysts. Regardless of CPI: INTC pullback to RSI 55-60 range is the top watchlist item. UNH remains the scenario-neutral play with the MA rate catalyst. Energy (XOM, CVX) — avoid until oil finds a floor. Defense (LMT, RTX) — bearish patterns need to resolve before entry. Patience continues to be the edge, but we need to be ready to act when the first post-CPI qualifying setup appears.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">reflection</span><span class="journal-tag">day4</span><span class="journal-tag">ceasefire_collapse</span><span class="journal-tag">cash_preservation</span><span class="journal-tag">no_trades</span><span class="journal-tag">CPI_catalyst</span><span class="journal-tag">INTC</span><span class="journal-tag">MU</span><span class="journal-tag">process_review</span></div>
         </div>
         <div class="journal-card">
@@ -687,10 +846,7 @@ WHAT TO WATCH TOMORROW (Friday, Apr 10): CPI is the headline event. Three scenar
             <span class="journal-date">2026-04-09</span>
             <span class="journal-type" style="color:#C4A265;background:#2a1f10">Trade Decision</span>
           </div>
-          <span id="preview-je4" style="white-space:pre-wrap;">NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&amp;S pattern), RTX (NEUTRAL 0, H&amp;S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI&lt;70 + sentiment&gt;=+2). Ceasefire colla</span>
-<span id="full-je4" style="display:none;white-space:pre-wrap;">NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&amp;S pattern), RTX (NEUTRAL 0, H&amp;S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI&lt;70 + sentiment&gt;=+2). Ceasefire collapse creating high uncertainty — prudent to stay in cash ahead of CPI tomorrow. Will reassess after CPI print April 10.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je4');var f=document.getElementById('full-je4');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+          <span class="journal-note-preview">NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&amp;S pattern), RTX (NEUTRAL 0, H&amp;S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI&lt;70 + sentiment&gt;=+2). Ceasefire colla…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&amp;S pattern), RTX (NEUTRAL 0, H&amp;S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI&lt;70 + sentiment&gt;=+2). Ceasefire collapse creating high uncertainty — prudent to stay in cash ahead of CPI tomorrow. Will reassess after CPI print April 10.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">decision</span><span class="journal-tag">no_trade</span><span class="journal-tag">cash_preservation</span></div>
         </div>
         <div class="journal-card">
@@ -698,10 +854,9 @@ WHAT TO WATCH TOMORROW (Friday, Apr 10): CPI is the headline event. Three scenar
             <span class="journal-date">2026-04-08</span>
             <span class="journal-type" style="color:#8a7660;background:#1c1810">Reflection</span>
           </div>
-          <span id="preview-je5" style="white-space:pre-wrap;">EOD Reflection — April 8, 2026 (Day 3). Third consecutive day at $25,000.00 — fully in cash, zero P&amp;L. But today was a pivotal day for the strategy.
+          <span class="journal-note-preview">EOD Reflection — April 8, 2026 (Day 3). Third consecutive day at $25,000.00 — fully in cash, zero P&amp;L. But today was a pivotal day for the strategy.
 
-WHAT WORKED: The two-day cash preservation through the Iran binary event paid off exactly as planned. The Pakistan-brokered ceasefire was announced and WTI crude collapsed 16.3% in a single session. The morning brief correctly identified this as a BU</span>
-<span id="full-je5" style="display:none;white-space:pre-wrap;">EOD Reflection — April 8, 2026 (Day 3). Third consecutive day at $25,000.00 — fully in cash, zero P&amp;L. But today was a pivotal day for the strategy.
+WHAT WORKED: The two-day cash preservation through the Iran binary event paid off exactly as planned. The Pakistan-brokered ceasefire was announced and WTI crude collapsed 16.3% in a single session. The morning brief correctly identified this as a BU…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">EOD Reflection — April 8, 2026 (Day 3). Third consecutive day at $25,000.00 — fully in cash, zero P&amp;L. But today was a pivotal day for the strategy.
 
 WHAT WORKED: The two-day cash preservation through the Iran binary event paid off exactly as planned. The Pakistan-brokered ceasefire was announced and WTI crude collapsed 16.3% in a single session. The morning brief correctly identified this as a BULLISH +7/10 session and began screening post-ceasefire rotation plays. The process also correctly REJECTED the obvious momentum plays (UAL, CCL, DAL) — all had gapped hard at the open and were too extended for safe entry. Chasing a gap-up airline stock after a 16% oil crash would have been textbook FOMO, and the system filtered it out. That discipline is more valuable than any single trade.
 
@@ -711,9 +866,7 @@ WAS MORNING BRIEF SENTIMENT ACCURATE? Yes — strongly so. The +7/10 bullish cal
 
 LESSONS LEARNED: (1) The Iran cash preservation strategy worked — we avoided potential whipsaw losses on Days 1-2 and preserved full capital to deploy into the post-event clarity. That is the textbook execution of the binary event rule. (2) MU is the first real BUY signal in three days. If it still qualifies tomorrow morning, it should be the first trade. Hesitation after three days of discipline is the wrong instinct — the system said BUY, so trust the system. (3) The airlines (UAL, DAL, CCL) gapped too far today but may pull back to the 20-DMA over the next 2-3 sessions. Add them to the watchlist for consolidation entries. (4) Energy names (XOM, FRO) likely in free-fall after a 16% oil crash — do NOT try to catch the falling knife. Wait for stabilization.
 
-WHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution — if the BUY signal holds at open, execute the queued order (6 shares above $410). Priority #2: watch UAL/DAL for a 2-3% pullback toward the 20-DMA as a potential entry. Priority #3: monitor oil stabilization — if WTI finds a floor, XOM and FRO may present mean-reversion setups later in the week. Key risk: ceasefire is temporary (expires April 22) — all positions must be sized conservatively with hard stops.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je5');var f=document.getElementById('full-je5');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+WHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution — if the BUY signal holds at open, execute the queued order (6 shares above $410). Priority #2: watch UAL/DAL for a 2-3% pullback toward the 20-DMA as a potential entry. Priority #3: monitor oil stabilization — if WTI finds a floor, XOM and FRO may present mean-reversion setups later in the week. Key risk: ceasefire is temporary (expires April 22) — all positions must be sized conservatively with hard stops.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">reflection</span><span class="journal-tag">day3</span><span class="journal-tag">ceasefire</span><span class="journal-tag">cash_preservation</span><span class="journal-tag">MU</span><span class="journal-tag">oil_collapse</span><span class="journal-tag">UAL</span><span class="journal-tag">DAL</span><span class="journal-tag">CCL</span></div>
         </div>
         <div class="journal-card">
@@ -729,10 +882,7 @@ WHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution — if the
             <span class="journal-date">2026-04-08</span>
             <span class="journal-type" style="color:#C4A265;background:#2a1f10">Trade Decision</span>
           </div>
-          <span id="preview-je7" style="white-space:pre-wrap;">BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x — PASS), CCL (NEUTRAL — PASS), DAL (NEUTRAL — PASS), MU (BUY, RSI 54, above both MAs, R/R &gt;1.5x — QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today — too extended for entry; wait for consolidation or pullback to 20-DMA before consid</span>
-<span id="full-je7" style="display:none;white-space:pre-wrap;">BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x — PASS), CCL (NEUTRAL — PASS), DAL (NEUTRAL — PASS), MU (BUY, RSI 54, above both MAs, R/R &gt;1.5x — QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today — too extended for entry; wait for consolidation or pullback to 20-DMA before considering. Key risk: ceasefire expires April 22 — keep all positions sized small with hard 8% stops.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je7');var f=document.getElementById('full-je7');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+          <span class="journal-note-preview">BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x — PASS), CCL (NEUTRAL — PASS), DAL (NEUTRAL — PASS), MU (BUY, RSI 54, above both MAs, R/R &gt;1.5x — QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today — too extended for entry; wait for consolidation or pullback to 20-DMA before consid…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x — PASS), CCL (NEUTRAL — PASS), DAL (NEUTRAL — PASS), MU (BUY, RSI 54, above both MAs, R/R &gt;1.5x — QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today — too extended for entry; wait for consolidation or pullback to 20-DMA before considering. Key risk: ceasefire expires April 22 — keep all positions sized small with hard 8% stops.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">decision</span><span class="journal-tag">ceasefire-trade</span><span class="journal-tag">oil-collapse</span></div>
         </div>
         <div class="journal-card">
@@ -756,10 +906,9 @@ WHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution — if the
             <span class="journal-date">2026-04-07</span>
             <span class="journal-type" style="color:#8a7660;background:#1c1810">Reflection</span>
           </div>
-          <span id="preview-je10" style="white-space:pre-wrap;">EOD Reflection — April 7, 2026 (Day 2). Full cash preservation again: $25,000.00 unchanged. No trades executed. This was the Iran deadline day — Trump&#x27;s Strait of Hormuz ultimatum — and the decision to stay 100% cash was correct in both process and outcome.
+          <span class="journal-note-preview">EOD Reflection — April 7, 2026 (Day 2). Full cash preservation again: $25,000.00 unchanged. No trades executed. This was the Iran deadline day — Trump&#x27;s Strait of Hormuz ultimatum — and the decision to stay 100% cash was correct in both process and outcome.
 
-WHAT WORKED: Discipline under a known binary macro catalyst. The morning brief reviewed four tickers (UNH, AVGO, XOM, LMT) and none cleared t</span>
-<span id="full-je10" style="display:none;white-space:pre-wrap;">EOD Reflection — April 7, 2026 (Day 2). Full cash preservation again: $25,000.00 unchanged. No trades executed. This was the Iran deadline day — Trump&#x27;s Strait of Hormuz ultimatum — and the decision to stay 100% cash was correct in both process and outcome.
+WHAT WORKED: Discipline under a known binary macro catalyst. The morning brief reviewed four tickers (UNH, AVGO, XOM, LMT) and none cleared t…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">EOD Reflection — April 7, 2026 (Day 2). Full cash preservation again: $25,000.00 unchanged. No trades executed. This was the Iran deadline day — Trump&#x27;s Strait of Hormuz ultimatum — and the decision to stay 100% cash was correct in both process and outcome.
 
 WHAT WORKED: Discipline under a known binary macro catalyst. The morning brief reviewed four tickers (UNH, AVGO, XOM, LMT) and none cleared the composite BUY threshold. More importantly, even the highest-scoring setup (AVGO at NEUTRAL +1 with a 12.3x theoretical R/R) was correctly rejected because the chart structure was weak — price below all DMAs with no confirmation. A 12x R/R on a broken chart is fool&#x27;s gold. The process filtered it out. The &#x27;no fighting the tape into a binary event&#x27; rule held for Day 2 in a row, which is the right call.
 
@@ -769,9 +918,7 @@ WAS MORNING BRIEF SENTIMENT ACCURATE? Yes. The trade_decision log from this morn
 
 LESSONS LEARNED: (1) Two flat days in a row is not failure — it&#x27;s capital preservation in a binary macro environment. P&amp;L = $0 beats P&amp;L = -$1,200 on a bad Iran escalation trade. (2) AVGO is worth watching post-Iran resolution. The AI chip thesis is durable and the 12x R/R figure reflects a wide potential upside — it just needs price confirmation above DMAs. (3) UNH remains the cleanest setup: MA rate catalyst is geopolitics-independent, and a reversal of the bearish double-top pattern would be a strong signal to enter. Watch for RSI above 55 and a close above the 20-DMA.
 
-WHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets will open with a verdict. Two scenarios: (A) De-escalation / ceasefire — expect oil to drop, energy sells off (fade XOM/FRO spikes), airlines and consumer discretionary lead (DAL, UAL, ABNB), risk-on rotation benefits AVGO and growth. Entry window: 10:00–10:30 AM ET after the opening flush. (B) Escalation — oil spikes toward $115-120, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense bids. In this scenario, wait for the spike to exhaust and look for mean-reversion setups rather than chasing momentum. Either way: do NOT enter in the first 30 minutes. Let price discovery happen, then follow the tape. UNH is the scenario-neutral watch — healthcare MA catalyst doesn&#x27;t care about oil.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je10');var f=document.getElementById('full-je10');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+WHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets will open with a verdict. Two scenarios: (A) De-escalation / ceasefire — expect oil to drop, energy sells off (fade XOM/FRO spikes), airlines and consumer discretionary lead (DAL, UAL, ABNB), risk-on rotation benefits AVGO and growth. Entry window: 10:00–10:30 AM ET after the opening flush. (B) Escalation — oil spikes toward $115-120, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense bids. In this scenario, wait for the spike to exhaust and look for mean-reversion setups rather than chasing momentum. Either way: do NOT enter in the first 30 minutes. Let price discovery happen, then follow the tape. UNH is the scenario-neutral watch — healthcare MA catalyst doesn&#x27;t care about oil.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">reflection</span><span class="journal-tag">day2</span><span class="journal-tag">iran_deadline</span><span class="journal-tag">cash_preservation</span><span class="journal-tag">no_trades</span><span class="journal-tag">macro_binary_event</span><span class="journal-tag">UNH</span><span class="journal-tag">AVGO</span><span class="journal-tag">XOM</span><span class="journal-tag">LMT</span></div>
         </div>
         <div class="journal-card">
@@ -803,10 +950,7 @@ WHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets
             <span class="journal-date">2026-04-07</span>
             <span class="journal-type" style="color:#C4A265;background:#2a1f10">Trade Decision</span>
           </div>
-          <span id="preview-je14" style="white-space:pre-wrap;">No trades queued. Reviewed 4 tickers: UNH (NEUTRAL +1, RSI 52.6, double_top bearish pattern, R/R 2.8x — healthare MA catalyst is bullish but chart composite does not reach BUY threshold); AVGO (NEUTRAL +1, RSI 47.35, below all DMAs, R/R 12.3x — AI chip story compelling but price structure weak); XOM (SELL -2, MACD bearish crossover, R/R 0.5x — counterintuitively SELL despite Iran oil premium; pric</span>
-<span id="full-je14" style="display:none;white-space:pre-wrap;">No trades queued. Reviewed 4 tickers: UNH (NEUTRAL +1, RSI 52.6, double_top bearish pattern, R/R 2.8x — healthare MA catalyst is bullish but chart composite does not reach BUY threshold); AVGO (NEUTRAL +1, RSI 47.35, below all DMAs, R/R 12.3x — AI chip story compelling but price structure weak); XOM (SELL -2, MACD bearish crossover, R/R 0.5x — counterintuitively SELL despite Iran oil premium; price extended above DMAs with unfavorable stop); LMT (NEUTRAL 0, double_top + H&amp;S patterns, R/R 0.6x — defense thesis valid but bearish technical patterns disqualify). Rules require BUY/STRONG_BUY composite signal — no ticker clears the threshold. Additionally: TODAY is Trump&#x27;s Iran deadline day. Entering any new position into a known binary volatility event violates the &#x27;no fighting the tape&#x27; rule. Holding $25,000 cash. Will reassess Wednesday morning after Iran deadline resolution. If escalation: watch XOM/FRO post-spike for mean reversion; if ceasefire: DAL/UAL long setup likely, energy sells off. UNH is the cleanest setup on the other side of Iran uncertainty — MA rate catalyst is durable regardless of geopolitical outcome.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je14');var f=document.getElementById('full-je14');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+          <span class="journal-note-preview">No trades queued. Reviewed 4 tickers: UNH (NEUTRAL +1, RSI 52.6, double_top bearish pattern, R/R 2.8x — healthare MA catalyst is bullish but chart composite does not reach BUY threshold); AVGO (NEUTRAL +1, RSI 47.35, below all DMAs, R/R 12.3x — AI chip story compelling but price structure weak); XOM (SELL -2, MACD bearish crossover, R/R 0.5x — counterintuitively SELL despite Iran oil premium; pric…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">No trades queued. Reviewed 4 tickers: UNH (NEUTRAL +1, RSI 52.6, double_top bearish pattern, R/R 2.8x — healthare MA catalyst is bullish but chart composite does not reach BUY threshold); AVGO (NEUTRAL +1, RSI 47.35, below all DMAs, R/R 12.3x — AI chip story compelling but price structure weak); XOM (SELL -2, MACD bearish crossover, R/R 0.5x — counterintuitively SELL despite Iran oil premium; price extended above DMAs with unfavorable stop); LMT (NEUTRAL 0, double_top + H&amp;S patterns, R/R 0.6x — defense thesis valid but bearish technical patterns disqualify). Rules require BUY/STRONG_BUY composite signal — no ticker clears the threshold. Additionally: TODAY is Trump&#x27;s Iran deadline day. Entering any new position into a known binary volatility event violates the &#x27;no fighting the tape&#x27; rule. Holding $25,000 cash. Will reassess Wednesday morning after Iran deadline resolution. If escalation: watch XOM/FRO post-spike for mean reversion; if ceasefire: DAL/UAL long setup likely, energy sells off. UNH is the cleanest setup on the other side of Iran uncertainty — MA rate catalyst is durable regardless of geopolitical outcome.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">no_trade</span><span class="journal-tag">iran_deadline</span><span class="journal-tag">cash_preservation</span><span class="journal-tag">UNH</span><span class="journal-tag">AVGO</span><span class="journal-tag">XOM</span><span class="journal-tag">LMT</span><span class="journal-tag">binary_event</span></div>
         </div>
         <div class="journal-card">
@@ -814,10 +958,7 @@ WHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets
             <span class="journal-date">2026-04-06</span>
             <span class="journal-type" style="color:#8a7660;background:#1c1810">Reflection</span>
           </div>
-          <span id="preview-je15" style="white-space:pre-wrap;">EOD Reflection — April 6, 2026. Day 1 of the simulator and we held all $25,000 in cash. No trades executed. The decision was deliberate: all five tickers reviewed this morning (XOM, GLD, LMT, NFLX, FRO) produced NEUTRAL composite signals, and none cleared the required 1.5x risk/reward minimum. What worked: discipline. The &#x27;no fighting the tape&#x27; rule kept us out of low-probability setups during a g</span>
-<span id="full-je15" style="display:none;white-space:pre-wrap;">EOD Reflection — April 6, 2026. Day 1 of the simulator and we held all $25,000 in cash. No trades executed. The decision was deliberate: all five tickers reviewed this morning (XOM, GLD, LMT, NFLX, FRO) produced NEUTRAL composite signals, and none cleared the required 1.5x risk/reward minimum. What worked: discipline. The &#x27;no fighting the tape&#x27; rule kept us out of low-probability setups during a genuine binary macro event — Trump&#x27;s Iran Strait of Hormuz deadline falls tomorrow (Tuesday), and entering weak positions into a potential volatility shock would have been reckless speculation, not strategy. What failed: nothing material, though the morning brief watchlist would have been useful for deeper opportunity scanning. Was morning brief sentiment accurate? N/A — no brief was captured today, but the trade_decision log shows strong situational awareness around the geopolitical catalyst. Lessons learned: (1) Cash IS a position. Preserving full capital on Day 1 is a valid outcome. (2) R/R discipline matters more at the start — one bad trade that drops 5-8% of a $25K account is a psychological hole that is hard to climb out of. (3) The market is in a binary event state. NFLX at $100 resistance with a 0.3x R/R is a trap, not an opportunity. What to watch tomorrow: Iran deadline resolution is the single biggest catalyst. Bull case (ceasefire): oil drops sharply, airlines (DAL, UAL, AAL) and consumer discretionary rally, energy pulls back — short-term rotation trade. Bear case (escalation): oil spikes toward $120+, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense premium bids. Regardless of outcome, wait for the opening volatility to flush before entering — the first 30 minutes post-catalyst often produce false signals. Target re-entry window: 10:00-10:30 AM ET Wednesday at earliest once the tape confirms direction. Patience is the edge right now.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je15');var f=document.getElementById('full-je15');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+          <span class="journal-note-preview">EOD Reflection — April 6, 2026. Day 1 of the simulator and we held all $25,000 in cash. No trades executed. The decision was deliberate: all five tickers reviewed this morning (XOM, GLD, LMT, NFLX, FRO) produced NEUTRAL composite signals, and none cleared the required 1.5x risk/reward minimum. What worked: discipline. The &#x27;no fighting the tape&#x27; rule kept us out of low-probability setups during a g…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">EOD Reflection — April 6, 2026. Day 1 of the simulator and we held all $25,000 in cash. No trades executed. The decision was deliberate: all five tickers reviewed this morning (XOM, GLD, LMT, NFLX, FRO) produced NEUTRAL composite signals, and none cleared the required 1.5x risk/reward minimum. What worked: discipline. The &#x27;no fighting the tape&#x27; rule kept us out of low-probability setups during a genuine binary macro event — Trump&#x27;s Iran Strait of Hormuz deadline falls tomorrow (Tuesday), and entering weak positions into a potential volatility shock would have been reckless speculation, not strategy. What failed: nothing material, though the morning brief watchlist would have been useful for deeper opportunity scanning. Was morning brief sentiment accurate? N/A — no brief was captured today, but the trade_decision log shows strong situational awareness around the geopolitical catalyst. Lessons learned: (1) Cash IS a position. Preserving full capital on Day 1 is a valid outcome. (2) R/R discipline matters more at the start — one bad trade that drops 5-8% of a $25K account is a psychological hole that is hard to climb out of. (3) The market is in a binary event state. NFLX at $100 resistance with a 0.3x R/R is a trap, not an opportunity. What to watch tomorrow: Iran deadline resolution is the single biggest catalyst. Bull case (ceasefire): oil drops sharply, airlines (DAL, UAL, AAL) and consumer discretionary rally, energy pulls back — short-term rotation trade. Bear case (escalation): oil spikes toward $120+, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense premium bids. Regardless of outcome, wait for the opening volatility to flush before entering — the first 30 minutes post-catalyst often produce false signals. Target re-entry window: 10:00-10:30 AM ET Wednesday at earliest once the tape confirms direction. Patience is the edge right now.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">reflection</span><span class="journal-tag">cash_preservation</span><span class="journal-tag">iran_deadline</span><span class="journal-tag">day1</span><span class="journal-tag">no_trades</span><span class="journal-tag">macro_binary_event</span></div>
         </div>
         <div class="journal-card">
@@ -833,10 +974,7 @@ WHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets
             <span class="journal-date">2026-04-06</span>
             <span class="journal-type" style="color:#C4A265;background:#2a1f10">Trade Decision</span>
           </div>
-          <span id="preview-je17" style="white-space:pre-wrap;">No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) — all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&amp;S bearish patterns + below all DMAs, GLD</span>
-<span id="full-je17" style="display:none;white-space:pre-wrap;">No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) — all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&amp;S bearish patterns + below all DMAs, GLD double-top pattern + below all DMAs. Market in binary mode with Trump&#x27;s Iran Strait of Hormuz Tuesday deadline — entering with weak signals during a potential volatility binary event violates the &#x27;no fighting the tape&#x27; rule. Holding $25,000 cash. Will reassess Wednesday once Tuesday deadline resolution is known. Key watch: if Iran ceases hostilities → oil drops, airlines/consumer rally; if deadline fails → escalation, oil spikes to $120+, energy/defense outperform.</span>
-<button style="display:block;background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:8px 0;min-height:44px;"
-  onclick="(function(b){var p=document.getElementById('preview-je17');var f=document.getElementById('full-je17');if(f.style.display==='none'){f.style.display='block';p.style.display='none';b.textContent='Read less ↑';}else{f.style.display='none';p.style.display='block';b.textContent='Read more ↓';}})(this)">Read more ↓</button>
+          <span class="journal-note-preview">No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) — all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&amp;S bearish patterns + below all DMAs, GLD…</span><span class="journal-note-full" style="display:none;white-space:pre-wrap;">No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) — all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&amp;S bearish patterns + below all DMAs, GLD double-top pattern + below all DMAs. Market in binary mode with Trump&#x27;s Iran Strait of Hormuz Tuesday deadline — entering with weak signals during a potential volatility binary event violates the &#x27;no fighting the tape&#x27; rule. Holding $25,000 cash. Will reassess Wednesday once Tuesday deadline resolution is known. Key watch: if Iran ceases hostilities → oil drops, airlines/consumer rally; if deadline fails → escalation, oil spikes to $120+, energy/defense outperform.</span><button onclick="var full=this.previousElementSibling;var preview=full.previousElementSibling;if(full.style.display==='none'){full.style.display='inline';preview.style.display='none';this.textContent='Read less ↑';}else{full.style.display='none';preview.style.display='inline';this.textContent='Read more ↓';}" style="background:none;border:none;color:#E8841A;cursor:pointer;font-size:14px;padding:4px 0;min-height:44px;display:block;">Read more ↓</button>
           <div class='journal-tags'><span class="journal-tag">no_trade</span><span class="journal-tag">iran_deadline</span><span class="journal-tag">cash_preservation</span><span class="journal-tag">XOM</span><span class="journal-tag">GLD</span><span class="journal-tag">LMT</span><span class="journal-tag">NFLX</span><span class="journal-tag">FRO</span></div>
         </div>
         <div class="journal-card">
@@ -865,14 +1003,14 @@ WHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets
 <footer class="footer">
   <p class="dune-quote">&ldquo;I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration.&rdquo;</p>
   <p class="dune-attribution">&mdash; Frank Herbert, Dune</p>
-  <p>Muad'Dib Market Intelligence &middot; 5 reports &middot; Apr 10, 2026</p>
+  <p>Muad'Dib Market Intelligence &middot; 6 reports &middot; Apr 10, 2026</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-const SCORE_DATA = [["2026-04-05", -6], ["2026-04-06", -2], ["2026-04-07", -4], ["2026-04-08", 7], ["2026-04-09", -2]];
-const PERF_LABELS = ["2026-04-05", "2026-04-05", "2026-04-05 16:01 ET", "2026-04-06 16:28 ET", "2026-04-07 13:05 ET", "2026-04-07 16:29 ET", "2026-04-08 11:08 ET", "2026-04-08 16:40 ET", "2026-04-09 13:33 ET", "2026-04-09 16:40 ET"];
-const PERF_VALUES = [25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0];
+const SCORE_DATA = [["2026-04-05", -6], ["2026-04-06", -2], ["2026-04-07", -4], ["2026-04-08", 7], ["2026-04-09", -2], ["2026-04-10", 1]];
+const PERF_LABELS = ["2026-04-05", "2026-04-05", "2026-04-05 16:01 ET", "2026-04-06 16:28 ET", "2026-04-07 13:05 ET", "2026-04-07 16:29 ET", "2026-04-08 11:08 ET", "2026-04-08 16:40 ET", "2026-04-09 13:33 ET", "2026-04-09 16:40 ET", "2026-04-10 13:32 ET", "2026-04-10 16:39 ET"];
+const PERF_VALUES = [25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0, 25000.0];
 const STARTING_CAPITAL = 25000.0;
 
 
