@@ -410,5 +410,38 @@
       "ai_supercycle",
       "morning_brief"
     ]
+  },
+  {
+    "date": "2026-04-14",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-14 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-14",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "timestamp": "2026-04-14T16:39:36.178418-04:00",
+    "type": "reflection",
+    "date": "2026-04-14",
+    "content": "EOD reflection for 2026-04-14: Portfolio remained flat at $25,000 (starting capital) with no open positions and no trades executed today. Cash is fully settled. Without morning brief signals translating into executed trades, there's nothing to evaluate on P&L. Likely causes: no qualifying setups passed the morning brief's conviction threshold, or pending_trades.json was empty at market open. Lessons: a flat day is not a failure \u2014 capital preservation when conviction is low is the correct default. Watch for tomorrow: revisit watchlist, ensure morning brief \u2192 pending_trades handoff is firing, and look for sectors showing relative strength on fresh catalysts.",
+    "portfolio_value": 25000.0,
+    "daily_pnl": 0.0,
+    "total_pnl_pct": 0.0
   }
 ]
