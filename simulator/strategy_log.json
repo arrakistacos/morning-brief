@@ -443,5 +443,22 @@
     "portfolio_value": 25000.0,
     "daily_pnl": 0.0,
     "total_pnl_pct": 0.0
+  },
+  {
+    "date": "2026-04-14",
+    "type": "trade_decision",
+    "note": "April 14, 2026 morning brief \u2014 MIXED +3/10. Portfolio: $25,000 cash, 0 positions. Ran chart analysis on 4 WATCH_LONG candidates: (1) TSM $379.89 \u2014 NEUTRAL, RSI 66.02, resistance at $389.11 only 2.4% above, R/R 0.2x \u2014 terrible setup; TSMC Q1 earnings April 16 is the catalyst but the entry here is too close to resistance. Will watch for post-earnings gap-up confirmation. (2) NVDA $196.51 \u2014 NEUTRAL, RSI 68.1 near overbought, resistance at $197.62 only 0.56% above \u2014 essentially zero room; want a pullback to 50-DMA $182.12 before entry. (3) JPM $311.12 \u2014 NEUTRAL, RSI 65.44, R/R 1.9x (meets 1.5x minimum), but composite signal is NEUTRAL not BUY/STRONG_BUY \u2014 does not clear the entry gate. Best bank earnings candidate but will wait for tomorrow's BAC/GS to see if sector-wide NIM picture is better or worse than WFC suggested. (4) GLD $445.09 \u2014 NEUTRAL, RSI 54 (cleanest RSI), R/R 5.9x (excellent), but competing double-top and double-bottom patterns create ambiguity; volume 0.57x average \u2014 weak conviction. No trades today. Capital preservation in face of Iran ceasefire binary (talks collapsed over weekend, new round of negotiations hoped but uncertain) is the right posture. Key watches: TSMC April 16 earnings, Warsh confirmation hearing April 21, BAC/GS earnings this week.",
+    "tags": [
+      "trade_decision",
+      "no_trade",
+      "watch_tsm",
+      "watch_nvda",
+      "watch_jpm",
+      "watch_gld",
+      "iran_ceasefire",
+      "ppi_softer_than_expected",
+      "bank_earnings",
+      "warsh_nomination"
+    ]
   }
 ]

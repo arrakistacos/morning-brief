@@ -1,0 +1,256 @@
+{
+  "date": "2026-04-14",
+  "overall_sentiment": "MIXED",
+  "sentiment_score": 3,
+  "sentiment_reasoning": "Markets are staging a ceasefire-driven recovery — the S&P 500 has now erased all Iran war losses — while a better-than-feared March PPI (+0.5% vs +1.1% expected) is fueling a Nasdaq rally of nearly 2%. The dominant force is the Iran peace-talk dynamic: oil's 7% plunge to $92 is both the fuel for equity recovery and the reminder that geopolitical resolution remains the precondition for sustained breakout. Bank earnings season opened with a split verdict (JPM/C beat vs WFC miss) that reflects the NIM plateau risk in a held-neutral rate environment, while Kevin Warsh's April 21 Fed Chair confirmation hearing adds a policy wildcard that caps aggressive positioning.",
+  "is_trading_day": true,
+  "summary": {
+    "gist": "The dominant trade today is simple: buy the ceasefire, sell the doubt. Iran peace talks collapsed in Islamabad over the weekend but markets are pricing in a second round of negotiations — oil is down 7% to $92/bbl, DXY at 7-session lows at 98.1, and the S&P has fully erased all war-related losses. The better-than-feared March PPI (0.5% vs 1.1% estimate) gives the Fed cover to hold or cut — and the 10Y yield slipped 12bps post-data. The directional bet: long quality growth (AI semis ahead of TSMC earnings April 16, winning banks, gold as dollar-weak hedge) while Iran remains a binary risk that caps aggressive sizing.",
+    "actionable_items": [
+      "Watch TSM above $380 — stop $349.60 (−8%), target $437.00 (+15%) — TSMC Q1 earnings April 16 pre-catalyst; AI demand + semis +25% YTD; chart NEUTRAL (RSI 66) requires patience",
+      "Watch NVDA above $197 — stop $181.24 (−8%), target $226.55 (+15%) — AI inference leader; RSI 68 elevated, wait for pullback to $182-185 (50-DMA) for cleaner entry",
+      "Watch JPM above $311 — stop $286.12 (−8%), target $357.65 (+15%) — Q1 beat: +13% profit, $49.8B rev, $4.8T AUM; NII guidance cautious but fee income resilient; NEUTRAL chart (RSI 65)",
+      "Watch GLD above $445 — stop $409.40 (−8%), target $511.75 (+15%) — DXY 7-session losing streak at 98.1; CPI 3.3% + Iran uncertainty sustains gold demand; double-bottom pattern in play",
+      "Avoid WFC — -6.6% on revenue miss; NIM compressing, $31.8B rev below consensus; wait for oversold bounce near $76-78 support before reassessing",
+      "Avoid XOM above $149 — geopolitical premium unwinding hard as oil -7%; wait for $135-138 support before considering long energy"
+    ],
+    "stoic_quote": {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "attribution": "Marcus Aurelius — Meditations"
+    }
+  },
+  "executive_summary": "The S&P 500 has fully reclaimed all losses since the Iran conflict began, powered by the two-week ceasefire and today's better-than-feared March PPI print (+0.5% vs +1.1% expected). Oil's 7% plunge toward $92/bbl — as peace-talk optimism dominates — is both the primary catalyst for today's equity recovery and the clearest sign of fragility: if talks collapse again, oil reverses violently toward $110+. Q1 bank earnings launched with a divergent verdict: JPM beat decisively (EPS $5.94, revenue +10% YoY, AUM +16% to $4.8T) while Wells Fargo slid 6.6% on revenue miss, confirming that fee-income diversification now determines bank resilience in a plateau-rate world. The DXY at its lowest since before the Iran war (98.1) creates a structural tailwind for gold (GLD $445), commodities, and multinational earners. Kevin Warsh's Fed Chair confirmation hearing on April 21 is the next major policy wildcard: his hawkish leanings could aggressively reprice rate cuts away from the mid-summer window markets are now pricing after today's softer PPI.",
+  "top_themes": [
+    "Iran ceasefire and oil price collapse (-7%)",
+    "Q1 bank earnings divergence: JPM/C beats vs WFC miss",
+    "PPI surprise to downside — +0.5% vs +1.1% estimate (Fed relief)",
+    "AI/semiconductor supercycle continuation — PHLX Semis +25% YTD, TSMC April 16",
+    "Fed leadership transition — Warsh confirmation hearing April 21"
+  ],
+  "macro_events": [
+    {
+      "title": "Iran 2-Week Ceasefire: Islamabad Talks Collapse, New Round Possible",
+      "impact_level": "HIGH",
+      "time_horizon": "days to weeks",
+      "causal_chain": "Ceasefire announced April 7 → Pakistan brokers Islamabad talks → talks collapse over weekend without deal → markets sold off Monday on collapse news → optimism recovers Tuesday on reports of second round of negotiations → WTI down 7% to $92 from recent highs near $110+ → Strait of Hormuz still partially blocked (only 2 tankers transited since ceasefire per April 11 data) → oil supply risk premium unwinding → DXY weakening as petrodollar flows reduce → equities rallying as risk appetite returns → if talks fail again, oil snaps back to $105-110, S&P loses 5-8% immediately",
+      "geographic_dimension": "Middle East (Strait of Hormuz), Pakistan, US, Iran; global oil market disruption",
+      "historical_analog": "Sep 2019 Abqaiq attack: Brent +15% in 24h, tankers +20-35% in one week; 2003 Iraq War oil spike and recovery",
+      "counterargument": "The Hormuz closure remains the primary supply disruption — even with ceasefire, full Hormuz normalization is estimated 6 months away; oil is unlikely to return to pre-war $75 levels near-term",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "DOWN", "reason": "Geopolitical premium unwinding as ceasefire holds"},
+        {"ticker": "CVX", "direction": "DOWN", "reason": "Same oil price compression as XOM"},
+        {"ticker": "USO", "direction": "DOWN", "reason": "WTI -7%; oil ETF direct exposure"},
+        {"ticker": "FRO", "direction": "DOWN", "reason": "Tanker war-risk premiums easing with Hormuz partial reopening"},
+        {"ticker": "GLD", "direction": "UP", "reason": "Safe-haven demand persists on ceasefire uncertainty; DXY weakness amplifies"},
+        {"ticker": "DAL", "direction": "UP", "reason": "Jet fuel cost declining with oil; Q2 guidance relief"}
+      ]
+    },
+    {
+      "title": "Q1 Bank Earnings: JPM Blockbuster, WFC Miss — Resilience Rift Exposed",
+      "impact_level": "HIGH",
+      "time_horizon": "immediate to weeks",
+      "causal_chain": "JPMorgan Q1 net income $16.5B (+13% YoY), EPS $5.94 beat → revenue $49.8B (+10%) → AUM +16% to $4.8T → fee income diversification driving resilience → BUT NII guidance trimmed (CFO cited deposit behavior shifts + yield competition) → WFC reports same day: EPS technically OK but revenue $31.8B below consensus → NIM compressing → WFC -6.6% → Citi beats → BlackRock beats (AUM revenue) → divergence thesis confirmed: universal banks with fee income (JPM, C, BLK) outperform rate-sensitive pure lenders (WFC) → BAC/GS to report later this week",
+      "geographic_dimension": "US domestic banking; global AUM flows for JPM, BLK, C",
+      "historical_analog": "Post-2022 rate-hike cycle: banks initially surged on NIM expansion, then NIM plateau hit in 2024-2025; WFC was consistently slowest to adapt",
+      "counterargument": "JPM CEO Jamie Dimon noted 'significant geopolitical and economic uncertainty'; guided for elevated loan loss provisions; NII plateau could bite all banks in H2 2026",
+      "affected_tickers": [
+        {"ticker": "JPM", "direction": "UP", "reason": "Q1 beat: +13% profit, $4.8T AUM, fee income resilient"},
+        {"ticker": "C", "direction": "UP", "reason": "Beat estimates; global diversification insulates from domestic NIM pressure"},
+        {"ticker": "BLK", "direction": "UP", "reason": "$12.53 adj EPS beat; $6.7B revenue; AUM growth continues"},
+        {"ticker": "WFC", "direction": "DOWN", "reason": "-6.6% on revenue miss; NIM compressing faster than peers"},
+        {"ticker": "GS", "direction": "UP", "reason": "Trading desk revenues likely strong; IB pipeline recovering"},
+        {"ticker": "BAC", "direction": "MIXED", "reason": "Reports later this week; NIM risk exists but diversified revenue mix"}
+      ]
+    },
+    {
+      "title": "March PPI +0.5% vs +1.1% Expected — Inflation Pipeline Cooler Than Feared",
+      "impact_level": "HIGH",
+      "time_horizon": "immediate to months",
+      "causal_chain": "BLS releases March PPI today → headline +0.5% MoM (+4.0% YoY) vs +1.1% consensus → gasoline +15.7% drove headline but much smaller than feared → core PPI +0.1% MoM, +3.8% YoY — subdued → bond market reacts immediately: 10Y yield slides 12bps to ~4.15% → Nasdaq rallies nearly 2% as growth discount rate falls → FOMC watchers price mid-summer cut back in → BUT March CPI already ran hot at +3.3% YoY (+0.9% MoM SA) → tension between CPI hot vs PPI cool = net inflation signal mixed → Warsh confirmation hearing April 21 becomes critical: hawkish chair could override soft data narrative",
+      "geographic_dimension": "US domestic; global bond proxies (TLT) affected",
+      "historical_analog": "Oct 2023 soft CPI/PPI combo: 10Y fell 30bps in 3 days, equities +5%; rate cut pricing surged then was walked back",
+      "counterargument": "PPI leads CPI by 2-3 months; if oil rebounds on ceasefire collapse, April PPI will re-accelerate; one month does not make a trend",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "UP", "reason": "10Y yield -12bps post-PPI; bonds rally on rate cut repricing"},
+        {"ticker": "QQQ", "direction": "UP", "reason": "Nasdaq +2% as growth discount rate falls on softer inflation"},
+        {"ticker": "NVDA", "direction": "UP", "reason": "Lower rates = higher growth multiple; AI demand unchanged"},
+        {"ticker": "XLU", "direction": "UP", "reason": "Rate-sensitive utilities bid as 10Y falls"},
+        {"ticker": "XOM", "direction": "DOWN", "reason": "Energy PPI component soft = margin pressure narrative"}
+      ]
+    },
+    {
+      "title": "Warsh Fed Chair Confirmation Hearing Set for April 21",
+      "impact_level": "MEDIUM",
+      "time_horizon": "weeks to months",
+      "causal_chain": "Senate Banking Committee schedules April 21 hearing for Kevin Warsh → Warsh known as hawkish dissenter (opposed QE in 2010, supported aggressive 2022 hike path) → if Warsh signals 'no cuts in 2026' at hearing → rate cut expectations reprice aggressively → growth stocks (NVDA, AVGO, QQQ) re-rate lower → financials (benefit from higher-for-longer) mixed → Warsh also known as pro-deregulation → IB pipeline (GS, MS) could benefit → markets currently pricing mid-summer cut after soft PPI → Warsh confirmation could erase this pricing",
+      "geographic_dimension": "US domestic monetary policy; global dollar carry trades affected",
+      "historical_analog": "Volcker 1979 confirmation: markets initially calm, then Volcker raised rates aggressively and caused 1980-82 recession; Bernanke 2005 confirmation: dovish reading caused brief dollar weakness",
+      "counterargument": "Warsh has moderated views since 2010; Trump administration wants lower rates; Warsh may signal willingness to cut if Iran inflation shock subsides",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Hawkish Warsh = higher long-term rates = bonds fall"},
+        {"ticker": "QQQ", "direction": "DOWN", "reason": "Higher-for-longer rates compress growth multiples"},
+        {"ticker": "GS", "direction": "UP", "reason": "Hawkish Fed signals healthy economy; IB business returns"},
+        {"ticker": "MS", "direction": "UP", "reason": "Same dynamic as GS; wealth management AUM benefit from stable rates"}
+      ]
+    },
+    {
+      "title": "China Trade Data: Exports to US -26.5%, Imports Surge +27.8%",
+      "impact_level": "MEDIUM",
+      "time_horizon": "weeks to months",
+      "causal_chain": "China customs data: March exports to US -26.5% YoY (tariff impact crystallizing) → overall exports +2.5% vs 8.6% expected (global slowdown) → imports +27.8% YoY (surging domestic energy imports as Iran war makes global oil scarce; China paying premium for non-Hormuz oil routes) → tariff truce extended through Nov 10, 2026 at 39% average US tariff → China reliance on net exports (one-third of economy) stressed → yuan under pressure vs USD despite weak DXY → Chinese tech/manufacturing export model challenged → CRWV and AI infrastructure names benefit as China demand for compute still exists",
+      "geographic_dimension": "China, US, emerging markets (Indonesia, India, Vietnam as export rerouting hubs)",
+      "historical_analog": "2019-2020 Phase 1 trade war: exports fell 16%, then recovered when truce signed; current tariffs much higher (39% vs ~25% in 2019)",
+      "counterargument": "China domestic stimulus could offset export drag; PBOC rate cuts underway; 27.8% import surge signals strong internal demand",
+      "affected_tickers": [
+        {"ticker": "AAPL", "direction": "DOWN", "reason": "Supply chain exposure to China manufacturing; tariff cost pass-through risk"},
+        {"ticker": "NVDA", "direction": "MIXED", "reason": "China AI chip ban persists; but domestic US/EMEA demand compensates"},
+        {"ticker": "TSM", "direction": "UP", "reason": "TSMC diversifying to US/Japan fabs; tariff environment makes non-China supply valuable"}
+      ]
+    }
+  ],
+  "sector_outlook": [
+    {"sector": "Technology", "direction": "BULLISH", "key_names": "NVDA, AVGO, TSMC, AAOI, MSFT", "rationale": "AI/semiconductor supercycle continues; PHLX Semis +25% YTD; TSMC Q1 earnings April 16 catalyst; softer PPI reduces rate headwind on growth multiples; AAOI at $146 on 800G/1.6T optical transceiver demand"},
+    {"sector": "Healthcare", "direction": "NEUTRAL", "key_names": "JNJ, UNH, PFE", "rationale": "JNJ Q1 beat: EPS $2.70 vs $2.67 est, revenue $24.1B (+10%); defensive quality in geopolitical uncertainty; M&A risk from regulatory environment mixed"},
+    {"sector": "Financials", "direction": "MIXED", "key_names": "JPM (BUY), C (BUY), WFC (AVOID), BLK (BUY), GS (WATCH)", "rationale": "Fee-income diversification separates winners from losers; JPM/C/BLK beat vs WFC miss; NII plateau is structural headwind; Warsh hearing April 21 key for sector rate assumptions"},
+    {"sector": "Energy", "direction": "BEARISH", "key_names": "XOM, CVX, COP", "rationale": "WTI -7% to $92 on ceasefire optimism; geopolitical premium unwinding; Hormuz reopening timeline still 6 months but markets are discounting; tanker stocks (FRO, DHT) also under pressure"},
+    {"sector": "Consumer Discretionary", "direction": "NEUTRAL", "key_names": "AMZN, TSLA, NKE", "rationale": "Lower oil = lower consumer cost burden; but CPI at 3.3% still erodes real purchasing power; tariff impact on imported consumer goods (apparel, electronics) still a headwind"},
+    {"sector": "Consumer Staples", "direction": "NEUTRAL", "key_names": "PG, KO, WMT", "rationale": "Defensive bid fading as ceasefire reduces risk-off sentiment; food inflation still elevated from energy-linked supply chain costs; DXY weakness supports multinationals"},
+    {"sector": "Industrials", "direction": "NEUTRAL", "key_names": "LMT, RTX, GE, CAT", "rationale": "Defense names remain elevated but geopolitical premium starting to compress; civilian industrials recovering with lower energy input costs; infrastructure spending theme intact"},
+    {"sector": "Utilities", "direction": "NEUTRAL", "key_names": "NEE, SO, DUK", "rationale": "10Y yield falling post-PPI mildly supportive; bear steepener overall still negative for rate-sensitive utilities; AI power demand (data centers) a secular positive for NEE"},
+    {"sector": "Materials", "direction": "NEUTRAL", "key_names": "GLD, SLV, FCX, NEM", "rationale": "Gold strong ($445 GLD) on DXY weakness + inflation floor; silver following gold; copper mixed (China import surge positive but export demand slowdown negative for industrial metals)"}
+  ],
+  "commodity_outlook": [
+    {"commodity": "crude", "direction": "BEARISH_SHORT_TERM", "price_note": "WTI ~$92/bbl, down 7% today; Brent ~$95-97", "key_driver": "Iran ceasefire peace talk optimism driving de-risk; geopolitical premium unwinding; Hormuz still partially closed but full normalization priced 6 months out"},
+    {"commodity": "natgas", "direction": "NEUTRAL", "price_note": "UNG ~$10.56", "key_driver": "Domestic supply recovering; European LNG pipeline pressure easing with ceasefire; summer demand season approaching"},
+    {"commodity": "gold", "direction": "BULLISH", "price_note": "GLD $445.09; gold spot ~$3,340/oz est", "key_driver": "DXY 7-session losing streak at 98.1; CPI 3.3% inflation floor; Iran uncertainty as insurance premium; double-bottom pattern on GLD chart"},
+    {"commodity": "silver", "direction": "NEUTRAL_BULLISH", "price_note": "SLV $72.04", "key_driver": "Gold correlation strong; industrial demand from AI data center buildout (silver in solar panels); China import surge adds demand signal"},
+    {"commodity": "copper", "direction": "NEUTRAL", "price_note": "~$4.60/lb est (HG futures)", "key_driver": "China import surge (+27.8%) positive for demand; but Chinese export slowdown (-26.5% to US) signals industrial activity concerns; tariff truce extension removes worst-case"},
+    {"commodity": "wheat", "direction": "NEUTRAL", "price_note": "Black Sea/Middle East supply chain still stressed", "key_driver": "Ceasefire reduces acute risk but food price inflation still elevated from prior disruption; US wheat stocks buffer domestically"},
+    {"commodity": "soybeans", "direction": "NEUTRAL", "price_note": "Brazil harvest in progress", "key_driver": "China demand mixed; tariff truce reduces immediate shock risk; weather conditions in South America favorable"}
+  ],
+  "currency_outlook": [
+    {"pair": "DXY", "direction": "BEARISH", "key_driver": "7th consecutive daily loss to 98.1; lowest since late February pre-Iran conflict; ceasefire reduces safe-haven dollar demand; soft PPI reduces rate differential advantage; Warsh uncertainty adds policy ambiguity"},
+    {"pair": "EUR/USD", "direction": "BULLISH", "key_driver": "DXY weakness mechanically lifts EUR; ECB holding rates steady; European equities recovering as oil falls; German industrial production benefiting from lower energy costs"},
+    {"pair": "USD/JPY", "direction": "NEUTRAL", "key_driver": "JPY gaining modestly as safe-haven demand reduces; BOJ holding ultra-loose policy but watching inflation; ceasefire reduces yen's safe-haven premium"},
+    {"pair": "USD/CNH", "direction": "NEUTRAL", "key_driver": "China trade data mixed; PBOC managing yuan stability; tariff truce extended; capital outflow risk limited near-term"}
+  ],
+  "watchlist": [
+    {
+      "ticker": "TSM",
+      "action": "WATCH_LONG",
+      "catalyst": "TSMC Q1 2026 earnings report on April 16 — AI demand from hyperscalers + PHLX Semis +25% YTD; TSMC US/Japan fab diversification making it the geopolitically-safe AI supply chain bet",
+      "entry_idea": "Opens above $380 on earnings anticipation; preferred entry $375-382 zone",
+      "stop_loss_price": 349.60,
+      "target_price": 437.00,
+      "risk": "Earnings miss (AI capex deceleration signals); China fab risk if tariffs escalate; chart NEUTRAL — RSI 66, resistance at $389",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "NVDA",
+      "action": "WATCH_LONG",
+      "catalyst": "AI inference supercycle; hyperscaler capex ($21B Meta + Anthropic CRWV deals confirm demand); semis supercycle intact even as ASICs gain market share",
+      "entry_idea": "Pullback to $182-185 (50-DMA) preferred; current $196.51 is near resistance at $197.62",
+      "stop_loss_price": 181.24,
+      "target_price": 226.55,
+      "risk": "RSI 68 — approaching overbought; resistance at $197.62 (0.56% above); if breached, move to $215; if stalled, -8% to $181",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "JPM",
+      "action": "WATCH_LONG",
+      "catalyst": "Q1 2026 beat: EPS $5.94, revenue $49.8B (+10% YoY), net income +13%, AUM +16% to $4.8T — fee income diversification is the winning model in plateau-rate environment",
+      "entry_idea": "Current $311.12; entry on any intraday dip to $305-308 preferred; above $311 is a valid market-open entry",
+      "stop_loss_price": 286.12,
+      "target_price": 357.65,
+      "risk": "NII guidance cautious (CFO trimmed outlook); Warsh hawkish confirmation could trigger rate re-pricing; WFC miss raises questions about sector-wide NIM compression",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "GLD",
+      "action": "WATCH_LONG",
+      "catalyst": "DXY 7-session losing streak at 98.1 (lowest since pre-Iran war); CPI 3.3% floor sustains inflation hedge demand; Iran uncertainty as geopolitical insurance; double-bottom chart pattern",
+      "entry_idea": "Current $445.09; entry above $442 (near support) with confirmation of DXY continuation",
+      "stop_loss_price": 409.40,
+      "target_price": 511.75,
+      "risk": "Double-top pattern also present (bearish signal); if Iran ceasefire resolves completely and DXY reverses, gold loses both catalysts; low volume (0.57x avg) on today's move",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "WFC",
+      "action": "AVOID",
+      "catalyst": "Q1 revenue miss — $31.8B below consensus; NIM compressing faster than peers; -6.6% today",
+      "entry_idea": "N/A — AVOID until $76-78 support holds and NIM stabilizes",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "Continued NIM compression; regulatory constraints on capital deployment; weak IB pipeline vs JPM",
+      "signal_strength": "STRONG_SELL"
+    },
+    {
+      "ticker": "XOM",
+      "action": "AVOID",
+      "catalyst": "Oil -7% as geopolitical premium unwinds; ceasefire removes acute upside catalyst",
+      "entry_idea": "N/A — AVOID until oil stabilizes; $135-138 support on XOM would be re-entry zone",
+      "stop_loss_price": null,
+      "target_price": null,
+      "risk": "If ceasefire holds and Hormuz normalizes, XOM faces further -10-15% from current $149",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "TLT",
+      "action": "WATCH_LONG",
+      "catalyst": "10Y yield -12bps to 4.15% post-PPI; mid-summer rate cut back on table; PPI softer-than-feared gives Fed cover",
+      "entry_idea": "Current $87.21; entry on confirmation that 10Y holds below 4.25%; small position only — Warsh risk is real",
+      "stop_loss_price": 80.23,
+      "target_price": 100.09,
+      "risk": "Bear steepener structural — yield curve un-inverted for first time in 27 months; Warsh hawkish = TLT -10%; Iran oil rebound = inflation back = yields spike",
+      "signal_strength": "NEUTRAL"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "Iran ceasefire collapse — oil spike to $110+",
+      "severity": "CRITICAL",
+      "causal_chain": "Islamabad talks produce no deal → Iran resumes Hormuz pressure → WTI spikes from $92 back to $105-110 → inflation expectations surge → Fed forced to hold rates → equities -8-12% from today's levels → VIX to 40+ → safe havens (gold, JPY, TLT) bid but then TLT suffers on inflation fears",
+      "sources": [
+        {"title": "Market Outlook: Stocks fall as Iran talks collapse and oil supply risks rise", "outlet": "BNN Bloomberg", "url": "https://www.bnnbloomberg.ca/investing/market-outlook/2026/04/13/market-outlook-stocks-fall-as-iran-talks-collapse-and-oil-supply-risks-rise/"},
+        {"title": "Iran War: Ceasefire Offers Relief, Not Resolution", "outlet": "Charles Schwab", "url": "https://www.schwab.com/learn/story/iran-war-potential-impact-on-global-equities"}
+      ]
+    },
+    {
+      "risk": "Kevin Warsh hawkish surprise at April 21 confirmation hearing",
+      "severity": "HIGH",
+      "causal_chain": "Warsh signals 'no cuts in 2026' at Senate Banking Committee → rate cut pricing collapses (mid-summer cut was pricing in post-PPI) → 10Y yields spike back to 4.50-4.60% → growth stocks (NVDA, QQQ, AVGO) re-rate -10-15% → mortgage rates back to 7.25%+ → housing further frozen → Warsh's pro-deregulation stance mildly positive for banks but hawkish rate stance dominates",
+      "sources": [
+        {"title": "Warsh Fed Chair Hearing Set for Next Week, Tim Scott Says", "outlet": "Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-04-14/warsh-hearing-for-fed-chair-set-for-next-week-scott-says"},
+        {"title": "Semafor World Economy 2026 — Chicago Fed", "outlet": "Chicago Fed / Semafor", "url": "https://www.chicagofed.org/publications/speeches/2026/apr-14-semafor-world-economy"}
+      ]
+    },
+    {
+      "risk": "Bank earnings NIM compression cascades — WFC not isolated",
+      "severity": "HIGH",
+      "causal_chain": "WFC -6.6% on NIM miss → BAC and GS report later this week → if NIM compression is sector-wide (not just WFC) → financials (17.3% of S&P earnings) drag → JPM's cautious NII guidance validated → rate plateau reality sinks in → S&P re-rates on earnings revision → defensive rotation into healthcare/staples/gold",
+      "sources": [
+        {"title": "Wells Fargo Shares Slide 6.6% on Revenue Miss", "outlet": "Financial Content / Market Minute", "url": "https://markets.financialcontent.com/stocks/article/marketminute-2026-4-14-wells-fargo-shares-slide-66-on-revenue-miss-a-detailed-look-at-the-big-bank-resilience-rift"},
+        {"title": "JPMorgan Chase Q1 2026 Earnings: EPS Beat Overwhelmed by Trims to Interest Income Guidance", "outlet": "Financial Content / Market Minute", "url": "https://markets.financialcontent.com/stocks/article/marketminute-2026-4-14-jpmorgan-chase-q1-2026-earnings-eps-beat-overwhelmed-by-trims-to-interest-income-guidance"}
+      ]
+    },
+    {
+      "risk": "TSMC Q1 miss on April 16 — AI capex deceleration signal",
+      "severity": "MEDIUM",
+      "causal_chain": "TSMC reports Q1 earnings April 16 → if revenue guidance disappoints (demand deceleration in AI capex) → TSMC -8-12% → sympathy sell in NVDA (-5-8%), AVGO (-5%), AAOI (-10-15%) → PHLX Semis -7-10% → semis supercycle narrative challenged → tech sector re-rates lower → Google TurboQuant memory compression (6x reduction) already signaling demand shift away from raw compute",
+      "sources": [
+        {"title": "Got $1,000? Buy This Super Semiconductor Stock Before April 16", "outlet": "Motley Fool", "url": "https://www.fool.com/investing/2026/04/13/got-1000-buy-super-semiconductor-stock-tsmc/"},
+        {"title": "AI Stocks Q1 2026: Tech Shares Fall, Semiconductor & Infrastructure Gain", "outlet": "IndexBox", "url": "https://www.indexbox.io/blog/ai-stock-performance-diverges-in-q1-2026-tech-giants-decline-while-chipmakers-rise/"}
+      ]
+    },
+    {
+      "risk": "China export collapse → EM contagion → global growth revision",
+      "severity": "MEDIUM",
+      "causal_chain": "China exports to US -26.5% YoY in March → Chinese factory output cuts → Indonesia/Vietnam/India as rerouting hubs under capacity pressure → PBOC cuts rates (yuan weakens) → EM currency stress (TRY, IDR, ZAR) → commodity demand expectations revised lower → copper, iron ore fall → materials sector drag → global growth forecast cuts",
+      "sources": [
+        {"title": "China exports growth in March misses estimates, imports surge most in over four years", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/04/14/china-trade-data-march-exports-imports-march.html"},
+        {"title": "Market synthesis", "outlet": "Claude analysis", "url": null}
+      ]
+    }
+  ]
+}
