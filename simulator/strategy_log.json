@@ -502,5 +502,43 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-15 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-15",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "reflection",
+    "note": "EOD reflection \u2014 another fully-cash day. No positions entered or exited. With no morning watchlist produced and no conviction signals, preserving capital is the correct default. The simulator is still at its $25,000 starting capital with zero drawdown. Tomorrow: watch for a morning brief watchlist; if none materializes, continue patient cash posture rather than forcing trades. Lesson: discipline in the absence of signal beats activity for its own sake.",
+    "what_worked": "Capital preservation; no forced trades.",
+    "what_failed": "No signal generation \u2014 morning brief produced no watchlist.",
+    "sentiment_accuracy": "N/A \u2014 no morning brief sentiment available to evaluate.",
+    "lessons": "A fully-cash portfolio has zero variance; the opportunity cost is only realized if the broader market rallies materially. Monitor index movement tomorrow to contextualize.",
+    "watch_tomorrow": "Check SPY/QQQ action and whether morning-brief restores watchlist generation.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
