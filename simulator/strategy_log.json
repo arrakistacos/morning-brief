@@ -460,5 +460,16 @@
       "bank_earnings",
       "warsh_nomination"
     ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "trade_decision",
+    "note": "No trades queued. Morning brief sentiment BULLISH +4. Evaluated NVDA, BAC, DAL, LMT, TSM, ASML from watchlist. Chart analysis composite signals: NVDA NEUTRAL (RSI 68.1, R:R 0.1x), BAC NEUTRAL (RSI 70.2 overbought, R:R 1.5x), DAL NEUTRAL (RSI 63.2, MACD turning), LMT SELL (-2, bearish MACD), TSM NEUTRAL (+1). None meet the BUY/STRONG_BUY requirement. BAC RSI breached 70 so even on a beat today it fails the overbought filter. Portfolio 100% cash awaiting cleaner setups \u2014 will revisit post-BAC print and into April 29 FOMC.",
+    "tags": [
+      "decision",
+      "no_trades",
+      "bear_steepener",
+      "iran"
+    ]
   }
 ]
