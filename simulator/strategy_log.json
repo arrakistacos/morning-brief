@@ -631,5 +631,16 @@
       "iran_deadline",
       "overbought_market"
     ]
+  },
+  {
+    "date": "2026-04-17",
+    "type": "eod_automation_note",
+    "note": "EOD automation partial completion: Steps 1-6 completed successfully (snapshot, reflection, dashboard, commit+push, verification). Steps 7-8 (Google Sheet update and EOD email send) BLOCKED \u2014 Chrome extension was not connected and Gmail MCP returned a stale-tool error. The Gmail draft was not created. pending_email.json remains in the repo for manual retry. The EOD email to capt.computermail@gmail.com was NOT sent.",
+    "tags": [
+      "automation",
+      "blocked",
+      "chrome_disconnected",
+      "gmail_mcp_error"
+    ]
   }
 ]
