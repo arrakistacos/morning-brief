@@ -1,582 +1,592 @@
 [
-    {
-        "date": "2026-04-05",
-        "type": "initialization",
-        "note": "Simulator initialized. Starting capital: $25,000. Strategy: combine morning brief sentiment with chart pattern signals. Max 3 concurrent positions, 30% position size limit, 8% hard stop loss. Target: 15%+ partial profit-taking. Rule: never trade on emotion or FOMO \u2014 require concrete thesis with both sentiment AND chart signal alignment.",
-        "tags": [
-            "initialization",
-            "rules",
-            "capital"
-        ]
+  {
+    "date": "2026-04-05",
+    "type": "initialization",
+    "note": "Simulator initialized. Starting capital: $25,000. Strategy: combine morning brief sentiment with chart pattern signals. Max 3 concurrent positions, 30% position size limit, 8% hard stop loss. Target: 15%+ partial profit-taking. Rule: never trade on emotion or FOMO \u2014 require concrete thesis with both sentiment AND chart signal alignment.",
+    "tags": [
+      "initialization",
+      "rules",
+      "capital"
+    ]
+  },
+  {
+    "date": "2026-04-05",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-05 16:01 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "16:01 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
     },
-    {
-        "date": "2026-04-05",
-        "type": "midday_check",
-        "note": "MIDDAY 2026-04-05 16:01 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
-        "snapshot": {
-            "time": "16:01 ET",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "positions_value": 0.0,
-            "actions_taken": [],
-            "observations": [
-                "No open positions \u2014 fully in cash.",
-                "No morning watchlist available for entry scan."
-            ]
-        },
-        "tags": [
-            "midday",
-            "daily-review"
-        ]
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-06",
+    "type": "trade_decision",
+    "note": "No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) \u2014 all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&S bearish patterns + below all DMAs, GLD double-top pattern + below all DMAs. Market in binary mode with Trump's Iran Strait of Hormuz Tuesday deadline \u2014 entering with weak signals during a potential volatility binary event violates the 'no fighting the tape' rule. Holding $25,000 cash. Will reassess Wednesday once Tuesday deadline resolution is known. Key watch: if Iran ceases hostilities \u2192 oil drops, airlines/consumer rally; if deadline fails \u2192 escalation, oil spikes to $120+, energy/defense outperform.",
+    "tags": [
+      "no_trade",
+      "iran_deadline",
+      "cash_preservation",
+      "XOM",
+      "GLD",
+      "LMT",
+      "NFLX",
+      "FRO"
+    ]
+  },
+  {
+    "date": "2026-04-06",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-06 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-06",
+      "time": "16:28 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-06",
-        "type": "trade_decision",
-        "note": "No trades executed. Reviewed 5 tickers (XOM, GLD, LMT, NFLX, FRO) \u2014 all returned NEUTRAL chart signals. Rules require BUY or STRONG_BUY composite signal plus 1.5x R/R minimum. None qualified: NFLX R/R 0.3x (unfavorable tight stop near resistance $100.19), FRO R/R 0.6x (insufficient), XOM MACD bearish crossover + R/R 1.2x below threshold, LMT double-top + H&S bearish patterns + below all DMAs, GLD double-top pattern + below all DMAs. Market in binary mode with Trump's Iran Strait of Hormuz Tuesday deadline \u2014 entering with weak signals during a potential volatility binary event violates the 'no fighting the tape' rule. Holding $25,000 cash. Will reassess Wednesday once Tuesday deadline resolution is known. Key watch: if Iran ceases hostilities \u2192 oil drops, airlines/consumer rally; if deadline fails \u2192 escalation, oil spikes to $120+, energy/defense outperform.",
-        "tags": [
-            "no_trade",
-            "iran_deadline",
-            "cash_preservation",
-            "XOM",
-            "GLD",
-            "LMT",
-            "NFLX",
-            "FRO"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-06",
+    "type": "reflection",
+    "note": "EOD Reflection \u2014 April 6, 2026. Day 1 of the simulator and we held all $25,000 in cash. No trades executed. The decision was deliberate: all five tickers reviewed this morning (XOM, GLD, LMT, NFLX, FRO) produced NEUTRAL composite signals, and none cleared the required 1.5x risk/reward minimum. What worked: discipline. The 'no fighting the tape' rule kept us out of low-probability setups during a genuine binary macro event \u2014 Trump's Iran Strait of Hormuz deadline falls tomorrow (Tuesday), and entering weak positions into a potential volatility shock would have been reckless speculation, not strategy. What failed: nothing material, though the morning brief watchlist would have been useful for deeper opportunity scanning. Was morning brief sentiment accurate? N/A \u2014 no brief was captured today, but the trade_decision log shows strong situational awareness around the geopolitical catalyst. Lessons learned: (1) Cash IS a position. Preserving full capital on Day 1 is a valid outcome. (2) R/R discipline matters more at the start \u2014 one bad trade that drops 5-8% of a $25K account is a psychological hole that is hard to climb out of. (3) The market is in a binary event state. NFLX at $100 resistance with a 0.3x R/R is a trap, not an opportunity. What to watch tomorrow: Iran deadline resolution is the single biggest catalyst. Bull case (ceasefire): oil drops sharply, airlines (DAL, UAL, AAL) and consumer discretionary rally, energy pulls back \u2014 short-term rotation trade. Bear case (escalation): oil spikes toward $120+, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense premium bids. Regardless of outcome, wait for the opening volatility to flush before entering \u2014 the first 30 minutes post-catalyst often produce false signals. Target re-entry window: 10:00-10:30 AM ET Wednesday at earliest once the tape confirms direction. Patience is the edge right now.",
+    "tags": [
+      "reflection",
+      "cash_preservation",
+      "iran_deadline",
+      "day1",
+      "no_trades",
+      "macro_binary_event"
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "type": "trade_decision",
+    "note": "No trades queued. Reviewed 4 tickers: UNH (NEUTRAL +1, RSI 52.6, double_top bearish pattern, R/R 2.8x \u2014 healthare MA catalyst is bullish but chart composite does not reach BUY threshold); AVGO (NEUTRAL +1, RSI 47.35, below all DMAs, R/R 12.3x \u2014 AI chip story compelling but price structure weak); XOM (SELL -2, MACD bearish crossover, R/R 0.5x \u2014 counterintuitively SELL despite Iran oil premium; price extended above DMAs with unfavorable stop); LMT (NEUTRAL 0, double_top + H&S patterns, R/R 0.6x \u2014 defense thesis valid but bearish technical patterns disqualify). Rules require BUY/STRONG_BUY composite signal \u2014 no ticker clears the threshold. Additionally: TODAY is Trump's Iran deadline day. Entering any new position into a known binary volatility event violates the 'no fighting the tape' rule. Holding $25,000 cash. Will reassess Wednesday morning after Iran deadline resolution. If escalation: watch XOM/FRO post-spike for mean reversion; if ceasefire: DAL/UAL long setup likely, energy sells off. UNH is the cleanest setup on the other side of Iran uncertainty \u2014 MA rate catalyst is durable regardless of geopolitical outcome.",
+    "tags": [
+      "no_trade",
+      "iran_deadline",
+      "cash_preservation",
+      "UNH",
+      "AVGO",
+      "XOM",
+      "LMT",
+      "binary_event"
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-07 13:05 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "13:05 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
     },
-    {
-        "date": "2026-04-06",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-06 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-06",
-            "time": "16:28 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "type": "midday_email_skipped",
+    "note": "No midday email sent \u2014 no actions taken",
+    "tags": [
+      "midday",
+      "email",
+      "no-action"
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-07 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-07",
+      "time": "16:29 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-06",
-        "type": "reflection",
-        "note": "EOD Reflection \u2014 April 6, 2026. Day 1 of the simulator and we held all $25,000 in cash. No trades executed. The decision was deliberate: all five tickers reviewed this morning (XOM, GLD, LMT, NFLX, FRO) produced NEUTRAL composite signals, and none cleared the required 1.5x risk/reward minimum. What worked: discipline. The 'no fighting the tape' rule kept us out of low-probability setups during a genuine binary macro event \u2014 Trump's Iran Strait of Hormuz deadline falls tomorrow (Tuesday), and entering weak positions into a potential volatility shock would have been reckless speculation, not strategy. What failed: nothing material, though the morning brief watchlist would have been useful for deeper opportunity scanning. Was morning brief sentiment accurate? N/A \u2014 no brief was captured today, but the trade_decision log shows strong situational awareness around the geopolitical catalyst. Lessons learned: (1) Cash IS a position. Preserving full capital on Day 1 is a valid outcome. (2) R/R discipline matters more at the start \u2014 one bad trade that drops 5-8% of a $25K account is a psychological hole that is hard to climb out of. (3) The market is in a binary event state. NFLX at $100 resistance with a 0.3x R/R is a trap, not an opportunity. What to watch tomorrow: Iran deadline resolution is the single biggest catalyst. Bull case (ceasefire): oil drops sharply, airlines (DAL, UAL, AAL) and consumer discretionary rally, energy pulls back \u2014 short-term rotation trade. Bear case (escalation): oil spikes toward $120+, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense premium bids. Regardless of outcome, wait for the opening volatility to flush before entering \u2014 the first 30 minutes post-catalyst often produce false signals. Target re-entry window: 10:00-10:30 AM ET Wednesday at earliest once the tape confirms direction. Patience is the edge right now.",
-        "tags": [
-            "reflection",
-            "cash_preservation",
-            "iran_deadline",
-            "day1",
-            "no_trades",
-            "macro_binary_event"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "type": "reflection",
+    "note": "EOD Reflection \u2014 April 7, 2026 (Day 2). Full cash preservation again: $25,000.00 unchanged. No trades executed. This was the Iran deadline day \u2014 Trump's Strait of Hormuz ultimatum \u2014 and the decision to stay 100% cash was correct in both process and outcome.\n\nWHAT WORKED: Discipline under a known binary macro catalyst. The morning brief reviewed four tickers (UNH, AVGO, XOM, LMT) and none cleared the composite BUY threshold. More importantly, even the highest-scoring setup (AVGO at NEUTRAL +1 with a 12.3x theoretical R/R) was correctly rejected because the chart structure was weak \u2014 price below all DMAs with no confirmation. A 12x R/R on a broken chart is fool's gold. The process filtered it out. The 'no fighting the tape into a binary event' rule held for Day 2 in a row, which is the right call.\n\nWHAT FAILED: Nothing operationally failed \u2014 but the watchlist opportunity surface feels narrow. Two consecutive days with zero qualifying setups suggests either (a) the market is genuinely in a risk-off, wait-and-see mode pre/during geopolitical resolution, or (b) the scoring thresholds may be too conservative for the simulator context. Worth monitoring. If we reach Day 5 with no trades, consider whether signal criteria need calibration.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes. The trade_decision log from this morning correctly identified today as a binary event day and avoided the trap of entering weak setups into headline risk. XOM was flagged SELL (-2) despite the Iran oil premium narrative \u2014 that contrarian technical read was disciplined. LMT was rejected despite the defense thesis being valid, because double-top and H&S patterns are real risks regardless of macro tailwinds. Pattern discipline over narrative bias.\n\nLESSONS LEARNED: (1) Two flat days in a row is not failure \u2014 it's capital preservation in a binary macro environment. P&L = $0 beats P&L = -$1,200 on a bad Iran escalation trade. (2) AVGO is worth watching post-Iran resolution. The AI chip thesis is durable and the 12x R/R figure reflects a wide potential upside \u2014 it just needs price confirmation above DMAs. (3) UNH remains the cleanest setup: MA rate catalyst is geopolitics-independent, and a reversal of the bearish double-top pattern would be a strong signal to enter. Watch for RSI above 55 and a close above the 20-DMA.\n\nWHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets will open with a verdict. Two scenarios: (A) De-escalation / ceasefire \u2014 expect oil to drop, energy sells off (fade XOM/FRO spikes), airlines and consumer discretionary lead (DAL, UAL, ABNB), risk-on rotation benefits AVGO and growth. Entry window: 10:00\u201310:30 AM ET after the opening flush. (B) Escalation \u2014 oil spikes toward $115-120, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense bids. In this scenario, wait for the spike to exhaust and look for mean-reversion setups rather than chasing momentum. Either way: do NOT enter in the first 30 minutes. Let price discovery happen, then follow the tape. UNH is the scenario-neutral watch \u2014 healthcare MA catalyst doesn't care about oil.",
+    "tags": [
+      "reflection",
+      "day2",
+      "iran_deadline",
+      "cash_preservation",
+      "no_trades",
+      "macro_binary_event",
+      "UNH",
+      "AVGO",
+      "XOM",
+      "LMT"
+    ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-08 11:08 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "11:08 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
     },
-    {
-        "date": "2026-04-07",
-        "type": "trade_decision",
-        "note": "No trades queued. Reviewed 4 tickers: UNH (NEUTRAL +1, RSI 52.6, double_top bearish pattern, R/R 2.8x \u2014 healthare MA catalyst is bullish but chart composite does not reach BUY threshold); AVGO (NEUTRAL +1, RSI 47.35, below all DMAs, R/R 12.3x \u2014 AI chip story compelling but price structure weak); XOM (SELL -2, MACD bearish crossover, R/R 0.5x \u2014 counterintuitively SELL despite Iran oil premium; price extended above DMAs with unfavorable stop); LMT (NEUTRAL 0, double_top + H&S patterns, R/R 0.6x \u2014 defense thesis valid but bearish technical patterns disqualify). Rules require BUY/STRONG_BUY composite signal \u2014 no ticker clears the threshold. Additionally: TODAY is Trump's Iran deadline day. Entering any new position into a known binary volatility event violates the 'no fighting the tape' rule. Holding $25,000 cash. Will reassess Wednesday morning after Iran deadline resolution. If escalation: watch XOM/FRO post-spike for mean reversion; if ceasefire: DAL/UAL long setup likely, energy sells off. UNH is the cleanest setup on the other side of Iran uncertainty \u2014 MA rate catalyst is durable regardless of geopolitical outcome.",
-        "tags": [
-            "no_trade",
-            "iran_deadline",
-            "cash_preservation",
-            "UNH",
-            "AVGO",
-            "XOM",
-            "LMT",
-            "binary_event"
-        ]
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "midday_email_skipped",
+    "note": "No midday email sent \u2014 no actions taken",
+    "tags": [
+      "midday",
+      "email",
+      "no-action"
+    ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "trade_decision",
+    "note": "BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x \u2014 PASS), CCL (NEUTRAL \u2014 PASS), DAL (NEUTRAL \u2014 PASS), MU (BUY, RSI 54, above both MAs, R/R >1.5x \u2014 QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today \u2014 too extended for entry; wait for consolidation or pullback to 20-DMA before considering. Key risk: ceasefire expires April 22 \u2014 keep all positions sized small with hard 8% stops.",
+    "tags": [
+      "decision",
+      "ceasefire-trade",
+      "oil-collapse"
+    ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-08 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-08",
+      "time": "16:40 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-07",
-        "type": "midday_check",
-        "note": "MIDDAY 2026-04-07 13:05 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
-        "snapshot": {
-            "time": "13:05 ET",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "positions_value": 0.0,
-            "actions_taken": [],
-            "observations": [
-                "No open positions \u2014 fully in cash.",
-                "No morning watchlist available for entry scan."
-            ]
-        },
-        "tags": [
-            "midday",
-            "daily-review"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-08",
+    "type": "reflection",
+    "note": "EOD Reflection \u2014 April 8, 2026 (Day 3). Third consecutive day at $25,000.00 \u2014 fully in cash, zero P&L. But today was a pivotal day for the strategy.\n\nWHAT WORKED: The two-day cash preservation through the Iran binary event paid off exactly as planned. The Pakistan-brokered ceasefire was announced and WTI crude collapsed 16.3% in a single session. The morning brief correctly identified this as a BULLISH +7/10 session and began screening post-ceasefire rotation plays. The process also correctly REJECTED the obvious momentum plays (UAL, CCL, DAL) \u2014 all had gapped hard at the open and were too extended for safe entry. Chasing a gap-up airline stock after a 16% oil crash would have been textbook FOMO, and the system filtered it out. That discipline is more valuable than any single trade.\n\nWHAT FAILED: We are now three days in with zero trades executed and zero positions. While the first two days were justified by the Iran binary event, today's inaction is harder to defend. MU was identified as a BUY signal with RSI 54, above both MAs, and R/R above 1.5x \u2014 the cleanest setup we have seen in three days. It was queued (6 shares above $410, ~$2,424 / ~9.7% of capital) but did not execute by close. The queuing mechanism needs to be more aggressive on days when a genuine BUY signal finally clears the threshold. Three days of patience followed by a missed entry on the first qualifying setup would undermine the entire strategy.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes \u2014 strongly so. The +7/10 bullish call on the ceasefire session was directionally correct. The screening was disciplined: rejected three extended names and found one legitimate BUY. The concern about ceasefire expiry (April 22) as a risk factor was also well-calibrated \u2014 it correctly sizes the trade window and justifies keeping positions small with hard 8% stops.\n\nLESSONS LEARNED: (1) The Iran cash preservation strategy worked \u2014 we avoided potential whipsaw losses on Days 1-2 and preserved full capital to deploy into the post-event clarity. That is the textbook execution of the binary event rule. (2) MU is the first real BUY signal in three days. If it still qualifies tomorrow morning, it should be the first trade. Hesitation after three days of discipline is the wrong instinct \u2014 the system said BUY, so trust the system. (3) The airlines (UAL, DAL, CCL) gapped too far today but may pull back to the 20-DMA over the next 2-3 sessions. Add them to the watchlist for consolidation entries. (4) Energy names (XOM, FRO) likely in free-fall after a 16% oil crash \u2014 do NOT try to catch the falling knife. Wait for stabilization.\n\nWHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution \u2014 if the BUY signal holds at open, execute the queued order (6 shares above $410). Priority #2: watch UAL/DAL for a 2-3% pullback toward the 20-DMA as a potential entry. Priority #3: monitor oil stabilization \u2014 if WTI finds a floor, XOM and FRO may present mean-reversion setups later in the week. Key risk: ceasefire is temporary (expires April 22) \u2014 all positions must be sized conservatively with hard stops.",
+    "tags": [
+      "reflection",
+      "day3",
+      "ceasefire",
+      "cash_preservation",
+      "MU",
+      "oil_collapse",
+      "UAL",
+      "DAL",
+      "CCL"
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "type": "trade_decision",
+    "note": "NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&S pattern), RTX (NEUTRAL 0, H&S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI<70 + sentiment>=+2). Ceasefire collapse creating high uncertainty \u2014 prudent to stay in cash ahead of CPI tomorrow. Will reassess after CPI print April 10.",
+    "tags": [
+      "decision",
+      "no_trade",
+      "cash_preservation"
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-09 13:33 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "13:33 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
     },
-    {
-        "date": "2026-04-07",
-        "type": "midday_email_skipped",
-        "note": "No midday email sent \u2014 no actions taken",
-        "tags": [
-            "midday",
-            "email",
-            "no-action"
-        ]
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "type": "midday_email_skipped",
+    "note": "No midday email sent \u2014 no actions taken",
+    "tags": [
+      "midday",
+      "email",
+      "no-action"
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-09 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-09",
+      "time": "16:40 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-07",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-07 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-07",
-            "time": "16:29 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "type": "reflection",
+    "note": "EOD Reflection \u2014 April 9, 2026 (Day 4). Fourth consecutive day at $25,000.00 \u2014 fully in cash, zero P&L. This is now a pattern that demands honest assessment.\n\nWHAT WORKED: The system continued to enforce discipline. Six tickers were screened today (XOM, CVX, AVGO, INTC, LMT, RTX) and every single one was correctly rejected. XOM and CVX both showed SELL signals with double-top patterns \u2014 these are falling knives post-ceasefire collapse and the system rightly avoided them. INTC was the most tempting after a +26% surge on the Terafab announcement, but RSI at 72.2 (overbought) is a classic chase trap. Buying a stock after a one-day 26% move with RSI above 70 is exactly the kind of FOMO the rules were designed to prevent. AVGO at NEUTRAL +1 with elevated RSI (64) was correctly held \u2014 close but not qualifying. The process is sound.\n\nWHAT FAILED: This is now four trading days without a single execution. MU was queued yesterday as a BUY signal \u2014 the first qualifying setup since simulator launch \u2014 and it appears it did not execute today. The ceasefire collapse changed the macro picture overnight, which may have invalidated the MU thesis (semiconductor demand tied to global trade stability). But this pattern of finding one qualifying trade and then having the macro shift negate it before execution is a real risk to the strategy. If the system consistently identifies setups on Day N that are invalidated by Day N+1, we will never deploy capital. The execution pipeline needs review \u2014 specifically, should qualifying BUY signals trigger same-day limit orders rather than next-day market orders? That is a process improvement to consider.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes. The trade_decision correctly identified ceasefire collapse as a source of high uncertainty and the CPI print tomorrow as an additional reason to stay defensive. The macro read was accurate \u2014 this was not a day to be aggressive. Energy names in SELL territory, defense names with bearish patterns (H&S), and the only momentum play (INTC) was overbought. The brief saw the landscape clearly.\n\nLESSONS LEARNED: (1) Four days of cash preservation is not failure when the market provides zero qualifying setups. But it does raise the question: are the criteria too strict for a paper trading simulator? In real capital, this conservatism is a virtue. In a learning environment, the absence of any trades means the system is generating no data on execution, position management, or exit discipline. (2) The ceasefire-to-collapse cycle in 24 hours (April 8 ceasefire \u2192 April 9 collapse) vindicates the small position sizing rule. Had we entered MU at 10 yesterday and the macro shifted overnight, the 8% stop would have been our only protection. (3) INTC at RSI 72 post-Terafab is worth watching for a pullback to the 50-60 RSI range \u2014 if the AI chip thesis remains intact, a consolidation entry could be strong. (4) The CPI print tomorrow is the next binary catalyst. Stay flat into it.\n\nWHAT TO WATCH TOMORROW (Friday, Apr 10): CPI is the headline event. Three scenarios: (A) CPI comes in hot \u2014 Fed stays hawkish, growth/tech sells off, defensive positioning preferred. Watch for TLT short or UNH (healthcare is CPI-defensive). (B) CPI comes in cool \u2014 risk-on rally, AVGO and INTC benefit, consider AVGO if it clears BUY threshold. (C) CPI in-line \u2014 market likely flat, look for individual stock catalysts. Regardless of CPI: INTC pullback to RSI 55-60 range is the top watchlist item. UNH remains the scenario-neutral play with the MA rate catalyst. Energy (XOM, CVX) \u2014 avoid until oil finds a floor. Defense (LMT, RTX) \u2014 bearish patterns need to resolve before entry. Patience continues to be the edge, but we need to be ready to act when the first post-CPI qualifying setup appears.",
+    "tags": [
+      "reflection",
+      "day4",
+      "ceasefire_collapse",
+      "cash_preservation",
+      "no_trades",
+      "CPI_catalyst",
+      "INTC",
+      "MU",
+      "process_review"
+    ]
+  },
+  {
+    "date": "2026-04-10",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-10 13:32 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "13:32 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
     },
-    {
-        "date": "2026-04-07",
-        "type": "reflection",
-        "note": "EOD Reflection \u2014 April 7, 2026 (Day 2). Full cash preservation again: $25,000.00 unchanged. No trades executed. This was the Iran deadline day \u2014 Trump's Strait of Hormuz ultimatum \u2014 and the decision to stay 100% cash was correct in both process and outcome.\n\nWHAT WORKED: Discipline under a known binary macro catalyst. The morning brief reviewed four tickers (UNH, AVGO, XOM, LMT) and none cleared the composite BUY threshold. More importantly, even the highest-scoring setup (AVGO at NEUTRAL +1 with a 12.3x theoretical R/R) was correctly rejected because the chart structure was weak \u2014 price below all DMAs with no confirmation. A 12x R/R on a broken chart is fool's gold. The process filtered it out. The 'no fighting the tape into a binary event' rule held for Day 2 in a row, which is the right call.\n\nWHAT FAILED: Nothing operationally failed \u2014 but the watchlist opportunity surface feels narrow. Two consecutive days with zero qualifying setups suggests either (a) the market is genuinely in a risk-off, wait-and-see mode pre/during geopolitical resolution, or (b) the scoring thresholds may be too conservative for the simulator context. Worth monitoring. If we reach Day 5 with no trades, consider whether signal criteria need calibration.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes. The trade_decision log from this morning correctly identified today as a binary event day and avoided the trap of entering weak setups into headline risk. XOM was flagged SELL (-2) despite the Iran oil premium narrative \u2014 that contrarian technical read was disciplined. LMT was rejected despite the defense thesis being valid, because double-top and H&S patterns are real risks regardless of macro tailwinds. Pattern discipline over narrative bias.\n\nLESSONS LEARNED: (1) Two flat days in a row is not failure \u2014 it's capital preservation in a binary macro environment. P&L = $0 beats P&L = -$1,200 on a bad Iran escalation trade. (2) AVGO is worth watching post-Iran resolution. The AI chip thesis is durable and the 12x R/R figure reflects a wide potential upside \u2014 it just needs price confirmation above DMAs. (3) UNH remains the cleanest setup: MA rate catalyst is geopolitics-independent, and a reversal of the bearish double-top pattern would be a strong signal to enter. Watch for RSI above 55 and a close above the 20-DMA.\n\nWHAT TO WATCH TOMORROW (Wednesday, Apr 8): The Iran deadline has passed. Markets will open with a verdict. Two scenarios: (A) De-escalation / ceasefire \u2014 expect oil to drop, energy sells off (fade XOM/FRO spikes), airlines and consumer discretionary lead (DAL, UAL, ABNB), risk-on rotation benefits AVGO and growth. Entry window: 10:00\u201310:30 AM ET after the opening flush. (B) Escalation \u2014 oil spikes toward $115-120, XOM/CVX/FRO outperform, LMT/NOC/RTX see defense bids. In this scenario, wait for the spike to exhaust and look for mean-reversion setups rather than chasing momentum. Either way: do NOT enter in the first 30 minutes. Let price discovery happen, then follow the tape. UNH is the scenario-neutral watch \u2014 healthcare MA catalyst doesn't care about oil.",
-        "tags": [
-            "reflection",
-            "day2",
-            "iran_deadline",
-            "cash_preservation",
-            "no_trades",
-            "macro_binary_event",
-            "UNH",
-            "AVGO",
-            "XOM",
-            "LMT"
-        ]
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-10",
+    "type": "midday_email_skipped",
+    "note": "No midday email sent \u2014 no actions taken",
+    "tags": [
+      "midday",
+      "email",
+      "no-action"
+    ]
+  },
+  {
+    "date": "2026-04-10",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-10 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-10",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-08",
-        "type": "midday_check",
-        "note": "MIDDAY 2026-04-08 11:08 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
-        "snapshot": {
-            "time": "11:08 ET",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "positions_value": 0.0,
-            "actions_taken": [],
-            "observations": [
-                "No open positions \u2014 fully in cash.",
-                "No morning watchlist available for entry scan."
-            ]
-        },
-        "tags": [
-            "midday",
-            "daily-review"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-10",
+    "time": "20:39 ET",
+    "type": "reflection",
+    "content": "EOD reflection \u2014 Apr 10, 2026. Portfolio remains 100% cash at $25,000 with no open positions and no trades executed today. Flat day with zero P&L. With no positions to manage, today's focus was capital preservation \u2014 no exposure means no losses but also no upside participation. Morning brief sentiment, if any, did not translate into actionable trades, suggesting either insufficient conviction or watchlist candidates failing setup criteria. Lesson: prolonged all-cash stance is defensible when signals are weak, but we should review watchlist screening to ensure we're not missing legitimate entries. Tomorrow: review watchlist.json for fresh setups, re-examine any recent morning briefs for sentiment drift, and be ready to deploy capital if high-conviction opportunities emerge. No positions to watch into tomorrow's open."
+  },
+  {
+    "date": "2026-04-10",
+    "time": "20:41 ET",
+    "type": "system_note",
+    "content": "EOD Steps 1-6 completed successfully. Step 7 (Google Sheet update) and Step 8 send-draft (via Chrome) could not run \u2014 Claude in Chrome extension was not connected during this scheduled run. Gmail draft was successfully created via Gmail MCP (draftId r-8736215893709277323) and remains in the Drafts folder awaiting manual send. pending_email.json left in place since email was not actually sent."
+  },
+  {
+    "date": "2026-04-11",
+    "type": "trade_decision",
+    "note": "WEEKEND \u2014 No trading activity today. Markets closed Saturday April 11, 2026. Full morning brief generated covering 5 macro events: (1) US-Iran two-week ceasefire brokered by Pakistan (Islamabad negotiations begin today) \u2014 dominant market narrative; (2) March CPI 3.3% YoY \u2014 hottest since May 2024, driven by 21.2% gasoline surge (record since 1967); (3) Strait of Hormuz still largely closed, only 2 tankers transited since ceasefire, 6-month normalization timeline; (4) AI infrastructure supercycle \u2014 CRWV +11% on Anthropic deal + $21B Meta deal, NVDA Vera Rubin H2 2026, AVGO AI revenues +140% YoY; (5) Bank earnings season kicks off week of April 13 with JPM leading. Portfolio: $25,000 cash, 0 positions. Watchlist for Monday open: CRWV (STRONG_BUY above $52), NVDA (STRONG_BUY above $875), AVGO (BUY above $210), JPM (BUY above $240). AVOID: FRO/DHT/INSW \u2014 tanker war-risk premium unwinds with Hormuz reopening. Key risk: Ceasefire collapse (CRITICAL) \u2014 if Islamabad talks fail, oil spikes to $110+, S&P -10-15%.",
+    "tags": [
+      "weekend",
+      "no_trade",
+      "iran_ceasefire",
+      "cpi_shock",
+      "ai_supercycle",
+      "morning_brief"
+    ]
+  },
+  {
+    "date": "2026-04-14",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-14 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-14",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-08",
-        "type": "midday_email_skipped",
-        "note": "No midday email sent \u2014 no actions taken",
-        "tags": [
-            "midday",
-            "email",
-            "no-action"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "timestamp": "2026-04-14T16:39:36.178418-04:00",
+    "type": "reflection",
+    "date": "2026-04-14",
+    "content": "EOD reflection for 2026-04-14: Portfolio remained flat at $25,000 (starting capital) with no open positions and no trades executed today. Cash is fully settled. Without morning brief signals translating into executed trades, there's nothing to evaluate on P&L. Likely causes: no qualifying setups passed the morning brief's conviction threshold, or pending_trades.json was empty at market open. Lessons: a flat day is not a failure \u2014 capital preservation when conviction is low is the correct default. Watch for tomorrow: revisit watchlist, ensure morning brief \u2192 pending_trades handoff is firing, and look for sectors showing relative strength on fresh catalysts.",
+    "portfolio_value": 25000.0,
+    "daily_pnl": 0.0,
+    "total_pnl_pct": 0.0
+  },
+  {
+    "date": "2026-04-14",
+    "type": "trade_decision",
+    "note": "April 14, 2026 morning brief \u2014 MIXED +3/10. Portfolio: $25,000 cash, 0 positions. Ran chart analysis on 4 WATCH_LONG candidates: (1) TSM $379.89 \u2014 NEUTRAL, RSI 66.02, resistance at $389.11 only 2.4% above, R/R 0.2x \u2014 terrible setup; TSMC Q1 earnings April 16 is the catalyst but the entry here is too close to resistance. Will watch for post-earnings gap-up confirmation. (2) NVDA $196.51 \u2014 NEUTRAL, RSI 68.1 near overbought, resistance at $197.62 only 0.56% above \u2014 essentially zero room; want a pullback to 50-DMA $182.12 before entry. (3) JPM $311.12 \u2014 NEUTRAL, RSI 65.44, R/R 1.9x (meets 1.5x minimum), but composite signal is NEUTRAL not BUY/STRONG_BUY \u2014 does not clear the entry gate. Best bank earnings candidate but will wait for tomorrow's BAC/GS to see if sector-wide NIM picture is better or worse than WFC suggested. (4) GLD $445.09 \u2014 NEUTRAL, RSI 54 (cleanest RSI), R/R 5.9x (excellent), but competing double-top and double-bottom patterns create ambiguity; volume 0.57x average \u2014 weak conviction. No trades today. Capital preservation in face of Iran ceasefire binary (talks collapsed over weekend, new round of negotiations hoped but uncertain) is the right posture. Key watches: TSMC April 16 earnings, Warsh confirmation hearing April 21, BAC/GS earnings this week.",
+    "tags": [
+      "trade_decision",
+      "no_trade",
+      "watch_tsm",
+      "watch_nvda",
+      "watch_jpm",
+      "watch_gld",
+      "iran_ceasefire",
+      "ppi_softer_than_expected",
+      "bank_earnings",
+      "warsh_nomination"
+    ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "trade_decision",
+    "note": "No trades queued. Morning brief sentiment BULLISH +4. Evaluated NVDA, BAC, DAL, LMT, TSM, ASML from watchlist. Chart analysis composite signals: NVDA NEUTRAL (RSI 68.1, R:R 0.1x), BAC NEUTRAL (RSI 70.2 overbought, R:R 1.5x), DAL NEUTRAL (RSI 63.2, MACD turning), LMT SELL (-2, bearish MACD), TSM NEUTRAL (+1). None meet the BUY/STRONG_BUY requirement. BAC RSI breached 70 so even on a beat today it fails the overbought filter. Portfolio 100% cash awaiting cleaner setups \u2014 will revisit post-BAC print and into April 29 FOMC.",
+    "tags": [
+      "decision",
+      "no_trades",
+      "bear_steepener",
+      "iran"
+    ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-15 13:33 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "13:33 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
     },
-    {
-        "date": "2026-04-08",
-        "type": "trade_decision",
-        "note": "BULLISH +7/10 session driven by Pakistan-brokered Iran ceasefire. WTI -16.3%. Screened UAL (SELL signal, R/R 0.7x \u2014 PASS), CCL (NEUTRAL \u2014 PASS), DAL (NEUTRAL \u2014 PASS), MU (BUY, RSI 54, above both MAs, R/R >1.5x \u2014 QUEUED). Queued 6 shares MU above $410 (~$2,424 / ~9.7% of $25K cash). UAL/CCL/DAL all gaped hard today \u2014 too extended for entry; wait for consolidation or pullback to 20-DMA before considering. Key risk: ceasefire expires April 22 \u2014 keep all positions sized small with hard 8% stops.",
-        "tags": [
-            "decision",
-            "ceasefire-trade",
-            "oil-collapse"
-        ]
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "midday_email_skipped",
+    "note": "No midday email sent \u2014 no actions taken",
+    "tags": [
+      "midday",
+      "email",
+      "no-action"
+    ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-15 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-15",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-08",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-08 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-08",
-            "time": "16:40 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-15",
+    "type": "reflection",
+    "note": "EOD reflection \u2014 another fully-cash day. No positions entered or exited. With no morning watchlist produced and no conviction signals, preserving capital is the correct default. The simulator is still at its $25,000 starting capital with zero drawdown. Tomorrow: watch for a morning brief watchlist; if none materializes, continue patient cash posture rather than forcing trades. Lesson: discipline in the absence of signal beats activity for its own sake.",
+    "what_worked": "Capital preservation; no forced trades.",
+    "what_failed": "No signal generation \u2014 morning brief produced no watchlist.",
+    "sentiment_accuracy": "N/A \u2014 no morning brief sentiment available to evaluate.",
+    "lessons": "A fully-cash portfolio has zero variance; the opportunity cost is only realized if the broader market rallies materially. Monitor index movement tomorrow to contextualize.",
+    "watch_tomorrow": "Check SPY/QQQ action and whether morning-brief restores watchlist generation.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
+  },
+  {
+    "date": "2026-04-16",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-16 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-16",
+      "time": "16:40 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
     },
-    {
-        "date": "2026-04-08",
-        "type": "reflection",
-        "note": "EOD Reflection \u2014 April 8, 2026 (Day 3). Third consecutive day at $25,000.00 \u2014 fully in cash, zero P&L. But today was a pivotal day for the strategy.\n\nWHAT WORKED: The two-day cash preservation through the Iran binary event paid off exactly as planned. The Pakistan-brokered ceasefire was announced and WTI crude collapsed 16.3% in a single session. The morning brief correctly identified this as a BULLISH +7/10 session and began screening post-ceasefire rotation plays. The process also correctly REJECTED the obvious momentum plays (UAL, CCL, DAL) \u2014 all had gapped hard at the open and were too extended for safe entry. Chasing a gap-up airline stock after a 16% oil crash would have been textbook FOMO, and the system filtered it out. That discipline is more valuable than any single trade.\n\nWHAT FAILED: We are now three days in with zero trades executed and zero positions. While the first two days were justified by the Iran binary event, today's inaction is harder to defend. MU was identified as a BUY signal with RSI 54, above both MAs, and R/R above 1.5x \u2014 the cleanest setup we have seen in three days. It was queued (6 shares above $410, ~$2,424 / ~9.7% of capital) but did not execute by close. The queuing mechanism needs to be more aggressive on days when a genuine BUY signal finally clears the threshold. Three days of patience followed by a missed entry on the first qualifying setup would undermine the entire strategy.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes \u2014 strongly so. The +7/10 bullish call on the ceasefire session was directionally correct. The screening was disciplined: rejected three extended names and found one legitimate BUY. The concern about ceasefire expiry (April 22) as a risk factor was also well-calibrated \u2014 it correctly sizes the trade window and justifies keeping positions small with hard 8% stops.\n\nLESSONS LEARNED: (1) The Iran cash preservation strategy worked \u2014 we avoided potential whipsaw losses on Days 1-2 and preserved full capital to deploy into the post-event clarity. That is the textbook execution of the binary event rule. (2) MU is the first real BUY signal in three days. If it still qualifies tomorrow morning, it should be the first trade. Hesitation after three days of discipline is the wrong instinct \u2014 the system said BUY, so trust the system. (3) The airlines (UAL, DAL, CCL) gapped too far today but may pull back to the 20-DMA over the next 2-3 sessions. Add them to the watchlist for consolidation entries. (4) Energy names (XOM, FRO) likely in free-fall after a 16% oil crash \u2014 do NOT try to catch the falling knife. Wait for stabilization.\n\nWHAT TO WATCH TOMORROW (Thursday, Apr 9): Priority #1 is MU execution \u2014 if the BUY signal holds at open, execute the queued order (6 shares above $410). Priority #2: watch UAL/DAL for a 2-3% pullback toward the 20-DMA as a potential entry. Priority #3: monitor oil stabilization \u2014 if WTI finds a floor, XOM and FRO may present mean-reversion setups later in the week. Key risk: ceasefire is temporary (expires April 22) \u2014 all positions must be sized conservatively with hard stops.",
-        "tags": [
-            "reflection",
-            "day3",
-            "ceasefire",
-            "cash_preservation",
-            "MU",
-            "oil_collapse",
-            "UAL",
-            "DAL",
-            "CCL"
-        ]
-    },
-    {
-        "date": "2026-04-09",
-        "type": "trade_decision",
-        "note": "NO TRADES QUEUED. Portfolio is 100% cash ($25,000). Ran chart analysis on 6 candidates: XOM (SELL -3, double-top), CVX (SELL -4, double-top), AVGO (NEUTRAL +1, RSI 64 elevated), INTC (NEUTRAL 0, RSI 72.2 OVERBOUGHT after +26% Terafab surge), LMT (NEUTRAL -1, H&S pattern), RTX (NEUTRAL 0, H&S overhead). None met all BUY criteria (need BUY/STRONG_BUY signal + RSI<70 + sentiment>=+2). Ceasefire collapse creating high uncertainty \u2014 prudent to stay in cash ahead of CPI tomorrow. Will reassess after CPI print April 10.",
-        "tags": [
-            "decision",
-            "no_trade",
-            "cash_preservation"
-        ]
-    },
-    {
-        "date": "2026-04-09",
-        "type": "midday_check",
-        "note": "MIDDAY 2026-04-09 13:33 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
-        "snapshot": {
-            "time": "13:33 ET",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "positions_value": 0.0,
-            "actions_taken": [],
-            "observations": [
-                "No open positions \u2014 fully in cash.",
-                "No morning watchlist available for entry scan."
-            ]
-        },
-        "tags": [
-            "midday",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-09",
-        "type": "midday_email_skipped",
-        "note": "No midday email sent \u2014 no actions taken",
-        "tags": [
-            "midday",
-            "email",
-            "no-action"
-        ]
-    },
-    {
-        "date": "2026-04-09",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-09 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-09",
-            "time": "16:40 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-09",
-        "type": "reflection",
-        "note": "EOD Reflection \u2014 April 9, 2026 (Day 4). Fourth consecutive day at $25,000.00 \u2014 fully in cash, zero P&L. This is now a pattern that demands honest assessment.\n\nWHAT WORKED: The system continued to enforce discipline. Six tickers were screened today (XOM, CVX, AVGO, INTC, LMT, RTX) and every single one was correctly rejected. XOM and CVX both showed SELL signals with double-top patterns \u2014 these are falling knives post-ceasefire collapse and the system rightly avoided them. INTC was the most tempting after a +26% surge on the Terafab announcement, but RSI at 72.2 (overbought) is a classic chase trap. Buying a stock after a one-day 26% move with RSI above 70 is exactly the kind of FOMO the rules were designed to prevent. AVGO at NEUTRAL +1 with elevated RSI (64) was correctly held \u2014 close but not qualifying. The process is sound.\n\nWHAT FAILED: This is now four trading days without a single execution. MU was queued yesterday as a BUY signal \u2014 the first qualifying setup since simulator launch \u2014 and it appears it did not execute today. The ceasefire collapse changed the macro picture overnight, which may have invalidated the MU thesis (semiconductor demand tied to global trade stability). But this pattern of finding one qualifying trade and then having the macro shift negate it before execution is a real risk to the strategy. If the system consistently identifies setups on Day N that are invalidated by Day N+1, we will never deploy capital. The execution pipeline needs review \u2014 specifically, should qualifying BUY signals trigger same-day limit orders rather than next-day market orders? That is a process improvement to consider.\n\nWAS MORNING BRIEF SENTIMENT ACCURATE? Yes. The trade_decision correctly identified ceasefire collapse as a source of high uncertainty and the CPI print tomorrow as an additional reason to stay defensive. The macro read was accurate \u2014 this was not a day to be aggressive. Energy names in SELL territory, defense names with bearish patterns (H&S), and the only momentum play (INTC) was overbought. The brief saw the landscape clearly.\n\nLESSONS LEARNED: (1) Four days of cash preservation is not failure when the market provides zero qualifying setups. But it does raise the question: are the criteria too strict for a paper trading simulator? In real capital, this conservatism is a virtue. In a learning environment, the absence of any trades means the system is generating no data on execution, position management, or exit discipline. (2) The ceasefire-to-collapse cycle in 24 hours (April 8 ceasefire \u2192 April 9 collapse) vindicates the small position sizing rule. Had we entered MU at 10 yesterday and the macro shifted overnight, the 8% stop would have been our only protection. (3) INTC at RSI 72 post-Terafab is worth watching for a pullback to the 50-60 RSI range \u2014 if the AI chip thesis remains intact, a consolidation entry could be strong. (4) The CPI print tomorrow is the next binary catalyst. Stay flat into it.\n\nWHAT TO WATCH TOMORROW (Friday, Apr 10): CPI is the headline event. Three scenarios: (A) CPI comes in hot \u2014 Fed stays hawkish, growth/tech sells off, defensive positioning preferred. Watch for TLT short or UNH (healthcare is CPI-defensive). (B) CPI comes in cool \u2014 risk-on rally, AVGO and INTC benefit, consider AVGO if it clears BUY threshold. (C) CPI in-line \u2014 market likely flat, look for individual stock catalysts. Regardless of CPI: INTC pullback to RSI 55-60 range is the top watchlist item. UNH remains the scenario-neutral play with the MA rate catalyst. Energy (XOM, CVX) \u2014 avoid until oil finds a floor. Defense (LMT, RTX) \u2014 bearish patterns need to resolve before entry. Patience continues to be the edge, but we need to be ready to act when the first post-CPI qualifying setup appears.",
-        "tags": [
-            "reflection",
-            "day4",
-            "ceasefire_collapse",
-            "cash_preservation",
-            "no_trades",
-            "CPI_catalyst",
-            "INTC",
-            "MU",
-            "process_review"
-        ]
-    },
-    {
-        "date": "2026-04-10",
-        "type": "midday_check",
-        "note": "MIDDAY 2026-04-10 13:32 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
-        "snapshot": {
-            "time": "13:32 ET",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "positions_value": 0.0,
-            "actions_taken": [],
-            "observations": [
-                "No open positions \u2014 fully in cash.",
-                "No morning watchlist available for entry scan."
-            ]
-        },
-        "tags": [
-            "midday",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-10",
-        "type": "midday_email_skipped",
-        "note": "No midday email sent \u2014 no actions taken",
-        "tags": [
-            "midday",
-            "email",
-            "no-action"
-        ]
-    },
-    {
-        "date": "2026-04-10",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-10 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-10",
-            "time": "16:39 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-10",
-        "time": "20:39 ET",
-        "type": "reflection",
-        "content": "EOD reflection \u2014 Apr 10, 2026. Portfolio remains 100% cash at $25,000 with no open positions and no trades executed today. Flat day with zero P&L. With no positions to manage, today's focus was capital preservation \u2014 no exposure means no losses but also no upside participation. Morning brief sentiment, if any, did not translate into actionable trades, suggesting either insufficient conviction or watchlist candidates failing setup criteria. Lesson: prolonged all-cash stance is defensible when signals are weak, but we should review watchlist screening to ensure we're not missing legitimate entries. Tomorrow: review watchlist.json for fresh setups, re-examine any recent morning briefs for sentiment drift, and be ready to deploy capital if high-conviction opportunities emerge. No positions to watch into tomorrow's open."
-    },
-    {
-        "date": "2026-04-10",
-        "time": "20:41 ET",
-        "type": "system_note",
-        "content": "EOD Steps 1-6 completed successfully. Step 7 (Google Sheet update) and Step 8 send-draft (via Chrome) could not run \u2014 Claude in Chrome extension was not connected during this scheduled run. Gmail draft was successfully created via Gmail MCP (draftId r-8736215893709277323) and remains in the Drafts folder awaiting manual send. pending_email.json left in place since email was not actually sent."
-    },
-    {
-        "date": "2026-04-11",
-        "type": "trade_decision",
-        "note": "WEEKEND \u2014 No trading activity today. Markets closed Saturday April 11, 2026. Full morning brief generated covering 5 macro events: (1) US-Iran two-week ceasefire brokered by Pakistan (Islamabad negotiations begin today) \u2014 dominant market narrative; (2) March CPI 3.3% YoY \u2014 hottest since May 2024, driven by 21.2% gasoline surge (record since 1967); (3) Strait of Hormuz still largely closed, only 2 tankers transited since ceasefire, 6-month normalization timeline; (4) AI infrastructure supercycle \u2014 CRWV +11% on Anthropic deal + $21B Meta deal, NVDA Vera Rubin H2 2026, AVGO AI revenues +140% YoY; (5) Bank earnings season kicks off week of April 13 with JPM leading. Portfolio: $25,000 cash, 0 positions. Watchlist for Monday open: CRWV (STRONG_BUY above $52), NVDA (STRONG_BUY above $875), AVGO (BUY above $210), JPM (BUY above $240). AVOID: FRO/DHT/INSW \u2014 tanker war-risk premium unwinds with Hormuz reopening. Key risk: Ceasefire collapse (CRITICAL) \u2014 if Islamabad talks fail, oil spikes to $110+, S&P -10-15%.",
-        "tags": [
-            "weekend",
-            "no_trade",
-            "iran_ceasefire",
-            "cpi_shock",
-            "ai_supercycle",
-            "morning_brief"
-        ]
-    },
-    {
-        "date": "2026-04-14",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-14 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-14",
-            "time": "16:39 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
-    },
-    {
-        "timestamp": "2026-04-14T16:39:36.178418-04:00",
-        "type": "reflection",
-        "date": "2026-04-14",
-        "content": "EOD reflection for 2026-04-14: Portfolio remained flat at $25,000 (starting capital) with no open positions and no trades executed today. Cash is fully settled. Without morning brief signals translating into executed trades, there's nothing to evaluate on P&L. Likely causes: no qualifying setups passed the morning brief's conviction threshold, or pending_trades.json was empty at market open. Lessons: a flat day is not a failure \u2014 capital preservation when conviction is low is the correct default. Watch for tomorrow: revisit watchlist, ensure morning brief \u2192 pending_trades handoff is firing, and look for sectors showing relative strength on fresh catalysts.",
-        "portfolio_value": 25000.0,
-        "daily_pnl": 0.0,
-        "total_pnl_pct": 0.0
-    },
-    {
-        "date": "2026-04-14",
-        "type": "trade_decision",
-        "note": "April 14, 2026 morning brief \u2014 MIXED +3/10. Portfolio: $25,000 cash, 0 positions. Ran chart analysis on 4 WATCH_LONG candidates: (1) TSM $379.89 \u2014 NEUTRAL, RSI 66.02, resistance at $389.11 only 2.4% above, R/R 0.2x \u2014 terrible setup; TSMC Q1 earnings April 16 is the catalyst but the entry here is too close to resistance. Will watch for post-earnings gap-up confirmation. (2) NVDA $196.51 \u2014 NEUTRAL, RSI 68.1 near overbought, resistance at $197.62 only 0.56% above \u2014 essentially zero room; want a pullback to 50-DMA $182.12 before entry. (3) JPM $311.12 \u2014 NEUTRAL, RSI 65.44, R/R 1.9x (meets 1.5x minimum), but composite signal is NEUTRAL not BUY/STRONG_BUY \u2014 does not clear the entry gate. Best bank earnings candidate but will wait for tomorrow's BAC/GS to see if sector-wide NIM picture is better or worse than WFC suggested. (4) GLD $445.09 \u2014 NEUTRAL, RSI 54 (cleanest RSI), R/R 5.9x (excellent), but competing double-top and double-bottom patterns create ambiguity; volume 0.57x average \u2014 weak conviction. No trades today. Capital preservation in face of Iran ceasefire binary (talks collapsed over weekend, new round of negotiations hoped but uncertain) is the right posture. Key watches: TSMC April 16 earnings, Warsh confirmation hearing April 21, BAC/GS earnings this week.",
-        "tags": [
-            "trade_decision",
-            "no_trade",
-            "watch_tsm",
-            "watch_nvda",
-            "watch_jpm",
-            "watch_gld",
-            "iran_ceasefire",
-            "ppi_softer_than_expected",
-            "bank_earnings",
-            "warsh_nomination"
-        ]
-    },
-    {
-        "date": "2026-04-15",
-        "type": "trade_decision",
-        "note": "No trades queued. Morning brief sentiment BULLISH +4. Evaluated NVDA, BAC, DAL, LMT, TSM, ASML from watchlist. Chart analysis composite signals: NVDA NEUTRAL (RSI 68.1, R:R 0.1x), BAC NEUTRAL (RSI 70.2 overbought, R:R 1.5x), DAL NEUTRAL (RSI 63.2, MACD turning), LMT SELL (-2, bearish MACD), TSM NEUTRAL (+1). None meet the BUY/STRONG_BUY requirement. BAC RSI breached 70 so even on a beat today it fails the overbought filter. Portfolio 100% cash awaiting cleaner setups \u2014 will revisit post-BAC print and into April 29 FOMC.",
-        "tags": [
-            "decision",
-            "no_trades",
-            "bear_steepener",
-            "iran"
-        ]
-    },
-    {
-        "date": "2026-04-15",
-        "type": "midday_check",
-        "note": "MIDDAY 2026-04-15 13:33 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
-        "snapshot": {
-            "time": "13:33 ET",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "positions_value": 0.0,
-            "actions_taken": [],
-            "observations": [
-                "No open positions \u2014 fully in cash.",
-                "No morning watchlist available for entry scan."
-            ]
-        },
-        "tags": [
-            "midday",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-15",
-        "type": "midday_email_skipped",
-        "note": "No midday email sent \u2014 no actions taken",
-        "tags": [
-            "midday",
-            "email",
-            "no-action"
-        ]
-    },
-    {
-        "date": "2026-04-15",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-15 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-15",
-            "time": "16:39 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-15",
-        "type": "reflection",
-        "note": "EOD reflection \u2014 another fully-cash day. No positions entered or exited. With no morning watchlist produced and no conviction signals, preserving capital is the correct default. The simulator is still at its $25,000 starting capital with zero drawdown. Tomorrow: watch for a morning brief watchlist; if none materializes, continue patient cash posture rather than forcing trades. Lesson: discipline in the absence of signal beats activity for its own sake.",
-        "what_worked": "Capital preservation; no forced trades.",
-        "what_failed": "No signal generation \u2014 morning brief produced no watchlist.",
-        "sentiment_accuracy": "N/A \u2014 no morning brief sentiment available to evaluate.",
-        "lessons": "A fully-cash portfolio has zero variance; the opportunity cost is only realized if the broader market rallies materially. Monitor index movement tomorrow to contextualize.",
-        "watch_tomorrow": "Check SPY/QQQ action and whether morning-brief restores watchlist generation.",
-        "tags": [
-            "eod",
-            "reflection"
-        ]
-    },
-    {
-        "date": "2026-04-16",
-        "type": "eod_snapshot",
-        "note": "EOD 2026-04-16 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
-        "snapshot": {
-            "date": "2026-04-16",
-            "time": "16:40 ET",
-            "type": "eod",
-            "portfolio_value": 25000.0,
-            "settled_cash": 25000.0,
-            "unsettled_cash": 0,
-            "total_cash": 25000.0,
-            "positions_value": 0.0,
-            "daily_pnl": 0.0,
-            "total_pnl": 0.0,
-            "total_pnl_pct": 0.0,
-            "positions": [],
-            "unsettled_lots": []
-        },
-        "tags": [
-            "eod",
-            "daily-review"
-        ]
-    },
-    {
-        "date": "2026-04-16",
-        "type": "reflection",
-        "note": "EOD reflection \u2014 third consecutive fully-cash day. Portfolio remains at $25,000 starting capital with zero drawdown and zero return. No trades were executed today; no morning brief watchlist was generated to provide conviction entries. The disciplined approach of not forcing trades without signal continues to protect capital, but the opportunity cost is accumulating \u2014 need to evaluate whether the morning brief pipeline is producing actionable watchlists at all.",
-        "what_worked": "Capital preservation maintained; zero drawdown streak continues.",
-        "what_failed": "Still no trade execution. The morning brief pipeline has not generated actionable signals for multiple consecutive days, leaving the simulator idle.",
-        "sentiment_accuracy": "N/A \u2014 no morning brief sentiment to evaluate against market outcomes.",
-        "lessons": "Patience is a virtue, but prolonged inaction signals a possible issue upstream in the signal pipeline rather than market conditions alone. Review whether morning brief is producing watchlists and if the criteria are too restrictive.",
-        "watch_tomorrow": "Check if morning brief generates a watchlist Friday. Review SPY/QQQ weekly performance to gauge missed opportunity cost. Consider whether entry criteria need loosening.",
-        "tags": [
-            "eod",
-            "reflection"
-        ]
-    }
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-16",
+    "type": "reflection",
+    "note": "EOD reflection \u2014 third consecutive fully-cash day. Portfolio remains at $25,000 starting capital with zero drawdown and zero return. No trades were executed today; no morning brief watchlist was generated to provide conviction entries. The disciplined approach of not forcing trades without signal continues to protect capital, but the opportunity cost is accumulating \u2014 need to evaluate whether the morning brief pipeline is producing actionable watchlists at all.",
+    "what_worked": "Capital preservation maintained; zero drawdown streak continues.",
+    "what_failed": "Still no trade execution. The morning brief pipeline has not generated actionable signals for multiple consecutive days, leaving the simulator idle.",
+    "sentiment_accuracy": "N/A \u2014 no morning brief sentiment to evaluate against market outcomes.",
+    "lessons": "Patience is a virtue, but prolonged inaction signals a possible issue upstream in the signal pipeline rather than market conditions alone. Review whether morning brief is producing watchlists and if the criteria are too restrictive.",
+    "watch_tomorrow": "Check if morning brief generates a watchlist Friday. Review SPY/QQQ weekly performance to gauge missed opportunity cost. Consider whether entry criteria need loosening.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
+  },
+  {
+    "date": "2026-04-17",
+    "type": "morning_decision",
+    "note": "No trades queued. All WATCH_LONG candidates fail buy criteria: TSM SELL signal (-3) with 0.6x risk/reward at $363; NVDA NEUTRAL (+1) with 0.2x risk/reward at $198; AMD RSI 80.22 overbought; AVGO RSI 77.44 overbought with below-avg volume; LMT SELL (-3) with head and shoulders. Market extended (Nasdaq 12-day streak, S&P 7,041 ATH). Iran ceasefire binary event April 21 makes directional bets too risky. Holding $25,000 cash. Strategy: wait for pullback entries on semis or ceasefire clarity before deploying capital.",
+    "tags": [
+      "decision",
+      "no_trade",
+      "overbought_market"
+    ]
+  }
 ]

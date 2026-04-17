@@ -1,0 +1,134 @@
+{
+  "date": "2026-04-17",
+  "overall_sentiment": "MIXED",
+  "sentiment_score": 3,
+  "sentiment_reasoning": "Record S&P 500 (7,041) and Nasdaq 12-day win streak driven by ceasefire optimism and TSMC blowout Q1 provide strong bullish momentum, but March CPI spiking to 3.3% YoY on energy costs, Strait of Hormuz still blockaded with ceasefire expiring April 21, and oil near $98 Brent create material downside risks that cap conviction.",
+  "summary": {
+    "gist": "Markets are riding a two-track narrative: the AI capex supercycle just got turbo-charged by TSMC record Q1 and raised guidance, while the Iran ceasefire clock ticks toward April 21 expiry with Hormuz still gridlocked and Brent at $98. The dominant force is ceasefire optimism — if talks resume and Hormuz reopens, oil crashes and the rally extends hard. If the ceasefire lapses, energy-driven inflation (CPI already 3.3%) forces the Feds hand at the April 28 meeting and the rally reverses violently.",
+    "actionable_items": [
+      "Watch TSM for pullback to $345 — stop $317 (-8%), target $397 (+15%) — TSMC Q1 profit +58%, raised 2026 guidance to 30%+ growth, AI demand outstripping supply. Currently extended at $363, wait for consolidation.",
+      "Watch NVDA above $200 breakout — stop $184 (-8%), target $230 (+15%) — RSI 68.93 approaching but not overbought, TSMC demand validation is an NVDA catalyst. Wait for clean break of $200 resistance.",
+      "Avoid long AMD at $278 — RSI 80.22 severely overbought after 12-day Nasdaq streak; wait for pullback to $240-250 zone before entry.",
+      "Avoid long AVGO at $398 — RSI 77.44 overbought, approaching $400 resistance on below-average volume (0.75x). Needs consolidation.",
+      "Watch XOM for short below $148 — stop $160 (+8%), target $129 (-15%) — if ceasefire extends and Hormuz reopens, Brent drops $15-20 rapidly. Currently at $152, wait for breakdown.",
+      "Watch TLT puts (strike $84) if 10Y yield breaks 4.35% — inflation re-acceleration from March CPI 3.3% could force hawkish Fed tilt at April 28 FOMC."
+    ],
+    "stoic_quote": {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "attribution": "Marcus Aurelius — Meditations"
+    }
+  },
+  "executive_summary": "The S&P 500 closed above 7,000 for the first time and the Nasdaq posted its 12th consecutive gain — the longest streak since 2009 — fueled by growing optimism around a second round of US-Iran ceasefire talks and TSMC blockbuster Q1 earnings. TSMC reported 58% profit growth, raised full-year revenue guidance to 30%+, and confirmed AI chip demand is outstripping capacity — validating the $650 billion hyperscaler capex cycle. However, the ceasefire expires April 21 with no second round of talks scheduled, Brent crude sits at $98 with the Strait of Hormuz still blockaded, and March CPI spiked to 3.3% YoY (from 2.4%) driven by a 21.2% surge in gasoline prices. The Fed holds rates at 3.50-3.75% with the next decision April 28-29, and sticky inflation could shift the narrative from when do they cut to do they hike.",
+  "top_themes": [
+    "Iran ceasefire expiry countdown — April 21 deadline with Hormuz still blockaded",
+    "AI capex supercycle validation — TSMC Q1 blowout, $650B hyperscaler spend",
+    "Energy-driven inflation spike — CPI 3.3%, gasoline +21.2% in March",
+    "Record equity rally fragility — S&P 7,041, Nasdaq 12-day streak at overbought levels",
+    "Fed policy crossroads — April 28 FOMC amid conflicting growth/inflation signals"
+  ],
+  "macro_events": [
+    {
+      "title": "Iran Ceasefire Expiry — April 21 Deadline Approaching",
+      "impact_level": "HIGH",
+      "time_horizon": "Days",
+      "causal_chain": "Two-week ceasefire agreed April 8 expires April 21 → first round of talks collapsed after 21 hours → US naval blockade on Iranian ports continues → Strait of Hormuz carries 20% of global oil and 20% of LNG → war-risk insurance premiums on VLCCs remain elevated → Asian refiners rerouting via Cape of Good Hope (+12-14 days, +$2M/trip) → Qatar LNG to Europe at risk → if ceasefire lapses: Brent spikes past $110, tanker rates surge, airline fuel costs spike → if ceasefire extends/deal reached: Brent crashes to $75-80, energy sector sells off 10-15%, broader market rallies on inflation relief",
+      "geographic_dimension": "Global — Middle East, Asia-Pacific refining, European energy security, USD/commodity currencies",
+      "historical_analog": "Sep 2019 Abqaiq attack — Brent surged 15% in 24 hours, tanker rates ran 20-35% in one week, but reversed within 2 weeks as Saudi restored capacity",
+      "counterargument": "40-country virtual summit Friday shows unprecedented diplomatic pressure for resolution; both sides have economic incentives to reopen Hormuz. Irans economy is cratering under blockade.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "MIXED", "reason": "Currently benefiting from $98 Brent but ceasefire deal would crush oil $15-20"},
+        {"ticker": "CVX", "direction": "MIXED", "reason": "Same dynamic as XOM — elevated earnings at risk of ceasefire resolution"},
+        {"ticker": "DAL", "direction": "UP", "reason": "Ceasefire would slash jet fuel costs; currently depressed by energy spike"},
+        {"ticker": "LMT", "direction": "DOWN", "reason": "Head and shoulders pattern forming; defense premium fading as diplomacy advances"},
+        {"ticker": "RTX", "direction": "DOWN", "reason": "Defense premium at risk if ceasefire extends"}
+      ]
+    },
+    {
+      "title": "TSMC Q1 Blowout — AI Demand Outstripping Capacity",
+      "impact_level": "HIGH",
+      "time_horizon": "Weeks to months",
+      "causal_chain": "TSMC Q1 revenue $35.9B (+35% YoY), net income +58%, gross margin 66.2% → raised full-year 2026 guidance to 30%+ revenue growth → 3nm process at 25% of wafer revenue, advanced nodes at 75% → AI chip demand exceeding manufacturing capacity → capex trending to upper end of $56B range → validates hyperscaler $650B AI infrastructure spend → downstream beneficiaries: NVDA (GPU demand), AMD (data center GPUs), AVGO/MRVL (custom AI ASICs) → semiconductor equipment makers (ASML, LRCX, AMAT) benefit from capacity expansion",
+      "geographic_dimension": "Taiwan manufacturing hub, US hyperscaler demand, global semiconductor supply chain",
+      "historical_analog": "Q1 2024 TSMC earnings similarly beat estimates and raised guidance, triggering a 15% rally in semiconductor names over the following month",
+      "counterargument": "Overbought conditions across semiconductor names (AMD RSI 80, AVGO RSI 77) suggest the good news may be priced in short-term.",
+      "affected_tickers": [
+        {"ticker": "TSM", "direction": "UP", "reason": "Direct beneficiary — Q1 beat + raised guidance, AI demand validation"},
+        {"ticker": "NVDA", "direction": "UP", "reason": "TSMC capacity expansion enables more GPU production; demand validated"},
+        {"ticker": "AMD", "direction": "UP", "reason": "AI data center gains, double bottom pattern breakout, but RSI 80 overbought"},
+        {"ticker": "AVGO", "direction": "UP", "reason": "Custom AI ASIC demand from hyperscalers validated by capex plans"},
+        {"ticker": "MRVL", "direction": "UP", "reason": "Custom silicon for cloud providers, inference chip demand accelerating"}
+      ]
+    },
+    {
+      "title": "March CPI Spike to 3.3% — Energy-Driven Inflation Re-Acceleration",
+      "impact_level": "HIGH",
+      "time_horizon": "Weeks",
+      "causal_chain": "March CPI +0.9% MoM (+3.3% YoY, up from 2.4% in Feb) → energy index +10.9%, gasoline +21.2% accounting for 75% of monthly increase → Iran war / Hormuz blockade directly causing energy price surge → shelter still rising +0.3% → food +2.7% YoY → Fed funds at 3.50-3.75% with next meeting April 28-29 → if ceasefire fails and oil stays elevated, April CPI could hit 4%+ → Fed forced to pause rate cut expectations indefinitely, possibly signal hike risk → bond market bear steepener (10Y at 4.29%, 2Y at 3.78%, spread +54bp) reflects term premium repricing",
+      "geographic_dimension": "US domestic inflation, Fed policy, global bond markets",
+      "historical_analog": "2022 inflation spike from Russia-Ukraine war — CPI hit 9.1% in June 2022, Fed hiked aggressively to 5.25-5.50%, S&P fell 25% from peak",
+      "counterargument": "Core CPI (ex-energy, food) likely still moderating — the spike is almost entirely energy-driven and would reverse quickly if Hormuz reopens.",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Rising yields crush long-duration bonds; 10Y at 4.29% could test 4.5%"},
+        {"ticker": "XLU", "direction": "DOWN", "reason": "Utilities underperform in rising rate environment"},
+        {"ticker": "GLD", "direction": "UP", "reason": "Gold at $440 as inflation hedge and geopolitical safe haven"},
+        {"ticker": "JPM", "direction": "UP", "reason": "Banks benefit from steeper yield curve and wider net interest margins"}
+      ]
+    },
+    {
+      "title": "S&P 500 Above 7,000 — Nasdaq 12-Day Win Streak",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Days",
+      "causal_chain": "S&P closed at 7,041.28 (new record), Nasdaq at 24,102.70 (12th straight gain, longest since July 2009) → ceasefire optimism + TSMC earnings + AI narrative driving momentum → BUT: breadth narrowing as mega-cap tech leads → overbought readings across semis (AMD RSI 80, AVGO 77) → mean reversion risk elevated → any negative catalyst (ceasefire collapse, hawkish Fed speak) could trigger 3-5% pullback within days",
+      "geographic_dimension": "US equity markets, global risk appetite",
+      "historical_analog": "Nasdaqs last 12-day streak ended July 2009 — market pulled back 5% over the following 2 weeks before resuming uptrend",
+      "counterargument": "Momentum begets momentum in bull markets. Breadth could improve as ceasefire resolution lifts cyclicals and small caps.",
+      "affected_tickers": [
+        {"ticker": "QQQ", "direction": "MIXED", "reason": "Extended streak increases reversion risk but momentum is powerful"},
+        {"ticker": "IWM", "direction": "UP", "reason": "Small caps could catch up if ceasefire resolves and oil drops"},
+        {"ticker": "VIX", "direction": "UP", "reason": "Volatility likely to expand from suppressed levels on any negative surprise"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {"direction": "BULLISH", "key_names": "TSM, NVDA, AMD, AVGO, MRVL", "rationale": "TSMC Q1 validates AI capex supercycle; $650B hyperscaler spend in 2026 (+71% YoY). Overbought short-term but secular trend intact."},
+    "Healthcare": {"direction": "NEUTRAL", "key_names": "UNH, JNJ, QDEL", "rationale": "QDEL -20% on weak flu season guidance. Defensive positioning attractive if ceasefire fails."},
+    "Financials": {"direction": "BULLISH", "key_names": "JPM, BAC, GS", "rationale": "Bear steepener (+54bp 10-2 spread) widens net interest margins. BAC topped Q1 estimates."},
+    "Energy": {"direction": "MIXED", "key_names": "XOM, CVX, SLB", "rationale": "Brent $98, WTI $93 — elevated but ceasefire resolution would crash prices 15-20%. Sector up 40% YTD."},
+    "Consumer Discretionary": {"direction": "NEUTRAL", "key_names": "TSLA, AMZN, NKE", "rationale": "TSLA +8% on AI5 chip news. Consumer confidence fragile amid 3.3% CPI and elevated gas prices."},
+    "Consumer Staples": {"direction": "NEUTRAL", "key_names": "PG, KO, PEP", "rationale": "Defensive positioning as inflation buffer. Food prices +2.7% YoY providing pricing power."},
+    "Industrials": {"direction": "NEUTRAL", "key_names": "CAT, DE, GE", "rationale": "Section 301 trade investigations create tariff uncertainty. Onshoring trend positive long-term."},
+    "Utilities": {"direction": "BEARISH", "key_names": "NEE, DUK, SO", "rationale": "Rising 10Y yield (4.29%) and bear steepener pressure rate-sensitive utilities."},
+    "Materials": {"direction": "NEUTRAL", "key_names": "FCX, NEM, APD", "rationale": "Gold at $440 (safe haven bid), copper supported by AI infrastructure build."}
+  },
+  "commodity_outlook": {
+    "crude_oil": {"direction": "MIXED", "price_note": "Brent $98.25, WTI $93.47", "key_driver": "Strait of Hormuz blockade vs. ceasefire extension hopes. Binary outcome."},
+    "natural_gas": {"direction": "UP", "price_note": "Dutch TTF elevated", "key_driver": "Qatar LNG to Europe at risk from Hormuz gridlock."},
+    "gold": {"direction": "UP", "price_note": "$440.08", "key_driver": "Geopolitical safe haven + inflation hedge + DXY weakness near 98."},
+    "silver": {"direction": "UP", "price_note": "Following gold higher", "key_driver": "Industrial demand from solar/EV + precious metal safe haven bid."},
+    "copper": {"direction": "UP", "price_note": "Supported", "key_driver": "AI data center buildout + green transition demand."},
+    "wheat": {"direction": "NEUTRAL", "price_note": "Stable", "key_driver": "No major weather disruptions."},
+    "soybeans": {"direction": "NEUTRAL", "price_note": "Stable", "key_driver": "US-China trade tensions simmering but no new ag tariffs."}
+  },
+  "currency_outlook": {
+    "DXY": {"direction": "DOWN", "key_driver": "Dollar at 98.27, near pre-war lows. Safe-haven demand fading on ceasefire optimism."},
+    "EUR_USD": {"direction": "UP", "key_driver": "Euro strengthening as Hormuz risk premium fades."},
+    "USD_JPY": {"direction": "NEUTRAL", "key_driver": "BOJ tightening vs. Fed hold creating narrowing yield differential."},
+    "USD_CNH": {"direction": "NEUTRAL", "key_driver": "Section 301 investigations create tariff uncertainty."}
+  },
+  "watchlist": [
+    {"ticker": "TSM", "action": "WATCH_LONG", "catalyst": "Q1 profit +58%, raised 2026 guidance to 30%+ growth", "entry_idea": "Wait for pullback to $345", "entry_price": 345.00, "stop_loss_price": 317.40, "target_price": 396.75, "risk": "Geopolitical risk to Taiwan", "signal_strength": "NEUTRAL"},
+    {"ticker": "NVDA", "action": "WATCH_LONG", "catalyst": "TSMC demand validation; $200 resistance breakout", "entry_idea": "Buy on clean break above $200", "entry_price": 200.00, "stop_loss_price": 184.00, "target_price": 230.00, "risk": "AI spending slowdown", "signal_strength": "NEUTRAL"},
+    {"ticker": "AMD", "action": "AVOID", "catalyst": "AI data center momentum", "entry_idea": "Wait for pullback to $240-250", "entry_price": 250.00, "stop_loss_price": 230.00, "target_price": 287.50, "risk": "RSI 80.22 overbought", "signal_strength": "NEUTRAL"},
+    {"ticker": "AVGO", "action": "AVOID", "catalyst": "Custom AI ASIC demand", "entry_idea": "Wait for consolidation to $360", "entry_price": 360.00, "stop_loss_price": 331.20, "target_price": 414.00, "risk": "RSI 77.44 overbought, weak volume", "signal_strength": "NEUTRAL"},
+    {"ticker": "XOM", "action": "WATCH_SHORT", "catalyst": "Ceasefire resolution would crash Brent", "entry_idea": "Short below $148", "entry_price": 148.00, "stop_loss_price": 159.84, "target_price": 125.80, "risk": "Ceasefire collapses, Brent $110+", "signal_strength": "NEUTRAL"},
+    {"ticker": "GLD", "action": "WATCH_LONG", "catalyst": "Safe haven + inflation hedge at $440", "entry_idea": "Buy pullback to $430 or breakout above $445", "entry_price": 440.00, "stop_loss_price": 404.80, "target_price": 506.00, "risk": "Ceasefire reduces safe-haven demand", "signal_strength": "BUY"}
+  ],
+  "risks_to_watch": [
+    {"risk": "Iran ceasefire expiry April 21", "severity": "CRITICAL", "causal_chain": "Ceasefire expires April 21 → no talks scheduled → US intensifies blockade → Brent $110+ → CPI 4%+ → Fed hikes → equity correction 10-15%", "sources": [{"title": "More U.S.-Iran peace deal talks are in discussion", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/04/14/trump-iran-war-strait-of-hormuz-negotiations.html"}]},
+    {"risk": "Inflation re-acceleration forces Fed hawkish pivot", "severity": "HIGH", "causal_chain": "March CPI 3.3% → April 28 FOMC → if Fed signals hike risk → 10Y yield 4.5% → growth stocks -8-12%", "sources": [{"title": "CPI Summary March 2026", "outlet": "BLS", "url": "https://www.bls.gov/news.release/cpi.nr0.htm"}]},
+    {"risk": "Semiconductor overbought reversal", "severity": "MEDIUM", "causal_chain": "AMD RSI 80, AVGO RSI 77 → profit-taking → SOX -5-8% → sentiment shift", "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]},
+    {"risk": "Section 301 trade investigations escalation", "severity": "MEDIUM", "causal_chain": "USTR hearings April 28 → new tariffs → supply chain disruption → earnings compression", "sources": [{"title": "US-China tariff rates", "outlet": "China Briefing", "url": "https://www.china-briefing.com/news/us-china-tariff-rates-2025/"}]},
+    {"risk": "Supreme Court tariff ruling aftermath", "severity": "MEDIUM", "causal_chain": "Feb 2026 SCOTUS ruling → Trump recalibrating → Section 301 workaround → policy uncertainty", "sources": [{"title": "Tariffs in the second Trump administration", "outlet": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Tariffs_in_the_second_Trump_administration"}]}
+  ],
+  "is_trading_day": true
+}
