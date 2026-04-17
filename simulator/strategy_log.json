@@ -588,5 +588,48 @@
       "no_trade",
       "overbought_market"
     ]
+  },
+  {
+    "date": "2026-04-17",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-17 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-17",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-17",
+    "type": "reflection",
+    "note": "EOD reflection \u2014 Day 10 of the simulator and still 100% cash at $25,000. No trades executed today. The morning decision correctly identified that every WATCH_LONG candidate failed buy criteria: TSM flipped to a SELL signal (-3), NVDA had only 0.2x risk/reward, AMD and AVGO were overbought (RSI >77), and LMT showed a bearish head-and-shoulders pattern. The broader market is extended \u2014 Nasdaq on a 12-day winning streak and S&P hitting 7,041 ATH \u2014 which makes chasing entries especially dangerous. The Iran ceasefire binary event on April 21 adds another layer of uncertainty that validates staying in cash over the weekend. What worked: discipline continues to be the edge. Zero drawdown through a volatile geopolitical period is not nothing. The signal pipeline is correctly filtering out low-quality setups. What failed: the simulator has now been running for 10 trading days without a single trade. While capital preservation is valid, prolonged inaction means we are missing the opportunity cost of a market that has rallied significantly (S&P to ATH, Nasdaq 12-day streak). The entry criteria may be too restrictive \u2014 requiring BUY/STRONG_BUY composite signals while the market grinds higher means we keep watching from the sidelines. Was morning brief sentiment accurate? The morning brief correctly flagged overbought conditions across semis and the extended Nasdaq streak. The caution was warranted given the technical readings, but it also means the brief has been consistently cautious while the market has gone up. Lessons: (1) There is a tension between waiting for perfect setups and participating in a trending market. (2) After 10 days of cash, it is time to seriously evaluate whether the composite signal thresholds need recalibration \u2014 perhaps NEUTRAL +1 with excellent R/R (>3x) and strong volume should qualify as an entry. (3) Weekend risk with the Iran April 21 deadline is real; staying cash here is correct regardless of criteria questions. Watch next week: Monday is the Iran ceasefire deadline day \u2014 this is the single biggest catalyst. If ceasefire holds, expect a risk-on rotation into travel/consumer and a pullback in energy/defense. If talks fail, oil spikes and defense names rally. Either outcome should finally produce clearer directional signals. Also watch for Warsh Fed confirmation hearing April 21 as a secondary catalyst. Target: deploy first position next week if post-Iran clarity produces a BUY signal with >2x R/R.",
+    "what_worked": "Capital preservation; correct identification of overbought conditions across watchlist; staying out of extended names near resistance.",
+    "what_failed": "10 consecutive no-trade days. Entry criteria may be too restrictive for a trending market. Zero participation in S&P ATH rally.",
+    "sentiment_accuracy": "Morning brief correctly flagged overbought conditions and Iran binary risk. Caution was technically sound but contributed to continued sideline positioning.",
+    "lessons": "Evaluate recalibrating composite signal thresholds \u2014 NEUTRAL+1 with high R/R may deserve entry. Weekend cash posture is correct given Iran deadline Monday.",
+    "watch_tomorrow": "Iran ceasefire deadline April 21 (Monday). Warsh Fed confirmation hearing. Post-weekend gap direction will set the tone for the week. Deploy first capital if clarity emerges.",
+    "tags": [
+      "eod",
+      "reflection",
+      "day10",
+      "cash_preservation",
+      "criteria_review",
+      "iran_deadline",
+      "overbought_market"
+    ]
   }
 ]
