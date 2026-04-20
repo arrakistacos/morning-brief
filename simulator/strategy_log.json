@@ -642,5 +642,15 @@
       "chrome_disconnected",
       "gmail_mcp_error"
     ]
+  },
+  {
+    "date": "2026-04-20",
+    "type": "trade_decision",
+    "note": "No positions open \u2014 portfolio is 100% cash ($25,000). Reviewed all watchlist candidates: DHT had BUY signal (score +2, double-bottom pattern, 1.38x volume) but risk/reward at 0.8x fails the >=1.5x threshold due to tight support at $18.00. INSW NEUTRAL signal. LMT/RTX/NOC all SELL signals despite defense tailwind from Hormuz \u2014 they've already run. AVGO/AMD both RSI 79 overbought \u2014 avoid chasing. XOM SELL signal with double-top pattern. Decided to stay 100% cash and wait for: (1) Hormuz ceasefire resolution Wednesday for clarity, (2) earnings prints Tuesday from GE/UNH/RTX/UAL for sector reads, (3) semiconductor pullback to reasonable RSI levels. Patience is the correct trade in a MIXED -3 environment with a binary geopolitical catalyst 48 hours away.",
+    "tags": [
+      "decision",
+      "cash",
+      "patience"
+    ]
   }
 ]
