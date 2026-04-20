@@ -683,5 +683,41 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-20",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-20 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-20",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-20",
+    "type": "reflection",
+    "note": "EOD Reflection 2026-04-20: Portfolio flat at $25,000 \u2014 day one of the simulator with zero trades executed. The morning brief flagged a MIXED environment (score -3) with high geopolitical uncertainty around Hormuz tensions. DHT was the only ticker with a BUY signal but failed the 1.5x risk/reward threshold. Defense names (LMT/RTX/NOC) had already run and flashed SELL signals. Semis (AVGO/AMD) were overbought at RSI 79. Decision to stay 100% cash was correct \u2014 no setups met our criteria, and a binary geopolitical catalyst (Hormuz ceasefire talks Wednesday) is 48 hours away. Patience is not inaction; it is a deliberate position. Lessons: (1) The framework worked as designed \u2014 it kept us out of marginal setups. (2) Volume confirmation on DHT was there but the tight stop made risk/reward unfavorable. Watch tomorrow: GE/UNH/RTX/UAL earnings Tuesday for sector reads, any Hormuz headlines overnight, and whether semis pull back to more reasonable RSI levels for entry.",
+    "tags": [
+      "reflection",
+      "eod",
+      "cash",
+      "patience",
+      "day-one"
+    ]
   }
 ]
