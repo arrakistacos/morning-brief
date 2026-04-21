@@ -719,5 +719,15 @@
       "patience",
       "day-one"
     ]
+  },
+  {
+    "date": "2026-04-21",
+    "type": "trade_decision",
+    "note": "No positions open, no new BUY signals today. Reviewed XOM (SELL signal, below all DMAs despite oil spike \u2014 double top pattern), LMT (SELL -3, oversold RSI 32.88 but bearish momentum), INSW (NEUTRAL +1, tanker play on Hormuz crisis but low volume), NVDA (overbought RSI 71.68 \u2014 skip), GE (SELL -2 but double bottom forming ahead of earnings), RTX (NEUTRAL -1, double bottom but bearish crossover). Sentiment is MIXED at -2/10 due to Iran-Hormuz ceasefire expiry tomorrow. Cash preserved at $25,000 \u2014 waiting for cleaner setups after geopolitical dust settles.",
+    "tags": [
+      "decision",
+      "no_trade",
+      "geopolitical_risk"
+    ]
   }
 ]
