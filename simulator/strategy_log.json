@@ -760,5 +760,40 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-21",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-21 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-21",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-21",
+    "type": "reflection",
+    "note": "Day 12 of the simulator and still 100% cash at $25,000. No trades have been executed since inception on April 5. The morning briefs have been generating watchlists but no positions have been opened \u2014 this means either the conviction signals are not strong enough to trigger entries, or the execution pipeline is not converting watchlist ideas into pending trades. On one hand, capital preservation during a volatile April (tariff uncertainty, geopolitical risk) is defensible. On the other hand, the purpose of a paper trading simulator is to test theses, and sitting in cash indefinitely defeats that purpose. Action item for tomorrow: review the morning brief watchlist more aggressively and consider opening a small starter position (1-2% of portfolio) in a high-conviction name to break the ice. Even a small position would generate valuable data on execution timing and P&L tracking.",
+    "tags": [
+      "reflection",
+      "eod",
+      "capital-preservation",
+      "no-trades"
+    ]
   }
 ]
