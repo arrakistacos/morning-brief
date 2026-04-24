@@ -795,5 +795,15 @@
       "capital-preservation",
       "no-trades"
     ]
+  },
+  {
+    "date": "2026-04-24",
+    "type": "trade_decision",
+    "note": "No new BUY signals queued. Portfolio: $25,000 cash, 0 positions. Rationale: All watchlist candidates (INTC RSI 82, AMD RSI 89, NVDA RSI 71.5, AVGO RSI 78, GOOGL RSI 69) are overbought after an 18-day SOX winning streak. Chart analysis returned NEUTRAL or SELL for every candidate. Intel's earnings blowout is bullish but entry at $82.54 after a 23% gap is chasing \u2014 waiting for pullback to $76. AMD at $348 already exceeded Stifel's $320 PT. NVDA at $208 approaching ATH $211 resistance \u2014 needs breakout confirmation. SAP interesting at $175 but chart not yet analyzed. Discipline: no entries at RSI >70 per trading rules. Will reassess Monday if consolidation begins.",
+    "tags": [
+      "decision",
+      "no_trade",
+      "overbought"
+    ]
   }
 ]
