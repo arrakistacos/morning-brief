@@ -795,5 +795,36 @@
       "capital-preservation",
       "no-trades"
     ]
+  },
+  {
+    "date": "2026-04-24",
+    "type": "midday_check",
+    "note": "MIDDAY 2026-04-24 16:57 ET | Portfolio: $25,000.00 | No action \u2014 held all positions. | Observations: No open positions \u2014 fully in cash. | No morning watchlist available for entry scan.",
+    "snapshot": {
+      "time": "16:57 ET",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "positions_value": 0.0,
+      "actions_taken": [],
+      "observations": [
+        "No open positions \u2014 fully in cash.",
+        "No morning watchlist available for entry scan."
+      ]
+    },
+    "tags": [
+      "midday",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-24",
+    "type": "midday_email_skipped",
+    "note": "No midday email sent \u2014 no actions taken",
+    "tags": [
+      "midday",
+      "email",
+      "no-action"
+    ]
   }
 ]
