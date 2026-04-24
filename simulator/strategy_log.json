@@ -826,5 +826,41 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-24",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-24 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-24",
+      "time": "16:58 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-24",
+    "type": "reflection",
+    "note": "Day 15 (trading day ~14) and still 100% cash at $25,000. No trades executed since inception on April 5. This is now the third consecutive trading day with the same observation \u2014 the simulator is not converting morning brief watchlist ideas into actual positions. The last reflection on April 21 flagged this exact issue and recommended opening a small starter position to break the ice, but that hasn't happened. Markets had a full week of trading (Apr 21-24) and we sat on the sidelines for all of it. At this point, the lack of trades is itself the main finding: the execution pipeline between watchlist generation and trade entry is broken or too conservative. Capital preservation is fine as a philosophy, but a paper trading simulator with zero trades over two weeks produces zero learning. Action items for next week: (1) Review pending_trades.json \u2014 if the morning brief is generating trade ideas, they should be flowing into this file for market-open execution. (2) Consider lowering conviction thresholds or manually queuing a 1-2% position in a liquid name (SPY, AAPL, MSFT) just to validate the full trade lifecycle. (3) Check whether the morning brief task is actually running and producing actionable signals.",
+    "tags": [
+      "reflection",
+      "eod",
+      "capital-preservation",
+      "no-trades",
+      "execution-gap"
+    ]
   }
 ]

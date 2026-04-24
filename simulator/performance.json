@@ -307,5 +307,20 @@
     "total_pnl_pct": 0.0,
     "positions": [],
     "unsettled_lots": []
+  },
+  {
+    "date": "2026-04-24",
+    "time": "16:58 ET",
+    "type": "eod",
+    "portfolio_value": 25000.0,
+    "settled_cash": 25000.0,
+    "unsettled_cash": 0,
+    "total_cash": 25000.0,
+    "positions_value": 0.0,
+    "daily_pnl": 0.0,
+    "total_pnl": 0.0,
+    "total_pnl_pct": 0.0,
+    "positions": [],
+    "unsettled_lots": []
   }
 ]
