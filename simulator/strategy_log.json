@@ -848,5 +848,42 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-27",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-27 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-04-27",
+      "time": "16:39 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-27",
+    "type": "reflection",
+    "note": "EOD Reflection 2026-04-27: Day 16 of the simulator and the cash bench remains at $25,000.00 \u2014 flat day, flat week-to-date, flat since inception. The discipline-first framework held: NVDA tagged RSI 71.5 (overbought gate triggered), LMT screened oversold but composite signal NEUTRAL with bearish MACD below all DMAs (catching-knives risk into Hormuz uncertainty), FRO volume only 0.38x average (no conviction), and the Mag 7 earnings cluster Wed/Thu plus FOMC tomorrow creates a binary skew that makes any pre-event entry a coin-flip rather than an edge. So the decision to stay 100% cash is correct on the merits of the rules \u2014 but the reflection from April 21 (day 12) remains unanswered: the simulator has now sat in cash for 16 sessions, and that is no longer a setup problem, it's a calibration problem. Either (a) the gates are too restrictive for any plausible market regime, (b) the watchlist generator is feeding stale or unanalyzable candidates, or (c) the morning brief is correctly telling us this is a 'do nothing' tape and we should respect that \u2014 but if (c) is true for 16 straight sessions, the framework needs a stronger 'wait and see' signal rather than continuing to grind through the same overbought/oversold/no-volume rejection loop. What worked: rules-based discipline kept us out of LMT (a falling knife) and NVDA (a chase). What failed: nothing executed = no learning, no P&L curve to evaluate, no thesis tested. Tomorrow watch: FOMC dot plot is the key catalyst. If the dot plot is dovish, expect a relief rally in rate-sensitive longs (homebuilders, REITs, small caps) and that may be the cleanest setup we've seen. If hawkish, defensive rotation gets paid. Either way, post-FOMC entries should be on the table Wednesday morning. Also queue a calibration review: if Friday closes with zero trades for the week, raise the question of whether one of the entry gates needs to be relaxed (e.g., RSI 70 \u2192 75 for liquid mega-caps, or volume filter softened from 1.0x to 0.8x).",
+    "tags": [
+      "reflection",
+      "eod",
+      "cash",
+      "calibration",
+      "fomc-pending",
+      "discipline"
+    ]
   }
 ]
