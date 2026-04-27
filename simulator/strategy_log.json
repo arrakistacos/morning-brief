@@ -805,5 +805,17 @@
       "no_trade",
       "overbought"
     ]
+  },
+  {
+    "date": "2026-04-27",
+    "type": "trade_decision",
+    "note": "No BUY signals queued. Discipline first. Watchlist top candidates evaluated: (1) NVDA $208.27 \u2014 RSI 71.54 OVERBOUGHT, hard skip per gate. (2) LMT $513.45 \u2014 composite NEUTRAL despite RSI 19.13 oversold and R:R 12.1x; below all three DMAs with bearish MACD momentum, catching-a-knife risk into Hormuz uncertainty. Will revisit if MACD crosses bullish OR price reclaims 20-DMA. (3) FRO $35.59 \u2014 composite NEUTRAL, volume 0.38x avg (weak conviction). (4) XOM/RTX not run \u2014 energy/defense already extended into resistance, war-premium baked. (5) MSFT/META Wed earnings creates unfavorable binary skew across AI complex \u2014 even strong charts unfavorable into binary events.\n\nMacro setup: barbell tape (long real-asset/AI/defense, short rate-sensitive consumer), but execution gates fail. Cash 100% preserved at $25,000 awaiting (a) FOMC dot plot tomorrow, (b) Mag 7 capex prints Wed/Thu. These two events resolve the regime question for the next 4-6 weeks. Better to enter post-resolution with conviction than pre-event with noise.",
+    "tags": [
+      "decision",
+      "discipline",
+      "no_trades",
+      "fomc_pending",
+      "earnings_pending"
+    ]
   }
 ]
