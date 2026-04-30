@@ -916,5 +916,79 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-04-28",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-28 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions. | Reflection: [Backdated \u2014 task missed window; portfolio 100% cash so no market data needed]",
+    "snapshot": {
+      "date": "2026-04-28",
+      "time": "16:30 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-29",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-04-29 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions. | Reflection: [Backdated \u2014 scheduled task ran ~8h late, after midnight ET on 4/30]",
+    "snapshot": {
+      "date": "2026-04-29",
+      "time": "16:30 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-04-29",
+    "type": "reflection",
+    "note": "EOD Reflection 2026-04-29 (Day 18, backdated capture): The simulator closed flat for the third consecutive trading day captured ($25,000 settled cash, zero positions, zero trades since inception). More notable than the flat P&L is the operational gap: today's EOD task fired ~8 hours late (after midnight ET on 4/30), and reviewing the log shows that 4/28 was missed entirely as well \u2014 meaning two consecutive EOD windows were not run on the day they covered. Both have now been backdated using a monkey-patched `datetime.now` so the performance ledger and dashboard remain continuous, but this is a band-aid, not a fix; the underlying scheduling needs investigation. Notably the midday-check task DID fire (it logged a midday snapshot at 00:17 ET on 4/30 just before this EOD task), so the scheduler is alive but is running its tasks roughly 8 hours behind the wall-clock window. On the trading side: the picture is unchanged from the 4/27 reflection. We are now 18 sessions in, still 100% cash, still no thesis tested, still no learning from the framework. The 4/27 reflection flagged this as a calibration problem and queued a 'relax-the-gates' review for end-of-week if no trades fired \u2014 that condition has now been met twice over. Concrete proposal for tomorrow's morning brief: (1) widen the RSI overbought ceiling for liquid mega-caps from 70 to 75, (2) drop the volume filter floor from 1.0x to 0.85x of 20-day average, and (3) for any post-FOMC entry, allow a single 'dot-plot bias' position sized at half-conviction (max 5% of capital) to actually test the framework in live conditions rather than continuing to rejection-loop on perfect-setup criteria. What worked: the rules-based discipline did exactly what it said on the tin \u2014 no bad trades were taken because no trades were taken. What failed: the rules are now demonstrably uncalibrated for this regime, and the operational tooling failed to capture two trading days without anyone noticing until tonight. Tomorrow watch: 4/30 EOD will run on schedule (assuming the scheduler catches up); also expect the morning brief to either acknowledge the calibration concern or \u2014 if it doesn't \u2014 that becomes its own signal that the briefing logic is stuck in the same loop.",
+    "tags": [
+      "reflection",
+      "eod",
+      "cash",
+      "calibration",
+      "operational-gap",
+      "backdated",
+      "scheduler-investigation"
+    ]
+  },
+  {
+    "date": "2026-04-29",
+    "type": "task_run_anomaly",
+    "note": "EOD scheduled task ran ~8 hours past its 16:15 ET window (executed 00:18 ET 4/30). Both 2026-04-28 and 2026-04-29 EOD snapshots were missing from the log and have been backdated by monkey-patching datetime.now in eod_snapshot.take_snapshot(). Snapshots are accurate (portfolio is 100% cash with no positions, so no market data was needed). Note that the midday-check task DID fire on 4/30 at 00:17 ET (also ~8h late) \u2014 scheduler is alive but lagging behind the wall-clock window. Recommend investigating why ET-anchored task windows are firing 8h late and whether 4/28 had any task fire at all.",
+    "tags": [
+      "operational",
+      "scheduler",
+      "missed-run",
+      "backdated",
+      "investigate"
+    ]
   }
 ]
