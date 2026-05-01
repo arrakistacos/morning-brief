@@ -1021,5 +1021,17 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-05-01",
+    "type": "trade_decision",
+    "note": "Portfolio: $25k cash, no open positions. Queued ONE BUY: LMT >$520 (current $517.97) \u2014 4 shares (~$2,080), stop $478.50 (-8%), target $597 (+15%). LMT chart shows STRONG BUY composite (RSI 24 oversold, MACD bullish momentum, 11x R:R, volume above avg). Defense paradoxically oversold during active US-Iran war = high-conviction mean reversion. PASSED on: GOOGL (RSI 82 overbought after +6% earnings spike \u2014 wait for $360 retest), NVDA (NEUTRAL composite, earnings binary in May), MU (SELL signal, RSI 67 with bearish momentum, R:R 0.5x unfavorable), NOC (similar BUY chart but lower volume conviction \u2014 LMT is the cleaner setup), UAL (already on watchlist at $90 vs entry $100, fuel cost still elevated), AAPL (no chart issued today \u2014 wait for retest of $268). Avoided long energy (XOM/CVX) \u2014 geopolitical premium fully priced; Hormuz binary asymmetric to downside on de-escalation. Avoided long TLT \u2014 4-dissent FOMC keeps long-end yields rising. No SELL executions \u2014 cash-only portfolio. Position sizing: 10% of cash ($2,500) \u2192 4 shares LMT at ~$520. After fill: 8.3% of portfolio in LMT, 91.7% cash, 1 of max 3 positions used.",
+    "tags": [
+      "decision",
+      "LMT",
+      "defense",
+      "mean_reversion",
+      "iran_war"
+    ]
   }
 ]

@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "ticker": "LMT",
+    "action": "BUY",
+    "entry_condition": "opens_above",
+    "entry_price_threshold": 520.00,
+    "stop_price": 478.50,
+    "target_price": 597.00,
+    "stop_loss_pct": 8.0,
+    "target_pct": 15.0,
+    "shares": 4,
+    "estimated_price": 520.00,
+    "estimated_cost": 2080.00,
+    "setup_type": "morning_brief_signal",
+    "timeframe": "swing",
+    "signal_strength": "BUY",
+    "catalyst": "RSI 24 oversold + bullish MACD momentum + 11x R:R; defense paradoxically sold off DURING active US-Iran war (Hormuz week 10) — mean reversion play on FY27 $895B defense budget catalyst",
+    "entry_idea": "Opens above $520 on volume > 1.5x average",
+    "risk": "Iran ceasefire announcement in next 30 days = -8% gap; budget fight in Congress could delay authorization",
+    "generated_at": "2026-05-01T03:45:00"
+  }
+]

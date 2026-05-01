@@ -1,0 +1,286 @@
+{
+  "date": "2026-05-01",
+  "is_trading_day": true,
+  "overall_sentiment": "MIXED",
+  "sentiment_score": 2,
+  "sentiment_reasoning": "Big Tech AI capex super-cycle confirmed by blowout MAG7 prints (GOOGL +6%, AAPL +3% AH; $665B aggregate AI spend, +75% YoY) is keeping indices at record highs. But the rally is stretched into a hawkish Fed (4 dissents — most since 1992) at 4.42% 10Y, an active US-Iran war with the Strait of Hormuz blockaded for 9 weeks running, and oil at $114 Brent after a $126 wartime spike. Bull thesis is real but narrow; tail risk is asymmetric.",
+  "summary": {
+    "gist": "AI mega-caps just delivered the cleanest fundamental case for higher multiples in two years — Alphabet's GenAI revenue +800% and $665B aggregate hyperscaler capex are the dominant force. But the energy/rates wall is the same one that broke 2022: $114 Brent + 4.42% 10Y + a hawkish FOMC dissent bloc. Trade the dispersion, not the index.",
+    "actionable_items": [
+      "Buy LMT above $520 — stop $478 (-8%), target $598 (+15%) — RSI 24 oversold + 11x R:R, defense paradoxically sold off DURING active Iran war",
+      "Watch GOOGL — DO NOT chase at $384.80 (RSI 82 overbought after +6% earnings spike); wait for $360 pullback to 20-DMA, then buy with stop $331, target $414",
+      "Avoid long XOM at $154.33 — geopolitical risk premium fully priced; wait for Hormuz de-escalation pullback to $138 support",
+      "Avoid TLT long at $85.62 — Fed dissent bloc signals path of least resistance is HIGHER long-end yields; thesis breaks above 4.65% 10Y",
+      "Watch NVDA at $199.57 — stay flat ahead of May earnings; if it breaks $217 on volume, buy stop $200 target $250",
+      "Avoid airlines (DAL $67.99, UAL $90.00) — fuel cost leverage is a knife to catch while Hormuz stays shut"
+    ],
+    "stoic_quote": {
+      "text": "You have power over your mind — not outside events. Realize this, and you will find strength.",
+      "attribution": "Marcus Aurelius — Meditations"
+    }
+  },
+  "executive_summary": "Indices closed Thursday at record highs (S&P 7,200+, Dow +1.6%) on the cleanest Big Tech print since 2023: Alphabet revenue +22%, GenAI revenue +800%, GCP +63%; Microsoft Azure +39%; AWS +28%; Apple iPhone +22% with Greater China $20.5B vs $16B. Aggregate hyperscaler AI capex guided to $665B for 2026, +75% YoY. Counterweight is severe: US-Iran war is in week 9 with the Hormuz blockade still 'fully implemented' (4% of normal flow); Brent settled $114 after touching $126; the Fed paused at 3.5–3.75% Wednesday with FOUR dissents (highest since 1992) and stiffened inflation language; 10Y at 4.42% (one-month high). Futures muted (S&P +0.09%, Nasdaq -0.05%). Trade the AI/Defense long, energy/rates short dispersion — do not chase the index.",
+  "top_themes": [
+    "AI capex super-cycle confirmed — $665B aggregate hyperscaler spend, +75% YoY",
+    "Hormuz blockade entering week 10 — 96% reduction in flow; oil structurally bid",
+    "Hawkish Fed pause with historic 4-vote dissent — long-end repricing risk",
+    "Defense sector dislocation — LMT/NOC oversold DURING active war (mean reversion)",
+    "China revenue resilience — Apple Greater China +28% YoY despite 145% tariffs"
+  ],
+  "macro_events": [
+    {
+      "title": "MAG7 AI capex guide raised to $665B for 2026 (+75% YoY)",
+      "impact_level": "HIGH",
+      "time_horizon": "weeks-to-quarters",
+      "causal_chain": "Alphabet GenAI revenue +800% YoY proves enterprise AI monetization → hyperscalers raise FY26 capex (Meta $125-145B from $115-135B) → directly feeds NVDA H200/B200/GB200 orders, AVGO custom silicon, MU HBM4, VRT/ETN power infrastructure, ANET networking, DLR/EQIX data centers → datacenter electricity demand +12% YoY → utilities (VST/CEG nuclear baseload) and gas/uranium beneficiaries → secondary effect: any company unable to articulate AI ROI gets re-rated DOWN",
+      "geographic_dimension": "US hyperscalers dominate; Greater China decoupling continues despite 145% tariffs",
+      "historical_analog": "1996-1999 telecom capex super-cycle — peak revenue lagged peak capex by 4-6 quarters. Q3-Q4 2026 print is gating event for whether multiple expansion holds.",
+      "counterargument": "GenAI revenue dominated by Google's own ads + Workspace upsell; true enterprise SaaS AI revenue (outside MSFT Copilot) <2% at most names. If Q3 enterprise pipeline disappoints, $665B becomes balance-sheet liability.",
+      "affected_tickers": [
+        {"ticker": "GOOGL", "direction": "UP", "reason": "Closed earnings +6% AH"},
+        {"ticker": "NVDA", "direction": "UP", "reason": "Direct beneficiary of $665B capex"},
+        {"ticker": "AVGO", "direction": "UP", "reason": "Custom silicon design wins"},
+        {"ticker": "MU", "direction": "UP", "reason": "HBM4 mass production aligns with B200"},
+        {"ticker": "VRT", "direction": "UP", "reason": "Power/cooling infrastructure"},
+        {"ticker": "CEG", "direction": "UP", "reason": "Nuclear baseload PPA demand"},
+        {"ticker": "META", "direction": "UP", "reason": "Capex raised to $125-145B"},
+        {"ticker": "AAPL", "direction": "UP", "reason": "iPhone +22%, China +28%"}
+      ]
+    },
+    {
+      "title": "Hormuz blockade enters week 10; ~96% flow reduction; Brent $114 post-$126 spike",
+      "impact_level": "HIGH",
+      "time_horizon": "intraday-to-quarters",
+      "causal_chain": "US-Iran war started Feb 28, 2026 → dual blockade in place → only 154 vessels crossed Hormuz in March vs ~1,500 normal → 2,000 ships stranded in Gulf → war-risk insurance premiums (3.5-5%+ of hull value vs <0.05% normal) → tanker spot rates spike (FRO/INSW/DHT war-risk premium) → Asian refiners reroute via Cape of Good Hope (+12-14 days, +$2M/voyage) → Qatar LNG to Europe at risk → Dutch TTF gas elevated → US LNG export demand inflection → European industrial production headwind → EUR weakens → INR/TRY/IDR oil-importer FX under pressure → Fed gets harder data: April CPI May 12 risks 4% headline print",
+      "geographic_dimension": "Asia (Japan/Korea/India 80% Hormuz-dependent) most exposed; Europe to gas; US relative beneficiary",
+      "historical_analog": "Sep 2019 Abqaiq attack: Brent +15% in 24h, normalized in 2 weeks. THIS is structurally different — actual blockade — closer to 1973 Arab oil embargo.",
+      "counterargument": "If diplomatic off-ramp signaled this weekend (UK/France conferences ongoing), Brent could gap down $15-20 on Monday open as war-risk premium unwinds — XOM/CVX -8 to -12%.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "MIXED", "reason": "$154.33 — premium fully priced"},
+        {"ticker": "CVX", "direction": "MIXED", "reason": "$193.31 — same"},
+        {"ticker": "FRO", "direction": "UP", "reason": "Tanker war-risk spot rates"},
+        {"ticker": "INSW", "direction": "UP", "reason": "Suezmax leverage"},
+        {"ticker": "LMT", "direction": "UP", "reason": "Defense — paradoxically oversold"},
+        {"ticker": "NOC", "direction": "UP", "reason": "Same — RSI 23"},
+        {"ticker": "DAL", "direction": "DOWN", "reason": "Jet fuel cracks elevated"},
+        {"ticker": "UAL", "direction": "DOWN", "reason": "Same"},
+        {"ticker": "LNG", "direction": "UP", "reason": "US LNG export demand"}
+      ]
+    },
+    {
+      "title": "Fed pauses at 3.50-3.75% with FOUR dissents — most since 1992",
+      "impact_level": "HIGH",
+      "time_horizon": "weeks-to-quarters",
+      "causal_chain": "Wednesday FOMC held → Miran wanted CUT (one dovish dissent) → THREE dissents against the easing-bias language (hawkish bloc) → statement strengthened to 'inflation IS elevated' from 'remains somewhat elevated' → market re-prices: Fed funds futures imply ~33% chance of HIKE by April 2027 → 10Y +7bp to 4.42%, 2Y +5bp to 3.95% → curve bear-flattens → TLT $85.62 breaks toward $80 if 10Y clears 4.65% → growth stocks face DCF compression → bank NIMs widen (JPM/BAC/C/WFC tailwind) → REITs/utilities pressured → USD strength resumes",
+      "geographic_dimension": "EM FX pressure resumes (USD/JPY toward 158-160, USD/CNH toward 7.30)",
+      "historical_analog": "1992 had 4 dissents under Greenspan; yields backed up 60bp in next 6 weeks. 4-dissent FOMC events have a 7/9 historical record of TIGHTENING by next meeting.",
+      "counterargument": "Powell's term ends May 15; Warsh confirmation likely week of May 11. Warsh skews dovish under labor-market stress. If April NFP (May 8) prints sub-100k, dissent dynamic flips entirely.",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Yields higher, prices lower"},
+        {"ticker": "JPM", "direction": "UP", "reason": "NIM expansion"},
+        {"ticker": "BAC", "direction": "UP", "reason": "Same"},
+        {"ticker": "WFC", "direction": "UP", "reason": "Same"},
+        {"ticker": "XLU", "direction": "DOWN", "reason": "Rate-sensitive"},
+        {"ticker": "O", "direction": "DOWN", "reason": "REIT, rate-sensitive"},
+        {"ticker": "UUP", "direction": "UP", "reason": "USD strength"},
+        {"ticker": "FXY", "direction": "DOWN", "reason": "JPY weakness"}
+      ]
+    },
+    {
+      "title": "Apple Q2 FY26 beat: rev $111.2B, EPS $2.01, China +28%, iPhone +22%",
+      "impact_level": "MEDIUM",
+      "time_horizon": "weeks",
+      "causal_chain": "iPhone 17 family delivers +22% YoY → Greater China $20.5B vs $16B (defies 145% tariff narrative — premium iPhone is price-inelastic in China) → Services revenue +14% re-rates from product to platform multiple → Ternus succeeding Cook = continuity (stock did NOT sell off on news) → cascades to TSM (Apple's largest customer ~25% rev), QCOM (modems through 2028), AVGO (RF), Skyworks/Qorvo content → AAPL options skew flattens → cleanest 'safe' MAG7 long given lower beta",
+      "geographic_dimension": "China growth proves luxury tech consumption is decoupled from broader consumer weakness there",
+      "historical_analog": "iPhone 12/5G cycle Q1 2021 — Greater China beat by $4B → AAPL ran +18% in next 8 weeks.",
+      "counterargument": "Q3 guide may disappoint on FX headwind from stronger USD; Services growth deceleration to <12% would compress 32x P/E.",
+      "affected_tickers": [
+        {"ticker": "AAPL", "direction": "UP", "reason": "Beat across the board"},
+        {"ticker": "TSM", "direction": "UP", "reason": "Apple top customer"},
+        {"ticker": "QCOM", "direction": "UP", "reason": "iPhone modems"},
+        {"ticker": "AVGO", "direction": "UP", "reason": "Apple RF content"},
+        {"ticker": "SWKS", "direction": "UP", "reason": "Wireless content"}
+      ]
+    },
+    {
+      "title": "China-US tariff stalemate at 145%/125% — Section 301 hearings April-May",
+      "impact_level": "MEDIUM",
+      "time_horizon": "quarters",
+      "causal_chain": "USTR initiated Section 301 March 11 → consultation hearings April-May → no near-term resolution → ag exports lower → Brazil/Argentina capture share (BG, ADM) → US import substitution + reshoring boom continues (CAT, ETN, ROK) → average effective tariff 11.8% → consumer prices in retail (TGT/WMT) absorb 30-50% of cost → semiconductor equipment mixed exposure",
+      "geographic_dimension": "Vietnam/Mexico FDI inflection; INDA outperforming relative",
+      "historical_analog": "Smoot-Hawley 1930 average effective rate 19% — current 11.8% below, but speed (0% to 11.8% in 18mo) unprecedented modern.",
+      "counterargument": "Election cycle dynamics could force partial walk-back by Q3; any Trump-Xi phone hint triggers 3-5% rip in FXI.",
+      "affected_tickers": [
+        {"ticker": "CAT", "direction": "UP", "reason": "Reshoring industrial spend"},
+        {"ticker": "TSM", "direction": "UP", "reason": "Arizona fab"},
+        {"ticker": "ADM", "direction": "UP", "reason": "Brazil ag share gain"},
+        {"ticker": "BG", "direction": "UP", "reason": "Same"},
+        {"ticker": "TGT", "direction": "DOWN", "reason": "Tariff cost absorption"},
+        {"ticker": "FXI", "direction": "DOWN", "reason": "China onshore exposure"}
+      ]
+    }
+  ],
+  "sector_outlook": [
+    {"sector": "Technology", "direction": "BULLISH", "key_names": "GOOGL, MSFT, AAPL, NVDA, META, AMZN, AVGO", "rationale": "$665B AI capex guide and broad MAG7 beats validate multiple expansion. Watch dispersion — overbought names (GOOGL RSI 82) need cooldown."},
+    {"sector": "Healthcare", "direction": "NEUTRAL", "key_names": "LLY, UNH, MRK", "rationale": "GLP-1 cycle maturing; managed care still digesting MA reimbursement cuts. KALV +38% on Chiesi $1.9B deal shows M&A live."},
+    {"sector": "Financials", "direction": "BULLISH", "key_names": "JPM, BAC, GS, MS", "rationale": "Hawkish Fed pause + 4.42% 10Y = NIM expansion. Trading desks benefit from oil + FX + rates volatility."},
+    {"sector": "Energy", "direction": "BEARISH", "key_names": "XOM, CVX, COP, PSX", "rationale": "AVOID at current levels — geopolitical premium fully priced. Hormuz de-escalation = $15-20 gap-down risk."},
+    {"sector": "Consumer Discretionary", "direction": "BEARISH", "key_names": "DAL, UAL, CCL, TSLA", "rationale": "Jet fuel + consumer credit stress + pump prices = airlines/cruise lines rolling over."},
+    {"sector": "Consumer Staples", "direction": "NEUTRAL", "key_names": "PG, KO, WMT, COST", "rationale": "Defensive bid into hawkish Fed but tariff cost pass-through capped at retail."},
+    {"sector": "Industrials", "direction": "BULLISH", "key_names": "LMT, NOC, GD, CAT, ETN, VRT", "rationale": "Defense oversold (LMT RSI 24, NOC RSI 23) DURING active war = tactical mean reversion. AI power infra structural."},
+    {"sector": "Utilities", "direction": "MIXED", "key_names": "VST, CEG, NEE", "rationale": "Nuclear/data center plays bullish on AI power demand; broader utes under rate pressure."},
+    {"sector": "Materials", "direction": "BEARISH", "key_names": "FCX, NEM, GLD", "rationale": "Gold $423 holding well as hedge but copper follows China weakness."}
+  ],
+  "commodity_outlook": [
+    {"commodity": "Crude Oil (WTI)", "direction": "MIXED", "price_note": "$105 — pulled back from wartime high", "key_driver": "Hormuz binary; $110 ceiling without escalation, $80 floor on diplomatic off-ramp"},
+    {"commodity": "Brent", "direction": "MIXED", "price_note": "$114 settled; touched $126 4-year high", "key_driver": "Same — premium compressing 36hr"},
+    {"commodity": "Natural Gas", "direction": "BULLISH", "price_note": "Hormuz LNG disruption flowing to TTF and Henry Hub", "key_driver": "European gas substitution demand for US LNG"},
+    {"commodity": "Gold", "direction": "BULLISH", "price_note": "GLD $423.66 — near record", "key_driver": "Geopolitical hedge + central bank buying"},
+    {"commodity": "Silver", "direction": "BULLISH", "price_note": "SLV $66.66", "key_driver": "Gold ratio + industrial AI/EV demand"},
+    {"commodity": "Copper", "direction": "BEARISH", "price_note": "China demand weak", "key_driver": "Tariff regime + property sector"},
+    {"commodity": "Wheat", "direction": "NEUTRAL", "price_note": "Black Sea calm", "key_driver": "Ukraine corridor functioning"},
+    {"commodity": "Soybeans", "direction": "BEARISH", "price_note": "China not buying", "key_driver": "Tariff stalemate; Brazil capturing demand"}
+  ],
+  "currency_outlook": [
+    {"pair": "DXY", "direction": "BULLISH", "key_driver": "Hawkish Fed pause + 4.42% 10Y; resistance 108"},
+    {"pair": "EUR/USD", "direction": "BEARISH", "key_driver": "Hormuz LNG/gas shock + ECB more dovish than Fed; 1.05 testing"},
+    {"pair": "USD/JPY", "direction": "BULLISH", "key_driver": "Yield differential resumes; 158-160 target"},
+    {"pair": "USD/CNH", "direction": "BULLISH", "key_driver": "Tariff escalation + capital outflow; PBOC fix watch 7.30"}
+  ],
+  "watchlist": [
+    {
+      "ticker": "LMT",
+      "action": "WATCH_LONG",
+      "catalyst": "RSI 24 oversold + bullish MACD momentum + 11x R:R; defense paradoxically sold off DURING active US-Iran war",
+      "entry_idea": "Buy above $520 (current $517.97) on volume > 1.5x average",
+      "stop_loss_price": 478.50,
+      "target_price": 597.00,
+      "risk": "Iran ceasefire = -8% gap; budget fight delays authorization",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "NOC",
+      "action": "WATCH_LONG",
+      "catalyst": "RSI 23 oversold + 11.2x R:R; B-21 production ramp + munitions demand",
+      "entry_idea": "Buy above $585 on volume; current $579.48",
+      "stop_loss_price": 533.10,
+      "target_price": 666.40,
+      "risk": "Same as LMT plus B-21 cost overruns",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "GOOGL",
+      "action": "WATCH_LONG",
+      "catalyst": "GenAI revenue +800%, GCP +63%, capex raised — best AI monetization print in MAG7",
+      "entry_idea": "DO NOT chase at $384.80 (RSI 82); wait for $360 retest of 20-DMA",
+      "stop_loss_price": 331.20,
+      "target_price": 414.00,
+      "risk": "Antitrust DOJ ruling on search remedy",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "NVDA",
+      "action": "WATCH_LONG",
+      "catalyst": "$665B aggregate hyperscaler capex; Meta $125-145B raise direct order pipeline",
+      "entry_idea": "Buy on break above $217 resistance (current $199.57)",
+      "stop_loss_price": 183.60,
+      "target_price": 229.50,
+      "risk": "Earnings binary; AI capex digestion narrative could surface in Q3",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "XOM",
+      "action": "AVOID",
+      "catalyst": "Geopolitical premium fully priced at $154.33",
+      "entry_idea": "Wait for pullback to $138 support",
+      "stop_loss_price": 141.98,
+      "target_price": 177.50,
+      "risk": "Hormuz de-escalation = -10 to -12% gap",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "TLT",
+      "action": "WATCH_SHORT",
+      "catalyst": "Hawkish dissent bloc + 4.42% 10Y at one-month high; thesis breaks above 4.65%",
+      "entry_idea": "Short TLT at $85.62 or buy puts $80 strike",
+      "stop_loss_price": 92.50,
+      "target_price": 78.00,
+      "risk": "Sub-100k April NFP flips dissent bloc dovish",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "DAL",
+      "action": "AVOID",
+      "catalyst": "Jet fuel +60% YTD on Hormuz; consumer travel demand softening",
+      "entry_idea": "No long until WTI breaks $90 sustainably",
+      "stop_loss_price": 62.55,
+      "target_price": 78.20,
+      "risk": "Hormuz peace = stock rips +12-15% in a week",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "AAPL",
+      "action": "WATCH_LONG",
+      "catalyst": "iPhone +22%, Greater China $20.5B beat, Ternus succession smooth",
+      "entry_idea": "Buy on hold of $268 support; current $271.35 post-print",
+      "stop_loss_price": 246.65,
+      "target_price": 308.30,
+      "risk": "FX headwind in June quarter guide",
+      "signal_strength": "BUY"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "Hormuz binary — escalation OR off-ramp",
+      "severity": "CRITICAL",
+      "causal_chain": "9-week blockade + UK/France conferences ongoing → off-ramp signal = oil gap down -$15-20 = energy -8 to -12%, airlines/cruise +12-15%, defense -5 to -8%, USD weakens. Escalation (mining incident, Israel strike on Bushehr) = Brent toward $140, equity -3 to -5%, VIX to 28+",
+      "sources": [
+        {"title": "Brent oil pulls back after climbing to $126 per barrel", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/04/30/oil-prices-today-brent-wti-us-iran-war-trump.html"},
+        {"title": "When will Strait of Hormuz be safe for commercial shipping again?", "outlet": "Al Jazeera", "url": "https://www.aljazeera.com/features/2026/4/28/when-will-strait-of-hormuz-be-safe-for-commercial-shipping-again"},
+        {"title": "Blockade completely halts Iran shipping", "outlet": "CNN", "url": "https://www.cnn.com/2026/04/15/middleeast/iran-blockade-explainer-analysis-intl-hnk-ml"}
+      ]
+    },
+    {
+      "risk": "April NFP (May 8) — first data point under new dissent bloc reality",
+      "severity": "HIGH",
+      "causal_chain": "If <100k or unemployment ticks to 4.5% → dissent bloc flips dovish → TLT +3-4%, USD -1.5%, growth stocks +2-3%, banks -2%. If >225k or wage growth >4% YoY → hike probability re-prices to >50% by Sept → 10Y to 4.70%, growth -3-5%",
+      "sources": [
+        {"title": "Employment Situation Summary — March 2026", "outlet": "BLS", "url": "https://www.bls.gov/news.release/empsit.nr0.htm"},
+        {"title": "Federal Reserve issues FOMC statement", "outlet": "Federal Reserve", "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm"}
+      ]
+    },
+    {
+      "risk": "April CPI (May 12) — 4-handle tail risk",
+      "severity": "HIGH",
+      "causal_chain": "March headline already 3.3% YoY with energy +10.9% and gasoline +21.2%. April gasoline tracked even higher post-Hormuz spike → headline could print 3.6-4.0% → re-prices Fed cuts, 10Y to 4.65%+, equity -2 to -4%",
+      "sources": [
+        {"title": "CPI inflation report March 2026", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/04/10/cpi-inflation-report-march-2026.html"}
+      ]
+    },
+    {
+      "risk": "AI capex digestion narrative emerges if any hyperscaler trims guide in Q3",
+      "severity": "MEDIUM",
+      "causal_chain": "Aggregate $665B is +75% YoY with revenue lag of 4-6 quarters → if Q3 print shows AI revenue growth decelerating below capex growth, multiple compression cascade hits NVDA -15%, AVGO -12%, VRT/ETN -20%",
+      "sources": [
+        {"title": "The $665 billion question: Will Big Tech AI gamble pay off?", "outlet": "Fortune", "url": "https://fortune.com/2026/04/30/big-tech-ai-earnings-cap-ex-spending/"},
+        {"title": "Big Tech earnings test record stock market rally", "outlet": "NBC News", "url": "https://www.nbcnews.com/business/markets/big-tech-ai-earnings-alphabet-meta-amazon-microsoft-rcna342796"}
+      ]
+    },
+    {
+      "risk": "Powell handover to Warsh — May 11 confirmation week",
+      "severity": "MEDIUM",
+      "causal_chain": "Senate vote week of May 11 → Warsh handles June 16-17 FOMC → if Warsh signals more dovish baseline → 10Y -8 to -12bp, growth +2%, gold +1.5%",
+      "sources": [
+        {"title": "Fed live updates: Powell to stay at Fed", "outlet": "Yahoo Finance", "url": "https://finance.yahoo.com/economy/policy/live/fed-meeting-live-updates-federal-reserve-holds-interest-rates-steady-in-powells-final-meeting-as-chair-111906007.html"}
+      ]
+    },
+    {
+      "risk": "Taiwan Strait incident (lower probability, severe consequence)",
+      "severity": "MEDIUM",
+      "causal_chain": "Tariff escalation + US Pacific Fleet stretched on Iran blockade → PLA opportunistic activity → TSM/TSLA/AAPL all China-supply-chain dependent → semis -10-15% one-day; defense +6-8%",
+      "sources": [
+        {"title": "Market synthesis", "outlet": "Claude analysis", "url": null}
+      ]
+    }
+  ]
+}
