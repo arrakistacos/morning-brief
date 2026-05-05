@@ -1121,5 +1121,54 @@
       "email",
       "no-action"
     ]
+  },
+  {
+    "date": "2026-05-05",
+    "type": "eod_snapshot",
+    "note": "EOD 2026-05-05 | Portfolio: $25,000.00 (+$0.00 today, +$0.00 total / +0.00%) | Cash: $25,000.00 settled | No trades today \u2014 held positions / cash preservation. | No open positions.",
+    "snapshot": {
+      "date": "2026-05-05",
+      "time": "16:40 ET",
+      "type": "eod",
+      "portfolio_value": 25000.0,
+      "settled_cash": 25000.0,
+      "unsettled_cash": 0,
+      "total_cash": 25000.0,
+      "positions_value": 0.0,
+      "daily_pnl": 0.0,
+      "total_pnl": 0.0,
+      "total_pnl_pct": 0.0,
+      "positions": [],
+      "unsettled_lots": []
+    },
+    "tags": [
+      "eod",
+      "daily-review"
+    ]
+  },
+  {
+    "date": "2026-05-05",
+    "type": "reflection",
+    "timestamp": "2026-05-05T20:41:28.816330",
+    "note": "Day held flat at $25,000 (+0.00%). Three queued defense BUYs (LMT, RTX, NOC) were skipped at open because none crossed their entry thresholds \u2014 and that gating proved correct: LMT closed -1.78% to $508.93 (vs $518.15 threshold), NOC -1.48% to $558.60 (vs $567), RTX flat at $172.87. Holding cash avoided three losing entries. Lesson: oversold RSI + sector tailwind thesis is necessary but not sufficient \u2014 the breakout-confirmation threshold (entry > prior-close-derived level) acted as a real filter today, even though it cost us the queued setups. Morning brief sentiment of MIXED -3 (geopolitical risk premium) was directionally wrong on the index level: SPX rallied +0.81%, Nasdaq +1.03%, suggesting the supply-shock narrative was already priced in or fading. Where the brief was right: energy/tankers did rally (XOM +0.77%, FRO +2.81%) \u2014 but those were not in our queue (passed on XOM/CVX as 'composite not BUY'). Defense, our actual queue, *underperformed* \u2014 the thesis that 'Mideast escalation = defense rally' did not play out on this session, possibly because de-escalation chatter or simply mean-reversion after recent run-up. Watchlist is stale (last updated 2026-04-09) and irrelevant \u2014 should rebuild against current themes. Tomorrow: watch whether LMT/NOC dip is the entry (oversold getting more oversold can mark capitulation) or a sign the defense thesis is wrong; reassess if Brent holds $110+ (the trade) or fades (no trade). Also consider: 4 weeks of zero exposure means we are completely missing the broad-market trend \u2014 risk of being too disciplined with thresholds becoming a habit of never deploying.",
+    "lessons": [
+      "Threshold gating saved us from 2 losing entries today (LMT -1.78%, NOC -1.48%).",
+      "Sentiment score (-3) did not predict index direction; SPX/Nasdaq rallied.",
+      "Energy thesis was correct (XOM, FRO up); we passed on those names \u2014 review filter logic.",
+      "Defense underperformed despite oversold RSI + geopolitical thesis \u2014 single-day signal may not be enough.",
+      "Watchlist last updated 2026-04-09 \u2014 needs refresh."
+    ],
+    "tomorrow_watch": [
+      "LMT, RTX, NOC \u2014 re-evaluate entry thresholds; consider whether deeper dip is opportunity or invalidation",
+      "Brent crude > $110 \u2014 defense/energy macro driver",
+      "Treasury yield (10Y) \u2014 TLT short thesis if breaks 4.60%",
+      "Broad-market participation \u2014 4 weeks at zero exposure is a problem if trend continues up"
+    ],
+    "tags": [
+      "reflection",
+      "eod",
+      "no-trade-day",
+      "discipline-vs-paralysis"
+    ]
   }
 ]
