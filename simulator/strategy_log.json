@@ -1043,5 +1043,52 @@
       "defense",
       "supply_shock"
     ]
+  },
+  {
+    "date": "2026-05-05",
+    "type": "market_open_execution",
+    "note": "Market-open execution 2026-05-05 08:37 CT: Skipped: LMT (entry not triggered \u2014 price $514.34 < threshold $518.15); RTX (entry not triggered \u2014 price $172.48 < threshold $172.90); NOC (entry not triggered \u2014 price $564.00 < threshold $567.00)",
+    "snapshot": {
+      "time": "08:37 CT",
+      "executed": [],
+      "skipped": [
+        {
+          "ticker": "LMT",
+          "action": "BUY",
+          "shares": 5,
+          "current_price": 514.34,
+          "threshold": 518.15,
+          "reason": "entry not triggered \u2014 price $514.34 < threshold $518.15",
+          "skip_type": "entry_not_triggered",
+          "queued_at": "2026-05-05T08:47:20"
+        },
+        {
+          "ticker": "RTX",
+          "action": "BUY",
+          "shares": 14,
+          "current_price": 172.48,
+          "threshold": 172.9,
+          "reason": "entry not triggered \u2014 price $172.48 < threshold $172.90",
+          "skip_type": "entry_not_triggered",
+          "queued_at": "2026-05-05T08:47:20"
+        },
+        {
+          "ticker": "NOC",
+          "action": "BUY",
+          "shares": 4,
+          "current_price": 564.0001,
+          "threshold": 567.0,
+          "reason": "entry not triggered \u2014 price $564.00 < threshold $567.00",
+          "skip_type": "entry_not_triggered",
+          "queued_at": "2026-05-05T08:47:20"
+        }
+      ],
+      "errors": []
+    },
+    "tags": [
+      "market-open",
+      "execution",
+      "phase2"
+    ]
   }
 ]
