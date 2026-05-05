@@ -1033,5 +1033,15 @@
       "mean_reversion",
       "iran_war"
     ]
+  },
+  {
+    "date": "2026-05-05",
+    "type": "trade_decision",
+    "note": "Mideast supply shock (Iran-UAE missile exchange) drove Brent +5% to $114, Hormuz traffic halted, 10Y to 4.46%. Sentiment MIXED -3. Queued 3 BUYs in defense sector: LMT (STRONG_BUY composite, RSI 26.58 oversold, 7.9x R/R), RTX (BUY, RSI 29.65 oversold, 27.9x R/R), NOC (BUY, RSI 21.19 deeply oversold, 71.6x R/R). All three pass screen: composite BUY/STRONG_BUY, RSI<70, defense sector aligned with bullish industrials sentiment, total allocation 29.1% of cash within 30% limit, 3 positions exactly at limit. Passed on: XOM/CVX (composite NEUTRAL with double-top/H&S patterns despite oil bull thesis - chart not confirming fundamentals yet), FRO (composite NEUTRAL, RSI 60 elevated, double-top pattern, R/R only 0.3x), AMD (binary 4pm earnings - never queue ahead of print), DAL/UAL (sell candidates but no short capability in simulator).",
+    "tags": [
+      "decision",
+      "defense",
+      "supply_shock"
+    ]
   }
 ]
