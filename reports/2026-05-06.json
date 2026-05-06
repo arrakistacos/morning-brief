@@ -1,0 +1,262 @@
+{
+  "date": "2026-05-06",
+  "is_trading_day": true,
+  "overall_sentiment": "MIXED",
+  "sentiment_score": 1,
+  "sentiment_reasoning": "Index futures lean modestly higher (S&P +0.29%, Nasdaq +0.75%) but the surface positivity hides bifurcation: AMD's -14% post-earnings reaction is a body blow to AI-infrastructure sentiment, while Hormuz risk premium remains embedded in $100+ WTI. The tape wants to grind higher on Big Tech earnings strength, but the breadth signal and energy-led inflation revision are the silent drag.",
+  "summary": {
+    "gist": "AMD's earnings-night collapse (-14% AH) is the dominant force in pre-market — it's a referendum on whether the AI capex narrative survives a guidance miss. Energy and defense remain bid because Hormuz-era risk hasn't priced out, while Big Tech cash-flow leaders (MSFT/GOOGL/AAPL) are being separated from capex casualties (META, now AMD). Bias: dispersion trade — long the cash-flow compounders, avoid second-tier AI names until Nvidia confirms or denies the demand picture.",
+    "actionable_items": [
+      "AMD ($355) — informational: -14% AH gap below 50DMA likely magnetizes the $340 prior support; bounces into $370-$380 typically meet supply unless guidance is reaffirmed; watch as a tell for whole AI-second-derivative complex (MRVL, AVGO).",
+      "NVDA ($196.50) — informational: AMD weakness is a sentiment overhang but Meta's $60B AMD deal also signals diversification away from NVDA; the $190-$192 prior pivot is the level the chip complex defends or loses; reaction here sets the May tone.",
+      "XOM ($155) / CVX ($193) — informational: WTI bouncing off $100 keeps integrated cash flow elevated; both names hugging 52-wk highs — extension risk is real but Hormuz headline risk remains a one-way bid until ceasefire becomes durable.",
+      "UBER ($73) — informational: reports pre-open with $0.71 EPS / $13.28B rev expected; mobility narrative is intact, but AV competition (Waymo) is the persistent tail risk to multiple.",
+      "TLT ($85.43) — informational: 10Y at 4.43% sitting between hawkish-Fed (4.55-4.60% breakout) and risk-off bid (4.30%); the 8-4 dissent vote at the April FOMC was a regime signal — rate cuts are NOT the base case until energy unwinds.",
+      "GLD ($418) — informational: pulled back from records but structural drivers (Fed credibility, geopolitical risk, central-bank buying) intact; pullbacks toward 50DMA historically have been absorbed."
+    ],
+    "stoic_quote": {
+      "text": "If you are pained by any external thing, it is not this thing that disturbs you, but your own judgment about it. And it is in your power to wipe out this judgment now.",
+      "attribution": "Marcus Aurelius — Meditations, Book VIII"
+    }
+  },
+  "executive_summary": "Market enters Wednesday with two crosscurrents: AMD's earnings-night disappointment pressures the AI hardware complex, while index futures still lean green on Big Tech cash-flow leadership. WTI is bouncing off $100 as Hormuz tensions persist despite Trump's 'Project Freedom' initiative, keeping defense and integrated energy bid. The Fed is locked at 3.50-3.75% with the first 4-dissenter vote since 1992 — credibility risk is real, and the 10Y at 4.43% is the swing variable. Today's earnings test (UBER, KHC, NVO, FLUT) will drive single-name dispersion, but the macro print to watch is the May 12 CPI — energy is now the inflation-revision risk that delays any cut path further.",
+  "top_themes": [
+    "AI capex reckoning — second-derivative names paying for guidance misses (AMD)",
+    "Hormuz-era energy premium baked in — durable until durable ceasefire",
+    "Fed credibility risk — 8-4 dissent vote signals divided committee",
+    "Big Tech cash-flow vs. capex — market separating winners from spenders",
+    "Stagflation tail — energy + sticky core could re-price duration"
+  ],
+  "macro_events": [
+    {
+      "title": "AMD reports Q1; stock collapses ~14% AH on guidance",
+      "impact_level": "HIGH",
+      "time_horizon": "Intraday to weeks",
+      "causal_chain": "AMD-Meta deal ($60B over 5 years) created elevated expectations -> Q1 revenue $9.84B in line but commentary on data-center linearity disappoints -> stock gaps -14% AH -> sympathy compression in MRVL/AVGO/MU/INTC overnight -> question: is this AMD-specific (execution) or AI-cycle (demand)? Until NVDA earnings (late May), market re-rates the second-derivative names lower while preserving Mag 7 leaders -> capex narrative bifurcates: hyperscalers still spending (META raised capex to $125-145B) but the chips winning that spend may consolidate to NVDA.",
+      "geographic_dimension": "US-listed semis bear the earnings impact; Asian fabs (TSM) and Korean memory (Samsung, Hynix) trade in sympathy on the Asia open; Taiwan and Korea ETFs (EWT, EWY) typically lag the move by one session.",
+      "historical_analog": "Cisco March 2000 — guidance miss ended the dot-com leadership though stock had already topped; Intel Oct 2000 PC warning kicked off the broader semi unwind; both signaled regime-changes when the second-derivative leader broke before the first.",
+      "counterargument": "AMD's drawdown could be the classic post-earnings overshoot — Meta's $60B commitment alone underwrites multi-year revenue; if NVDA confirms hyperscaler demand at its earnings, AMD could trace the 2024 NVDA pattern (panic gap, then 25% recovery in 8 weeks).",
+      "affected_tickers": [
+        {"ticker": "AMD", "direction": "DOWN", "reason": "Earnings reaction; guidance below buy-side whispers"},
+        {"ticker": "MRVL", "direction": "DOWN", "reason": "Highest beta sympathy name to AMD"},
+        {"ticker": "AVGO", "direction": "MIXED", "reason": "Custom-silicon story still intact but rerate risk"},
+        {"ticker": "MU", "direction": "DOWN", "reason": "HBM tied to AI accelerator demand"},
+        {"ticker": "INTC", "direction": "DOWN", "reason": "Foundry narrative weaker if AI orders consolidate to TSMC"},
+        {"ticker": "NVDA", "direction": "MIXED", "reason": "Could benefit from share consolidation but sentiment drag near term"},
+        {"ticker": "TSM", "direction": "MIXED", "reason": "Net beneficiary of AI consolidation but cyclical exposure"}
+      ]
+    },
+    {
+      "title": "Hormuz strait — Trump 'Project Freedom' meets renewed exchange of fire",
+      "impact_level": "HIGH",
+      "time_horizon": "Days to weeks",
+      "causal_chain": "Trump's plan to escort ships through Hormuz is being tested as US/Iran forces traded shots; UAE oil-site drone strike spooked tanker insurance pools -> war-risk premium on VLCCs widens -> WTI rebounded above $100 from sub-$100 lows -> Brent $113 -> US gasoline approaching $5/gal national average per energy-sector commentary -> May CPI energy contribution will surprise high -> 10Y bid on safe-haven offsets the inflation impulse, leaving yields range-bound 4.40-4.60% -> Fed cut path delayed; first cut probability for July compresses below 50%.",
+      "geographic_dimension": "21% of global oil and 20% of LNG flows through Hormuz; Asian refiners (China, India, Japan, Korea) reroute via Cape (+12-14 days, +$2M/cargo); European TTF gas vulnerable to Qatar LNG diversion; Gulf currencies (SAR, AED) pegged but local equity volatile.",
+      "historical_analog": "Sept 2019 Abqaiq attack — Brent +15% in 24 hours, tankers ran +20-35% in a week; 1990 Gulf invasion — Brent doubled in 8 weeks; 2019 also saw equity downturn last 4-6 weeks before Fed-induced bounce.",
+      "counterargument": "Iran's 14-point ceasefire framework reportedly under review; if 'Project Freedom' escorts succeed for 2 weeks running, war-risk insurance unwinds quickly and Brent could collapse $15-20 in a month, pulling defense/tankers off highs.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "UP", "reason": "Integrated cash flow benefits from elevated curve"},
+        {"ticker": "CVX", "direction": "UP", "reason": "Permian + LNG mix wins as flows redirect"},
+        {"ticker": "USO", "direction": "UP", "reason": "Direct WTI proxy; +2.98% today"},
+        {"ticker": "FRO", "direction": "UP", "reason": "VLCC operator; war-risk premium = day-rate uplift"},
+        {"ticker": "INSW", "direction": "UP", "reason": "Cape rerouting tonne-mile demand"},
+        {"ticker": "LMT", "direction": "UP", "reason": "Patriot/THAAD replenishment; Israel/Saudi orders"},
+        {"ticker": "RTX", "direction": "UP", "reason": "Air defense + missile consumption surge"},
+        {"ticker": "DAL", "direction": "DOWN", "reason": "Jet fuel cost crushes margin"},
+        {"ticker": "UAL", "direction": "DOWN", "reason": "Highest fuel-cost leverage among legacy carriers"},
+        {"ticker": "LUV", "direction": "DOWN", "reason": "No hedge book; pure spot fuel exposure"}
+      ]
+    },
+    {
+      "title": "FOMC stays on hold; first 4-dissenter vote since 1992",
+      "impact_level": "HIGH",
+      "time_horizon": "Weeks to months",
+      "causal_chain": "April 28-29 FOMC kept rate at 3.50-3.75% but vote was 8-4 — Governor Miran wanted -25bps, three other members objected to language hinting at eventual cuts -> committee fracture is the highest in 30+ years -> market reads as policy uncertainty premium -> 10Y holds 4.40s as both inflation-hedge and safe-haven bids cancel -> dollar firm at 98.5 -> credit spreads inch wider but not stressed -> equity multiples compress only at the margin (high-duration growth most exposed) -> if April CPI prints hot on May 12, dissent narrative flips: hawks gain control, terminal rate higher for longer.",
+      "geographic_dimension": "USD strength pressures EM; INR, IDR, TRY most exposed (oil importers, USD-debt heavy); EUR resilient at 1.08+; JPY weak but BoJ jaw-boning increased.",
+      "historical_analog": "October 1992 — last time 4 dissenters voted; preceded a meaningful regime change in policy stance; 2018 hiking cycle had Q4 dissent that signaled the eventual policy mistake.",
+      "counterargument": "If May 12 CPI core stays 2.6% YoY with energy as the only upside contributor, doves could regain consensus quickly — energy-driven inflation is typically 'looked through' historically.",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "MIXED", "reason": "Duration trapped between hawkish hold and safe-haven bid"},
+        {"ticker": "TIP", "direction": "UP", "reason": "Breakevens widening on energy pass-through"},
+        {"ticker": "XLF", "direction": "MIXED", "reason": "Banks benefit from steepening but credit risk at margin"},
+        {"ticker": "SCHG", "direction": "DOWN", "reason": "High-duration growth most exposed to higher-for-longer"},
+        {"ticker": "GLD", "direction": "UP", "reason": "Fed credibility risk = structural gold bid"},
+        {"ticker": "DXY", "direction": "UP", "reason": "Higher real yields support USD"}
+      ]
+    },
+    {
+      "title": "Big Tech cash-flow vs. capex bifurcation deepens",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Quarters",
+      "causal_chain": "AAPL Q2 EPS $2.01 beat; services +16% — quality compounder narrative intact -> MSFT Azure +39%, AI run-rate $37B annualized, +123% YoY -> GOOGL EPS $5.11 vs $2.62 expected, Cloud +63% — re-rate underway -> META rev +33% but Q2 guide flat AND raised 2026 capex to $125-145B (from $115-135B) -> stock fell 5% post-print -> market separates: those generating cash from AI (MSFT, GOOGL) vs. those still investing without monetization clarity (META). AMD slot in this narrative as the non-Mag-7 capex destination that just disappointed -> reinforces MSFT/GOOGL leadership thesis.",
+      "geographic_dimension": "US tech leadership extends; ex-US tech (TCEHY, BABA) lagging; semiconductor exposure most concentrated in TSM (Taiwan) and KLAC/AMAT (US fab equipment).",
+      "historical_analog": "2000-2001 — capex spenders (CSCO, JNPR) lagged cash-generators (MSFT, ORCL); 2022 — Mag 7 split when META cut headcount and stock outperformed pure AI capex names.",
+      "counterargument": "AI demand may absorb every dollar of capex and then some; if NVDA prints another 70%+ growth quarter, the capex story re-validates and laggards (META, AMD) catch up.",
+      "affected_tickers": [
+        {"ticker": "MSFT", "direction": "UP", "reason": "Azure leadership; AI revenue scale"},
+        {"ticker": "GOOGL", "direction": "UP", "reason": "Cloud +63%; multiple compression unwinding"},
+        {"ticker": "AAPL", "direction": "UP", "reason": "Services growth compounding; cash machine"},
+        {"ticker": "META", "direction": "DOWN", "reason": "Capex/revenue ratio expanding; Q2 guide flat"},
+        {"ticker": "AMZN", "direction": "MIXED", "reason": "AWS healthy but capex intensity rising"},
+        {"ticker": "AMD", "direction": "DOWN", "reason": "Caught in capex casualty narrative"}
+      ]
+    }
+  ],
+  "sector_outlook": [
+    {"sector": "Technology", "direction": "MIXED", "key_names": "MSFT, GOOGL, AAPL (BULLISH); AMD, META, AVGO (BEARISH near-term)", "rationale": "Cash-flow leaders separating from capex casualties; AMD print exacerbates the divide"},
+    {"sector": "Healthcare", "direction": "NEUTRAL", "key_names": "NOV (Novo Nordisk earnings today), LLY, UNH", "rationale": "GLP-1 demand still secular but pricing pressure mounting; NOV print is the day's healthcare catalyst"},
+    {"sector": "Financials", "direction": "MIXED", "key_names": "JPM, BAC, GS", "rationale": "JPM Q1 net income $16.5B beat; capital markets strong but NIM guidance trimmed; benefits from steeper curve only at margin"},
+    {"sector": "Energy", "direction": "BULLISH", "key_names": "XOM, CVX, SLB, OXY", "rationale": "Hormuz risk premium baked in; integrated cash flow elevated at $100+ WTI; pullbacks shallow until durable ceasefire"},
+    {"sector": "Consumer Discretionary", "direction": "BEARISH", "key_names": "F, GM, LOW, HD; airlines DAL/UAL/LUV", "rationale": "Gasoline approaching $5/gal nationally compresses discretionary wallet; airlines crushed on jet fuel"},
+    {"sector": "Consumer Staples", "direction": "NEUTRAL", "key_names": "KHC (earnings today), PEP, KO, COST", "rationale": "Pricing power waning; defensive bid on stagflation risk offsets margin pressure"},
+    {"sector": "Industrials", "direction": "BULLISH", "key_names": "LMT, RTX, GE, NOC, BA", "rationale": "Defense order book inflating on Patriot/THAAD/Tomahawk replenishment; commercial aerospace demand intact"},
+    {"sector": "Utilities", "direction": "BULLISH", "key_names": "NEE, CEG, VST, SO", "rationale": "AI data-center power demand structural; rate-sensitive but inflation-protected via regulated revenue"},
+    {"sector": "Materials", "direction": "BULLISH", "key_names": "FCX, NEM, GOLD, SCCO", "rationale": "Copper at $6.04/lb (+8.89% MoM), gold record $4,831, silver $65+ — commodity supercycle thesis intact"}
+  ],
+  "commodity_outlook": [
+    {"commodity": "Crude Oil (WTI)", "direction": "BULLISH", "price_note": "$100.60 — bounce off $100 floor; range $98-115", "key_driver": "Hormuz risk premium + tanker reroutes"},
+    {"commodity": "Brent", "direction": "BULLISH", "price_note": "$112.90 — $2-3 spread to WTI tight on chokepoint", "key_driver": "Same Hormuz/Asian reroute dynamic"},
+    {"commodity": "Natural Gas", "direction": "BULLISH", "price_note": "Dutch TTF and US Henry Hub elevated", "key_driver": "Qatar LNG diversion risk to Europe"},
+    {"commodity": "Gold", "direction": "BULLISH", "price_note": "$4,831/oz — record high; pullback to 50DMA absorbed", "key_driver": "Fed credibility + central bank buying + geopolitical hedge"},
+    {"commodity": "Silver", "direction": "BULLISH", "price_note": "$65+/oz; lagging gold but catching up", "key_driver": "Industrial demand + monetary hedge dual driver"},
+    {"commodity": "Copper", "direction": "BULLISH", "price_note": "$6.04/lb (+8.89% MoM)", "key_driver": "Supply tightness + AI data-center electrification demand"},
+    {"commodity": "Wheat", "direction": "NEUTRAL", "price_note": "Range-bound; weather watch", "key_driver": "Black Sea exports stable; planting progress"},
+    {"commodity": "Soybeans", "direction": "NEUTRAL", "price_note": "China demand uncertain on tariff flux", "key_driver": "Trump-Xi mid-May meeting could be catalyst"}
+  ],
+  "currency_outlook": [
+    {"pair": "DXY", "direction": "BULLISH", "key_driver": "98.5 supported by hawkish Fed dissent + safe-haven bid"},
+    {"pair": "EUR/USD", "direction": "NEUTRAL", "key_driver": "ECB cut path more dovish than Fed; pair trapped 1.07-1.10"},
+    {"pair": "USD/JPY", "direction": "BULLISH", "key_driver": "Yield differential persists; BoJ jaw-boning raises intervention risk above 158"},
+    {"pair": "USD/CNH", "direction": "BULLISH", "key_driver": "PBoC managing depreciation; Trump-Xi May meeting wild card"}
+  ],
+  "watchlist": [
+    {
+      "ticker": "AMD",
+      "action": "AVOID",
+      "catalyst": "Post-earnings -14% gap; sympathy pressure across AI second-derivative complex",
+      "entry_idea": "Below current $355.26; bounces into $370-$380 historically meet supply post-earnings gap",
+      "stop_loss_price": 326.84,
+      "target_price": 408.55,
+      "risk": "Could over-discount: Meta $60B contract underwrites multi-year revenue; surprise upside re-rate possible",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "NVDA",
+      "action": "WATCH_LONG",
+      "catalyst": "AMD weakness creates sentiment overhang but consolidation thesis (Meta diversifying = NVDA still primary) intact; earnings late May",
+      "entry_idea": "Current $196.50 — defends $190-$192 prior pivot or risks broader chip unwind",
+      "stop_loss_price": 180.78,
+      "target_price": 225.98,
+      "risk": "If Mag 7 capex commentary turns cautious, leadership name pulls entire complex 10-15%",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "XOM",
+      "action": "WATCH_LONG",
+      "catalyst": "Hormuz premium intact; integrated cash flow at $100+ WTI; near 52-wk highs",
+      "entry_idea": "Current $154.88 — extension risk real but headline-driven bid persists until durable ceasefire",
+      "stop_loss_price": 142.49,
+      "target_price": 178.11,
+      "risk": "Sudden ceasefire collapse — 14-point Iran framework reportedly under review, could trigger 8-12% pullback",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "LMT",
+      "action": "WATCH_LONG",
+      "catalyst": "Patriot/THAAD/Tomahawk replenishment orders accelerating; Israel/Saudi pipeline",
+      "entry_idea": "Current $508.93 — consolidating near highs; pullbacks to $480-$490 historically have been bought",
+      "stop_loss_price": 468.22,
+      "target_price": 585.27,
+      "risk": "Ceasefire holds for 4+ weeks; defense premium unwinds 8-10%",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "GLD",
+      "action": "WATCH_LONG",
+      "catalyst": "Record territory; central bank buying + Fed credibility risk + geopolitical premium triple-driver",
+      "entry_idea": "Current $418.27 — pullbacks to 50DMA historically absorbed; structural bid",
+      "stop_loss_price": 384.81,
+      "target_price": 481.01,
+      "risk": "Real yields spike on hawkish Fed surprise; gold could give back 5-7% short-term",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "UAL",
+      "action": "WATCH_SHORT",
+      "catalyst": "Highest jet-fuel leverage among legacy carriers; gasoline approaching $5/gal nationally",
+      "entry_idea": "Current $93.67 — break of $90 support opens $82 air pocket",
+      "stop_loss_price": 101.16,
+      "target_price": 79.62,
+      "risk": "Sudden Hormuz ceasefire = oil collapse = airlines snap higher 12-15%",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "UBER",
+      "action": "WATCH_LONG",
+      "catalyst": "Reports Q1 today; profitability narrative intact at $0.71 EPS / $13.28B rev expected",
+      "entry_idea": "Current $72.95 ahead of print — beat-and-raise pattern would lift through $77",
+      "stop_loss_price": 67.11,
+      "target_price": 83.89,
+      "risk": "AV competition (Waymo expansion) pressures multiple; soft Q2 guide could trigger 6-9% gap down",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "META",
+      "action": "AVOID",
+      "catalyst": "Capex raised to $125-145B (from $115-135B); Q2 revenue guide flat; -5% post-print drag",
+      "entry_idea": "Current $604.96 — needs to defend $580 or risk $540 retest",
+      "stop_loss_price": 556.56,
+      "target_price": 695.70,
+      "risk": "If NVDA prints strong, capex narrative re-validates and META catches up",
+      "signal_strength": "NEUTRAL"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "AMD-led AI semi unwind cascades to Mag 7",
+      "severity": "HIGH",
+      "causal_chain": "AMD -14% gap pressures MRVL/AVGO/MU/INTC overnight -> if NVDA breaks $190 support intraday, multiple compression spreads to capex destinations (META) and capex sources (MSFT, GOOGL) -> SPY breadth deteriorates; mid-cycle correction risk re-emerges",
+      "sources": [
+        {"title": "Top 5 AI Stocks for May 2026: Nvidia, AMD, Broadcom Lead", "outlet": "Parameter / MEXC", "url": "https://parameter.io/top-5-ai-stocks-for-may-2026-nvidia-nvda-amd-broadcom-lead-the-pack/"},
+        {"title": "AMD Gains 6% Ahead of May Earnings", "outlet": "24/7 Wall St", "url": "https://247wallst.com/investing/2026/04/16/amd-gains-6-ahead-of-may-earnings-is-the-ai-chip-challenger-finally-ready-to-rival-nvidia/"}
+      ]
+    },
+    {
+      "risk": "Hormuz escalation — Iran ceasefire breaks fully",
+      "severity": "CRITICAL",
+      "causal_chain": "Trump 'Project Freedom' escorts meet Iranian fire -> tanker insurance pools price war risk on every VLCC -> Brent breaches $120 -> US gasoline >$5/gal -> May CPI surprise hot -> Fed forced to signal hold extended -> 10Y >4.60% -> SPY -5-7% in 2 weeks",
+      "sources": [
+        {"title": "Fragile US-Iran ceasefire tested as Trump orders military to guide ships", "outlet": "CNN", "url": "https://www.cnn.com/2026/05/04/politics/us-iran-ceasefire-strait-of-hormuz"},
+        {"title": "Trump has a new Strait of Hormuz plan. The market isn't buying it", "outlet": "CNN Business", "url": "https://www.cnn.com/2026/05/04/business/trump-iran-strait-of-hormuz-oil-gas"},
+        {"title": "Oil prices fall after U.S. says Iran ceasefire remains in place despite UAE attacks", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/05/05/oil-prices-today-wti-brent-iran-war-trump-hormuz.html"}
+      ]
+    },
+    {
+      "risk": "May 12 CPI prints hot on energy pass-through",
+      "severity": "HIGH",
+      "causal_chain": "March CPI was 3.3% YoY with 10.9% energy surge -> April energy comps even higher -> headline CPI risk 3.5%+ -> 4-dissenter FOMC vote already signals fracture -> hawks gain narrative -> rate-cut probabilities for July collapse below 30% -> long-duration assets repriced",
+      "sources": [
+        {"title": "CPI inflation report March 2026: Consumer prices rose 3.3%", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/04/10/cpi-inflation-report-march-2026.html"},
+        {"title": "Federal Reserve issues FOMC statement", "outlet": "Federal Reserve", "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm"}
+      ]
+    },
+    {
+      "risk": "Trump-Xi May meeting trade-deal friction",
+      "severity": "MEDIUM",
+      "causal_chain": "Mid-May Trump-Xi rescheduled meeting; current US tariff on China averaging 33% with 90-day truce expiring August -> if talks stall, reciprocal tariffs could re-escalate -> supply-chain costs re-rate -> tech (AAPL, MU) and consumer goods (NKE, HD) most exposed -> CNH/HKD volatility",
+      "sources": [
+        {"title": "Trump 2.0 tariff tracker", "outlet": "Trade Compliance Resource Hub", "url": "https://www.tradecomplianceresourcehub.com/2026/05/02/trump-2-0-tariff-tracker/"},
+        {"title": "China-US Tariffs 2026", "outlet": "MS Advisory", "url": "https://msadvisory.com/china-us-tariffs-guide/"}
+      ]
+    },
+    {
+      "risk": "Earnings dispersion — UBER, KHC, NVO today",
+      "severity": "MEDIUM",
+      "causal_chain": "Single-name earnings risk: UBER guidance on AV competition; KHC pricing power test; NVO GLP-1 pricing/competition update -> any negative print combines with AMD overhang to deepen single-stock drawdowns -> sector-level contagion if multiple miss",
+      "sources": [
+        {"title": "UBER Earnings Preview May 6, 2026", "outlet": "Meyka", "url": "https://meyka.com/blog/uber-earnings-preview-may-6-2026-071-eps-expected-0505/"},
+        {"title": "KHC Earnings Preview: Kraft Heinz Reports May 6, 2026", "outlet": "Meyka", "url": "https://meyka.com/blog/khc-earnings-preview-kraft-heinz-reports-may-6-2026-0505/"}
+      ]
+    }
+  ]
+}
