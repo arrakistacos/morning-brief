@@ -1,0 +1,244 @@
+{
+  "date": "2026-06-06",
+  "is_trading_day": false,
+  "trading_day_note": "Saturday - markets closed. Brief covers Friday June 5 sell-off aftermath and outlook for Monday June 8.",
+  "overall_sentiment": "BEARISH",
+  "sentiment_score": -6,
+  "sentiment_reasoning": "Friday's tech-led rout - Nasdaq -4.18%, PHLX Semiconductor Index -10%, $1.3T wiped from chipmakers - combined with a hot May jobs report (172K vs 80K expected) spiking rate hike odds and 10Y yields to 4.55%, creates a clearly risk-off environment heading into next week. The Broadcom AI guidance miss punctured the AI capex narrative, and May CPI on June 10 is the next catalyst that could deepen or reverse the sell-off.",
+  "summary": {
+    "gist": "The AI semiconductor trade broke on Friday as Broadcom's guidance miss collided with a blowout jobs report, sending the Nasdaq down 4% and the Philly Semiconductor Index into its worst session since March 2020. The dominant force is rate repricing - markets are now pricing a Fed hike rather than cuts, and the 10Y at 4.55% is punishing duration-heavy growth names. The directional bet for Monday is continued weakness in semis with rotation into defensives, energy, and short-duration value.",
+    "actionable_items": [
+      "Buy NVDA at $198 - stop $182.16 (-8%), target $227.70 (+15%) - oversold bounce candidate post-Computex keynote; current price $205.10 after 10%+ drawdown",
+      "Buy AMD at $450 - stop $414.00 (-8%), target $517.50 (+15%) - oversold on sympathy selling, data center demand intact despite Broadcom miss",
+      "Buy XOM at $148 - stop $136.16 (-8%), target $170.20 (+15%) - Brent at $94+ on Iran/Strait of Hormuz risk premium supports upstream names",
+      "Buy LMT at $520 - stop $478.40 (-8%), target $598.00 (+15%) - defense spending tailwind from elevated Middle East tensions and NATO commitments",
+      "Avoid AVGO below $385 - AI chip guidance miss ($16B vs $17.2B expected) not fully digested; wait for stabilization near $360 support",
+      "Watch TLT puts (strike $83) - if 10Y yield breaks above 4.60%, TLT falls further as rate hike repricing accelerates; current TLT $85.06"
+    ],
+    "stoic_quote": {
+      "text": "The art of living is more like wrestling than dancing, in so far as it stands ready against the accidental and the unforeseen.",
+      "attribution": "Marcus Aurelius - Meditations, Book VII"
+    }
+  },
+  "executive_summary": "Friday's session delivered the worst tech sell-off of 2026 as a one-two punch of Broadcom's disappointing AI chip guidance and a red-hot May jobs report sent the Nasdaq down 4.18% and wiped $1.3 trillion from semiconductor stocks. The PHLX Semiconductor Index plunged 10%, its steepest single-day decline since March 2020, with Marvell (-17%), Broadcom (-14%), Micron (-13%), and AMD (-11%) leading losses. Treasury yields surged - the 10Y hit 4.55% - as 172K nonfarm payrolls (vs. 80K expected) revived rate hike expectations under new Fed Chair Kevin Warsh's first FOMC meeting on June 16-17. Oil pulled back to Brent $94/WTI $91 despite ongoing Iran tensions, as the risk-off rotation overwhelmed the geopolitical bid. Gold held near $4,500/oz as a safe haven. Heading into next week, May CPI on June 10 is the critical data point - a hot print could cement the rate hike narrative and extend the sell-off.",
+  "top_themes": [
+    "Semiconductor sell-off: Broadcom AI guidance miss triggers $1.3T sector wipeout",
+    "Rate repricing: Hot May jobs report (172K vs 80K) revives Fed rate hike odds",
+    "Fed leadership transition: Warsh's first FOMC June 16-17 adds policy uncertainty",
+    "Middle East tensions: Iran negotiations, Strait of Hormuz risk, oil at $91-97",
+    "CPI catalyst: May CPI on June 10 will either deepen or reverse the sell-off"
+  ],
+  "macro_events": [
+    {
+      "title": "May Nonfarm Payrolls Crush Expectations: 172K vs 80K",
+      "impact_level": "HIGH",
+      "time_horizon": "1-2 weeks",
+      "causal_chain": "172K jobs added (vs 80K expected) with unemployment steady at 4.3% and average hourly earnings +0.3% MoM -> labor market too strong for cuts -> Fed funds futures reprice from 65% hold to rising hike probability -> 10Y Treasury yield spikes 6bps to 4.55% -> higher discount rate crushes high-multiple growth stocks -> Nasdaq -4.18%, PHLX Semi Index -10% -> risk-off rotation into defensives and value -> VIX spikes, put volume surges on QQQ/SMH",
+      "geographic_dimension": "US-centric but global impact via rate differentials strengthening DXY, weakening EM currencies",
+      "historical_analog": "September 2023 hot jobs report - 10Y spiked to 4.8%, Nasdaq fell 5% over following week before stabilizing",
+      "counterargument": "May payrolls may be revised lower (common in recent cycles); one data point does not make a trend; Fed may still hold if CPI softens",
+      "affected_tickers": [
+        {"ticker": "QQQ", "direction": "DOWN", "reason": "Rate-sensitive growth index directly impacted by yield spike"},
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Rising yields crush long-duration bond ETF"},
+        {"ticker": "NVDA", "direction": "DOWN", "reason": "High-multiple AI leader repriced on higher discount rate"},
+        {"ticker": "XLF", "direction": "UP", "reason": "Banks benefit from steeper yield curve and higher NIM"}
+      ]
+    },
+    {
+      "title": "Broadcom AI Chip Guidance Miss Triggers Sector Rout",
+      "impact_level": "HIGH",
+      "time_horizon": "1-4 weeks",
+      "causal_chain": "AVGO Q2 revenue $22.19B beat estimates but Q3 AI chip guidance $16B vs $17.2B expected -> unchanged FY2026 AI semi forecast signals demand plateau -> narrative shifts from AI capex acceleration to AI capex peak -> sell-the-news reaction cascades across supply chain -> MRVL -17%, MU -13%, AMD -11%, ASML -3.8% -> $1.3T wiped from chip sector -> passive fund rebalancing amplifies selling -> sentiment contagion to broader tech",
+      "geographic_dimension": "Global semiconductor supply chain - US designers, Taiwan foundries (TSM), European equipment (ASML), Korean memory (Samsung, SK Hynix -6-10%)",
+      "historical_analog": "Cisco's 2000 guidance miss marked the beginning of the end for the dot-com infrastructure trade; more recently Meta's Feb 2022 guidance miss triggered -26% overnight",
+      "counterargument": "AVGO Q2 AI revenue actually grew 143% YoY to $10.8B - the miss is relative to stretched expectations, not absolute demand destruction; hyperscaler capex budgets remain committed",
+      "affected_tickers": [
+        {"ticker": "AVGO", "direction": "DOWN", "reason": "Epicenter of guidance miss, -20% over two days"},
+        {"ticker": "NVDA", "direction": "DOWN", "reason": "Sympathy selling despite strong Computex narrative"},
+        {"ticker": "MU", "direction": "DOWN", "reason": "Memory demand tied to AI training infrastructure cycle"},
+        {"ticker": "MRVL", "direction": "DOWN", "reason": "Custom silicon and networking chips correlated to AI capex"},
+        {"ticker": "ARM", "direction": "DOWN", "reason": "Licensing revenue tied to chip design volume outlook"}
+      ]
+    },
+    {
+      "title": "Fed Leadership Transition: Warsh's First FOMC June 16-17",
+      "impact_level": "MEDIUM",
+      "time_horizon": "2-4 weeks",
+      "causal_chain": "Kevin Warsh replaced Powell as Fed Chair on May 15 -> first FOMC meeting in 10 days -> deeply divided committee inherits 3.8% CPI and hot labor market -> markets pricing 65% hold but hot jobs data shifting odds toward hike -> policy uncertainty premium increases -> implied volatility in rate-sensitive assets rises -> financial conditions tighten preemptively",
+      "geographic_dimension": "US policy but global impact through dollar strength and capital flows",
+      "historical_analog": "Bernanke's first FOMC in 2006 - markets were uncertain about new chair's hawkishness, leading to elevated volatility in rate markets for 2-3 meetings",
+      "counterargument": "Warsh may signal continuity rather than surprise; the Fed typically avoids dramatic moves at a new chair's first meeting to build credibility",
+      "affected_tickers": [
+        {"ticker": "SPY", "direction": "MIXED", "reason": "Policy uncertainty creates two-way risk"},
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Hawkish surprise risk weighs on long bonds"},
+        {"ticker": "GLD", "direction": "UP", "reason": "Uncertainty bid supports gold as hedge"}
+      ]
+    },
+    {
+      "title": "Iran/Middle East Tensions Keep Oil Risk Premium Elevated",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Ongoing",
+      "causal_chain": "US-Iran negotiations stalled + Israel-Lebanon ceasefire uncertainty -> Strait of Hormuz risk persists (20M bbl/day, 20% of global oil) -> war-risk insurance premiums on VLCCs remain elevated -> Brent $94/WTI $91 with $5-8 geopolitical premium baked in -> energy sector outperforms despite broader sell-off -> tanker rates stay elevated -> Asian refiners hedge via long-dated crude contracts",
+      "geographic_dimension": "Middle East origin, global impact through energy prices, shipping lanes, defense spending",
+      "historical_analog": "Sep 2019 Abqaiq attack - Brent +15% in 24 hours; current situation is slower-burn but similar magnitude of risk",
+      "counterargument": "Negotiations are ongoing, not collapsed; both sides have incentives to avoid escalation; SPR releases could cap upside",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "UP", "reason": "Upstream revenue benefits from elevated crude prices"},
+        {"ticker": "CVX", "direction": "UP", "reason": "Integrated oil major benefits from Brent above $90"},
+        {"ticker": "LMT", "direction": "UP", "reason": "Defense contractor benefits from Middle East tension spending"},
+        {"ticker": "RTX", "direction": "UP", "reason": "Missile defense and military systems demand"}
+      ]
+    },
+    {
+      "title": "May CPI Release June 10 - Next Major Catalyst",
+      "impact_level": "HIGH",
+      "time_horizon": "4 days",
+      "causal_chain": "April CPI came in hot at 3.8% YoY with energy +3.8% MoM and shelter +0.6% -> May CPI on June 10 at 8:30 AM ET -> if above 3.5% YoY: cements rate hike narrative, 10Y breaks 4.6%, tech sell-off extends -> if below 3.5%: rate hike odds fall, oversold tech bounces hard, buy-the-dip rotation -> binary event for positioning ahead of June 16-17 FOMC",
+      "geographic_dimension": "US domestic data with global rate market implications",
+      "historical_analog": "June 2022 hot CPI (9.1% YoY) - S&P 500 fell 5.8% in three sessions as rate hike expectations surged",
+      "counterargument": "Base effects from 2025 tariff-driven inflation may cause YoY to optically moderate even if MoM remains elevated",
+      "affected_tickers": [
+        {"ticker": "QQQ", "direction": "MIXED", "reason": "Binary outcome - hot CPI = down, cool CPI = sharp bounce"},
+        {"ticker": "TLT", "direction": "MIXED", "reason": "Bond market will reprice sharply on CPI surprise either direction"},
+        {"ticker": "XLU", "direction": "DOWN", "reason": "Utilities underperform if rates rise further on hot CPI"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {"direction": "BEARISH", "key_names": "NVDA, AVGO, AMD, MU, MRVL", "rationale": "Broadcom guidance miss + rate hike fears create perfect storm for high-multiple tech; semi index -10% needs time to digest"},
+    "Healthcare": {"direction": "NEUTRAL", "key_names": "UNH, LLY, JNJ", "rationale": "Defensive rotation beneficiary but drug pricing policy uncertainty caps upside"},
+    "Financials": {"direction": "BULLISH", "key_names": "JPM, GS, BAC", "rationale": "Steeper yield curve from rising long rates improves NIM; banks benefit from higher for longer rate environment"},
+    "Energy": {"direction": "BULLISH", "key_names": "XOM, CVX, SLB", "rationale": "Brent $94/WTI $91 with geopolitical premium; Iran tensions support crude above $90; energy is relative safe haven in tech rout"},
+    "Consumer Discretionary": {"direction": "BEARISH", "key_names": "AMZN, TSLA, NKE", "rationale": "Higher rates pressure consumer spending and discount multiples on growth names; tariff costs squeeze margins"},
+    "Consumer Staples": {"direction": "NEUTRAL", "key_names": "PG, KO, WMT", "rationale": "Defensive characteristics attract rotation capital but food inflation pressures margins"},
+    "Industrials": {"direction": "NEUTRAL", "key_names": "CAT, DE, GE", "rationale": "Infrastructure spending tailwind offset by higher borrowing costs; supply chain reshoring is structural positive"},
+    "Utilities": {"direction": "BEARISH", "key_names": "NEE, DUK, SO", "rationale": "Rate-sensitive sector underperforms as 10Y yield rises to 4.55%; AI data center power demand is long-term positive but near-term yields dominate"},
+    "Materials": {"direction": "NEUTRAL", "key_names": "LIN, APD, NEM", "rationale": "Gold near $4,500 supports miners; copper demand from infrastructure and reshoring offsets China slowdown concerns"}
+  },
+  "commodity_outlook": {
+    "crude_oil": {"direction": "BULLISH", "price_note": "Brent $94, WTI $91", "key_driver": "Iran/Strait of Hormuz risk premium + OPEC+ discipline; pulled back Friday on risk-off but geopolitical floor holds"},
+    "natural_gas": {"direction": "NEUTRAL", "price_note": "Henry Hub ~$3.20", "key_driver": "Summer cooling demand approaching but LNG export capacity adds structural demand"},
+    "gold": {"direction": "BULLISH", "price_note": "$4,460-4,500/oz", "key_driver": "Safe haven bid on geopolitical uncertainty + rate policy confusion; central bank buying structural support"},
+    "silver": {"direction": "NEUTRAL", "price_note": "~$32/oz", "key_driver": "Industrial demand from solar/EV offsets monetary headwind from strong dollar"},
+    "copper": {"direction": "NEUTRAL", "price_note": "~$4.50/lb", "key_driver": "China stimulus hopes offset by strong dollar headwind; supply chain reshoring is long-term demand driver"},
+    "wheat": {"direction": "NEUTRAL", "price_note": "~$5.80/bushel", "key_driver": "Black Sea export corridor stable; US planting progressing normally"},
+    "soybeans": {"direction": "BEARISH", "price_note": "~$10.50/bushel", "key_driver": "Record Brazilian harvest pressures prices; China import demand uncertain amid trade tensions"}
+  },
+  "currency_outlook": {
+    "DXY": {"direction": "BULLISH", "key_driver": "Hot jobs report strengthens rate differential; DXY at 99.5, up 0.66% Friday; heading toward 101"},
+    "EUR_USD": {"direction": "BEARISH", "key_driver": "ECB dovish relative to Fed; energy costs from Iran tensions weaken European competitiveness"},
+    "USD_JPY": {"direction": "BULLISH", "key_driver": "Widening US-Japan rate differential; BoJ yield curve control vs Fed tightening pushes yen weaker"},
+    "USD_CNH": {"direction": "BULLISH", "key_driver": "Trade tensions + forced labor tariff probe + strong dollar compound yuan weakness"}
+  },
+  "watchlist": [
+    {
+      "ticker": "NVDA",
+      "current_price": 205.10,
+      "action": "WATCH_LONG",
+      "catalyst": "Oversold after 10%+ drawdown from highs on sympathy selling; Computex keynote catalyst with RTX processor debut; AI capex demand intact despite Broadcom miss",
+      "entry_idea": "Buy at $198 on pullback to $200 psychological support",
+      "stop_loss_price": 182.16,
+      "target_price": 227.70,
+      "risk": "Broader semi derating continues if May CPI comes in hot June 10; rate hike would compress multiples further",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "AMD",
+      "current_price": 466.38,
+      "action": "WATCH_LONG",
+      "catalyst": "Oversold -11% on Broadcom sympathy; data center GPU/FPGA demand structurally strong; MI400 ramp intact",
+      "entry_idea": "Buy at $450 near support from May consolidation range",
+      "stop_loss_price": 414.00,
+      "target_price": 517.50,
+      "risk": "If NVDA guides down at next earnings, entire GPU complex re-rates lower",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "XOM",
+      "current_price": 149.92,
+      "action": "WATCH_LONG",
+      "catalyst": "Brent at $94 with Iran risk premium providing floor; upstream earnings benefit from sustained crude above $90; defensive rotation target",
+      "entry_idea": "Buy at $148 near current levels",
+      "stop_loss_price": 136.16,
+      "target_price": 170.20,
+      "risk": "Iran deal breakthrough collapses risk premium, sending Brent toward $80; global recession fears kill demand",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "LMT",
+      "current_price": 523.76,
+      "action": "WATCH_LONG",
+      "catalyst": "Elevated Middle East tensions drive defense spending; NATO commitments increasing; bipartisan US defense budget support",
+      "entry_idea": "Buy at $520 near current levels",
+      "stop_loss_price": 478.40,
+      "target_price": 598.00,
+      "risk": "Surprise Iran peace deal reduces defense urgency; government spending cuts in budget negotiations",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "AVGO",
+      "current_price": 385.73,
+      "action": "AVOID",
+      "catalyst": "AI chip guidance miss ($16B vs $17.2B) + unchanged FY2026 forecast; -20% over two days still digesting",
+      "entry_idea": "Wait for stabilization near $360 support before reconsidering",
+      "stop_loss_price": 331.20,
+      "target_price": 414.00,
+      "risk": "Further analyst downgrades and estimate cuts could push below $360; loss of AI narrative leadership",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "GOOGL",
+      "current_price": 368.53,
+      "action": "WATCH_LONG",
+      "catalyst": "$85B AI infrastructure expansion announced; search + cloud AI monetization accelerating; less exposed to hardware cycle than semis",
+      "entry_idea": "Buy at $355 on further pullback",
+      "stop_loss_price": 326.60,
+      "target_price": 408.25,
+      "risk": "Regulatory overhang from DOJ antitrust case; ad revenue slowdown if economy weakens",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "TLT",
+      "current_price": 85.06,
+      "action": "WATCH_SHORT",
+      "catalyst": "If 10Y yield breaks above 4.60% on hot May CPI June 10, long-duration bonds fall further; rate hike repricing accelerates",
+      "entry_idea": "Short below $84 (or buy puts strike $83)",
+      "stop_loss_price": 90.72,
+      "target_price": 71.40,
+      "risk": "Dovish CPI surprise or flight to safety event reverses yield spike; Fed signals hold at June FOMC",
+      "signal_strength": "SELL"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "May CPI hot print cements rate hike",
+      "severity": "CRITICAL",
+      "causal_chain": "May CPI above 3.8% YoY on June 10 -> markets price near-certain rate hike at June 16-17 FOMC -> 10Y breaks 4.6% -> growth stock derating accelerates -> S&P 500 tests 7,200 support",
+      "sources": [{"title": "Consumer Price Index Summary - April 2026", "outlet": "BLS", "url": "https://www.bls.gov/news.release/cpi.nr0.htm"}, {"title": "Strong Jobs Data Drives Broad Sell-Off", "outlet": "Motley Fool", "url": "https://www.fool.com/coverage/stock-market-today/2026/06/05/stock-market-today-june-5-strong-jobs-data-drives-broad-sell-off-at-midday/"}]
+    },
+    {
+      "risk": "Semiconductor sell-off cascade into passive fund rebalancing",
+      "severity": "HIGH",
+      "causal_chain": "$1.3T chip market cap loss triggers margin calls -> leveraged ETF rebalancing amplifies selling Monday morning -> momentum factor unwinds -> retail panic selling on gap down -> semi index tests March 2026 lows",
+      "sources": [{"title": "NASDAQ Crashes 4% as $1.7T Wiped Out in AI Stock Bloodbath", "outlet": "Silicon Review", "url": "https://thesiliconreview.com/2026/06/nasdaq-crash-ai-chip-stocks-jobs-report-2026"}, {"title": "Nasdaq falls 4% as semiconductor slide wipes $1T from markets", "outlet": "TheStreet", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-june-05-2026"}]
+    },
+    {
+      "risk": "Strait of Hormuz escalation sends oil above $100",
+      "severity": "HIGH",
+      "causal_chain": "Iran negotiations collapse -> naval incident in Strait -> 20M bbl/day at risk -> Brent spikes above $100 -> war-risk insurance premiums triple -> Asian refiners scramble for alternatives -> stagflation narrative takes hold",
+      "sources": [{"title": "Brent crude oil price data", "outlet": "Trading Economics", "url": "https://tradingeconomics.com/commodity/brent-crude-oil"}, {"title": "Geopolitical Risk: The New Normal", "outlet": "Morgan Stanley", "url": "https://www.morganstanley.com/insights/articles/geopolitical-risk-impact-investors-institute-2026"}]
+    },
+    {
+      "risk": "Warsh FOMC surprise - hawkish tilt at first meeting",
+      "severity": "MEDIUM",
+      "causal_chain": "Warsh signals hawkish intent at June 16-17 FOMC to establish credibility -> dot plot shifts up -> markets reprice terminal rate higher -> dollar strengthens further -> EM capital outflows accelerate",
+      "sources": [{"title": "Powell Issues Warning for Trump Stress Test", "outlet": "Federal News Network", "url": "https://federalnewsnetwork.com/prediction-markets/2026/06/powell-issues-warning-trump-stress-test-see-odds-next-fed-rate-hike/"}, {"title": "Fed Decision in June? Trading Odds", "outlet": "Polymarket", "url": "https://polymarket.com/event/fed-decision-in-june-825"}]
+    },
+    {
+      "risk": "New US forced labor tariffs on China escalate trade war",
+      "severity": "MEDIUM",
+      "causal_chain": "USTR 12.5% forced labor tariff on 44 partners including China -> effective China tariff rate approaches 45% -> retaliatory measures -> supply chain disruption in tech and consumer goods -> cost-push inflation re-accelerates",
+      "sources": [{"title": "U.S. says it plans extra tariffs of 10% or more for most trading partners", "outlet": "PBS", "url": "https://www.pbs.org/newshour/economy/u-s-says-it-plans-extra-tariffs-of-10-or-more-for-most-trading-partners-after-forced-labor-probe"}, {"title": "Tariff Tracker: 2026 Trump Tariffs", "outlet": "Tax Foundation", "url": "https://taxfoundation.org/research/all/federal/trump-tariffs-trade-war/"}]
+    }
+  ]
+}
