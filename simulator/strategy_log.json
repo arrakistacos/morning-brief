@@ -1312,5 +1312,15 @@
       "USO": "-1.02%",
       "TLT": "+0.50%"
     }
+  },
+  {
+    "date": "2026-06-06",
+    "type": "midday_skipped",
+    "note": "Market closed today (2026-06-06) \u2014 no midday check needed.",
+    "tags": [
+      "midday",
+      "market-closed",
+      "holiday"
+    ]
   }
 ]
