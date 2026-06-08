@@ -1358,5 +1358,51 @@
     "tags": [
       "midday"
     ]
+  },
+  {
+    "date": "2026-06-08",
+    "type": "eod_reflection",
+    "note": "Morning thesis was BEARISH -6 on three fronts: Iran-Israel geopolitical shock, semiconductor rout from Broadcom miss, and hawkish Fed repricing after blowout payrolls. That thesis was largely wrong by close: Iran announced it had ended its military operation in Israel, collapsing the geopolitical risk premium and sending VIX down 12% \u2014 the single biggest read of the day. Semiconductors, flagged as the most bearish sector in the brief, were the biggest winners: QQQ +1.56%, with Marvell and Micron +4%+ and Nvidia +2%, fully reversing the Broadcom-led rout. The only thesis that held was rates/TLT (-0.52%), as the hawkish Fed repricing from Friday payrolls remained intact with no new data to push back. Tomorrow watch: CPI due \u2014 this is the key test. If CPI prints hot, the rate-hike narrative re-accelerates and today's risk-on rally looks like a bear trap; if inline/cool, QQQ follow-through likely.",
+    "closing_prices": {
+      "SPY": {
+        "price": 739.22,
+        "pct_change": 0.23
+      },
+      "QQQ": {
+        "price": 716.07,
+        "pct_change": 1.56
+      },
+      "DIA": {
+        "price": 508.91,
+        "pct_change": -0.15
+      },
+      "IWM": {
+        "price": 284.11,
+        "pct_change": 0.87
+      },
+      "VIX": {
+        "price": 18.92,
+        "pct_change": -12.04
+      },
+      "GLD": {
+        "price": 397.27,
+        "pct_change": 0.26
+      },
+      "USO": {
+        "price": 135.15,
+        "pct_change": 1.6
+      },
+      "TLT": {
+        "price": 84.62,
+        "pct_change": -0.52
+      }
+    },
+    "morning_sentiment": "BEARISH",
+    "morning_score": -6,
+    "thesis_accuracy": "WRONG \u2014 Iran de-escalation and semi reversal negated main bearish thesis; only rates/TLT held",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
