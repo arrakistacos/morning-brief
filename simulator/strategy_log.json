@@ -1322,5 +1322,33 @@
       "market-closed",
       "holiday"
     ]
+  },
+  {
+    "date": "2026-06-08",
+    "type": "market_open_observation",
+    "note": "Monday open: XOM ($151.86), LMT ($524.68), DHT ($16.73), and JPM ($314.08) all opened above their entry levels \u2014 4 of 4 BUY-signal tickers triggered. NVDA and AVGO remain far from support entry zones. TLT holds above the $84 short level. Overall a bullish open aligned with the morning brief thesis for energy, defense, and financials.",
+    "details": [
+      "XOM gapped above $150 entry to $151.86 \u2014 BUY trigger activated",
+      "LMT cleared $524 to $524.68 \u2014 STRONG_BUY entry hit",
+      "DHT above $16.70 entry at $16.73 \u2014 BUY trigger activated",
+      "JPM holding above $312 at $314.08 \u2014 BUY entry confirmed",
+      "NVDA at $208.61, well above $195 support \u2014 no entry yet per NEUTRAL signal",
+      "AVGO at $396.92, still far from $350 support \u2014 SELL thesis intact",
+      "DAL at $79.13 \u2014 SELL signal, avoiding",
+      "TLT at $85.32, above $84 short level \u2014 NEUTRAL, no action"
+    ],
+    "prices": {
+      "XOM": 151.86000061035156,
+      "LMT": 524.6849975585938,
+      "DHT": 16.729999542236328,
+      "JPM": 314.07501220703125,
+      "NVDA": 208.61000061035156,
+      "AVGO": 396.92498779296875,
+      "DAL": 79.12999725341797,
+      "TLT": 85.32499694824219
+    },
+    "tags": [
+      "market_open"
+    ]
   }
 ]
