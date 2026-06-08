@@ -1350,5 +1350,13 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-06-08",
+    "type": "midday_check",
+    "note": "Morning geopolitical thesis holds but is moderating. Iran ceased strikes against Israel and Brent pulled back from $97 to ~$94.63, easing the energy spike that drove the morning watchlist. XOM at $151, LMT at $517 \u2014 both holding gains but upside momentum may fade if ceasefire extends. NVDA rebounding +1.88% after Friday's 6.2% selloff; LG robotics partnership and Google GPU deal reinforce AI demand thesis. S&P 500 up ~1% in broad risk-on recovery. Key watch: if Iran resumes hostilities (Lebanon trigger), oil retests $97+ and energy/defense longs re-accelerate; if ceasefire holds, rotate attention back to NVDA stabilization entry.",
+    "tags": [
+      "midday"
+    ]
   }
 ]
