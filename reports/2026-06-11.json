@@ -1,0 +1,236 @@
+{
+  "date": "2026-06-11",
+  "overall_sentiment": "MIXED",
+  "sentiment_score": -2,
+  "sentiment_reasoning": "Iran conflict escalation and $95 Brent crude dominate risk calculus, but benign core CPI (0.2% MoM) and Trump-China tariff pause provide counterweights. Semiconductor recovery from last week's $1.4T selloff adds a bullish undercurrent, though PPI data at 8:30 AM and ECB's first rate hike since 2023 inject fresh uncertainty.",
+  "is_trading_day": true,
+  "summary": {
+    "gist": "The dominant force today is the second consecutive day of US strikes on Iran and the near-closure of the Strait of Hormuz, which is repricing energy, defense, and transport stocks in real time. Core CPI's undershoot buys the Fed a meeting's worth of patience, but headline inflation at 4.2% — driven by energy — means the Iran conflict is the inflation story now. The directional bet: long energy and defense, short airlines and discretionary.",
+    "actionable_items": [
+      "Buy XOM above $151 — stop $138.92 (-8%), target $173.65 (+15%) — Hormuz disruption + 7th consecutive weekly inventory draw",
+      "Buy LMT above $526 — stop $483.92 (-8%), target $604.90 (+15%) — defense budget acceleration on Iran escalation",
+      "Buy FRO above $36.50 — stop $33.58 (-8%), target $41.98 (+15%) — tanker war-risk premium surging on Gulf reroutes",
+      "Avoid long DAL at $76.47 — jet fuel costs spiking with Brent at $95; wait for de-escalation signal",
+      "Watch ADBE into earnings close — expected EPS $5.01, implied move +/-9.5%; enter only on post-earnings dip to $215 support",
+      "Watch TLT — if 10Y yield breaks above 4.55%, TLT puts (strike $83) benefit from rate re-pricing on hot PPI"
+    ],
+    "stoic_quote": {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "attribution": "Marcus Aurelius — Meditations"
+    }
+  },
+  "executive_summary": "US military strikes on Iran entered their second day, keeping Brent crude near $95 and WTI at $92 as the Strait of Hormuz remains effectively closed to commercial traffic. Yesterday's CPI print showed headline inflation at 4.2% YoY driven by energy, but core CPI undershot at 0.2% MoM, giving the Fed room to hold at next week's FOMC. The ECB is expected to hike 25bps to 2.25% today — its first increase since 2023 — responding to the same energy-driven inflation. Semiconductors are recovering from last week's $1.4T selloff, with Nasdaq futures up 1.24% premarket. Trump announced a China trade deal maintaining 30% tariffs with a 60-day pause on escalation, providing a modest tailwind.",
+  "top_themes": [
+    "Iran conflict escalation and Hormuz supply disruption",
+    "Energy-driven inflation vs benign core CPI",
+    "ECB first rate hike since 2023",
+    "Semiconductor recovery after $1.4T selloff",
+    "US-China tariff pause at 30%"
+  ],
+  "macro_events": [
+    {
+      "title": "US Strikes Iran — Day 2; Strait of Hormuz Near-Closure",
+      "impact_level": "HIGH",
+      "time_horizon": "Intraday to weeks",
+      "causal_chain": "US strikes Iranian installations in Hormozgan province → Iran retaliates with missile attacks on US naval assets and closes Strait of Hormuz → 21% of global oil trade and 20% of LNG transits disrupted → war-risk insurance on VLCCs becomes prohibitive → commercial shipping reroutes via Cape of Good Hope (+10-14 days, +$2M/trip) → Brent surges to $95, WTI to $92 → energy CPI component already 60%+ of headline inflation → Asian refiners and European gas buyers scramble for alternatives → Dutch TTF gas futures spike → tanker day-rates surge on rerouting demand",
+      "geographic_dimension": "Middle East, global energy supply chains, Europe (gas), Asia (refining)",
+      "historical_analog": "Sep 2019 Abqaiq attack — Brent +15% in 24h, tanker stocks ran 20-35% in one week. Current situation is more severe due to sustained Hormuz closure vs one-off facility strike.",
+      "counterargument": "Limited oil volumes still transiting the Gulf; US Strategic Petroleum Reserve could release; Iran has economic incentive to reopen Hormuz quickly to maintain its own oil exports",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "UP", "reason": "Oil supermajor benefits from $95 Brent"},
+        {"ticker": "CVX", "direction": "UP", "reason": "Same dynamic, strong Gulf of Mexico exposure"},
+        {"ticker": "FRO", "direction": "UP", "reason": "Tanker war-risk premium + rerouting demand"},
+        {"ticker": "DHT", "direction": "UP", "reason": "VLCC tanker operator, Cape reroute beneficiary"},
+        {"ticker": "INSW", "direction": "UP", "reason": "Product tanker rates surge"},
+        {"ticker": "LMT", "direction": "UP", "reason": "Defense spending acceleration"},
+        {"ticker": "RTX", "direction": "UP", "reason": "Missile systems, defense prime contractor"},
+        {"ticker": "DAL", "direction": "DOWN", "reason": "Jet fuel cost spike at $95 Brent"},
+        {"ticker": "UAL", "direction": "DOWN", "reason": "Same fuel cost headwind"},
+        {"ticker": "LUV", "direction": "DOWN", "reason": "No fuel hedging program, most exposed airline"}
+      ]
+    },
+    {
+      "title": "May CPI: Headline 4.2% YoY, Core Undershoot at 0.2% MoM",
+      "impact_level": "HIGH",
+      "time_horizon": "Days to weeks (FOMC June 16-17)",
+      "causal_chain": "CPI headline at 4.2% driven by energy (+3.9% MoM) → confirms Iran-driven supply shock is the inflation story → BUT core CPI at 0.2% MoM undershot consensus → shelter cooling to 0.3% MoM → signals underlying demand-pull inflation is contained → traders pare back rate hike expectations → 2Y yield drops 2bps to 4.15% → Fed has room to hold at June 16-17 FOMC → risk assets find support on dovish interpretation of core → however headline stays politically toxic for Fed credibility",
+      "geographic_dimension": "United States, global risk sentiment",
+      "historical_analog": "2022 energy-driven CPI spikes — Fed ultimately looked through supply shocks initially before pivoting hawkish. Current dynamic similar but Fed already at 3.5-3.75%.",
+      "counterargument": "If PPI today prints hot (April was 6.0% YoY), the benign core CPI narrative breaks down and rate hike expectations re-accelerate",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "MIXED", "reason": "Core CPI relief vs headline inflation pressure"},
+        {"ticker": "NVDA", "direction": "UP", "reason": "Growth stocks benefit from reduced rate hike urgency"},
+        {"ticker": "AVGO", "direction": "UP", "reason": "Same growth/duration benefit"}
+      ]
+    },
+    {
+      "title": "ECB Expected to Hike 25bps to 2.25% — First Hike Since 2023",
+      "impact_level": "HIGH",
+      "time_horizon": "Intraday, with forward guidance implications for weeks",
+      "causal_chain": "Energy shock from Hormuz closure transmits to European gas prices → eurozone headline inflation accelerates → ECB signals hike at April meeting → 99.6% market-implied probability of 25bps to 2.25% → EUR/USD likely strengthens on rate differential narrowing → European bank margins improve on higher rates → but European growth outlook darkens as energy costs weigh on manufacturing → DAX and industrial names vulnerable",
+      "geographic_dimension": "Eurozone, EUR/USD cross, European equities",
+      "historical_analog": "ECB hike cycle 2022-2023 — deposit rate went from -0.5% to 4.0%. This reversal after cutting cycle signals policy regime change.",
+      "counterargument": "Hike is fully priced; forward guidance and tone on future hikes matters more than the decision itself",
+      "affected_tickers": [
+        {"ticker": "FXE", "direction": "UP", "reason": "EUR strengthens on rate hike"},
+        {"ticker": "EWG", "direction": "DOWN", "reason": "German industrials hurt by energy costs + tighter policy"}
+      ]
+    },
+    {
+      "title": "May PPI Release at 8:30 AM ET",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Intraday",
+      "causal_chain": "April PPI printed 6.0% YoY (highest since Dec 2022) → if May PPI accelerates, it confirms cost-push inflation pipeline → corporate margin compression ahead → strengthens case for Fed hike → 10Y yield pushes above 4.55% resistance → growth stocks sell off → BUT if PPI decelerates, confirms benign core CPI signal and risk rallies",
+      "geographic_dimension": "United States",
+      "historical_analog": "PPI leads CPI by 1-2 months in cost-push cycles. Hot PPI in April correctly predicted hot headline CPI in May.",
+      "counterargument": "Markets may look through PPI if clearly energy-driven, as core CPI already provided relief",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Hot PPI sends yields higher, bond prices lower"},
+        {"ticker": "NVDA", "direction": "DOWN", "reason": "Growth names de-rate on yield spike if PPI hot"}
+      ]
+    },
+    {
+      "title": "Trump Announces China Trade Deal — 30% Tariff Maintained, 60-Day Pause",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Days to months",
+      "causal_chain": "Deal maintains 20% fentanyl + 10% reciprocal tariffs (30% total) → pauses further escalation for 60 days → reduces tail risk of tariff spiral → marginal positive for supply chain certainty → US importers get temporary cost stability → Chinese export stocks find floor → but 30% is still historically high → no structural resolution",
+      "geographic_dimension": "US-China bilateral, global supply chains",
+      "historical_analog": "May 2025 Geneva tariff pause — markets rallied 5-7% on de-escalation signal before tariffs resumed",
+      "counterargument": "60-day pause is just a can-kick; structural issues remain unresolved",
+      "affected_tickers": [
+        {"ticker": "AAPL", "direction": "UP", "reason": "Supply chain relief on China manufacturing"},
+        {"ticker": "NKE", "direction": "UP", "reason": "Vietnam/China sourcing benefits from pause"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {"direction": "BULLISH", "key_names": "NVDA, AVGO, AMD, MU", "rationale": "Recovering from $1.4T selloff; core CPI undershoot supports growth multiples; AI capex thesis intact"},
+    "Healthcare": {"direction": "NEUTRAL", "key_names": "UNH, LLY, JNJ", "rationale": "Defensive positioning attractive but no specific catalyst"},
+    "Financials": {"direction": "NEUTRAL", "key_names": "JPM, GS, BAC", "rationale": "Higher rates support NIM but geopolitical uncertainty weighs on trading revenue visibility"},
+    "Energy": {"direction": "BULLISH", "key_names": "XOM, CVX, SLB, HAL", "rationale": "Brent at $95, Hormuz disruption, 7th consecutive weekly inventory draw"},
+    "Consumer Discretionary": {"direction": "BEARISH", "key_names": "AMZN, TSLA, HD", "rationale": "Higher energy costs compress consumer wallets; 4.2% headline inflation erodes purchasing power"},
+    "Consumer Staples": {"direction": "NEUTRAL", "key_names": "PG, KO, WMT", "rationale": "Defensive haven bid offset by input cost pressure from energy"},
+    "Industrials": {"direction": "MIXED", "key_names": "LMT, RTX, CAT, BA", "rationale": "Defense names surge on Iran conflict; transport and manufacturing names hurt by energy costs"},
+    "Utilities": {"direction": "BEARISH", "key_names": "NEE, DUK, SO", "rationale": "Rate-sensitive sector under pressure from 4.53% 10Y yield"},
+    "Materials": {"direction": "NEUTRAL", "key_names": "LIN, APD, NEM", "rationale": "Gold miners benefit from $4,100 gold; industrial metals mixed on China demand uncertainty"}
+  },
+  "commodity_outlook": {
+    "crude_oil": {"direction": "BULLISH", "price_note": "Brent $95, WTI $92", "key_driver": "Strait of Hormuz near-closure, 7th weekly US inventory draw"},
+    "natural_gas": {"direction": "BULLISH", "price_note": "Dutch TTF spiking on LNG reroute fears", "key_driver": "Qatar LNG to Europe at risk from Hormuz closure"},
+    "gold": {"direction": "NEUTRAL", "price_note": "$4,104/oz", "key_driver": "Safe haven bid vs strong dollar and rate hike expectations"},
+    "silver": {"direction": "NEUTRAL", "price_note": "Tracking gold", "key_driver": "Industrial demand from solar/EV partially offset by risk-off"},
+    "copper": {"direction": "BEARISH", "price_note": "Weakening on China growth concerns", "key_driver": "China tariff uncertainty despite 60-day pause"},
+    "wheat": {"direction": "NEUTRAL", "price_note": "Stable", "key_driver": "Black Sea corridor operating; US crop conditions normal"},
+    "soybeans": {"direction": "BULLISH", "price_note": "China deal includes soybean purchases", "key_driver": "Trump-Xi summit soybean deal + seasonal demand"}
+  },
+  "currency_outlook": {
+    "DXY": {"direction": "NEUTRAL", "key_driver": "Dollar at 100 — safe haven bid from Iran vs ECB hike narrowing differential"},
+    "EUR_USD": {"direction": "BULLISH", "key_driver": "ECB 25bps hike today narrows rate differential"},
+    "USD_JPY": {"direction": "BULLISH", "key_driver": "BOJ still accommodative; yield differential favors USD"},
+    "USD_CNH": {"direction": "NEUTRAL", "key_driver": "Trade deal stabilizes CNH; PBOC managing depreciation pressure"}
+  },
+  "watchlist": [
+    {
+      "ticker": "XOM",
+      "action": "WATCH_LONG",
+      "catalyst": "Brent at $95 on Hormuz disruption + 7th consecutive US inventory draw",
+      "entry_idea": "Buy above $151.00",
+      "stop_loss_price": "$138.92",
+      "target_price": "$173.65",
+      "risk": "Sudden Hormuz reopening or SPR release collapses oil premium",
+      "signal_strength": "STRONG_BUY"
+    },
+    {
+      "ticker": "LMT",
+      "action": "WATCH_LONG",
+      "catalyst": "Iran conflict drives defense spending urgency; supplemental defense appropriation likely",
+      "entry_idea": "Buy above $526.00",
+      "stop_loss_price": "$483.92",
+      "target_price": "$604.90",
+      "risk": "Ceasefire announcement triggers profit-taking on defense names",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "FRO",
+      "action": "WATCH_LONG",
+      "catalyst": "VLCC tanker rates surging on Cape of Good Hope rerouting; war-risk insurance making Gulf transit uneconomic",
+      "entry_idea": "Buy above $36.50",
+      "stop_loss_price": "$33.58",
+      "target_price": "$41.98",
+      "risk": "Hormuz reopening collapses tanker premium overnight",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "AVGO",
+      "action": "WATCH_LONG",
+      "catalyst": "Recovering from 12.6% selloff on June 4; AI capex thesis intact; core CPI supports growth",
+      "entry_idea": "Buy above $375.00",
+      "stop_loss_price": "$345.00",
+      "target_price": "$431.25",
+      "risk": "Hot PPI today re-sells growth names; AI spending guidance still cautious",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "ADBE",
+      "action": "WATCH_LONG",
+      "catalyst": "Q2 earnings after close today; expected EPS $5.01; stock down 8% in 5 days creates catch-up potential",
+      "entry_idea": "Buy on post-earnings dip to $215 or breakout above $240",
+      "stop_loss_price": "$197.80",
+      "target_price": "$247.25",
+      "risk": "AI monetization disappointment could send stock to $200",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "MU",
+      "action": "WATCH_LONG",
+      "catalyst": "Memory recovery; up 50% past month; June 24 earnings; AI-driven HBM demand",
+      "entry_idea": "Buy on pullback to $870 support",
+      "stop_loss_price": "$800.40",
+      "target_price": "$1000.50",
+      "risk": "Memory oversupply; extended valuation after 50% run",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "DAL",
+      "action": "WATCH_SHORT",
+      "catalyst": "Jet fuel costs spiking with Brent at $95; fuel is 25-30% of airline COGS",
+      "entry_idea": "Short below $75.00",
+      "stop_loss_price": "$81.00",
+      "target_price": "$63.75",
+      "risk": "Hormuz reopening crashes oil; airlines rip higher on fuel relief",
+      "signal_strength": "SELL"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "Iran conflict escalates to full regional war",
+      "severity": "CRITICAL",
+      "causal_chain": "US Day 2 strikes → Iran retaliates against US bases in Bahrain/Qatar → Hezbollah opens northern front → full Hormuz closure indefinite → oil spikes to $120+ → global recession trigger",
+      "sources": [{"title": "2026 Iran war", "outlet": "Wikipedia", "url": "https://en.wikipedia.org/wiki/2026_Iran_war"}, {"title": "Oil prices: U.S. strikes revive Hormuz fears", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/05/28/oil-prices-us-strikes-in-iran-revive-strait-of-hormuz-turmoil-fears.html"}]
+    },
+    {
+      "risk": "May PPI prints significantly above consensus",
+      "severity": "HIGH",
+      "causal_chain": "April PPI was 6.0% YoY → hot May PPI confirms cost-push pipeline → markets reprice Fed to hike July → 10Y breaks 4.6% → growth stocks sell 3-5%",
+      "sources": [{"title": "Producer Price Index - April 2026", "outlet": "BLS", "url": "https://www.bls.gov/news.release/ppi.htm"}]
+    },
+    {
+      "risk": "ECB hawkish surprise signals further hikes",
+      "severity": "MEDIUM",
+      "causal_chain": "ECB hikes 25bps + Lagarde signals September hike → EUR/USD spikes → European equities sell off → dollar weakens",
+      "sources": [{"title": "ECB Rate Decision: What to Expect", "outlet": "Morningstar", "url": "https://global.morningstar.com/en-gb/economy/ecb-rate-decision-what-expect-june-11"}]
+    },
+    {
+      "risk": "Adobe earnings miss triggers tech selloff",
+      "severity": "MEDIUM",
+      "causal_chain": "ADBE misses AI monetization → market extrapolates to SaaS/AI names → Nasdaq gives back gains → reinforces Broadcom selloff narrative",
+      "sources": [{"title": "How Will Adobe Stock React To Earnings?", "outlet": "Yahoo Finance", "url": "https://finance.yahoo.com/markets/stocks/articles/adobe-stock-react-upcoming-earnings-125700878.html"}]
+    },
+    {
+      "risk": "China trade deal collapses within 60-day window",
+      "severity": "MEDIUM",
+      "causal_chain": "Structural issues unresolved → deal breaks down → tariffs escalate above 30% → supply chain disruption returns",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    }
+  ]
+}
