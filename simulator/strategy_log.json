@@ -1404,5 +1404,13 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-06-11",
+    "type": "market_open_observation",
+    "note": "XOM ($150.62) and LMT ($525.02) both cleared their entry levels from the Jun 8 brief \u2014 XOM above $150 and LMT above $524, both triggered. JPM pulled back to $309.14, well below its $312 entry, suggesting the brief's BUY signal was premature. DHT at $16.60 stayed just below the $16.70 trigger. AVGO continues sliding ($372.10 vs $385.73), drifting toward the $350 support level flagged in the SELL thesis. TLT at $84.88 remains above the $84 short level.",
+    "tags": [
+      "market_open"
+    ]
   }
 ]
