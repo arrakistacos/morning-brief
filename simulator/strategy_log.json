@@ -1412,5 +1412,13 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-20",
+    "type": "midday_check",
+    "note": "Morning thesis intact. Defense names (LMT +0.6%, RTX +1.6%) grinding higher on new counter-drone product reveal ahead of Thursday earnings; energy thesis strengthening as XOM +1.1%, HAL +1.6%, FRO +1.6% all benefit from Brent near $90 and Yemen maritime embargo on Saudi Arabia adding supply risk. INTC flipped bullish \u2014 soaring +3.9% on KeyBanc PT raise and ASML tailwinds, contradicting morning WATCH_SHORT call; reassess short thesis pre-earnings. GOOGL +1.7% ahead of Tuesday earnings, Kimi K3 AI fears dismissed by analysts. TSLA -2.3%, weakest name, consistent with AVOID. S&P 500 at 7,468 (+0.1%), Nasdaq +0.9% led by chip recovery after last week's 10% SOX selloff.",
+    "tags": [
+      "midday"
+    ]
   }
 ]
