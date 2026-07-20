@@ -1420,5 +1420,14 @@
     "tags": [
       "midday"
     ]
+  },
+  {
+    "date": "2026-07-20",
+    "type": "eod_reflection",
+    "note": "Morning thesis (MIXED, -3) leaned hard on Iran-war escalation and a deepening semiconductor bear market to argue for a risk-off tilt into energy/defense. The close was tamer than that setup implied: SPY -0.16%, QQQ actually finished +0.10% (tech stabilized rather than capitulated), DIA -0.55%, IWM -0.59%. VIX eased -0.64% to 18.65, arguing against the escalating-fear read holding through the session. USO +1.25% confirmed the oil/geopolitical thread stayed live, and TLT -0.75% fits the inflation-repricing/Fed-hike angle. Energy strength showed up (oil), but equities didn't deliver the broad capitulation the brief flagged \u2014 contrary mover was QQQ. Watch tomorrow: whether chip names extend the bounce and Wednesday's GOOGL print, still the swing factor for tech direction.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
