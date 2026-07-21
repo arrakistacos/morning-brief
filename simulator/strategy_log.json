@@ -1429,5 +1429,13 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-21",
+    "type": "market_open_observation",
+    "note": "Strong chip sector open: MU gapped up +6.9% to $925 (well above $870 entry) and AMD gapped +4.4% past $505 entry to $526 \u2014 both BUY entry conditions triggered. LMT opened near $510 entry but sold off sharply to $492 (-3.4%), invalidating the entry thesis. XOM recovered from a gap-down to hold $148; GOOGL stayed below $355 trigger; TSLA at $376 remains far above $340 pullback target; GM cleared $76 with a quiet +2.3% move.",
+    "tags": [
+      "market_open"
+    ]
   }
 ]
