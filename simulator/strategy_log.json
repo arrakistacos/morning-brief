@@ -1479,5 +1479,14 @@
     "tags": [
       "midday"
     ]
+  },
+  {
+    "date": "2026-07-22",
+    "type": "eod_reflection",
+    "note": "Morning MIXED thesis (semis/earnings optimism vs. Iran-driven oil spike) held up on the oil side but not the tech side: USO +2.20% and GLD +1.15% confirmed the energy/inflation risk, while QQQ was the day's worst performer at -0.51% as traders sat on hands ahead of tonight's Alphabet and Tesla earnings rather than bidding up risk into the print. SPY -0.12%, DIA -0.01%, IWM -0.93% \u2014 broad, shallow weakness, not a risk-off rout. VIX fell 2.4% to 16.64 despite the pullback, signaling complacency/calm ahead of the earnings catalyst rather than fear, consistent with morning's note that vol compression looked premature given the active Hormuz conflict. Tomorrow's action hinges entirely on the GOOGL/TSLA prints: a beat likely resolves the tug-of-war bullish for NDX; a miss combined with oil staying >$91 would validate the stagflationary crosscurrent risk flagged this morning.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
