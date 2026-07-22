@@ -1446,5 +1446,13 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-21",
+    "type": "midday_check",
+    "note": "Morning semiconductor thesis strongly validated: AMD +8.1% on Microsoft Helios AI deal and analyst upgrades (UBS PT $700, Rosenblatt $655), MU +12.2% regaining $1T market cap on memory demand. GM crushed Q2 \u2014 EPS $3.57 vs $3.20 expected, raised full-year guidance. Semis led broad rally (sector gauge +5.2%), S&P +0.89%, Nasdaq +1.29%. Oil rose 2% to 5-week highs (Brent $91.01, WTI $84.91) on Houthi Saudi naval blockade threat \u2014 two tankers reversed course in Red Sea, supporting XOM thesis. LMT dipped 0.8% on low-cost Patriot missile pricing news but earnings Wed should re-catalyze. GOOGL flat ahead of Wed earnings; options pricing 5.4% move \u2014 CapEx guidance remains the key catalyst for chip sector. Morning sentiment fully intact; all WATCH_LONG names performing or consolidating ahead of catalysts.",
+    "tags": [
+      "midday"
+    ]
   }
 ]
