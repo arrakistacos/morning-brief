@@ -1454,5 +1454,22 @@
     "tags": [
       "midday"
     ]
+  },
+  {
+    "date": "2026-07-22",
+    "type": "market_open_observation",
+    "note": "Defense and energy thesis playing out: LMT gapped up +2.1% to $517.87, well above $507 entry \u2014 entry triggered. XOM cleared $152 entry at $153.22 (+1.0%) on continued Brent strength. DHT hovering right at $18.49, just a penny below $18.50 STRONG_BUY entry \u2014 nearly triggered. GOOGL edged above $347 entry at $348.35 ahead of tonight's Q2 earnings \u2014 thin margin, post-ER dip to $330 may be the better play. AMD pulled back -1.3% to $537.59, below $544 entry \u2014 conference catalyst hasn't fired yet, watch Wed-Thu. DAL dropped -1.9% to $82.99, approaching $82 short trigger as jet fuel thesis bites. TSLA at $376.85 stays in no-man's-land ahead of tonight's ER \u2014 AVOID stance validated.",
+    "tags": [
+      "market_open"
+    ],
+    "prices": {
+      "AMD": 537.59,
+      "GOOGL": 348.35,
+      "XOM": 153.22,
+      "LMT": 517.87,
+      "DHT": 18.49,
+      "TSLA": 376.85,
+      "DAL": 82.99
+    }
   }
 ]
