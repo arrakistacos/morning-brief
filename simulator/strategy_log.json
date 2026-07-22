@@ -1437,5 +1437,14 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-21",
+    "type": "eod_reflection",
+    "note": "Morning thesis (MIXED, +2) called for a short-term tech bounce off oversold SOX levels, capped by Iran-Houthi oil risk. The bounce thesis played out and then some: QQQ +1.85%, SPY +0.83%, IWM +1.45%, with Micron (+12%), Sandisk (+14%) and AMD (+8%) driving a genuine memory/chip-led rally, not just a dead-cat bounce. VIX fell -8.58% to 17.05, showing fear unwound faster than the morning brief expected \u2014 the 'capped upside' framing was too cautious given how decisively risk appetite returned. The contrary note: oil-risk didn't actually cap equities as flagged, since USO still rose +2.66% (Houthi/Saudi supply risk intact) and GLD rose +1.96% on safe-haven demand \u2014 both geopolitical hedges gained alongside the equity rally rather than trading it off, an unusual combination. TLT -0.27% roughly flat, consistent with the inflation/Fed-repricing angle staying quiet. Watch tomorrow: whether GOOGL's earnings (CapEx guidance) sustains the chip-led bounce or triggers sell-the-news, and whether oil/gold keep climbing in tandem with equities as a sign the market is pricing geopolitical risk differently than the morning brief's framework assumed.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
