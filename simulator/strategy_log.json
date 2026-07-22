@@ -1471,5 +1471,13 @@
       "TSLA": 376.85,
       "DAL": 82.99
     }
+  },
+  {
+    "date": "2026-07-22",
+    "type": "midday_check",
+    "note": "Morning thesis intact across watchlist. GM beat Q2 handily \u2014 adj EPS $3.57 vs $3.13 expected, raised FY guidance to $14-16B EBIT; stock +3.75% to $82.50, validating WATCH_LONG. AMD +2.13% on continued Microsoft Helios momentum; MU +0.53% stabilizing near $976 after Friday selloff recovery. Oil surging toward $95 on 11th night of Iran strikes \u2014 XOM +1.70%, LMT +1.74%, both benefiting from geopolitical escalation as expected. GOOGL flat at $348 ahead of tonight's earnings; $190B CapEx scrutiny and AI ROI are the key swing factors. TSLA -0.61% pre-earnings, consistent with sell-the-news AVOID thesis. SPY +0.09%, QQQ -0.10% \u2014 market treading water awaiting megacap results tonight.",
+    "tags": [
+      "midday"
+    ]
   }
 ]
