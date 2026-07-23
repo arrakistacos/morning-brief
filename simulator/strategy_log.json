@@ -1506,5 +1506,26 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-23",
+    "type": "midday_check",
+    "note": "Massive risk-off day driven by two catalysts: (1) Brent crude topped $100/bbl after Houthi attacks on Saudi tankers in Red Sea + continued Hormuz disruptions \u2014 XOM thesis validated (+2.0%), DAL short thesis confirmed (-2.7%). (2) Big Tech earnings crushed sentiment: TSLA -13.8% on EPS miss ($0.33 vs $0.51) and $5.8B AI spending cash burn; GOOGL -6.4% after raising capex to $195-205B with negative FCF. LMT is the standout winner at +9.3% on record $230B backlog beat-and-raise. NVDA holding relatively well (-1.1%) despite broad tech selloff \u2014 Vera Rubin production ramp providing support. INTC -2.0% pre-earnings (reports after close today) \u2014 options pricing 12.5% swing. Morning sentiment broadly validated: defense/energy longs working, tech/AI capex anxiety thesis playing out faster than expected. S&P 500 down 1.2%.",
+    "tags": [
+      "midday",
+      "oil_spike",
+      "earnings_reaction",
+      "risk_off"
+    ],
+    "prices": {
+      "NVDA": 209.66,
+      "INTC": 100.52,
+      "XOM": 157.48,
+      "LMT": 562.01,
+      "GOOGL": 320.18,
+      "TSLA": 322.51,
+      "AMD": 534.16,
+      "DAL": 81.31
+    }
   }
 ]
