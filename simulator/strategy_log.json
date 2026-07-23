@@ -1488,5 +1488,23 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-23",
+    "type": "market_open_observation",
+    "note": "Big post-earnings moves dominate the open: TSLA gapped down 10.7% (opened $341, now $334) after a miss, blowing through the $340 support level flagged in the brief \u2014 sell thesis confirmed. GOOGL down 5.9% to $322, approaching the $320 support watch level noted this morning. LMT surged 9.7% (opened $515.79, now $564) \u2014 entry above $515 was triggered immediately at the open on what appears to be a defense catalyst. XOM gapped above $155 entry to $157.34 (+1.9%), confirming the oil/energy bid. DAL broke below $83 short trigger to $81.22 (-2.8%), validating the bearish setup. NVDA (-1.4%), INTC (-0.5%), and AMD (-0.3%) all drifted lower without triggering entries \u2014 buy levels not reached. Net: 3 of 8 buy/short entries triggered (LMT, XOM, DAL), TSLA sell thesis confirmed, GOOGL nearing support test.",
+    "prices": {
+      "NVDA": 209.1,
+      "INTC": 102.1,
+      "XOM": 157.34,
+      "LMT": 564.46,
+      "GOOGL": 322.06,
+      "TSLA": 334.06,
+      "AMD": 550.5,
+      "DAL": 81.22
+    },
+    "tags": [
+      "market_open"
+    ]
   }
 ]
