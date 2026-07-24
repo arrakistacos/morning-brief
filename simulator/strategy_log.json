@@ -1553,5 +1553,24 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-24",
+    "type": "midday_check",
+    "note": "Midday check: S&P 500 rebounding +0.5% as oil pulls back sharply (Brent ~$97, WTI ~$88) after Pakistan signals willingness to mediate US-Iran talks. AXP reported Q2 \u2014 EPS $4.53 beat ($4.45 est) but revenue missed at $19.6B; stock down ~5% on rising expenses and mixed segment performance despite raising FY revenue guidance to 10%. GOOGL recovering modestly (+0.9%) after yesterday's 6.8% post-earnings drop on capex concerns; cloud +82% YoY thesis intact but FCF pressure is real. XOM flat (-0.2%) as oil pullback offsets geopolitical tailwinds. LMT +2.2% and INSW +1.3% holding firm on defense/tanker themes. TSLA -3.1% continuing post-earnings slide (1.4% operating margin, EPS miss). DAL +4.2% rallying on oil price relief. Morning sentiment broadly holds: oil/defense longs still valid but oil pullback could soften the XOM/INSW thesis if diplomacy gains traction. AXP WATCH_LONG thesis weakened by market reaction to earnings.",
+    "tags": [
+      "midday"
+    ],
+    "prices": {
+      "XOM": 156.57,
+      "LMT": 581.01,
+      "INSW": 92.51,
+      "GOOGL": 320.59,
+      "TSLA": 309.64,
+      "AXP": 324.31,
+      "DAL": 85.44,
+      "SPY": 742.03,
+      "QQQ": 690.33
+    }
   }
 ]
