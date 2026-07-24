@@ -1527,5 +1527,14 @@
       "AMD": 534.16,
       "DAL": 81.31
     }
+  },
+  {
+    "date": "2026-07-23",
+    "type": "eod_reflection",
+    "note": "Morning's MIXED/2 call held up well by the close. The AI-capex-vs-oil-shock tug-of-war resolved decisively risk-off: SPY -1.23%, QQQ -1.90% (Nasdaq hit hardest as GOOGL and TSLA post-earnings selloffs deepened through the session), DIA -1.00%, IWM -0.58%, VIX +12.4% to 18.70. Energy was the dominant theme at close, not AI infra \u2014 USO +5.93% as Houthi attacks on Saudi tankers pushed Brent through $100/bbl, vindicating the XOM long and DAL short from the morning brief. Defense (LMT) was the standout beneficiary of the same geopolitical driver. Contrary to the morning's semiconductor-optimism thread, NVDA/INTC/AMD never triggered their buy levels and drifted lower with the broader tape rather than decoupling on capex validation. GLD -2.00% is the surprise: gold didn't catch a safe-haven bid despite the risk-off tone, likely crowded out by the oil trade and higher yields (10Y at 4.66%). Watch tomorrow: INTC earnings reaction (reported after today's close), whether Red Sea tensions continue escalating oil, and if GOOGL/TSLA find the support levels flagged this morning ($320 / $340) or keep sliding.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
