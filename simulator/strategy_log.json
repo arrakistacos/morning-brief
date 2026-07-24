@@ -1536,5 +1536,22 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-24",
+    "type": "market_open_observation",
+    "note": "XOM cleared its $157 entry level at the open ($157.18), confirming the STRONG_BUY thesis. LMT gapped up significantly from $568.59 to open at $545 and is now trading at $575.48 \u2014 well above the $569 entry, a strong move. INSW also triggered above $91.50, currently at $92.03. GOOGL continues to drift higher ($320.17) with no pullback to the $310 level \u2014 entry condition not met. AXP opened at $343.39 (above $341 entry) but has pulled back to $323.11 \u2014 a notable gap-down from open, suggesting the earnings beat didn't hold. TSLA ($319.61) and DAL ($83.51) remain in SELL territory as expected, with DAL gapping up slightly from $81.97 to $83.51.",
+    "prices": {
+      "XOM": 157.18,
+      "LMT": 575.48,
+      "INSW": 92.03,
+      "GOOGL": 320.17,
+      "TSLA": 319.61,
+      "AXP": 323.11,
+      "DAL": 83.51
+    },
+    "tags": [
+      "market_open"
+    ]
   }
 ]
