@@ -1572,5 +1572,14 @@
       "SPY": 742.03,
       "QQQ": 690.33
     }
+  },
+  {
+    "date": "2026-07-24",
+    "type": "eod_reflection",
+    "note": "Morning thesis (BEARISH, -4) called an oil-driven risk-off day on the Houthi Red Sea blockade and 10Y yields at 4.71%, favoring energy longs (XOM, INSW) and defense (LMT) while avoiding TSLA/rate-sensitive names. Direction was roughly right but the driver flipped intraday: crude retreated (USO -2.01%, oil dipped back below $100) rather than extending its spike, so the energy-long thesis lost its tailwind. Instead, chip stocks led the damage (semis -4.4%) on AI capex anxiety carried over from Alphabet's guidance, dragging the Nasdaq -0.64% while the S&P closed nearly flat (+0.05-0.10%) and the Dow gained (+0.48%). VIX actually fell (-0.64%) and TLT ticked up (+0.10%) instead of breaking toward the $76 put target, undercutting the rate-hike-fear-intensifies thesis. Net: bearish tone was right for about half the session before markets stabilized on a geopolitical de-escalation in oil, but the actual pain trade (semiconductors/AI capex) wasn't the one flagged this morning. Watch tomorrow: whether chip/AI-capex jitters persist as the dominant theme, and whether Red Sea tensions reignite oil.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
