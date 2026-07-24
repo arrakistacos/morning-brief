@@ -1,0 +1,235 @@
+{
+  "date": "2026-07-24",
+  "overall_sentiment": "BEARISH",
+  "sentiment_score": -4,
+  "sentiment_reasoning": "Houthi blockade of Saudi ports spiked oil 5-7% overnight, driving 10Y yields to 4.71% and boosting rate-hike expectations to 78% for September. Alphabet's $195-205B capex guidance and Tesla's 57% operating income collapse added tech-sector headwinds. Futures rebounding modestly but risk-off tone dominates.",
+  "summary": {
+    "gist": "Oil's geopolitical shock is the dominant force today. Houthi attacks on Saudi tankers and a declared Red Sea blockade have pushed Brent toward $100 and WTI above $90, reigniting inflation fears and sending 10Y yields to 4.71% — their highest since January 2025. The energy supply disruption, compounded by Alphabet's massive capex hike and Tesla's margin implosion, creates a toxic cocktail for equities that favors energy longs, defense plays, and rate-sensitive shorts.",
+    "actionable_items": [
+      "Buy XOM above $157 — stop $144.44 (-8%), target $180.55 (+15%) — direct beneficiary of oil supply disruption as Brent approaches $100",
+      "Buy LMT above $569 — stop $523.48 (-8%), target $654.35 (+15%) — Middle East escalation drives defense spending; US conducting 12th night of Iran strikes",
+      "Buy INSW above $91.50 — stop $84.18 (-8%), target $105.23 (+15%) — tanker war-risk premiums surge on Red Sea blockade",
+      "Avoid TSLA at $320 — margin compression to 1.4% operating margin, negative $1.09B FCF, no catalyst for recovery",
+      "Watch GOOGL for entry near $310 — stop $285.20 (-8%), target $356.50 (+15%) — Cloud +82% YoY is strong but $195-205B capex spooking investors",
+      "Watch TLT puts — if 10Y breaks above 4.75%, TLT (at $83.17) targets $76; rate hike now 78% probable for September"
+    ],
+    "stoic_quote": {
+      "text": "The whole future lies in uncertainty: live immediately.",
+      "attribution": "Seneca — On the Shortness of Life"
+    }
+  },
+  "executive_summary": "Markets face a triple headwind Friday: oil's geopolitical shock from Houthi attacks on Saudi tankers has pushed Brent near $100, 10Y Treasury yields have climbed to 4.71% on rising rate-hike expectations, and mega-cap tech is reeling from Alphabet's $195-205B capex guidance and Tesla's 14.5% single-day crash. S&P futures show a modest overnight bounce to 7,541 from yesterday's 7,408 close, but the risk-off tone dominates. Energy and defense names are the clear beneficiaries, while airlines and rate-sensitive equities face headwinds. AXP and NEE report today and could provide cross-currents.",
+  "top_themes": [
+    "Red Sea blockade and oil supply shock — Houthis attack Saudi tankers, Brent near $100",
+    "Rate repricing — 10Y at 4.71%, September hike probability at 78%",
+    "AI capex anxiety — Alphabet's $195-205B guidance raises sustainability concerns",
+    "Mega-cap earnings fallout — TSLA -14.5%, GOOGL -7% on mixed Q2 results",
+    "US-China tariff thaw — bilateral tariff reduction talks underway"
+  ],
+  "macro_events": [
+    {
+      "title": "Houthi Red Sea Blockade and Saudi Tanker Attacks",
+      "impact_level": "HIGH",
+      "time_horizon": "Days to weeks",
+      "causal_chain": "Houthis attack two Saudi tankers (Encelia and Layla) and declare full maritime embargo on Saudi ports > Bab al-Mandeb crossings drop 34% to 29 vessels > 6.2M bbl/day of oil and 20% of global LNG transit at risk > WTI jumps to $90.65 (+4.8%), Brent to $99-100 (+5.6-7%) > war-risk insurance premiums spike on VLCCs > Asian refiners consider Cape of Good Hope reroute (+12-14 days, +$2M/trip) > inflationary pressure feeds into 10Y yield rise to 4.71% > Fed rate hike probability jumps to 78% for September",
+      "geographic_dimension": "Red Sea / Bab al-Mandeb > global oil and LNG supply chains > US monetary policy",
+      "historical_analog": "September 2019 Abqaiq attack — Brent spiked 15% in 24 hours, tanker rates ran 20-35% in one week. Current situation more sustained due to blockade declaration vs one-off strike.",
+      "counterargument": "Saudi Arabia has rerouting capacity via Yanbu. US CENTCOM strikes may degrade Houthi capability. Strategic petroleum reserves provide buffer.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "UP", "reason": "Major oil producer benefits from $90+ WTI"},
+        {"ticker": "CVX", "direction": "UP", "reason": "Upstream production margins expand with crude surge"},
+        {"ticker": "INSW", "direction": "UP", "reason": "Tanker rates and war-risk premiums surge"},
+        {"ticker": "LMT", "direction": "UP", "reason": "Defense spending accelerates amid US-Iran strikes"},
+        {"ticker": "RTX", "direction": "UP", "reason": "Missile and defense systems demand rises"},
+        {"ticker": "DAL", "direction": "DOWN", "reason": "Fuel costs spike — jet fuel correlates with crude"},
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Yields rise on inflation expectations, bond prices fall"}
+      ]
+    },
+    {
+      "title": "Alphabet Q2 Earnings: Cloud Surge vs Capex Shock",
+      "impact_level": "HIGH",
+      "time_horizon": "Days to quarters",
+      "causal_chain": "GOOGL reports $119.8B revenue (+24% YoY), Cloud +82% to $24.8B > but capex guidance hiked to $195-205B for full year 2026 (nearly doubling from 2025) > negative free cash flow of $5.85B > investors question AI capex ROI sustainability > GOOGL drops ~7% > contagion to AI/semi complex as market re-rates capex-heavy names > NVDA, AMD, AVGO face sentiment drag despite strong AI demand fundamentals",
+      "geographic_dimension": "US tech sector > global AI infrastructure spending",
+      "historical_analog": "Meta Q3 2022 metaverse capex selloff — stock dropped 25% on capex concerns before recovering. Key question is whether GOOGL Cloud growth justifies the spend.",
+      "counterargument": "Cloud revenue growing 82% YoY may justify the investment. Search revenue +17% shows core business remains strong.",
+      "affected_tickers": [
+        {"ticker": "GOOGL", "direction": "DOWN", "reason": "Capex shock overshadows revenue beat"},
+        {"ticker": "NVDA", "direction": "MIXED", "reason": "AI capex is demand for NVDA GPUs but market questioning sustainability"},
+        {"ticker": "AMD", "direction": "MIXED", "reason": "Same AI capex dynamic"},
+        {"ticker": "AVGO", "direction": "MIXED", "reason": "Custom ASIC maker benefits from hyperscaler spend but sentiment drag"}
+      ]
+    },
+    {
+      "title": "Tesla Q2: Record Revenue, Margin Implosion",
+      "impact_level": "HIGH",
+      "time_horizon": "Days to weeks",
+      "causal_chain": "TSLA reports $28.2B revenue (+26% YoY) on record 480K deliveries > operating income collapses 57% to $398M (1.4% margin) > EPS $0.33 vs $0.53 expected (39% miss) > FCF deficit of $1.09B > stock crashes 14.5% to $320, erasing $140B market cap > signals EV pricing war eroding margins industry-wide",
+      "geographic_dimension": "US auto sector > global EV market dynamics",
+      "historical_analog": "Tesla Q4 2022 selloff when margins compressed from price cuts — stock dropped 65% peak-to-trough. Current margin compression deeper (1.4% vs ~5% then).",
+      "counterargument": "Volume growth of 26% shows demand intact. Margin compression may be temporary as new model ramp costs normalize.",
+      "affected_tickers": [
+        {"ticker": "TSLA", "direction": "DOWN", "reason": "Massive EPS miss and margin compression"},
+        {"ticker": "RIVN", "direction": "DOWN", "reason": "EV sector sentiment drag"},
+        {"ticker": "F", "direction": "MIXED", "reason": "EV losses but traditional auto margins more stable"}
+      ]
+    },
+    {
+      "title": "Treasury Yields Hit 2025 Highs on Rate Hike Fears",
+      "impact_level": "HIGH",
+      "time_horizon": "Weeks to months",
+      "causal_chain": "10Y yield rises to 4.71% (4th consecutive session, highest since Jan 2025) > 30Y at 5.17% > oil-driven inflation expectations combine with hawkish Fed stance > markets price 33% chance of July hike, 78% for September > higher discount rates compress equity valuations > TLT falls, banks benefit from steeper curve",
+      "geographic_dimension": "US monetary policy > global rates and risk assets",
+      "historical_analog": "October 2023 — 10Y hit 5.0% before Fed pivot. Current dynamic different as oil supply shock creates new inflationary impulse.",
+      "counterargument": "Fed may view oil shock as transitory supply disruption. Core PCE could remain stable if energy pass-through is limited.",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Bond prices fall as yields rise"},
+        {"ticker": "XLF", "direction": "UP", "reason": "Banks benefit from higher rates and steeper curve"},
+        {"ticker": "XLU", "direction": "DOWN", "reason": "Utilities underperform in rising rate environment"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {"direction": "BEARISH", "key_names": "GOOGL, TSLA, NVDA, AMD", "rationale": "Alphabet capex shock and Tesla margin collapse drag mega-cap tech. AI capex sustainability questioned."},
+    "Healthcare": {"direction": "NEUTRAL", "key_names": "UNH, JNJ, LLY", "rationale": "Defensive positioning may attract flows in risk-off. No major catalysts."},
+    "Financials": {"direction": "BULLISH", "key_names": "JPM, GS, AXP", "rationale": "Rising yields boost net interest margins. AXP reports today. Rate hike expectations benefit banks."},
+    "Energy": {"direction": "BULLISH", "key_names": "XOM, CVX, SLB, INSW", "rationale": "Oil supply disruption from Houthi blockade drives WTI above $90, Brent near $100. Tanker stocks benefit from war-risk premiums."},
+    "Consumer Discretionary": {"direction": "BEARISH", "key_names": "TSLA, AMZN, NKE", "rationale": "Tesla crash weighs on sector. Higher oil prices squeeze consumer spending power."},
+    "Consumer Staples": {"direction": "NEUTRAL", "key_names": "PG, KO, WMT", "rationale": "Defensive haven in risk-off but higher input costs from oil may pressure margins."},
+    "Industrials": {"direction": "BULLISH", "key_names": "LMT, RTX, CAT, GE", "rationale": "Defense names surge on Middle East escalation. Infrastructure spending continues."},
+    "Utilities": {"direction": "BEARISH", "key_names": "NEE, DUK, SO", "rationale": "Rising yields make utility dividends less attractive. NEE reports today."},
+    "Materials": {"direction": "NEUTRAL", "key_names": "LIN, APD, NEM", "rationale": "Gold pulling back on rate-hike fears despite geopolitical haven demand. Copper at $6.28 supported by supply tightness."}
+  },
+  "commodity_outlook": {
+    "crude_oil": {"direction": "BULLISH", "price_note": "WTI $90.65 (+4.8%), Brent $99-100 (+5.6-7%)", "key_driver": "Houthi Saudi blockade and tanker attacks; Bab al-Mandeb crossings -34%"},
+    "natural_gas": {"direction": "BULLISH", "price_note": "Dutch TTF futures elevated", "key_driver": "LNG transit disruption through Bab al-Mandeb; Qatar-to-Europe LNG at risk"},
+    "gold": {"direction": "BEARISH", "price_note": "$4,044/oz, down 0.14%", "key_driver": "Rate-hike expectations outweigh geopolitical haven bid"},
+    "silver": {"direction": "NEUTRAL", "price_note": "Tracking gold weakness", "key_driver": "Industrial demand stable but rate environment caps upside"},
+    "copper": {"direction": "NEUTRAL", "price_note": "$6.28/lb, down 2.7%", "key_driver": "Supply tightness supports but risk-off and dollar strength offset"},
+    "wheat": {"direction": "NEUTRAL", "price_note": "Stable", "key_driver": "No major Black Sea disruption"},
+    "soybeans": {"direction": "NEUTRAL", "price_note": "Stable", "key_driver": "China tariff reduction talks could boost demand"}
+  },
+  "currency_outlook": {
+    "DXY": {"direction": "BULLISH", "key_driver": "Rate-hike expectations and risk-off flows support dollar at 101.44"},
+    "EUR_USD": {"direction": "BEARISH", "key_driver": "European energy vulnerability to Red Sea disruption weakens euro"},
+    "USD_JPY": {"direction": "BULLISH", "key_driver": "Yield differential widens as US 10Y hits 4.71%"},
+    "USD_CNH": {"direction": "NEUTRAL", "key_driver": "US-China tariff talks provide offsetting support to yuan"}
+  },
+  "watchlist": [
+    {
+      "ticker": "XOM",
+      "action": "WATCH_LONG",
+      "catalyst": "Houthi Red Sea blockade pushes WTI above $90 and Brent near $100",
+      "entry_idea": "Buy above $157 (current $156.89)",
+      "stop_loss_price": "$144.44",
+      "target_price": "$180.55",
+      "risk": "Ceasefire or SPR release collapses oil premium",
+      "signal_strength": "STRONG_BUY"
+    },
+    {
+      "ticker": "LMT",
+      "action": "WATCH_LONG",
+      "catalyst": "US conducting 12th consecutive night of strikes on Iran; defense spending acceleration",
+      "entry_idea": "Buy above $569 (current $568.59)",
+      "stop_loss_price": "$523.48",
+      "target_price": "$654.35",
+      "risk": "Sudden ceasefire reduces defense premium",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "INSW",
+      "action": "WATCH_LONG",
+      "catalyst": "Tanker war-risk premiums surge as Bab al-Mandeb crossings drop 34%",
+      "entry_idea": "Buy above $91.50 (current $91.35)",
+      "stop_loss_price": "$84.18",
+      "target_price": "$105.23",
+      "risk": "Rapid blockade resolution normalizes tanker rates",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "GOOGL",
+      "action": "WATCH_LONG",
+      "catalyst": "Cloud revenue +82% YoY to $24.8B; post-earnings selloff may be overdone",
+      "entry_idea": "Wait for pullback to $310 (current $317.69)",
+      "stop_loss_price": "$285.20",
+      "target_price": "$356.50",
+      "risk": "AI capex ROI fails to materialize; negative FCF persists",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "TSLA",
+      "action": "AVOID",
+      "catalyst": "Operating margin collapsed to 1.4%, EPS missed by 39%, negative FCF",
+      "entry_idea": "No entry — avoid at $319.69",
+      "stop_loss_price": "N/A",
+      "target_price": "N/A",
+      "risk": "Robotaxi announcement could cause short squeeze",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "AXP",
+      "action": "WATCH_LONG",
+      "catalyst": "Reports Q2 today — consensus $4.40 EPS; rising rates boost net interest income",
+      "entry_idea": "Buy on earnings beat above $341 (current $340.84)",
+      "stop_loss_price": "$313.57",
+      "target_price": "$392.17",
+      "risk": "Consumer spending slowdown from oil-driven inflation",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "DAL",
+      "action": "AVOID",
+      "catalyst": "Jet fuel costs surge with WTI above $90 — fuel is 25-30% of airline operating costs",
+      "entry_idea": "No entry — avoid at $81.97",
+      "stop_loss_price": "N/A",
+      "target_price": "N/A",
+      "risk": "Oil reversal or strong summer travel demand could offset fuel headwinds",
+      "signal_strength": "SELL"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "Houthi blockade escalation to full Strait of Hormuz closure",
+      "severity": "CRITICAL",
+      "causal_chain": "Houthi success emboldens Iran proxies > Iran threatens Strait of Hormuz > 21% of global oil transit at risk > Brent could spike to $120-130 > global recession trigger",
+      "sources": [
+        {"title": "Trump says U.S. will hold Iran responsible for Houthi attacks", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/07/23/iran-war-us-trump-houthis-red-sea-oil.html"},
+        {"title": "Houthis declare Saudi blockade as tankers turn back", "outlet": "CryptoBriefing", "url": "https://cryptobriefing.com/houthis-saudi-blockade-red-sea-tankers/"}
+      ]
+    },
+    {
+      "risk": "Fed rate hike at July 28-29 FOMC",
+      "severity": "HIGH",
+      "causal_chain": "Oil shock drives CPI expectations higher > 10Y at 4.71% prices in tightening > 33% probability of July hike > surprise hike would crush equity valuations",
+      "sources": [
+        {"title": "Market synthesis — yields and rate probability analysis", "outlet": "Claude analysis", "url": null}
+      ]
+    },
+    {
+      "risk": "AI capex bubble burst",
+      "severity": "HIGH",
+      "causal_chain": "Alphabet's $195-205B capex + negative FCF > market questions all hyperscaler AI ROI > broad tech derating > semiconductor demand revised down",
+      "sources": [
+        {"title": "Alphabet earnings takeaways: GOOGL stock sinks on capex hike", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/07/22/google-earnings-q2-goog-live-updates.html"},
+        {"title": "Alphabet Q2 Shows $5.85B Negative Free Cash Flow", "outlet": "Search Engine Journal", "url": "https://www.searchenginejournal.com/google-q2-earnings-show-5-85-billion-negative-free-cash-flow/583259/"}
+      ]
+    },
+    {
+      "risk": "US-China tariff talks collapse",
+      "severity": "MEDIUM",
+      "causal_chain": "Bilateral tariff reduction negotiations fail > tariffs remain at 23.4% > China retaliates on rare earth exports > tech supply chain disruption",
+      "sources": [
+        {"title": "On tariffs, China and US ask industry a US$30 billion question", "outlet": "SCMP", "url": "https://www.scmp.com/economy/global-economy/article/3361623/tariffs-china-and-us-ask-industry-us30-billion-question"}
+      ]
+    },
+    {
+      "risk": "Tesla margin contagion to broader EV sector",
+      "severity": "MEDIUM",
+      "causal_chain": "Tesla's 1.4% operating margin signals industry-wide pricing war > EV startups face funding pressure > auto sector de-rating",
+      "sources": [
+        {"title": "Tesla Q2 2026 Earnings: Sales Rise 25% As Operating Profit Falls 57%", "outlet": "InsideEVs", "url": "https://insideevs.com/news/802523/tesla-q2-2026-earnings-report/"}
+      ]
+    }
+  ],
+  "is_trading_day": true
+}
