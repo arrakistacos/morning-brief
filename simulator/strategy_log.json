@@ -1657,5 +1657,14 @@
       "NVDA": 196.04,
       "LMT": 583.33
     }
+  },
+  {
+    "date": "2026-07-27",
+    "type": "eod_reflection",
+    "note": "Morning thesis (BULLISH 5) was directionally right but overstated. The oil crash confirmed hard: USO fell ~8.7% on the US-Iran ceasefire pause, matching the 5-7% call, and DAL-style fuel-cost-relief and INTC's earnings beat (both flagged as buys) played out as expected. But the 'risk-on rotation' didn't fully materialize into broad equity strength -- SPY/DIA/IWM closed only marginally higher (SPY +0.02%, DIA +0.48%, IWM +0.60%) while the Nasdaq/QQQ closed red (-0.31%) as a tech selloff over AI capex spending (XLK -1.4%) offset the ceasefire tailwind, echoing the morning brief's own caveat about Alphabet's capex-driven selloff. GLD and TLT both drifted higher (+0.73%, +0.60%), a mild risk-off signal that sits awkwardly next to a BULLISH 5 score. Watch tomorrow: whether the AI-capex worry deepens into Big Tech earnings and Wednesday's FOMC, and whether oil/energy names (XOM) stabilize now that the ceasefire pause is priced in.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
