@@ -1581,5 +1581,63 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-27",
+    "type": "market_open_observation",
+    "note": "Broad green open across most of the watchlist. INTC opened at $92.46 and rallied to $94.46 (+2.3%), clearing the $93 BUY entry level \u2014 post-earnings momentum thesis confirmed. DAL surged +2.5% to $87.15, well above the $85 entry, validating the fuel cost tailwind call. MSFT opened at $390 and pushed to $391, above the $382 entry \u2014 strong move but brief was NEUTRAL pending earnings confirmation. ARM (+1.6%) and THC (+1.9%) both opened above their respective entry levels ($260 and $233), aligning with BUY signals. XOM fell -2.0% to $153.76, confirming the SELL/avoid thesis \u2014 oil weakness persists. NVDA slipped -0.5% to $205.88, dipping below the $207 entry \u2014 NEUTRAL call looks correct, no chase here. LMT opened at $568.59 (well below $580 short trigger) but rebounded to $583 \u2014 volatile, no clean short entry materialized.",
+    "prices": {
+      "INTC": {
+        "open": 92.46,
+        "last": 94.46,
+        "prev_close": 92.32,
+        "chg_pct": 2.32
+      },
+      "DAL": {
+        "open": 82.66,
+        "last": 87.15,
+        "prev_close": 85.06,
+        "chg_pct": 2.46
+      },
+      "MSFT": {
+        "open": 390.07,
+        "last": 391.2,
+        "prev_close": 381.7,
+        "chg_pct": 2.49
+      },
+      "ARM": {
+        "open": 262.01,
+        "last": 264.13,
+        "prev_close": 260.01,
+        "chg_pct": 1.58
+      },
+      "THC": {
+        "open": 235.01,
+        "last": 237.69,
+        "prev_close": 233.2,
+        "chg_pct": 1.93
+      },
+      "XOM": {
+        "open": 156.99,
+        "last": 153.76,
+        "prev_close": 156.94,
+        "chg_pct": -2.03
+      },
+      "NVDA": {
+        "open": 208.11,
+        "last": 205.88,
+        "prev_close": 206.84,
+        "chg_pct": -0.46
+      },
+      "LMT": {
+        "open": 568.59,
+        "last": 583.26,
+        "prev_close": 582.6,
+        "chg_pct": 0.11
+      }
+    },
+    "tags": [
+      "market_open"
+    ]
   }
 ]
