@@ -1639,5 +1639,23 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-27",
+    "type": "midday_check",
+    "note": "Midday sentiment has flipped bearish for chips despite the morning's WATCH_LONG bias on NVDA and INTC. NVDA down ~5% on reports it may provide $250B in financial guarantees for OpenAI's Ohio data center, raising credit risk concerns. INTC also down ~3.5% as the broader semi selloff (SMH -3%) overwhelms its post-earnings bounce. The US-Iran strike pause crashed WTI to ~$83 (-7%), which is thesis-confirming for DAL (WATCH_LONG) and thesis-confirming for XOM (AVOID). THC holding Friday's 16% earnings surge. MSFT earnings Wednesday remains the key catalyst for the AI trade. Morning sentiment holds for DAL, THC, XOM, and LMT but is under pressure for NVDA and INTC due to the chip selloff.",
+    "tags": [
+      "midday"
+    ],
+    "prices": {
+      "INTC": 90.12,
+      "DAL": 86.54,
+      "MSFT": 392.4,
+      "ARM": 260.61,
+      "THC": 244.73,
+      "XOM": 154.53,
+      "NVDA": 196.04,
+      "LMT": 583.33
+    }
   }
 ]
