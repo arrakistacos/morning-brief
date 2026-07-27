@@ -1,0 +1,234 @@
+{
+  "date": "2026-07-27",
+  "overall_sentiment": "BULLISH",
+  "sentiment_score": 5,
+  "sentiment_reasoning": "US-Iran ceasefire pause triggers risk-on rotation as oil crashes 5-7%, easing inflation fears ahead of Wednesday's FOMC decision. The busiest earnings week of the quarter provides upside catalysts if AI monetization proves out, but Alphabet's capex-driven 7% selloff warns of downside if spending discipline disappoints. Net bullish on ceasefire momentum and earnings volume, capped by FOMC and capex uncertainty.",
+  "summary": {
+    "gist": "Oil's 7% crash on the US-Iran ceasefire pause is the dominant force today — it simultaneously relieves inflation pressure on the Fed, cuts fuel costs for airlines and transports, and compresses the equity risk premium. The directional bet is long risk assets, short energy, with the FOMC Wednesday and Big Tech earnings providing binary catalysts that will either amplify or reverse this move.",
+    "actionable_items": [
+      "Buy INTC above $93 — stop $85.56 (-8%), target $106.95 (+15%) — Q2 revenue beat at $16.3B crushed $15.1B estimates, foundry strategy gaining traction, chip stocks bouncing off recent lows",
+      "Buy DAL above $85 — stop $78.20 (-8%), target $97.75 (+15%) — oil crash from $92 to $84 WTI directly cuts largest cost input, fuel hedges become profitable, consumer travel demand intact",
+      "Watch MSFT into Wed earnings — entry $382, stop $351 (-8%), target $439 (+15%) — Azure AI monetization is the litmus test for the entire AI capex cycle",
+      "Avoid long XOM at $157 — oil crash pressure with Brent below $87, geopolitical risk premium evaporating; wait for ceasefire clarity or $140 support",
+      "Buy ARM above $260 — stop $239 (-8%), target $299 (+15%) — AI chip design royalties scale with every hyperscaler capex dollar, earnings this week"
+    ],
+    "stoic_quote": {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "attribution": "Marcus Aurelius — Meditations"
+    }
+  },
+  "executive_summary": "US stock futures surged Monday as a fragile US-Iran ceasefire pause sent oil crashing 5-7%, lifting the S&P 500 futures +0.82%, Nasdaq +1.38%, and Dow +0.80%. The oil collapse eases immediate inflation pressure ahead of the FOMC decision Wednesday, where the Fed is expected to hold rates steady but markets price a 38% chance of a hike. This week brings the heaviest earnings calendar of the quarter: Microsoft and Meta report Wednesday, Apple and Amazon Thursday, with AI capital expenditure discipline the central question after Alphabet's capex shock triggered a 7% selloff. The VIX dropped 4.5% to 17.74, signaling markets are tentatively positioning for a risk-on week.",
+  "top_themes": [
+    "US-Iran Ceasefire & Oil Collapse",
+    "FOMC Decision Week — Hold vs. Surprise Hike",
+    "Big Tech AI Capex Reckoning (MSFT, META, AAPL, AMZN)",
+    "Semiconductor Earnings Momentum (INTC beat, ARM upcoming)",
+    "China Trade Tensions — New 12.5% Tariffs + Xi Visit"
+  ],
+  "macro_events": [
+    {
+      "title": "US-Iran Ceasefire Pause — Oil Crashes 5-7%",
+      "impact_level": "HIGH",
+      "time_horizon": "Intraday to 2 weeks",
+      "causal_chain": "US and Iran pause strikes for 3rd consecutive night → Strait of Hormuz shipping risk eases (21% of global oil, 20% of LNG transits) → war-risk insurance premiums on VLCCs begin normalizing → Brent crashes 7.4% to ~$86/bbl, WTI -5.6% to ~$84 → Asian refiners no longer rerouting via Cape of Good Hope (saving $2M/trip, 12-14 days) → global energy supply chain de-risks → inflation expectations ease → 10Y yield slides 2bps to 4.68% → equity risk premium contracts → S&P futures +0.82%, VIX -4.5% to 17.74 → defense stocks lose war premium, airlines/transports rally on fuel cost relief",
+      "geographic_dimension": "Middle East → Global oil trade → US/EU/Asia equity markets",
+      "historical_analog": "Sep 2019 Abqaiq drone attack — Brent +15% in 24h, then reversed 80% of move within 2 weeks as supply restored. Current reverse: oil was elevated at ~$92-100, ceasefire producing mirror-image unwind.",
+      "counterargument": "Ceasefire is extremely fragile — no formal agreement, just mutual restraint. Trump threatened stepped-up attacks last week. Any single strike restarts the cycle, snapping oil back above $100.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "DOWN", "reason": "Oil crash compresses E&P margins; Brent below $87 erodes premium pricing"},
+        {"ticker": "CVX", "direction": "DOWN", "reason": "Same oil price headwind; reports earnings Friday into downward price trend"},
+        {"ticker": "COP", "direction": "DOWN", "reason": "Pure-play E&P most exposed to WTI decline to $84"},
+        {"ticker": "DAL", "direction": "UP", "reason": "Fuel is 25-30% of airline costs; $8/bbl drop = ~$800M annual savings industry-wide"},
+        {"ticker": "UAL", "direction": "UP", "reason": "Same fuel cost tailwind; summer travel demand intact"},
+        {"ticker": "LMT", "direction": "DOWN", "reason": "Defense war premium eroding as ceasefire holds"},
+        {"ticker": "RTX", "direction": "DOWN", "reason": "Weapons/munitions demand narrative weakens on peace hopes"}
+      ]
+    },
+    {
+      "title": "FOMC Decision Wednesday — Hold Expected, Hike Not Off Table",
+      "impact_level": "HIGH",
+      "time_horizon": "Wednesday through end of week",
+      "causal_chain": "FOMC meets July 28-29, decision at 2pm ET Wednesday → Oil spike had pushed rate hike odds to 38% (up from 12% a week ago) → overnight oil crash may relieve hawkish pressure → Fed Chair Warsh pledged 2% inflation target but offered few forward clues → June CPI: headline -0.4% MoM but still 3.5% YoY, core 2.6% YoY → if dovish hold, equities extend rally, 10Y drops toward 4.50%, growth stocks lead → if hawkish hold with hike signal, 10Y spikes above 4.80%, tech sells off 3-5%",
+      "geographic_dimension": "US monetary policy → Global rate expectations, DXY, EM currencies",
+      "historical_analog": "June 2023 skip — Fed held but signaled more hikes coming; markets initially rallied, then sold off 4% over next two weeks.",
+      "counterargument": "Core CPI at 2.6% YoY is approaching the 2% target. With oil now crashing, headline inflation may undershoot significantly. Fed may signal patience, removing hike tail risk entirely.",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "MIXED", "reason": "Dovish hold = TLT rallies as yields drop; hawkish = TLT sells off further from $83"},
+        {"ticker": "NVDA", "direction": "MIXED", "reason": "High-duration growth name most sensitive to rate expectations"},
+        {"ticker": "MSFT", "direction": "MIXED", "reason": "Growth stock rate sensitivity amplified by earnings same day as FOMC"}
+      ]
+    },
+    {
+      "title": "Big Tech AI Capex Earnings — Market's Biggest Binary Event",
+      "impact_level": "HIGH",
+      "time_horizon": "Wednesday-Thursday",
+      "causal_chain": "Alphabet raised 2026 capex to $205B → shares -7% → MSFT reports Wed (Azure AI growth, Copilot adoption) → META Wed (Reality Labs losses, AI infra vs. 41.4% margins) → AAPL Thu (Services growth, AI iPhone cycle) → AMZN Thu (AWS AI revenue) → S&P 500 expects 38% YoY Q2 earnings growth → if capex rises without monetization, tech sells off 5-10% → if AI revenue beats, sector rallies 8-12%",
+      "geographic_dimension": "US Big Tech → Global semiconductor supply chain → Data center REITs",
+      "historical_analog": "Q1 2024 capex panic — similar fears, but earnings beat and Nasdaq rallied 15% over the following month.",
+      "counterargument": "Even if earnings beat, market may have priced in perfection at current valuations. MSFT at 25x forward, META at 22x — any guidance miss gets punished severely.",
+      "affected_tickers": [
+        {"ticker": "MSFT", "direction": "MIXED", "reason": "Azure AI growth rate needs >35% to justify $382"},
+        {"ticker": "META", "direction": "MIXED", "reason": "AI ad targeting vs. Reality Labs cash burn — margins are the swing"},
+        {"ticker": "AAPL", "direction": "MIXED", "reason": "AI iPhone supercycle needs proof in Services revenue"},
+        {"ticker": "AMZN", "direction": "MIXED", "reason": "AWS AI revenue mix shift could expand margins"},
+        {"ticker": "NVDA", "direction": "UP", "reason": "Hyperscaler capex = NVDA revenue pipeline"},
+        {"ticker": "ARM", "direction": "UP", "reason": "AI chip design royalties scale with volume"}
+      ]
+    },
+    {
+      "title": "China Trade — New 12.5% Tariffs Amid Diplomatic Overtures",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Weeks to months",
+      "causal_chain": "Trump's new 12.5% tariffs → effective rate 23.4% → bilateral negotiations ongoing → Xi US visit planned → if deal progress, EM/manufacturing rally → if escalation, semiconductor supply chain disruption → EU preparing competitive defense measures adds pressure",
+      "geographic_dimension": "US-China bilateral → Global semiconductor supply chain → EM currencies",
+      "historical_analog": "2019 Phase 1 deal negotiations — markets rallied 8% on deal hopes despite tariffs remaining elevated.",
+      "counterargument": "23.4% effective tariff rate is still highly disruptive. Supply chain diversification underway reduces China leverage.",
+      "affected_tickers": [
+        {"ticker": "AAPL", "direction": "MIXED", "reason": "iPhone assembly in China; tariff reduction = margin benefit"},
+        {"ticker": "AVGO", "direction": "MIXED", "reason": "Networking chips with significant China revenue exposure"},
+        {"ticker": "QCOM", "direction": "MIXED", "reason": "Smartphone chip sales to Chinese OEMs at risk"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {"direction": "BULLISH", "key_names": ["MSFT", "META", "AAPL", "AMZN", "INTC", "ARM"], "rationale": "Earnings week catalyst with 38% YoY growth expected; INTC Q2 beat provides momentum; AI capex validation potential."},
+    "Healthcare": {"direction": "BULLISH", "key_names": ["THC", "AZN", "UHS"], "rationale": "THC +15% premarket on earnings beat; AZN reports today; sector showing defensive growth."},
+    "Financials": {"direction": "NEUTRAL", "key_names": ["V", "AXP", "SOFI"], "rationale": "AmEx revenue miss vs. earnings beat; Visa reports this week; FOMC outcome sets direction."},
+    "Energy": {"direction": "BEARISH", "key_names": ["XOM", "CVX", "COP"], "rationale": "Oil crash -7% on ceasefire decimates near-term outlook; XOM/CVX report Friday into headwind."},
+    "Consumer Discretionary": {"direction": "BULLISH", "key_names": ["AMZN", "TSLA", "F"], "rationale": "Lower oil = more disposable income; Ford reports this week; AMZN earnings Thursday."},
+    "Consumer Staples": {"direction": "NEUTRAL", "key_names": ["KO", "PG", "SBUX"], "rationale": "KO, PG, SBUX report this week; defensive may see outflows in risk-on environment."},
+    "Industrials": {"direction": "BULLISH", "key_names": ["BA", "NUE", "CAT"], "rationale": "Lower fuel costs benefit transports; BA reports this week; NUE earnings today."},
+    "Utilities": {"direction": "NEUTRAL", "key_names": ["NEE", "DUK", "SO"], "rationale": "Defensive sector sees outflows during risk-on; data center power demand is secular tailwind."},
+    "Materials": {"direction": "NEUTRAL", "key_names": ["NUE", "FCX", "APD"], "rationale": "NUE earnings today; copper steady; gold at $4,092 suggests residual uncertainty hedging."}
+  },
+  "commodity_outlook": {
+    "crude_oil": {"direction": "BEARISH", "price_note": "Brent ~$86, WTI ~$84 — down 5-7%", "key_driver": "US-Iran ceasefire pause deflates war premium; Strait of Hormuz risk easing"},
+    "natural_gas": {"direction": "BEARISH", "price_note": "Dutch TTF easing in sympathy", "key_driver": "Qatar LNG supply disruption fears fade with Hormuz de-escalation"},
+    "gold": {"direction": "NEUTRAL", "price_note": "$4,092/oz, +0.54%", "key_driver": "Safe-haven bid fading but FOMC uncertainty provides floor; DXY weakness supportive"},
+    "silver": {"direction": "NEUTRAL", "price_note": "Tracking gold with industrial premium", "key_driver": "Industrial demand steady, solar panel demand ongoing"},
+    "copper": {"direction": "BULLISH", "price_note": "Industrial demand resilient", "key_driver": "China stimulus expectations + data center construction + EV demand"},
+    "wheat": {"direction": "NEUTRAL", "price_note": "Stable", "key_driver": "Northern hemisphere harvest progressing normally"},
+    "soybeans": {"direction": "NEUTRAL", "price_note": "Trade-sensitive", "key_driver": "Tariff negotiation outcome determines Chinese purchase volumes"}
+  },
+  "currency_outlook": {
+    "DXY": {"direction": "BEARISH", "key_driver": "101.18, -0.28% — oil crash reduces Fed hike urgency"},
+    "EUR_USD": {"direction": "BULLISH", "key_driver": "DXY weakness benefits euro; European energy costs easing"},
+    "USD_JPY": {"direction": "NEUTRAL", "key_driver": "Risk-on supports higher but falling US yields offset"},
+    "USD_CNH": {"direction": "NEUTRAL", "key_driver": "Tariff negotiations create two-way risk; Xi visit diplomacy"}
+  },
+  "watchlist": [
+    {
+      "ticker": "INTC",
+      "action": "WATCH_LONG",
+      "catalyst": "Q2 revenue $16.3B crushed $15.1B estimate; foundry strategy gaining traction",
+      "entry_idea": "Above $93 on continued post-earnings momentum",
+      "stop_loss_price": "$85.56",
+      "target_price": "$106.95",
+      "risk": "Foundry execution risk; AMD/NVDA competitive pressure in data center",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "DAL",
+      "action": "WATCH_LONG",
+      "catalyst": "Oil crash from $92 to $84 WTI cuts largest cost input (25-30% of expenses)",
+      "entry_idea": "Above $85 at current level — immediate fuel cost tailwind",
+      "stop_loss_price": "$78.20",
+      "target_price": "$97.75",
+      "risk": "Ceasefire collapse → oil snaps back above $95; consumer recession dampens travel",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "MSFT",
+      "action": "WATCH_LONG",
+      "catalyst": "Earnings Wednesday — Azure AI revenue growth rate is the key number for the AI trade",
+      "entry_idea": "Entry $382, consider waiting for post-earnings confirmation",
+      "stop_loss_price": "$351.44",
+      "target_price": "$439.30",
+      "risk": "Alphabet capex contagion if MSFT raises capex without clear ROI",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "ARM",
+      "action": "WATCH_LONG",
+      "catalyst": "AI chip design royalties scale with hyperscaler capex; earnings this week",
+      "entry_idea": "Above $260 at current level",
+      "stop_loss_price": "$239.20",
+      "target_price": "$299.00",
+      "risk": "RISC-V competition; China domestic chip design reduces licensing",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "THC",
+      "action": "WATCH_LONG",
+      "catalyst": "Jumped 15%+ premarket on Q2 earnings beat with revenue and guidance upside",
+      "entry_idea": "Above $233 — momentum entry on gap-up",
+      "stop_loss_price": "$214.36",
+      "target_price": "$267.95",
+      "risk": "Gap-up exhaustion after 15% move; post-earnings profit-taking",
+      "signal_strength": "BUY"
+    },
+    {
+      "ticker": "XOM",
+      "action": "AVOID",
+      "catalyst": "Oil crash pressure — Brent from $92 to $86 erodes premium pricing",
+      "entry_idea": "Avoid at $157 — wait for oil stabilization or $140 support",
+      "stop_loss_price": "N/A",
+      "target_price": "N/A",
+      "risk": "Ceasefire holds → oil to $80 → EPS estimates cut 15-20%",
+      "signal_strength": "SELL"
+    },
+    {
+      "ticker": "NVDA",
+      "action": "WATCH_LONG",
+      "catalyst": "Hyperscaler AI capex = NVDA GPU revenue; MSFT/META/AMZN guidance this week is catalyst",
+      "entry_idea": "Above $207 at current level",
+      "stop_loss_price": "$190.29",
+      "target_price": "$237.87",
+      "risk": "Big Tech capex revolt spreads — demand fears trigger 8-12% selloff",
+      "signal_strength": "NEUTRAL"
+    },
+    {
+      "ticker": "LMT",
+      "action": "WATCH_SHORT",
+      "catalyst": "Defense war premium eroding on ceasefire — priced in elevated conflict spending",
+      "entry_idea": "Short below $580 — ceasefire continuation unwinds premium",
+      "stop_loss_price": "$629.21",
+      "target_price": "$495.10",
+      "risk": "Ceasefire collapse → defense stocks snap back 5-10%",
+      "signal_strength": "NEUTRAL"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "US-Iran Ceasefire Collapse",
+      "severity": "CRITICAL",
+      "causal_chain": "Fragile mutual restraint with no formal agreement → single strike restarts escalation → oil snaps back above $100 → inflation re-anchors higher → Fed forced hawkish → equity risk-on reverses → VIX spikes above 25",
+      "sources": [{"title": "US, Iran Pause Strikes for Third Night", "outlet": "Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-07-27/middle-east-tensions-ease-as-the-us-and-iran-pause-hostilities"}, {"title": "Oil slides 6% as Iran reportedly signals halt", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/07/27/oil-price-wti-brent-slide-as-iran-reportedly-may-halt-attacks.html"}]
+    },
+    {
+      "risk": "FOMC Surprise Rate Hike",
+      "severity": "HIGH",
+      "causal_chain": "Oil-driven inflation pushed hike odds to 38% → Fed surprises with 25bp hike → 10Y yield spikes above 4.90% → growth P/E multiples compress 10-15% → tech selloff amplified by earnings positioning → mortgage rates spike",
+      "sources": [{"title": "FOMC Meeting July 28-29", "outlet": "CME Lite Group", "url": "https://www.cmelitegroup.com/knowledge-hub/fomc-meeting-fed-decision-day/"}, {"title": "Bond Market Flipped to Rate Hike in July", "outlet": "Wolf Street", "url": "https://wolfstreet.com/2026/07/23/bond-market-just-flipped-to-rate-hike-in-july-as-2-month-treasury-yield-spiked-by-13-basis-points/"}]
+    },
+    {
+      "risk": "Big Tech AI Capex Revolt Spreads",
+      "severity": "HIGH",
+      "causal_chain": "Alphabet raised capex to $205B → shares -7% → if MSFT/META raise capex without monetization → AI valuation reset → semiconductor demand estimates cut → NVDA/AMD/AVGO sell off 10-15% → Nasdaq correction",
+      "sources": [{"title": "Big Tech earnings slam into market revolt over AI spending", "outlet": "Fortune", "url": "https://fortune.com/2026/07/26/big-tech-earnings-meta-microsoft-apple-amazon-market-revolt-ai-spending/"}, {"title": "Big Tech Earnings Week: MSFT, META, AAPL, AMZN", "outlet": "AskTraders", "url": "https://www.asktraders.com/analysis/big-tech-earnings-week-microsoft-meta-apple-and-amazon-set-to-report/"}]
+    },
+    {
+      "risk": "China Tariff Escalation",
+      "severity": "MEDIUM",
+      "causal_chain": "Trump's 12.5% tariffs provoke retaliation → semiconductor export controls tighten → TSMC supply chain disruption → Apple/NVDA affected → consumer electronics inflation → EM currency weakness",
+      "sources": [{"title": "China Set to Look Past New Trump Tariffs Before Xi's US Trip", "outlet": "Bloomberg", "url": "https://www.bloomberg.com/news/articles/2026-07-24/china-set-to-look-past-trump-s-new-tariffs-before-xi-visit-to-us"}]
+    },
+    {
+      "risk": "Oil Undershoot Triggers Energy Credit Contagion",
+      "severity": "MEDIUM",
+      "causal_chain": "Oil falls below $80 on ceasefire → shale producers hit breakeven → E&P capex cuts → energy credit spreads widen → HYG selloff → broader credit contagion",
+      "sources": [{"title": "Market synthesis", "outlet": "Claude analysis", "url": null}]
+    }
+  ],
+  "is_trading_day": true
+}
