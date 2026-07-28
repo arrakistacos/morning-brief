@@ -1684,5 +1684,16 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-28",
+    "type": "midday_check",
+    "note": "MU thesis BROKEN: -8.9% in broad chip selloff driven by China CXMT debut, Samsung weak results, and AI valuation reset (semis gauge -6%, SK Hynix -14.7%). Morning WATCH_LONG entry call premature \u2014 positioning flush became a rout, not an opportunity. Airlines DAL +3.1% and UAL +3.1% confirming oil-crash fuel tailwind thesis as Brent drops 7-8% on Iran ceasefire. XOM -1.6% validating AVOID call. MSFT +2.3% holding strong pre-earnings Wed; AAPL +0.7% steady. AVGO -0.3% showing relative resilience vs chip peers (Morgan Stanley OW reiteration). Fed decision Wed adds macro risk. Morning sentiment holds for 7 of 8 names \u2014 MU is the outlier.",
+    "tags": [
+      "midday",
+      "chip_selloff",
+      "mu_thesis_broken",
+      "airline_tailwind"
+    ]
   }
 ]
