@@ -1666,5 +1666,23 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-28",
+    "type": "market_open_observation",
+    "note": "Mon 7/28 open: Market opened flat with all tickers showing 0% gap from Friday's close \u2014 quiet start to the week. DAL ($86.99) remains above its $85 entry level from Friday's brief, keeping the fuel-cost-tailwind thesis in play. THC ($247.68) continues well above $233 gap-up entry \u2014 already extended, not a fresh entry. MSFT ($398.29) running well past $382 thesis entry. INTC ($85.90) still well below $93 trigger \u2014 no post-earnings momentum yet. ARM ($245.50) and NVDA ($194.68) remain below their respective entry levels ($260, $207). XOM ($155.30) drifting toward the $157 avoid zone \u2014 bearish thesis intact. LMT ($587.72) holding above $580 short trigger \u2014 no short entry. No fresh entry conditions triggered at the open today.",
+    "prices": {
+      "INTC": 85.9,
+      "DAL": 86.99,
+      "MSFT": 398.29,
+      "ARM": 245.5,
+      "THC": 247.68,
+      "XOM": 155.3,
+      "NVDA": 194.68,
+      "LMT": 587.72
+    },
+    "tags": [
+      "market_open"
+    ]
   }
 ]
