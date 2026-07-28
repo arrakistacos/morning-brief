@@ -1695,5 +1695,14 @@
       "mu_thesis_broken",
       "airline_tailwind"
     ]
+  },
+  {
+    "date": "2026-07-28",
+    "type": "eod_reflection",
+    "note": "Morning MIXED thesis (oil crash unlocks cyclical/airline rotation, semi selloff is profit-taking not structural) held up directionally at the close. Dow (DIA) led +1.08% and USO extended its slide -3.42% as the Iran ceasefire pause thesis kept playing out, validating the airline/cyclical rotation call (DAL/UAL) flagged this morning and confirmed at midday. VIX fell -2.46%, consistent with de-risking off the geopolitical catalyst. QQQ was the contrary mover, down -0.97% as the chip selloff (Samsung/SK Hynix -10%+) proved deeper than the 'profit-taking' framing suggested \u2014 midday already flagged MU's thesis as broken (-8.9%), and that weakness carried through to the close rather than reversing. TLT firmed +0.59% (yields down), a tailwind for the FOMC-hold camp rather than the rate-repricing hedge flagged this morning. Watch tomorrow: FOMC decision and the Mag 7 earnings gauntlet (MSFT/META/AAPL/AMZN) will be the next major test of whether AI capex fears are overdone or the semi correction is turning structural.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
