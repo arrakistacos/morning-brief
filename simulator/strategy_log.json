@@ -1723,5 +1723,14 @@
       "earnings",
       "china_duv"
     ]
+  },
+  {
+    "date": "2026-07-29",
+    "type": "eod_reflection",
+    "note": "Morning BEARISH -4 thesis played out cleanly. SPY -1.54%, QQQ -2.04%, DIA -2.18%, IWM -1.64% as oil-spike and chip-selloff fears combined with a more hawkish-than-expected FOMC outcome (rates held 3.50-3.75% but three members dissented in favor of a hike). USO +7.3% confirmed the Iran/Strait of Hormuz oil premium; VIX +13.4% and TLT -1.65% (yields up) both validated the risk-off, higher-for-longer read. GLD only +0.46%, a muted safe-haven bid given the inflationary nature of the shock. No tickers moved meaningfully contrary to thesis. Watch tomorrow: MSFT/META earnings reaction after the bell for whether AI capex commentary can arrest the semiconductor rout, and any follow-through in oil/Treasury yields on continued Iran-US tension.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
