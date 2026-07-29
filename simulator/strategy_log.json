@@ -1704,5 +1704,13 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-29",
+    "type": "market_open_observation",
+    "note": "Iran's surprise attacks on the US dominated the open. XOM surged +2.66% past the $153 entry on the geopolitical risk bid \u2014 already extended. LMT gapped up to $589 but reversed hard, falling below the $581 buy level to $577.79 \u2014 defense name selling off despite the news is notable. MSFT ($389.88) and META ($592.81) remain below their earnings-beat triggers ($400 and $600 respectively) ahead of the Fed decision. TLT opened at $84.11, flirting with the $84 short trigger \u2014 worth watching intraday. ASML bounced to $1,584, well above the $1,560 short level. SMH at $527 is nowhere near the $500 stabilization zone. Overall a risk-off open driven by geopolitics, with energy the clear winner.",
+    "tags": [
+      "market_open"
+    ]
   }
 ]
