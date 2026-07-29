@@ -1712,5 +1712,16 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-29",
+    "type": "midday_check",
+    "note": "Broad market under pressure ahead of Fed decision (2pm ET) and MSFT/META earnings after close. Dow -0.78%, SPY -0.67%. SMH down sharply (-3.07%) as China DUV lithography breakthrough continues to weigh on semis \u2014 ASML -1.50%. XOM +2.61% as Brent crude holds near $89 on Strait of Hormuz supply risk; morning WATCH_LONG thesis intact. MSFT +0.67% ahead of earnings; META flat. LMT -1.09% despite ongoing Iran conflict \u2014 possibly digesting after strong YTD run. TLT -0.43% as bond yields firm on oil-driven inflation fears. Key risk: Warsh may signal hawkish tilt at 2:30pm presser. Morning sentiment broadly intact but semi weakness (SMH AVOID thesis confirmed) and Fed uncertainty dominate.",
+    "tags": [
+      "midday",
+      "fed_decision",
+      "earnings",
+      "china_duv"
+    ]
   }
 ]
