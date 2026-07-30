@@ -1758,5 +1758,14 @@
     "tags": [
       "midday"
     ]
+  },
+  {
+    "date": "2026-07-30",
+    "type": "eod_reflection",
+    "note": "Morning sentiment (MIXED, -2) was too bearish. The thesis leaned on a $1T chip selloff, Iran-driven oil spike, and a bond-market revolt at 5.20% 30Y yields, but the close told a different story: QQQ ripped +3.30% and SPY +1.68% to a fresh high above 7,400 as chipmakers rebounded hard on AI-trade dip-buying, VIX collapsed -17.3% to 17.09, and USO actually fell -1.42% as oil-driven inflation fears eased rather than compounded. TLT was flat (-0.06%), so the bond revolt didn't escalate further. Dominant theme at close: risk-on reversal, chips led the bounce-back, GDP/PCE data apparently gave bulls the ammunition rather than validating Fed hawks. Contrary-to-thesis mover: NVDA/chip complex (flagged 'avoid long' this morning) was the session's biggest engine higher via QQQ strength. Watch tomorrow: whether the chip rebound has legs or was a one-day dip-buy, and whether oil/yields resume their climb now that today's data relief has passed.",
+    "tags": [
+      "eod",
+      "reflection"
+    ]
   }
 ]
