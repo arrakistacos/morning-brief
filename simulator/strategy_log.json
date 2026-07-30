@@ -1732,5 +1732,23 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-30",
+    "type": "market_open_observation",
+    "note": "MSFT opened at $447.15, well above the $392 buy-above level \u2014 already extended past the entry zone, confirming strong after-hours momentum but not an actionable open entry. META at $529.29 is below the $580 short-trigger level, consistent with the SELL thesis but no short entry triggered yet since it needs to break below $580 from above. XOM ($156.08) and LMT ($564.47) both opened below their respective buy-above levels ($158 and $572), so no entry conditions met. RTX at $211.44 also below its $217 buy level. BE at $198.63 is well above the $165 buy level \u2014 already extended from the blowout quarter momentum. NVDA at $192.27 is above the $175 support watch level, no entry signal. AAPL at $331.52 remains below $345, awaiting earnings. Net: No actionable entry triggers at the open. XOM and LMT are closest to their levels and worth monitoring intraday.",
+    "prices": {
+      "MSFT": 447.15,
+      "META": 529.29,
+      "XOM": 156.08,
+      "LMT": 564.47,
+      "NVDA": 192.27,
+      "AAPL": 331.52,
+      "RTX": 211.44,
+      "BE": 198.63
+    },
+    "tags": [
+      "market_open"
+    ]
   }
 ]
