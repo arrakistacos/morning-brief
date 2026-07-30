@@ -1750,5 +1750,13 @@
     "tags": [
       "market_open"
     ]
+  },
+  {
+    "date": "2026-07-30",
+    "type": "midday_check",
+    "note": "MSFT +17% after blowout Azure earnings validates WATCH_LONG thesis strongly. META -8.9% confirming WATCH_SHORT as AI capex spending concerns deepen with FCF near zero. BE +25.7% on record Q2 and raised guidance, data center power thesis intact and accelerating. Oil at $92+ on US-Iran military escalation supports XOM WATCH_LONG but XOM flat today. NVDA +2% rebounding modestly from chip selloff. AAPL -1.9% ahead of after-hours Q3 report tonight \u2014 key event. Defense names LMT/RTX slightly red despite ongoing Iran tensions. Morning sentiment largely holds: tech earnings divergence (MSFT vs META) is the dominant theme.",
+    "tags": [
+      "midday"
+    ]
   }
 ]
