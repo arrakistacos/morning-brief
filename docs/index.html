@@ -9,431 +9,159 @@
   <meta name="description" content="Muad'Dib Market Intelligence — AI-powered daily market brief and paper trader dashboard">
   <title>Muad'Dib Market Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
 :root {
-  --bg: #0a0807;
-  --surface: #13100c;
-  --surface2: #1c1810;
-  --surface3: #231e14;
-  --border: #2d2315;
+  --bg: #060410;
+  --surface: #0d0a1a;
+  --surface2: #141024;
+  --surface3: #1a1530;
+  --border: #2b2247;
   --text: #E8DCC8;
-  --muted: #8a7660;
-  --sand: #C4A265;
-  --spice: #E07B2A;
-  --atreides: #4A8FCC;
-  --bull: #6ECB63;
-  --bear: #E05252;
+  --muted: #8d80a8;
+  --sand: #D4B078;
+  --spice: #FF8A1E;
+  --atreides: #4DC3FF;
+  --bull: #3DFF8A;
+  --bear: #FF3D5E;
+  --glow-spice: 0 0 8px rgba(255,138,30,.45), 0 0 22px rgba(255,138,30,.18);
+  --glow-sand: 0 0 10px rgba(212,176,120,.35);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 120% 60% at 50% -10%, rgba(255,138,30,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 50% at 50% 110%, rgba(77,195,255,.05) 0%, transparent 60%),
+    var(--bg);
   color: var(--text);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  min-height: 100vh;
-  -webkit-text-size-adjust: 100%;
+  font-size: 16px; line-height: 1.6; min-height: 100vh; -webkit-text-size-adjust: 100%;
 }
-
-/* Layout */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,.14) 0px, rgba(0,0,0,.14) 1px, transparent 1px, transparent 3px);
+  opacity: .5;
+}
 .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; width: 100%; }
-
-/* Hero Header */
 .hero {
-  text-align: center;
-  padding: 3rem 1rem 2rem;
-  border-bottom: 1px solid var(--border);
-  background: radial-gradient(ellipse at top, rgba(196,162,101,.08) 0%, transparent 65%);
+  text-align: center; padding: 3rem 1rem 2.25rem;
+  border-bottom: 1px solid var(--spice);
+  box-shadow: 0 1px 0 rgba(255,138,30,.25), 0 10px 40px -20px rgba(255,138,30,.35);
+  background:
+    linear-gradient(to top, rgba(255,138,30,.10) 0%, transparent 38%),
+    repeating-linear-gradient(0deg, rgba(255,138,30,.10) 0px, rgba(255,138,30,.10) 1px, transparent 1px, transparent 14px),
+    radial-gradient(ellipse at top, rgba(212,176,120,.10) 0%, transparent 65%);
 }
-.hawk-emblem {
-  margin: 0 auto 1.5rem;
-  color: var(--sand);
-  opacity: .88;
-  width: clamp(55px, 12vw, 88px);
-}
+.hawk-emblem { margin: 0 auto 1.25rem; color: var(--spice); filter: drop-shadow(0 0 6px rgba(255,138,30,.55)); opacity: .95; width: clamp(55px, 12vw, 88px); }
 .hawk-emblem svg { width: 100%; height: auto; display: block; }
-.hero h1 {
-  font-size: clamp(1.2rem, 4vw, 2rem);
-  color: var(--sand);
-  font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.hero-tagline {
-  font-size: clamp(.82rem, 2.5vw, 1rem);
-  color: var(--spice);
-  font-style: italic;
-  margin-top: .5rem;
-  opacity: .9;
-}
-.hero-sub { font-size: .8rem; color: var(--muted); margin-top: .3rem; }
-
-/* Tab Navigation */
-.tab-nav {
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
+.hero h1 { font-family: 'Orbitron', 'Share Tech Mono', monospace; font-size: clamp(1.15rem, 4vw, 1.9rem); color: var(--sand); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; text-shadow: var(--glow-sand); }
+.hero-tagline { font-family: 'Share Tech Mono', monospace; font-size: clamp(.8rem, 2.5vw, .95rem); color: var(--spice); margin-top: .5rem; letter-spacing: .18em; text-transform: uppercase; text-shadow: var(--glow-spice); }
+.hero-sub { font-family: 'Share Tech Mono', monospace; font-size: .74rem; color: var(--muted); margin-top: .45rem; letter-spacing: .08em; }
+.tab-nav { display: flex; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; border-bottom: 1px solid var(--border); background: rgba(13,10,26,.92); backdrop-filter: blur(6px); position: sticky; top: 0; z-index: 50; }
 .tab-nav::-webkit-scrollbar { display: none; }
-.tab-btn {
-  padding: 1rem 1.5rem;
-  white-space: nowrap;
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  color: var(--muted);
-  font-size: .9rem;
-  cursor: pointer;
-  min-height: 48px;
-  font-family: inherit;
-  font-weight: 500;
-  transition: color .2s, border-color .2s;
-}
-.tab-btn.active { color: var(--sand); border-bottom-color: var(--sand); }
+.tab-btn { padding: 1rem 1.5rem; white-space: nowrap; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-family: 'Share Tech Mono', monospace; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; min-height: 48px; transition: color .2s, border-color .2s, text-shadow .2s; }
+.tab-btn.active { color: var(--spice); border-bottom-color: var(--spice); text-shadow: var(--glow-spice); }
 .tab-btn:hover:not(.active) { color: var(--text); }
 .tab-content { display: none; padding: 1.75rem 0 3rem; }
 .tab-content.active { display: block; }
-
-/* Stat Cards */
-.stat-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
-  gap: .75rem;
-  margin-bottom: 1.5rem;
-}
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem;
-}
-.stat-label {
-  font-size: .68rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  font-weight: 600;
-}
-.stat-value {
-  font-size: 1.45rem;
-  font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
-  margin-top: .25rem;
-  word-break: break-all;
-}
-
-/* Charts */
-.chart-wrap {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-.chart-title {
-  font-size: .73rem;
-  color: var(--muted);
-  margin-bottom: .75rem;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  font-weight: 600;
-}
+.tldr { background: linear-gradient(135deg, rgba(255,138,30,.08) 0%, var(--surface) 45%); border: 1px solid var(--spice); border-radius: 8px; box-shadow: 0 0 0 1px rgba(255,138,30,.15), 0 8px 30px -18px rgba(255,138,30,.5); padding: 1.25rem 1.4rem; margin-bottom: 1.5rem; }
+.tldr-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .7rem; }
+.tldr-title { font-family: 'Share Tech Mono', monospace; color: var(--spice); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; text-shadow: var(--glow-spice); }
+.regime-badge { font-family: 'Share Tech Mono', monospace; font-size: .7rem; letter-spacing: .12em; padding: .2rem .65rem; border-radius: 3px; border: 1px solid currentColor; text-transform: uppercase; }
+.tldr-gist { font-size: .95rem; line-height: 1.65; color: var(--text); margin-bottom: .8rem; }
+.tldr-items { list-style: none; margin: 0 0 .8rem; padding: 0; }
+.tldr-items li { font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--sand); padding: .3rem 0 .3rem 1.4rem; position: relative; border-bottom: 1px dashed rgba(43,34,71,.8); }
+.tldr-items li:last-child { border-bottom: none; }
+.tldr-items li::before { content: "▸"; position: absolute; left: .2rem; color: var(--spice); }
+.tldr-quote { font-style: italic; color: var(--sand); font-size: .85rem; border-left: 2px solid var(--spice); padding-left: .8rem; opacity: .9; }
+.tldr-quote-attr { color: var(--muted); font-style: normal; font-size: .75rem; }
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: .75rem; margin-bottom: 1.5rem; }
+.stat-card { background: linear-gradient(180deg, var(--surface2) 0%, var(--surface) 100%); border: 1px solid var(--border); border-top: 2px solid var(--spice); border-radius: 6px; padding: 1rem; }
+.stat-label { font-family: 'Share Tech Mono', monospace; font-size: .64rem; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; }
+.stat-value { font-size: 1.45rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-top: .25rem; word-break: break-all; text-shadow: 0 0 12px rgba(232,220,200,.15); }
+.chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem; }
+.chart-title { font-family: 'Share Tech Mono', monospace; font-size: .7rem; color: var(--atreides); margin-bottom: .75rem; text-transform: uppercase; letter-spacing: .12em; }
 .chart-container { position: relative; height: 350px; width: 100%; }
 .chart-container-sm { position: relative; height: 130px; width: 100%; }
-
-/* Section Headers */
-.section-header {
-  font-size: .92rem;
-  color: var(--sand);
-  font-weight: 600;
-  margin-bottom: .875rem;
-  padding-bottom: .5rem;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-
-/* Report Cards */
+.section-header { font-family: 'Share Tech Mono', monospace; font-size: .88rem; color: var(--spice); letter-spacing: .1em; text-transform: uppercase; text-shadow: var(--glow-spice); margin-bottom: .875rem; padding-bottom: .5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .5rem; }
 .reports-grid { display: grid; gap: .75rem; }
-.report-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.25rem;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: border-color .2s, background .2s;
-}
-.report-card:hover { border-color: var(--sand); background: var(--surface2); }
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: .5rem;
-  margin-bottom: .5rem;
-}
-.card-date {
-  font-weight: 600;
-  font-size: .92rem;
-  font-family: 'JetBrains Mono', monospace;
-}
+.report-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--border); border-radius: 6px; padding: 1.25rem; text-decoration: none; color: inherit; display: block; transition: border-color .2s, background .2s, box-shadow .2s; }
+.report-card:hover { border-color: var(--spice); background: var(--surface2); box-shadow: 0 0 18px -6px rgba(255,138,30,.4); }
+.card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .5rem; }
+.card-date { font-weight: 600; font-size: .92rem; font-family: 'JetBrains Mono', monospace; color: var(--sand); }
 .card-themes { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .6rem; }
-.theme {
-  background: var(--surface2);
-  color: var(--atreides);
-  padding: .15rem .6rem;
-  border-radius: 12px;
-  font-size: .72rem;
-  font-weight: 500;
-  border: 1px solid rgba(74,143,204,.2);
-}
+.theme { background: rgba(77,195,255,.07); color: var(--atreides); padding: .15rem .6rem; border-radius: 2px; font-family: 'Share Tech Mono', monospace; font-size: .68rem; letter-spacing: .04em; border: 1px solid rgba(77,195,255,.3); }
 .card-summary { font-size: .84rem; color: var(--muted); line-height: 1.55; }
-
-/* Tables */
-.table-wrap {
-  overflow-x: auto;
-  margin-bottom: 1.5rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  -webkit-overflow-scrolling: touch;
-}
+.table-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 6px; border: 1px solid var(--border); -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; min-width: 540px; }
-thead th {
-  background: var(--surface2);
-  color: var(--sand);
-  font-size: .7rem;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  padding: .75rem 1rem;
-  text-align: left;
-  white-space: nowrap;
-  font-weight: 700;
-}
-tbody td {
-  padding: .75rem 1rem;
-  border-bottom: 1px solid var(--border);
-  font-size: .84rem;
-  vertical-align: middle;
-  color: var(--text);
-}
+thead th { background: var(--surface3); color: var(--spice); font-family: 'Share Tech Mono', monospace; font-size: .66rem; text-transform: uppercase; letter-spacing: .12em; padding: .75rem 1rem; text-align: left; white-space: nowrap; border-bottom: 1px solid var(--spice); }
+tbody td { padding: .75rem 1rem; border-bottom: 1px solid var(--border); font-size: .84rem; vertical-align: middle; color: var(--text); }
 tbody tr:last-child td { border-bottom: none; }
-tbody tr:hover td { background: rgba(196,162,101,.03); }
-.empty-state {
-  text-align: center;
-  color: var(--muted);
-  padding: 2.5rem 1rem;
-  font-style: italic;
-  font-size: .88rem;
-}
-
-/* Mobile Card Table */
+tbody tr:hover td { background: rgba(255,138,30,.04); }
+.empty-state { text-align: center; color: var(--muted); padding: 2.5rem 1rem; font-style: italic; font-size: .88rem; }
 @media (max-width: 768px) {
   .mobile-card-table-wrap { border: none; background: transparent; overflow-x: visible; }
   .mobile-card-table { min-width: unset; width: 100%; }
   .mobile-card-table thead { display: none; }
-  .mobile-card-table tbody tr {
-    display: block;
-    background: var(--surface2);
-    margin-bottom: .75rem;
-    border-radius: 10px;
-    padding: .875rem;
-    border: 1px solid var(--border);
-  }
-  .mobile-card-table tbody td {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: .3rem 0;
-    border: none;
-    font-size: .84rem;
-    gap: .5rem;
-  }
-  .mobile-card-table tbody td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: var(--sand);
-    white-space: nowrap;
-    flex-shrink: 0;
-    min-width: 90px;
-  }
+  .mobile-card-table tbody tr { display: block; background: var(--surface2); margin-bottom: .75rem; border-radius: 6px; padding: .875rem; border: 1px solid var(--border); }
+  .mobile-card-table tbody td { display: flex; justify-content: space-between; align-items: flex-start; padding: .3rem 0; border: none; font-size: .84rem; gap: .5rem; }
+  .mobile-card-table tbody td::before { content: attr(data-label); font-weight: 600; color: var(--sand); white-space: nowrap; flex-shrink: 0; min-width: 90px; }
   .mobile-card-table tbody tr:last-child td { border: none; }
   .mobile-card-table td[colspan] { display: block; }
   .mobile-card-table td[colspan]::before { display: none; }
 }
-
-/* Sentiment Colors */
-.bull { color: var(--bull); font-weight: 600; }
-.bear { color: var(--bear); font-weight: 600; }
+.bull { color: var(--bull); font-weight: 600; text-shadow: 0 0 10px rgba(61,255,138,.35); }
+.bear { color: var(--bear); font-weight: 600; text-shadow: 0 0 10px rgba(255,61,94,.35); }
 .neutral { color: var(--spice); }
-
-/* Expandable Thesis Rows */
-.expand-btn {
-  cursor: pointer;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--sand);
-  font-size: .7rem;
-  width: 26px;
-  height: 26px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: background .15s, transform .2s;
-  margin-right: .35rem;
-  vertical-align: middle;
-  flex-shrink: 0;
-}
+.expand-btn { cursor: pointer; background: none; border: 1px solid var(--border); color: var(--spice); font-size: .7rem; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 3px; transition: background .15s, transform .2s; margin-right: .35rem; vertical-align: middle; flex-shrink: 0; }
 .expand-btn:hover { background: var(--surface2); }
 .expand-btn.open { transform: rotate(90deg); }
 .thesis-row { display: none; }
 .thesis-row.open { display: table-row; }
-.thesis-content {
-  padding: 1rem 1.25rem;
-  background: var(--surface2);
-  border-radius: 6px;
-  font-size: .84rem;
-  line-height: 1.65;
-  color: var(--text);
-  border: 1px solid var(--border);
-}
+.thesis-content { padding: 1rem 1.25rem; background: var(--surface2); border-radius: 4px; font-size: .84rem; line-height: 1.65; color: var(--text); border: 1px solid var(--border); border-left: 2px solid var(--spice); }
 .thesis-content p { margin-bottom: .5rem; }
 .thesis-content p:last-child { margin-bottom: 0; }
 .thesis-content strong { color: var(--sand); }
-
-/* Strategy Journal */
 .journal-grid { display: grid; gap: .75rem; margin-bottom: 1.5rem; }
-.journal-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.125rem;
-}
-.journal-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: .5rem;
-  margin-bottom: .75rem;
-}
-.journal-date {
-  font-size: .78rem;
-  color: var(--muted);
-  font-family: 'JetBrains Mono', monospace;
-}
-.journal-type {
-  font-size: .68rem;
-  padding: .18rem .6rem;
-  border-radius: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-}
+.journal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.125rem; }
+.journal-card-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+.journal-date { font-size: .78rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+.journal-type { font-family: 'Share Tech Mono', monospace; font-size: .64rem; padding: .18rem .6rem; border-radius: 2px; letter-spacing: .1em; text-transform: uppercase; border: 1px solid currentColor; }
 .journal-note { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; }
 .journal-note-preview { font-size: .85rem; color: var(--text); line-height: 1.65; word-break: break-word; }
 .journal-note-full { font-size: .85rem; color: var(--text); line-height: 1.65; white-space: pre-wrap; word-break: break-word; display: none; }
-.journal-read-more {
-  display: inline-block;
-  margin-top: .5rem;
-  font-size: .75rem;
-  color: var(--gold, #C4A265);
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: inherit;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+.journal-read-more { display: inline-block; margin-top: .5rem; font-size: .75rem; color: var(--sand); cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .journal-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .75rem; }
-.journal-tag {
-  font-size: .68rem;
-  background: var(--surface2);
-  color: var(--muted);
-  padding: .18rem .55rem;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .4rem;
-  padding: .75rem 1.25rem;
-  border-radius: 8px;
-  font-size: .88rem;
-  font-family: inherit;
-  text-decoration: none;
-  font-weight: 600;
-  min-height: 44px;
-  cursor: pointer;
-  border: none;
-  transition: opacity .2s;
-  white-space: nowrap;
-}
-.btn-primary { background: var(--sand); color: #0a0807; }
-.btn-secondary {
-  background: var(--surface2);
-  color: var(--sand);
-  border: 1px solid var(--border);
-}
-.btn:hover { opacity: .82; }
-.btn-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .75rem;
-  margin-bottom: 1.5rem;
-  align-items: center;
-}
-
-/* Footer */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 2.5rem 1rem;
-  text-align: center;
-  color: var(--muted);
-  font-size: .8rem;
-  background: radial-gradient(ellipse at bottom, rgba(196,162,101,.04) 0%, transparent 65%);
-}
-.dune-quote { font-style: italic; color: var(--sand); margin-bottom: .4rem; font-size: .88rem; opacity: .85; }
+.journal-tag { font-family: 'Share Tech Mono', monospace; font-size: .64rem; background: var(--surface2); color: var(--muted); padding: .18rem .55rem; border-radius: 2px; border: 1px solid var(--border); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; padding: .75rem 1.25rem; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: .85rem; letter-spacing: .06em; text-decoration: none; font-weight: 600; min-height: 44px; cursor: pointer; border: none; transition: opacity .2s, box-shadow .2s; white-space: nowrap; }
+.btn-primary { background: var(--spice); color: #060410; box-shadow: var(--glow-spice); }
+.btn-secondary { background: var(--surface2); color: var(--spice); border: 1px solid var(--spice); }
+.btn:hover { opacity: .85; }
+.btn-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.5rem; align-items: center; }
+.footer { border-top: 1px solid var(--spice); box-shadow: 0 -1px 0 rgba(255,138,30,.2); padding: 2.5rem 1rem; text-align: center; color: var(--muted); font-size: .8rem; background: radial-gradient(ellipse at bottom, rgba(255,138,30,.05) 0%, transparent 65%); }
+.dune-quote { font-style: italic; color: var(--sand); margin-bottom: .4rem; font-size: .88rem; opacity: .9; }
 .dune-attribution { font-size: .72rem; color: var(--muted); opacity: .65; margin-bottom: .75rem; }
-
-/* Responsive — 768px breakpoint */
 @media (max-width: 768px) {
   .container { padding: 0 .875rem; }
   .hero { padding: 1.75rem .875rem 1.5rem; }
   .stat-row { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
   .chart-container { height: 250px; }
-  .tab-btn { padding: .85rem 1rem; font-size: .84rem; }
-  .section-header { font-size: .86rem; }
+  .tab-btn { padding: .85rem 1rem; font-size: .78rem; }
+  .section-header { font-size: .82rem; }
   .btn-row { flex-direction: column; }
   .btn { width: 100%; }
   tbody td { padding: .6rem .75rem; }
   .stat-value { font-size: 1.2rem; }
+  .tldr { padding: 1rem; }
 }
-
-/* Responsive — 480px breakpoint */
 @media (max-width: 480px) {
-  .hero h1 { font-size: 1.1rem; }
-  .hero-tagline { font-size: .8rem; }
+  .hero h1 { font-size: 1.05rem; }
+  .hero-tagline { font-size: .72rem; }
   .stat-row { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
   .stat-card { padding: .75rem; }
   .stat-value { font-size: 1.05rem; }
-  .tab-btn { padding: .75rem .85rem; font-size: .78rem; }
+  .tab-btn { padding: .75rem .85rem; font-size: .72rem; }
   .report-card, .journal-card { padding: .875rem; }
   .chart-container { height: 210px; }
 }
@@ -447,7 +175,7 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
     <div class="hawk-emblem"><svg viewBox="0 0 120 75" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true"><path d="M60 22 C48 13 28 7 4 15 C16 17 30 22 38 27 C30 29 18 36 8 47 C22 39 38 35 46 36 L60 63 L74 36 C82 35 98 39 112 47 C102 36 90 29 82 27 C90 22 104 17 116 15 C92 7 72 13 60 22 Z"/><ellipse cx="60" cy="15" rx="6" ry="7"/><path d="M60 20 L65 24 L60 26 Z"/></svg></div>
     <h1>Muad'Dib Market Intelligence</h1>
     <p class="hero-tagline">The Sleeper Has Awakened</p>
-    <p class="hero-sub">Daily market intelligence &middot; Updated at 6 AM ET &middot; Jul 30, 2026</p>
+    <p class="hero-sub">MARKET INTEL TERMINAL v2 &middot; PRE-MARKET DROP 04:00 CT &middot; Jul 30, 2026</p>
   </header>
 
   <!-- ── Tab Navigation ────────────────────────────────────────────────── -->
@@ -464,6 +192,8 @@ tbody tr:hover td { background: rgba(196,162,101,.03); }
   <!-- REPORTS TAB                                                           -->
   <!-- ══════════════════════════════════════════════════════════════════════ -->
   <div id="tab-reports" class="tab-content active" role="tabpanel" aria-labelledby="tab-reports-btn">
+
+    <div class="tldr"><div class="tldr-head"><span class="tldr-title">&#9626; TL;DR &mdash; Jul 30, 2026</span></div><p class="tldr-gist">The market is caught in a three-front war: an inflation scare from surging oil prices after US strikes on Iran, a bond market revolt pushing the 30Y yield to a multidecade 5.20%, and a trillion-dollar chip selloff questioning AI capex sustainability. Microsoft's blowout Azure quarter is the lone bright spot, but Meta's 8% premarket plunge proves the AI spending scrutiny is real. Today's GDP and PCE data at 8:30 AM will either validate the Fed hawks or give bulls ammunition — this is the session's fulcrum.</p><ul class="tldr-items"><li>Buy MSFT above $392 — stop $361 (-8%), target $451 (+15%) — Azure crossed $100B annually, stock up 8% after hours, momentum carry into open</li><li>Short META below $580 — stop $626 (+8%), target $493 (-15%) — Q2 earnings miss extends historic losing streak, AI ROI doubts compound</li><li>Buy LMT above $572 — stop $526 (-8%), target $658 (+15%) — Pentagon restocking + Iran escalation = sustained defense demand cycle</li><li>Buy XOM above $158 — stop $145 (-8%), target $182 (+15%) — Brent above $89, Strait of Hormuz risk premium expands with fresh US-Iran strikes</li><li>Avoid NVDA long below $195 — chip selloff momentum, $1T sector wipeout, wait for stabilization near $175 support</li><li>Watch AAPL into earnings — implied move +/-3.8%, wait for post-report direction before entry around $338</li></ul><div class="tldr-quote">&ldquo;The impediment to action advances action. What stands in the way becomes the way.&rdquo;<span class="tldr-quote-attr"> &mdash; Marcus Aurelius — Meditations</span></div></div>
 
     <!-- Sentiment Stats -->
     <div class="stat-row">
