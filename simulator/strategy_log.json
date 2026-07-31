@@ -1767,5 +1767,22 @@
       "eod",
       "reflection"
     ]
+  },
+  {
+    "date": "2026-07-31",
+    "type": "market_open_observation",
+    "note": "MSFT gapped +1.6% to $458.41 on Azure $100B revenue beat \u2014 gap modest vs. premarket, 30-min high $460.24 not yet broken so GAP-GO not triggered. ORB-5 valid: range $10.30 (0.65\u00d7ATR), levels high $459.85 / low $449.55 / target $480.45. AAPL collapsed -9.4% to $302 on China tariff fears \u2014 DIP_SIGNAL flagged but RSI(2) 2.9 is knife territory, well below EMA20 $322 entry, no action. AMZN surged +13.7% to $267.85, clearing all MAs on cloud momentum, but brief scored only 3/5 \u2014 WATCH only. XOM -2.6% to $152.84, still above EMA20 $150 pullback zone \u2014 not yet at entry. META -AVOID confirmed, trading $552.79 below all MAs after earnings miss.",
+    "tags": [
+      "market_open"
+    ],
+    "triggered": [],
+    "orb_levels": {
+      "MSFT": {
+        "high": 459.85,
+        "low": 449.55,
+        "valid": true,
+        "target_2R": 480.45
+      }
+    }
   }
 ]
