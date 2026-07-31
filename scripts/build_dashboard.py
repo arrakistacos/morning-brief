@@ -461,7 +461,7 @@ def build_dashboard():
         themes_html = "".join(f'<span class="theme">{t}</span>' for t in themes[:4])
         score_badge = (
             f'<span style="color:{sc};font-family:\'JetBrains Mono\',monospace;font-size:.85rem;font-weight:700">'
-            f'{sentiment} ({score:+d})</span>'
+            f'{sentiment} ({score:+.1f})</span>'
         ) if sentiment else ""
 
         report_cards_html += f"""

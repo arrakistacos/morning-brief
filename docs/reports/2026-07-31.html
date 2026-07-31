@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muad'Dib Market Intelligence — 2026-07-31</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060410;color:#E8DCC8;font-family:Arial,Helvetica,sans-serif;line-height:1.6;padding:16px}
+.container{max-width:600px;margin:0 auto}
+h1,h2,h3,.mono{font-family:'Share Tech Mono',monospace}
+h2{text-transform:uppercase;letter-spacing:3px;color:#FF8A1E;font-size:14px;margin:24px 0 12px;text-shadow:0 0 8px rgba(255,138,30,.4)}
+.header{text-align:center;padding:24px 0;border-bottom:1px solid #2b2247}
+.header h1{color:#FF8A1E;font-size:20px;text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 8px rgba(255,138,30,.4)}
+.header .date{color:#D4B078;font-size:13px;margin:4px 0}
+.header .tagline{color:#8d80a8;font-size:12px;font-style:italic}
+.regime-badge{display:inline-block;padding:4px 12px;border-radius:3px;font-family:'Share Tech Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+.regime-caution{color:#FF8A1E;border:1px solid #FF8A1E}
+.regime-risk-on{color:#3DFF8A;border:1px solid #3DFF8A}
+.regime-risk-off{color:#FF3D5E;border:1px solid #FF3D5E}
+.card{background:#0d0a1a;border:1px solid #2b2247;border-radius:6px;padding:16px;margin:12px 0}
+.card-highlight{border-color:#FF8A1E}
+.gist{font-size:15px;line-height:1.7;color:#E8DCC8}
+.action-item{color:#D4B078;margin:6px 0;font-size:13px;line-height:1.5}
+.action-item::before{content:"▸ ";color:#FF8A1E}
+.setup-tag{display:inline-block;background:#141024;border:1px solid #2b2247;border-radius:3px;padding:1px 6px;font-family:'Share Tech Mono',monospace;font-size:10px;color:#4DC3FF;margin-right:4px}
+.quote{border-left:3px solid #FF8A1E;padding:8px 12px;margin:12px 0;font-style:italic;color:#D4B078;font-size:13px}
+.quote .attr{display:block;font-size:11px;color:#8d80a8;margin-top:4px}
+.sentiment-badge{text-align:center;padding:16px}
+.sentiment-label{font-family:'Share Tech Mono',monospace;font-size:18px;text-transform:uppercase;letter-spacing:2px}
+.sentiment-score{font-size:36px;font-family:'Share Tech Mono',monospace;color:#D4B078;margin:4px 0}
+.sentiment-reasoning{font-size:12px;color:#8d80a8;max-width:500px;margin:0 auto}
+.bull{color:#3DFF8A}
+.bear{color:#FF3D5E}
+.mixed{color:#FF8A1E}
+.muted{color:#8d80a8}
+.cyan{color:#4DC3FF}
+.macro-event{background:#0d0a1a;border:1px solid #2b2247;border-radius:6px;padding:14px;margin:10px 0}
+.macro-title{font-family:'Share Tech Mono',monospace;font-size:13px;color:#E8DCC8;margin-bottom:6px}
+.impact-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-family:'Share Tech Mono',monospace;font-size:10px;text-transform:uppercase;margin-right:6px}
+.impact-high{background:rgba(255,61,94,.15);color:#FF3D5E;border:1px solid rgba(255,61,94,.3)}
+.impact-medium{background:rgba(255,138,30,.15);color:#FF8A1E;border:1px solid rgba(255,138,30,.3)}
+.impact-low{background:rgba(77,195,255,.15);color:#4DC3FF;border:1px solid rgba(77,195,255,.3)}
+.chain{font-size:12px;color:#8d80a8;margin:6px 0;line-height:1.5}
+.analog{font-size:11px;font-style:italic;color:#D4B078;margin:4px 0}
+.counter{font-size:11px;color:#8d80a8;margin:4px 0}
+.ticker-tags{margin:6px 0}
+.ticker-tag{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:11px;margin:2px 4px 2px 0;padding:1px 6px;background:#141024;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+th{font-family:'Share Tech Mono',monospace;text-transform:uppercase;letter-spacing:1px;color:#8d80a8;font-size:10px;padding:8px 4px;border-bottom:1px solid #2b2247;text-align:left}
+td{padding:6px 4px;border-bottom:1px solid rgba(43,34,71,.5);font-family:'Share Tech Mono',monospace}
+.signal-strong-buy{color:#3DFF8A;font-weight:bold}
+.signal-buy{color:#3DFF8A}
+.signal-watch{color:#FF8A1E}
+.signal-avoid{color:#FF3D5E}
+.sector-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(43,34,71,.3);font-size:13px}
+.sector-name{color:#E8DCC8}
+.sector-dir{font-family:'Share Tech Mono',monospace;font-size:12px}
+.risk-item{background:#0d0a1a;border:1px solid #2b2247;border-radius:6px;padding:12px;margin:8px 0}
+.risk-title{font-size:13px;color:#E8DCC8;margin-bottom:4px}
+.severity{display:inline-block;padding:2px 6px;border-radius:3px;font-family:'Share Tech Mono',monospace;font-size:10px;text-transform:uppercase;margin-right:6px}
+.severity-critical{background:rgba(255,61,94,.2);color:#FF3D5E;border:1px solid rgba(255,61,94,.4)}
+.severity-high{background:rgba(255,138,30,.15);color:#FF8A1E;border:1px solid rgba(255,138,30,.3)}
+.severity-medium{background:rgba(77,195,255,.1);color:#4DC3FF;border:1px solid rgba(77,195,255,.2)}
+.source-link{font-size:10px;color:#4DC3FF;text-decoration:none}
+.source-link:hover{text-decoration:underline}
+.footer{text-align:center;padding:24px 0;border-top:1px solid #2b2247;margin-top:24px}
+.footer a{color:#4DC3FF;text-decoration:none;font-size:13px}
+.footer .powered{font-size:10px;color:#8d80a8;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>🔱 MUAD'DIB MARKET INTELLIGENCE</h1>
+<div class="date">Thursday, July 31, 2026</div>
+<div class="tagline">The Spice Must Flow.</div>
+<span class="regime-badge regime-caution">⚡ CAUTION</span>
+<div style="font-size:11px;color:#8d80a8;margin-top:6px">SPY 741.69 — below 50DMA (744.72) · above 200DMA (699.97) · VIX 16.78 · Half size, 5/5 only</div>
+</div>
+
+<!-- TL;DR -->
+<h2>📋 TL;DR</h2>
+<div class="card card-highlight">
+<div class="gist">Microsoft's blowout Azure quarter — $100B annual cloud revenue, 43% growth, EPS beat by $0.57 — single-handedly lifts Nasdaq futures 1.5% and validates the hyperscaler AI spending thesis. Meta's mirror-image miss ($6.18 vs $7.22 EPS, free cash flow collapsed 91%) proves spending on AI without monetizing it gets punished hard. The Fed held at 3.50–3.75% but 3 dissents signal hawk pressure is building, pushing the 30Y to a 19-year high at 5.24%. GDP missed at 1.5%. Today's question: can MSFT carry the market alone, or does META's capex reality check spread?</div>
+<div style="margin-top:12px">
+<div class="action-item"><span class="setup-tag">GAP-GO</span> <strong>MSFT</strong> — entry: break of 30-min high (~$451) · stop $427.25 (1.5×ATR) · target $498.80 (3×ATR) · R:R 1:2.0 — Azure $100B, RVOL 2.65</div>
+<div class="action-item"><span class="setup-tag">ORB-5</span> <strong>MSFT</strong> — entry: break of 5-min high · stop 5-min low · target 2R — textbook stock-in-play. Flat by 14:55 CT</div>
+<div class="action-item"><span class="setup-tag">PULLBACK</span> <strong>XOM</strong> — entry: pullback to EMA20 ~$150 · stop $144.52 · target $160.95 — Iran premium + RS +15.5%. Needs volume confirm for 5/5</div>
+<div class="action-item"><span class="setup-tag">PULLBACK</span> <strong>AAPL</strong> — entry: pullback to EMA20 ~$324 · stop $311.94 · target $348.18 — uptrend stack intact, RS +15.9%. Watch only (3/5)</div>
+</div>
+<div class="quote">"He who has a why to live can bear almost any how."<span class="attr">— Friedrich Nietzsche</span></div>
+</div>
+
+<!-- SENTIMENT -->
+<h2>📊 Sentiment</h2>
+<div class="card">
+<div class="sentiment-badge">
+<div class="sentiment-label bull">CAUTIOUSLY BULLISH</div>
+<div class="sentiment-score">6.5<span style="font-size:16px;color:#8d80a8">/10</span></div>
+<div class="sentiment-reasoning">Cloud winners (MSFT, AMZN) validate AI capex and lift futures. But META's FCF collapse, Fed hawkish dissents with 30Y at 19-year highs, and GDP miss at 1.5% keep a lid on conviction. Regime is CAUTION — breadth is thin, only A+ setups qualify.</div>
+</div>
+</div>
+
+<!-- MACRO EVENTS -->
+<h2>⚡ Key Macro Events</h2>
+
+<div class="macro-event">
+<div class="macro-title"><span class="impact-badge impact-high">HIGH</span>Microsoft Azure Crosses $100B — Stock Gaps +15.5%</div>
+<div class="chain">Azure 43% YoY growth → validates hyperscaler AI capex thesis → partner ecosystem (CRM, NOW) benefits → semiconductor demand pull-through (NVDA, AMD) → institutional rotation into cloud winners from social/consumer tech</div>
+<div class="analog">📚 Analog: AWS Q1 2019 — cloud reaccelerated to 41%, AMZN rallied 25% over next quarter</div>
+<div class="counter">⚖️ Counter: $3.2B Anthropic gain flatters one-time EPS; collective hyperscaler capex approaching $500B+ raises marginal return questions</div>
+<div class="ticker-tags">
+<span class="ticker-tag bull">MSFT ▲</span>
+<span class="ticker-tag bull">AMZN ▲</span>
+<span class="ticker-tag bull">CRM ▲</span>
+<span class="ticker-tag bull">NVDA ▲</span>
+</div>
+</div>
+
+<div class="macro-event">
+<div class="macro-title"><span class="impact-badge impact-high">HIGH</span>Meta Q2 Miss — EPS $6.18 vs $7.22, FCF -91%</div>
+<div class="chain">EPS miss $1.04 → $2.4B legal + $1.18B severance → FCF crashes $8.55B → $784M → capex raised to $130-145B → market punishes AI spend without ROI → social peers face contagion → contrast with MSFT monetization amplifies the divide</div>
+<div class="analog">📚 Analog: META Oct 2022 — capex shock sent stock -24%. Current -8% milder but FCF collapse (91%) is worse</div>
+<div class="counter">⚖️ Counter: Revenue still grew 28% YoY; legal charges one-time; AI infra seeds future monetization</div>
+<div class="ticker-tags">
+<span class="ticker-tag bear">META ▼</span>
+<span class="ticker-tag bear">SNAP ▼</span>
+<span class="ticker-tag bear">PINS ▼</span>
+<span class="ticker-tag mixed">GOOGL ➜</span>
+</div>
+</div>
+
+<div class="macro-event">
+<div class="macro-title"><span class="impact-badge impact-high">HIGH</span>Fed Holds 3.50–3.75% — 3 Dissents Push 30Y to 5.24%</div>
+<div class="chain">9-3 vote → 3 hawks wanted hike → 30Y surges to 19-year high → higher discount rates compress long-duration valuations → mortgage rates rise → housing slows → bank NIM expands → next flashpoint: Aug 12 CPI</div>
+<div class="analog">📚 Analog: June 2006 dissent pattern — 3 dissents preceded 6-month pause. Hawks want more but data may not support it</div>
+<div class="counter">⚖️ Counter: Core PCE 3.3% trending lower; GDP miss strengthens case for holds or eventual cuts</div>
+<div class="ticker-tags">
+<span class="ticker-tag bear">TLT ▼</span>
+<span class="ticker-tag bear">XLU ▼</span>
+<span class="ticker-tag bull">JPM ▲</span>
+<span class="ticker-tag bear">XHB ▼</span>
+</div>
+</div>
+
+<div class="macro-event">
+<div class="macro-title"><span class="impact-badge impact-medium">MEDIUM</span>Q2 GDP Misses at 1.5% vs 1.8% — Stagflation Whispers</div>
+<div class="chain">Growth decelerating while core PCE at 3.3% → stagflation signal → defensive rotation into quality → consumer discretionary underperforms → staples/healthcare catch bid</div>
+<div class="analog">📚 Analog: Q3 2022 GDP scare — initial miss triggered 5% drawdown before revision higher</div>
+<div class="counter">⚖️ Counter: GDP backward-looking; ISM/PMI may show forward recovery. Consumer spending resilient on services</div>
+<div class="ticker-tags">
+<span class="ticker-tag bull">XLP ▲</span>
+<span class="ticker-tag bear">XLY ▼</span>
+<span class="ticker-tag bull">XLV ▲</span>
+</div>
+</div>
+
+<div class="macro-event">
+<div class="macro-title"><span class="impact-badge impact-medium">MEDIUM</span>Iran/Hormuz Tensions vs 3.7M bbl/day Oversupply</div>
+<div class="chain">US strikes on Iran + Hormuz shipping threats → war-risk premiums → Brent spiked to $80s, settled ~$72 → IEA projects 3.7-4.0M bbl/day oversupply → OPEC+ adding 188K bbl/day in Aug → net: geopolitical premium partially priced, oversupply caps rally</div>
+<div class="analog">📚 Analog: Sep 2019 Abqaiq attack — Brent +15% intraday, reversed within 2 weeks. Oversupply now worse than then</div>
+<div class="counter">⚖️ Counter: OPEC+ supply additions and Russian 10.54M bbl/day production keep structural oversupply in place</div>
+<div class="ticker-tags">
+<span class="ticker-tag bull">XOM ▲</span>
+<span class="ticker-tag bull">CVX ▲</span>
+<span class="ticker-tag mixed">DAL ➜</span>
+</div>
+</div>
+
+<div class="macro-event">
+<div class="macro-title"><span class="impact-badge impact-medium">MEDIUM</span>China Section 301 Tariff 12.5% — Exports Surged 27% in June</div>
+<div class="chain">Effective China tariff to 23.4% → exports surged 27% (front-loading) → July/Aug imports likely collapse → supply chain disruption for tech/retail → AAPL China exposure headwind → short-term inflationary pulse</div>
+<div class="analog">📚 Analog: Sep 2019 tariff escalation — front-loading surge then ISM fell to 47.8 within 2 months</div>
+<div class="counter">⚖️ Counter: Overall burden lower than 2019 peaks; Vietnam/India diversification mitigates impact</div>
+<div class="ticker-tags">
+<span class="ticker-tag mixed">AAPL ➜</span>
+<span class="ticker-tag bear">FXI ▼</span>
+</div>
+</div>
+
+<!-- WATCHLIST TABLE -->
+<h2>🎯 Watchlist</h2>
+<div class="card" style="overflow-x:auto">
+<table>
+<thead>
+<tr><th>Ticker</th><th>Setup</th><th>Score</th><th>Signal</th><th>Entry</th><th>Stop</th><th>Target</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>MSFT</td><td><span class="setup-tag">GAP-GO</span></td><td>5/5</td>
+<td class="signal-strong-buy">STRONG BUY</td>
+<td>~$451</td><td>$427</td><td>$499</td>
+</tr>
+<tr>
+<td>MSFT</td><td><span class="setup-tag">ORB-5</span></td><td>5/5</td>
+<td class="signal-strong-buy">STRONG BUY</td>
+<td>5m high</td><td>5m low</td><td>2R</td>
+</tr>
+<tr>
+<td>XOM</td><td><span class="setup-tag">PULLBACK</span></td><td>4/5</td>
+<td class="signal-watch">WATCH</td>
+<td>~$150</td><td>$145</td><td>$161</td>
+</tr>
+<tr>
+<td>AAPL</td><td><span class="setup-tag">PULLBACK</span></td><td>3/5</td>
+<td class="signal-watch">WATCH</td>
+<td>~$324</td><td>$312</td><td>$348</td>
+</tr>
+<tr>
+<td>AMZN</td><td><span class="setup-tag">GAP-GO</span></td><td>3/5</td>
+<td class="signal-watch">WATCH</td>
+<td>~$240</td><td>$224</td><td>$258</td>
+</tr>
+<tr>
+<td>META</td><td>—</td><td>1/5</td>
+<td class="signal-avoid">AVOID</td>
+<td>—</td><td>—</td><td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<!-- SECTOR OUTLOOK -->
+<h2>🏭 Sector Outlook</h2>
+<div class="card">
+<div class="sector-row"><span class="sector-name">Technology</span><span class="sector-dir bull">▲ BULLISH</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">MSFT, AMZN, AAPL — Cloud AI monetization validated. META drag is social-specific.</div>
+
+<div class="sector-row"><span class="sector-name">Comm Services</span><span class="sector-dir bear">▼ BEARISH</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">META, GOOGL, SNAP — META -8% drags social/ad-tech. AI ROI skepticism intensifies.</div>
+
+<div class="sector-row"><span class="sector-name">Energy</span><span class="sector-dir bull">▲ BULLISH</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">XOM, CVX — Iran/Hormuz premium + RS leadership. Oversupply caps but sector hedges.</div>
+
+<div class="sector-row"><span class="sector-name">Financials</span><span class="sector-dir bull">▲ NEUTRAL-BULL</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">JPM, GS — 30Y at 5.24% boosts NIM. Credit risk rises with GDP decel.</div>
+
+<div class="sector-row"><span class="sector-name">Healthcare</span><span class="sector-dir bull">▲ NEUTRAL-BULL</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">UNH, LLY — Defensive rotation on GDP miss. GLP-1 cycle continues.</div>
+
+<div class="sector-row"><span class="sector-name">Cons. Discretionary</span><span class="sector-dir bear">▼ BEARISH</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">TSLA, NKE — GDP miss pressures consumer spending. Rising yields squeeze budgets.</div>
+
+<div class="sector-row"><span class="sector-name">Cons. Staples</span><span class="sector-dir bull">▲ NEUTRAL-BULL</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">PG, KO, WMT — Defensive bid on stagflation whispers. Pricing power favored.</div>
+
+<div class="sector-row"><span class="sector-name">Industrials</span><span class="sector-dir mixed">➜ NEUTRAL</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">CAT, LMT — GDP miss weighs on cyclicals. Defense benefits from Iran tensions.</div>
+
+<div class="sector-row"><span class="sector-name">Materials</span><span class="sector-dir mixed">➜ NEUTRAL</span></div>
+<div style="font-size:11px;color:#8d80a8;padding:0 0 6px">LIN, FCX — China tariffs weigh on demand. Gold may benefit as stagflation hedge.</div>
+</div>
+
+<!-- KEY RISKS -->
+<h2>⚠️ Key Risks</h2>
+
+<div class="risk-item">
+<div class="risk-title"><span class="severity severity-high">HIGH</span>August CPI Surprise Forces September Hike</div>
+<div class="chain">3 Fed dissents already favor hiking → if Aug CPI rebounds >4% → Sep hike >50% probability → 10Y spikes through 5% → tech multiple compression → broad selloff 5-10%</div>
+<div style="margin-top:4px"><a class="source-link" href="https://www.cnn.com/2026/07/29/business/live-news/federal-reserve-interest-rate-07-29-26">CNN: Fed holds rates</a> · <a class="source-link" href="https://www.cnbc.com/2026/07/31/treasury-yields-inflation-interest-rates-federal-reserve.html">CNBC: Treasury yields</a></div>
+</div>
+
+<div class="risk-item">
+<div class="risk-title"><span class="severity severity-high">HIGH</span>AI Capex ROI Reckoning Spreads Beyond META</div>
+<div class="chain">META FCF collapse (-91%) from AI spend → if $140B/yr capex doesn't generate revenue, who's next? → GOOGL/AMZN face same scrutiny → hyperscaler narrative shifts to "value destruction" → sector derating</div>
+<div style="margin-top:4px"><a class="source-link" href="https://qz.com/meta-q2-2026-earnings-miss-legal-charges-ai-costs-073026">Quartz: Meta miss</a> · <a class="source-link" href="https://www.tradingkey.com/analysis/stocks/us-stocks/262062391-meta-platforms-report-q2-2026-meta-advertising-dap-capital-expenditures-tradingkey">TradingKey: Meta capex</a></div>
+</div>
+
+<div class="risk-item">
+<div class="risk-title"><span class="severity severity-critical">CRITICAL</span>Iran/Hormuz Escalation to Direct Blockade</div>
+<div class="chain">US strikes → Iran retaliates by mining Strait of Hormuz → 21% global oil supply disrupted → Brent $120+ → global recession trigger → central banks face growth/inflation/stability trilemma</div>
+<div style="margin-top:4px"><a class="source-link" href="https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/07/geopolitical-risk-brief-july-2026">S&P Global: Geopolitical risk</a></div>
+</div>
+
+<div class="risk-item">
+<div class="risk-title"><span class="severity severity-medium">MEDIUM</span>China Trade Cliff — Front-Loading Reversal</div>
+<div class="chain">Exports surged 27% in June (front-loading) → July/Aug imports collapse → supply chain disruption → ISM may dip below 50 → earnings revisions down for AAPL, NKE, consumer retail</div>
+<div style="margin-top:4px"><a class="source-link" href="https://www.mayerbrown.com/en/insights/publications/2026/07/us-china-trade-monthly-july-2026">Mayer Brown: Trade monthly</a> · <a class="source-link" href="https://budgetmodel.wharton.upenn.edu/p/2026-07-13-effective-tariff-rates-and-revenues-updated-july-13-2026/">Penn Wharton: Tariffs</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<a href="https://arrakistacos.github.io/morning-brief/">📊 Live Dashboard →</a>
+<div class="powered">Powered by Anthropic Claude · Muad'Dib Market Intelligence</div>
+</div>
+
+</div>
+</body>
+</html>
