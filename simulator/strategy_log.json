@@ -1880,5 +1880,82 @@
       "PLTR": "OPEN",
       "XOM": "OPEN"
     }
+  },
+  {
+    "date": "2026-08-03",
+    "type": "eod_scorecard",
+    "results": [
+      {
+        "ticker": "MU",
+        "setup": "GAP-GO",
+        "signal": "BUY",
+        "action": "BUY",
+        "entry": 1004.0,
+        "stop": 975.0,
+        "target": 1040.0,
+        "outcome": "NOT_TRIGGERED",
+        "close": 829.5
+      },
+      {
+        "ticker": "MU",
+        "setup": "ORB-5",
+        "signal": "BUY",
+        "action": "BUY",
+        "entry": null,
+        "stop": 90.54,
+        "target": 14.0,
+        "outcome": "NOT_TRIGGERED",
+        "close": 829.5
+      },
+      {
+        "ticker": "MSFT",
+        "setup": "GAP-GO",
+        "signal": "HOLD",
+        "action": "HOLD",
+        "entry": 451.0,
+        "stop": 451.0,
+        "target": 498.8,
+        "outcome": "OPEN",
+        "close": 487.65
+      },
+      {
+        "ticker": "FANG",
+        "setup": "BREAKOUT",
+        "signal": "WATCH",
+        "action": "WATCH",
+        "entry": 202.95,
+        "stop": 193.64,
+        "target": 221.56,
+        "outcome": "NOT_TRIGGERED",
+        "close": 198.75
+      },
+      {
+        "ticker": "PLTR",
+        "setup": "ORB-5",
+        "signal": "WATCH",
+        "action": "WATCH",
+        "entry": null,
+        "stop": null,
+        "target": null,
+        "outcome": "NOT_TRIGGERED",
+        "close": 125.65
+      },
+      {
+        "ticker": "XOM",
+        "setup": "PULLBACK",
+        "signal": "NEUTRAL",
+        "action": "WATCH",
+        "entry": 150.0,
+        "stop": 144.84,
+        "target": 161.6,
+        "outcome": "NOT_TRIGGERED",
+        "close": 155.06
+      }
+    ],
+    "note": "Morning BULLISH 7.5 / RISK_ON call was right: SPY +1.42%, QQQ +1.76%, IWM +1.72%, VIX 15.86, mega-cap tech/software led while oil slid ~5.5% (USO -5.46%) on renewed Iran talks. But the watchlist barely participated: MU's GAP-GO premise (+22% premarket, est open ~$1004) was badly wrong \u2014 it actually opened DOWN ~4.5% at 786.35 before rallying to close 829.50 (+0.79%); premarket price sourcing needs a fix before trusting gap setups. MSFT (prior $451 entry, stop at breakeven) was the day's winner, +4.93% to 487.65, still OPEN toward the 498.80 target. FANG's 202.95 breakout never triggered and it fell 2.07% \u2014 a good skip \u2014 and XOM never pulled back to the 150 entry (low 152.66), so no new setups triggered or lost today. Scoring note: watchlist keys are entry/stop/target (not entry_idea/stop_loss_price/target_price), and I scored MSFT as an open position and XOM as a pullback (below-market) entry; watch PLTR tomorrow for the post-earnings gap ORB-5.",
+    "tags": [
+      "eod",
+      "scorecard"
+    ]
   }
 ]
