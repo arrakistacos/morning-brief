@@ -1853,5 +1853,17 @@
       "eod",
       "scorecard"
     ]
+  },
+  {
+    "date": "2026-08-03",
+    "type": "market_open_observation",
+    "note": "MU opened $789 (-4.2%), completely inverting the +22% premarket gap-go thesis \u2014 gap-go and ORB-5 setups invalidated, no entry. MSFT existing hold from $451 gapped up another +4.8% to $487, approaching $498.80 target with RSI2 99 screaming overbought \u2014 trail stop at breakeven. FANG down -2.9% to $197 in pullback zone near EMA20 ahead of earnings after close; XOM down -1% to $154, RSI2 17 oversold but not yet at EMA20 $150.67 pullback entry. No ORB candidates qualified (all RVOL < 2).",
+    "tags": [
+      "market_open"
+    ],
+    "triggered": [
+      "MSFT"
+    ],
+    "orb_levels": {}
   }
 ]
