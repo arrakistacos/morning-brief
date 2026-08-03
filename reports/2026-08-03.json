@@ -1,0 +1,331 @@
+{
+  "date": "2026-08-03",
+  "regime": "RISK_ON",
+  "regime_reasoning": "SPY 747.03 > 50DMA 744.99 > 200DMA 700.39. VIX 16.2 (< 20, Friday close — likely lower Monday with Iran de-escalation). Full size (1% risk/trade), all setups live.",
+  "overall_sentiment": "BULLISH",
+  "sentiment_score": 7.5,
+  "sentiment_reasoning": "Iran de-escalation removes the single biggest tail risk of the past month, crude tumbling frees consumer and transport margins, and MU's +22% premarket gap validates that AI semiconductor demand is still accelerating. RISK_ON regime confirmed. Headwinds: 30Y yield at 5.25% (highest since 2007) pressures duration-sensitive sectors, KOSPI's 5% Monday selloff signals Asia tech deleveraging isn't over, and ISM PMI could surprise to the downside. Net: bullish with bond-market vigilance.",
+  "summary": {
+    "gist": "Trump cancels Iran strikes over the weekend, sending crude tumbling and risk assets surging — S&P futures +0.63%, Polymarket 86% odds of an up open. Micron explodes +22% premarket on AI-driven demand and automotive AI contracts, extending the semiconductor supercycle narrative. But the 30-year yield sits at 5.25% (highest since 2007), a slow-burn headwind that El-Erian attributes to massive AI infrastructure capital demand. Today's ISM Manufacturing PMI is the litmus test for whether the real economy is keeping pace with the AI investment boom.",
+    "actionable_items": [
+      "GAP-GO · MU — entry: break of first-30-min high (~$1004 est open) · stop: 30-min low · target: 2R — AI demand blowout, RVOL expected 3+, gap reclaims all MAs",
+      "ORB-5 · MU — entry: break of first-5-min high · stop: 5-min low · target: 2R · flat by 14:55 CT — textbook stock-in-play with massive catalyst + volume",
+      "PULLBACK · MSFT — trail existing GAP-GO: entry $451, stop $451 (breakeven at +1R) · target $498.80 (3×ATR) — Azure $100B momentum intact, RSI2 98 = tighten trail",
+      "BREAKOUT WATCH · FANG — entry: $202.95 area · stop $193.64 (1.5×ATR) · target $221.56 (3×ATR) — RS +17.85%, uptrend stack, earnings after close today"
+    ],
+    "stoic_quote": {
+      "text": "The impediment to action advances action. What stands in the way becomes the way.",
+      "attribution": "Marcus Aurelius — Meditations"
+    }
+  },
+  "executive_summary": "Monday opens with a rare confluence: geopolitical de-escalation (Trump cancels Iran strikes), AI semiconductor validation (MU +22%), and a confirmed RISK_ON regime. The tape's biggest tension is between the AI-fueled equity rally and the bond market's revolt — the 30Y at 5.25% says capital markets are pricing in enormous infrastructure spending that has to be financed. ISM Manufacturing PMI today and the jobs data this week (JOLTS Tue, NFP Fri) will determine whether the real economy can sustain this dual-track of AI exuberance and tightening financial conditions.",
+  "top_themes": [
+    {
+      "theme": "Iran de-escalation lifts risk assets",
+      "description": "Trump halted planned strikes on Iran over the weekend, removing the most acute geopolitical tail risk. Crude oil futures tumbled, freeing risk premium for equities. S&P futures +0.63%, Polymarket 86% up-open odds."
+    },
+    {
+      "theme": "AI semiconductor supercycle accelerates",
+      "description": "MU +22% premarket on massive AI demand and automotive AI contracts. Global semiconductor sales hit record $120.6B in May (+104% YoY), 15th consecutive monthly record. Broadcom projects AI semi revenue growth >200% YoY."
+    },
+    {
+      "theme": "Bond market revolt — 30Y yield at 19-year high",
+      "description": "The 30-year Treasury yield hit 5.249% on July 31, highest since 2007. El-Erian attributes this to massive AI infrastructure capital demand competing for bond market funding. Core PCE at 3.3% adds Fed pressure."
+    },
+    {
+      "theme": "Heavy earnings week: PLTR, FANG, VRTX, MAR, TSN",
+      "description": "Monday: TSN and MAR premarket, PLTR and VRTX after close. FANG, WMB, OKE also report. MSFT GAP-GO from last week still OPEN with $498.80 target."
+    },
+    {
+      "theme": "Asia tech deleveraging not over",
+      "description": "South Korea KOSPI drops another 5% Monday after a 17% three-day decline and 18% Friday bounce. Samsung and SK Hynix tumble ~8%. Global AI selloff eclipses US-Iran deal optimism in Asia."
+    }
+  ],
+  "macro_events": [
+    {
+      "title": "Trump Cancels Iran Strikes — Middle East De-escalation",
+      "impact_level": "HIGH",
+      "time_horizon": "Days to weeks",
+      "causal_chain": "Trump halts planned strikes on Iran → Hormuz Strait supply disruption risk drops → crude oil futures tumble → war-risk premiums on tankers unwind → transportation/airline margins improve (DAL▲ UAL▲) → consumer discretionary benefits from lower gasoline → defense sector loses urgency premium (LMT▼ RTX▼) → broader risk-on rotation into equities from safe havens (GLD▼ TLT▼) → second-order: Iran nuclear deal negotiations may resume, further reducing oil premium",
+      "geographic_dimension": "Middle East, Global energy markets, US equity markets",
+      "historical_analog": "September 2019 Abqaiq drone attack → Brent spiked 15% overnight → Trump chose diplomacy over retaliation → oil premium unwound within 2 weeks, S&P recovered in 5 sessions. This time the de-escalation came before the strike, so the relief rally should be faster.",
+      "counterargument": "Iran's nuclear program continues advancing; the cancellation may be temporary. Any provocation could reignite strike plans overnight. Oil is already range-bound ($69-72 WTI) so the downside from de-escalation may be limited.",
+      "affected_tickers": [
+        {"ticker": "XOM", "direction": "DOWN", "reason": "Crude tumbling removes geopolitical premium; WTI sliding toward $66-67"},
+        {"ticker": "DAL", "direction": "UP", "reason": "Lower jet fuel costs improve margins; airline sector relief rally"},
+        {"ticker": "LMT", "direction": "DOWN", "reason": "Defense urgency premium fading with de-escalation"},
+        {"ticker": "GLD", "direction": "DOWN", "reason": "Safe haven unwinding as geopolitical risk drops"}
+      ]
+    },
+    {
+      "title": "Micron +22% Premarket — AI Semiconductor Demand Explosion",
+      "impact_level": "HIGH",
+      "time_horizon": "Weeks to months",
+      "causal_chain": "MU reports massive earnings beat driven by AI demand + automotive AI contracts → validates HBM/DRAM pricing power thesis → second-order: memory sector reprices (Samsung Semicon would benefit but KOSPI selling masks it) → NVDA/AMD data center GPU demand confirmed by memory pull-through → foundry utilization surge (TSMC▲) → semiconductor equipment orders accelerate (ASML▲ LRCX▲ AMAT▲) → AI infrastructure capex validated across the stack from chips to cloud",
+      "geographic_dimension": "US semiconductors, Global AI supply chain",
+      "historical_analog": "NVDA May 2023 guidance raise (+50% above consensus) → stock gapped +25%, pulled the entire semiconductor complex up 15% over 2 weeks. MU's +22% gap is the memory-tier equivalent — it validates demand breadth beyond GPUs.",
+      "counterargument": "KOSPI's simultaneous 5% selloff with Samsung/SK Hynix -8% suggests Asia investors see the AI trade as overextended. TSMC's higher capex guidance triggered chip stock selling last week. MU's ATR14 of $90 (11% of price) means the gap could fill quickly.",
+      "affected_tickers": [
+        {"ticker": "MU", "direction": "UP", "reason": "+22% premarket gap on AI demand blowout; automotive AI contracts"},
+        {"ticker": "NVDA", "direction": "UP", "reason": "Memory demand pull-through validates GPU ecosystem strength"},
+        {"ticker": "AMAT", "direction": "UP", "reason": "Semiconductor equipment demand confirmed by MU capex"},
+        {"ticker": "LRCX", "direction": "UP", "reason": "Etch/dep equipment beneficiary of memory fab expansion"}
+      ]
+    },
+    {
+      "title": "30-Year Treasury Yield Hits 5.249% — Highest Since 2007",
+      "impact_level": "HIGH",
+      "time_horizon": "Weeks to months",
+      "causal_chain": "30Y yield 5.249% → 10Y at 4.71% → Fed held at 3.50-3.75% but 3 dissents favor hiking → term premium rising as markets price massive AI infrastructure bond issuance → higher discount rates compress equity multiples for long-duration growth stocks → mortgage rates stay elevated → housing/REIT sector under pressure → small caps (IWM) face higher borrowing costs → bank NIMs improve but credit risk rises → TLT continues grinding lower",
+      "geographic_dimension": "US fixed income, Global capital markets",
+      "historical_analog": "October 2023 bond selloff — 10Y hit 5.0%, triggered a 10% S&P correction over 3 weeks before the 'pivot' narrative reversed it. Current yields are structurally higher due to AI capex financing demand — this time the catalyst is real investment, not just term premium.",
+      "counterargument": "Core PCE at 3.3% is still above target but trending down from peaks. If ISM PMI comes in weak today, it strengthens the case for a dovish pivot. The jobs data this week (JOLTS Tue, NFP Fri with Barclays forecasting only 100K) could ease rate hike fears.",
+      "affected_tickers": [
+        {"ticker": "TLT", "direction": "DOWN", "reason": "Long-duration bonds continue selling off; 30Y yield at 19-year high"},
+        {"ticker": "IWM", "direction": "DOWN", "reason": "Small caps most sensitive to higher borrowing costs"},
+        {"ticker": "XLF", "direction": "MIXED", "reason": "Bank NIMs improve but credit risk from higher rates offsets"},
+        {"ticker": "XLRE", "direction": "DOWN", "reason": "REITs pressured by higher cap rates and mortgage costs"}
+      ]
+    },
+    {
+      "title": "ISM Manufacturing PMI Release — Monday Morning",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Days",
+      "causal_chain": "ISM Manufacturing PMI for July releases at 10:00 AM ET → if above 50 (expansion): validates growth, supports equities but raises rate hike fears → if below 48: stagflation narrative intensifies (weak growth + 3.3% PCE), bonds rally, equities sell → sub-components matter: new orders signal forward demand, prices paid signals inflation persistence → sets the tone for the full week of data ahead of NFP Friday",
+      "geographic_dimension": "US manufacturing sector",
+      "historical_analog": "June 2023 ISM surprise to upside (46→47.6) triggered a 1.2% SPY rally in 2 hours as soft-landing narrative gained traction.",
+      "counterargument": "Manufacturing has been in contraction for most of the past 2 years; a weak print is largely priced in. Services ISM matters more for the 80% services economy.",
+      "affected_tickers": [
+        {"ticker": "XLI", "direction": "MIXED", "reason": "Industrials move with PMI; above 50 = rally, below 48 = sell"},
+        {"ticker": "SPY", "direction": "MIXED", "reason": "Broad market reacts to growth signal; Goldilocks = 49-51 range"}
+      ]
+    },
+    {
+      "title": "KOSPI Extends Historic Selloff — Samsung, SK Hynix Tumble 8%",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Days to weeks",
+      "causal_chain": "KOSPI drops 5% Monday after 17% three-day decline → Samsung and SK Hynix -8% despite MU premarket surge → signals AI trade deleveraging in Asia separate from US fundamentals → forced selling from margin calls accelerates declines → contagion risk to US semis if the Asian session selling persists → but US-Asia decoupling evident (MU +22% vs Samsung -8%) → Korean won weakening adds currency headwind for Samsung earnings",
+      "geographic_dimension": "South Korea, Asia-Pacific, Global semiconductor sector",
+      "historical_analog": "August 2015 China devaluation → KOSPI fell 12% in 2 weeks → US semis initially sold in sympathy but decoupled within 5 sessions as domestic fundamentals held.",
+      "counterargument": "KOSPI's Friday 18% bounce showed violent two-way action — this could be capitulation-level selling that sets up a base. US semiconductor demand is driven by different customers (hyperscalers) than Korean consumer electronics exposure.",
+      "affected_tickers": [
+        {"ticker": "SSNLF", "direction": "DOWN", "reason": "Samsung ADR -8%, margin call cascade in Korean markets"},
+        {"ticker": "MU", "direction": "UP", "reason": "US-Asia decoupling: MU +22% while Samsung -8%"},
+        {"ticker": "NVDA", "direction": "MIXED", "reason": "Sympathy risk from Asia tech selloff vs strong US AI demand"}
+      ]
+    },
+    {
+      "title": "Jobs Week: JOLTS Tuesday, NFP Friday (Barclays: 100K)",
+      "impact_level": "MEDIUM",
+      "time_horizon": "Week",
+      "causal_chain": "JOLTS job openings Tuesday → if declining: labor market cooling narrative supports Fed pause → NFP Friday with Barclays forecasting only 100K → if below 100K: recession fears spike, 10Y rallies, equities sell initially then recover on rate-cut hopes → if above 200K: strong economy but Fed hike risk rises → wage growth component matters most for inflation trajectory → sets up August 12 CPI as the make-or-break data point",
+      "geographic_dimension": "US labor market",
+      "historical_analog": "July 2024 NFP miss (114K vs 175K expected) triggered a 3% SPY selloff over 2 days before recovering. Market is increasingly sensitive to labor market weakness.",
+      "counterargument": "The labor market has been resilient despite rate hikes. One month's data doesn't change the structural story. The Fed's 3 dissents suggest they're looking at inflation, not employment.",
+      "affected_tickers": [
+        {"ticker": "SPY", "direction": "MIXED", "reason": "Jobs data sets tone for rate expectations; weak = initial sell then recovery"},
+        {"ticker": "TLT", "direction": "MIXED", "reason": "Weak jobs = bonds rally on rate-cut hopes; strong = yields rise further"}
+      ]
+    }
+  ],
+  "sector_outlook": {
+    "Technology": {
+      "direction": "BULLISH",
+      "key_names": "MU, MSFT, NVDA",
+      "rationale": "MU +22% validates AI semiconductor demand breadth beyond GPUs. MSFT Azure momentum intact. KOSPI selloff creates US-Asia decoupling opportunity. PLTR earnings after close could extend tech momentum."
+    },
+    "Communication Services": {
+      "direction": "NEUTRAL",
+      "key_names": "META, GOOGL",
+      "rationale": "META's prior-week miss still weighing on social/ad-tech sentiment. GOOGL stable but not leading. AI ROI scrutiny for non-infrastructure plays persists."
+    },
+    "Energy": {
+      "direction": "BEARISH",
+      "key_names": "XOM, FANG, OKE",
+      "rationale": "Iran de-escalation removes geopolitical premium from crude. WTI sliding, OPEC+ adding 188K bbl/day in August. FANG and OKE earnings today could provide company-specific catalysts but sector headwind is real."
+    },
+    "Financials": {
+      "direction": "NEUTRAL-BULLISH",
+      "key_names": "JPM, GS, XLF",
+      "rationale": "30Y at 5.25% improves bank NIMs. Regional banks stabilizing. But credit risk rises with sustained high rates. Banking sector showing tangible profitability improvements."
+    },
+    "Healthcare": {
+      "direction": "NEUTRAL",
+      "key_names": "VRTX, UNH",
+      "rationale": "VRTX near pullback zone (RSI2 18.8, UPTREND_STACK) — earnings after close today. Defensive positioning attractive if ISM PMI disappoints."
+    },
+    "Consumer Discretionary": {
+      "direction": "BULLISH",
+      "key_names": "AMZN, MAR",
+      "rationale": "Lower oil prices benefit consumer spending. MAR earnings premarket. AMZN cloud sympathy + consumer resilience. Travel sector supported by strong summer demand."
+    },
+    "Consumer Staples": {
+      "direction": "NEUTRAL",
+      "key_names": "TSN, PG",
+      "rationale": "TSN reporting premarket ($0.99 EPS est / $14.12B rev). Defensive sector less attractive in RISK_ON regime. Meat protein demand stable."
+    },
+    "Industrials": {
+      "direction": "NEUTRAL",
+      "key_names": "CAT, DE, WMB",
+      "rationale": "ISM Manufacturing PMI today is the key catalyst. WMB earnings today. Infrastructure spending narrative intact but manufacturing contraction lingering."
+    },
+    "Materials": {
+      "direction": "NEUTRAL",
+      "key_names": "FCX, NEM",
+      "rationale": "Gold may pull back on Iran de-escalation (safe haven unwinding). Copper supported by AI infrastructure build-out. US-China tariff truce at 10% supports trade flows."
+    }
+  },
+  "commodity_outlook": {
+    "crude_oil": {
+      "level": "WTI ~$67-68, Brent ~$70-71 (est post-Iran de-escalation)",
+      "direction": "BEARISH",
+      "rationale": "Trump cancels Iran strikes → geopolitical premium unwinding → Persian Gulf supply recovering to 90% pre-war volumes in August → OPEC+ adding 188K bbl/day → oversupply of ~1.2M bbl/day projected. WTI likely testing $65-66 support."
+    },
+    "gold": {
+      "direction": "BEARISH short-term",
+      "rationale": "Safe haven unwinding on Iran de-escalation. Risk-on rotation away from gold. But 30Y yield at 5.25% and stagflation whispers provide a floor. Structural bull case intact but near-term pullback likely."
+    },
+    "natural_gas": {
+      "direction": "NEUTRAL",
+      "rationale": "Summer cooling demand seasonal. No supply disruption catalyst. Iran de-escalation reduces Hormuz-adjacent LNG risk."
+    }
+  },
+  "currency_outlook": {
+    "dxy": {
+      "level": "~100.8",
+      "direction": "NEUTRAL",
+      "rationale": "Fed hold with 3 hawkish dissents supports dollar. But risk-on flows and potential rate-cut hopes from weak jobs data could weigh. Range-bound 100-101."
+    },
+    "eurusd": {
+      "direction": "NEUTRAL",
+      "rationale": "ECB/Fed policy convergence. US-China tariff truce at 10% reduces trade disruption. Range-bound near current levels."
+    }
+  },
+  "watchlist": [
+    {
+      "ticker": "MU",
+      "action": "BUY",
+      "setup": "GAP-GO",
+      "score": 4,
+      "signal_strength": "BUY",
+      "catalyst": "+22% premarket on AI demand blowout + automotive AI contracts; gap reclaims EMA20 ($907) and SMA50 ($965)",
+      "entry": "Break of first-30-min high (~$1004 est open, wait for range to establish)",
+      "stop": "First-30-min low (est ~$975-985). SKIP if 30-min range > 1×ATR14 ($90.54)",
+      "target": "2R from 30-min range (est ~$1040-1060)",
+      "atr14": 90.54,
+      "risk_reward": "1:2.0",
+      "precision_checklist": "regime-aligned(RISK_ON) ✓ RS-leader(gap reclaims, prior RS -20.4%) ✗ volume(RVOL est 3+) ✓ clean-level(30min high) ✓ catalyst(AI demand blowout) ✓",
+      "risk": "ATR14 $90.54 (11% of price) means enormous dollar risk per share. Size accordingly — this is a high-conviction but high-volatility play. KOSPI Samsung -8% shows Asia is selling the AI trade even as US MU surges. Gap fill risk is real at these levels."
+    },
+    {
+      "ticker": "MU",
+      "action": "BUY",
+      "setup": "ORB-5",
+      "score": 4,
+      "signal_strength": "BUY",
+      "catalyst": "Same AI demand catalyst; textbook stock-in-play with massive RVOL expected",
+      "entry": "Break of first-5-min high (long, gap direction confirmation)",
+      "stop": "First-5-min low. SKIP if 5-min range > 1×ATR14 ($90.54)",
+      "target": "2R or trail above VWAP. FLAT by 14:55 CT — no overnight",
+      "atr14": 90.54,
+      "risk_reward": "1:2.0",
+      "precision_checklist": "regime-aligned ✓ RS-leader(gap day) ✓ volume(RVOL 3+) ✓ clean-level(5min high) ✓ catalyst ✓",
+      "risk": "Day trade only. Wide ATR means the 5-min range could be $30-50 — ensure the dollar risk fits position sizing. No overnight."
+    },
+    {
+      "ticker": "MSFT",
+      "action": "HOLD",
+      "setup": "GAP-GO",
+      "score": 5,
+      "signal_strength": "HOLD",
+      "catalyst": "Prior-week Azure $100B GAP-GO still OPEN. Closed $464.72, prior entry $451, target $498.80. RSI2 98 = overbought, tighten trail.",
+      "entry": "$451 (prior entry, already filled)",
+      "stop": "$451 (breakeven — at +1R, move stop to entry)",
+      "target": "$498.80 (3×ATR14 from entry)",
+      "atr14": 16.02,
+      "risk_reward": "1:2.0 (original), now free-rolling above breakeven",
+      "precision_checklist": "regime-aligned ✓ RS-leader(+20.76%) ✓ volume(RVOL 1.45) ✓ clean-level ✓ catalyst(Azure $100B) ✓",
+      "risk": "RSI(2) 98 — extremely overbought. Mean-reversion pullback likely within 1-3 sessions. Trail stop to $451 breakeven and let the trend work. Do NOT add here."
+    },
+    {
+      "ticker": "FANG",
+      "action": "WATCH",
+      "setup": "BREAKOUT",
+      "score": 4,
+      "signal_strength": "WATCH",
+      "catalyst": "Earnings after close today. Uptrend stack intact, RS +17.85% vs SPY. Permian Basin leader. If beats, potential GAP-GO tomorrow.",
+      "entry": "$202.95 area (current), or break of post-earnings high if gap-up",
+      "stop": "$193.64 (1.5×ATR14 below entry)",
+      "target": "$221.56 (3×ATR14 above entry)",
+      "atr14": 6.2,
+      "risk_reward": "1:2.0",
+      "precision_checklist": "regime-aligned ✓ RS-leader(+17.85%) ✓ volume(pending) ○ clean-level(breakout area) ✓ catalyst(earnings today) ✓",
+      "risk": "Iran de-escalation is bearish for energy sector broadly — crude tumbling. Company-specific earnings beat needed to overcome sector headwind. WATCH only until numbers hit."
+    },
+    {
+      "ticker": "PLTR",
+      "action": "WATCH",
+      "setup": "ORB-5",
+      "score": 2,
+      "signal_strength": "WATCH",
+      "catalyst": "Earnings after close today. If massive beat + gap, potential stock-in-play tomorrow. Below all MAs currently ($123 vs EMA20 $127, SMA50 $131, SMA200 $153).",
+      "entry": "Pending earnings — if gap-up >4% with RVOL >2, evaluate ORB-5 tomorrow",
+      "stop": "TBD (first-5-min low of gap session)",
+      "target": "2R from opening range",
+      "atr14": 6.51,
+      "risk_reward": "TBD",
+      "precision_checklist": "regime-aligned ✓ RS-leader(RS -2.29%) ✗ volume(pending) ○ clean-level(pending) ○ catalyst(earnings) ✓",
+      "risk": "Below all major MAs with negative RS. This is a broken trend — only playable as an ORB-5 day trade if the earnings gap is massive enough to create a stock-in-play. Not a swing candidate."
+    },
+    {
+      "ticker": "XOM",
+      "action": "WATCH",
+      "setup": "PULLBACK",
+      "score": 3,
+      "signal_strength": "NEUTRAL",
+      "catalyst": "Uptrend stack intact (price > EMA20 > SMA50 > SMA200), RS +13.89%. But Iran de-escalation = crude tumbling = sector headwind. Near EMA20 $150.36.",
+      "entry": "Pullback to $150 (EMA20 zone) on declining volume",
+      "stop": "$144.84 (1.5×ATR14 below $150.44 EMA20 entry)",
+      "target": "$161.60 (3×ATR14 above entry)",
+      "atr14": 3.73,
+      "risk_reward": "1:2.0",
+      "precision_checklist": "regime-aligned ✓ RS-leader(+13.89%) ✓ volume(RVOL 0.96 — needs confirmation) ✗ clean-level(EMA20 $150) ✓ catalyst(no — Iran de-escalation is headwind) ✗",
+      "risk": "Crude tumbling on Iran de-escalation removes the geopolitical premium that supported XOM's RS outperformance. The uptrend is technically intact but the catalyst is now negative. WATCH only — need crude to stabilize above $66 WTI before engaging."
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "KOSPI contagion spreads to US semiconductors",
+      "severity": "MEDIUM-HIGH",
+      "causal_chain": "KOSPI -5% Monday with Samsung/SK Hynix -8% → margin call cascade in Korean markets → forced selling of US-listed semis by global funds with cross-listings → sympathy selling in NVDA, AMD despite strong US fundamentals → if MU's +22% gap fills intraday, it signals the Asia selloff has crossed the Pacific → broader tech multiple compression risk.",
+      "sources": [
+        {"title": "KOSPI Extends Historic Selloff After Worst Month Since 2008", "outlet": "Benzinga", "url": "https://www.benzinga.com/markets/asia/26/08/60863273/kospi-extends-historic-selloff-after-worst-month-since-2008-as-samsung-sk-hynix-tumble-nearly-8"}
+      ]
+    },
+    {
+      "risk": "ISM Manufacturing PMI surprise below 46 reignites stagflation narrative",
+      "severity": "MEDIUM",
+      "causal_chain": "ISM PMI < 46 → manufacturing contraction deepening while core PCE at 3.3% → stagflation narrative goes mainstream → growth stocks sell as rate-cut hopes fade (Fed can't cut into 3.3% inflation) → defensive rotation into staples/utilities → VIX spikes above 20 → CAUTION regime triggers half-size rule.",
+      "sources": [
+        {"title": "Market synthesis", "outlet": "Claude analysis", "url": null}
+      ]
+    },
+    {
+      "risk": "30Y yield breaks above 5.50% on heavy Treasury supply",
+      "severity": "HIGH",
+      "causal_chain": "Treasury refunding week → heavy issuance of long-duration bonds → 30Y punches through 5.50% → mortgage rates spike above 8% → housing freeze deepens → consumer wealth effect reverses → 3 Fed dissents become majority for September hike → equity risk premium collapses → 10-15% correction risk.",
+      "sources": [
+        {"title": "Treasury yields hit multi-year highs", "outlet": "CNBC", "url": "https://www.cnbc.com/2026/07/31/treasury-yields-inflation-interest-rates-federal-reserve.html"}
+      ]
+    },
+    {
+      "risk": "Iran de-escalation reverses — strike plans resume",
+      "severity": "MEDIUM",
+      "causal_chain": "Iran provocation or nuclear escalation → Trump reverses cancellation → crude spikes 10-15% overnight → risk-off cascade → defense stocks surge, airlines/consumer discretionary sell → VIX spikes above 25 → RISK_OFF regime → all swing longs stopped out.",
+      "sources": [
+        {"title": "Trump cancels Iran strikes", "outlet": "Benzinga", "url": "https://www.benzinga.com/news/politics/26/08/60861664/trump-cancels-iran-strikes-rapid-deal-hormuz"}
+      ]
+    }
+  ],
+  "is_trading_day": true
+}
