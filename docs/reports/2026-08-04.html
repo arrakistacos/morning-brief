@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Muad'Dib Market Intelligence — 2026-08-04</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060410;color:#E8DCC8;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;padding:16px;max-width:600px;margin:0 auto}
+h1,h2,h3,.section-hdr{font-family:'Share Tech Mono',monospace;text-transform:uppercase;letter-spacing:2px}
+.card{background:#0d0a1a;border:1px solid #2b2247;border-radius:8px;padding:16px;margin:12px 0}
+.card-alt{background:#141024}
+.spice{color:#FF8A1E}
+.sand{color:#D4B078}
+.cyan{color:#4DC3FF}
+.muted{color:#8d80a8}
+.bull{color:#3DFF8A}
+.bear{color:#FF3D5E}
+.section-hdr{color:#FF8A1E;font-size:14px;margin:20px 0 8px;text-shadow:0 0 8px rgba(255,138,30,.4)}
+.title{font-size:20px;color:#FF8A1E;text-shadow:0 0 8px rgba(255,138,30,.4);margin-bottom:4px}
+.subtitle{color:#D4B078;font-size:13px;font-family:'Share Tech Mono',monospace}
+.tagline{color:#8d80a8;font-style:italic;font-size:13px;margin-top:4px}
+.regime-badge{display:inline-block;padding:3px 10px;border-radius:4px;font-family:'Share Tech Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+.regime-riskon{color:#3DFF8A;border:1px solid #3DFF8A}
+.regime-caution{color:#FF8A1E;border:1px solid #FF8A1E}
+.regime-riskoff{color:#FF3D5E;border:1px solid #FF3D5E}
+.sentiment-badge{display:inline-block;padding:6px 14px;border-radius:6px;font-family:'Share Tech Mono',monospace;font-size:16px;letter-spacing:1px}
+.sentiment-bullish{background:rgba(61,255,138,.1);color:#3DFF8A;border:1px solid #3DFF8A}
+.sentiment-bearish{background:rgba(255,61,94,.1);color:#FF3D5E;border:1px solid #FF3D5E}
+.sentiment-neutral{background:rgba(77,195,255,.1);color:#4DC3FF;border:1px solid #4DC3FF}
+.play-card{border:2px solid #FF8A1E;background:linear-gradient(135deg,#0d0a1a,#1a1030);padding:18px;border-radius:10px;margin:12px 0}
+.play-ticker{font-family:'Share Tech Mono',monospace;font-size:24px;color:#FF8A1E;text-shadow:0 0 12px rgba(255,138,30,.5)}
+.play-row{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
+.play-item{flex:1;min-width:80px}
+.play-label{font-size:11px;color:#8d80a8;text-transform:uppercase;font-family:'Share Tech Mono',monospace}
+.play-value{font-size:15px;font-weight:bold}
+.setup-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-family:'Share Tech Mono',monospace;background:rgba(255,138,30,.15);color:#FF8A1E;border:1px solid rgba(255,138,30,.3)}
+.score-tag{display:inline-block;padding:2px 6px;border-radius:3px;font-size:11px;font-family:'Share Tech Mono',monospace;background:rgba(61,255,138,.1);color:#3DFF8A}
+.signal-strong{color:#3DFF8A;font-weight:bold}
+.signal-buy{color:#3DFF8A}
+.signal-watch{color:#FF8A1E}
+.signal-neutral{color:#4DC3FF}
+.impact-high{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-family:'Share Tech Mono',monospace;background:rgba(255,61,94,.15);color:#FF3D5E;border:1px solid rgba(255,61,94,.3)}
+.impact-med{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-family:'Share Tech Mono',monospace;background:rgba(255,138,30,.15);color:#FF8A1E;border:1px solid rgba(255,138,30,.3)}
+.analog{font-style:italic;color:#8d80a8;font-size:13px;margin:4px 0}
+.counter{color:#4DC3FF;font-size:13px;margin:4px 0}
+.ticker-up{color:#3DFF8A;font-family:'Share Tech Mono',monospace;font-size:13px}
+.ticker-down{color:#FF3D5E;font-family:'Share Tech Mono',monospace;font-size:13px}
+.ticker-neutral{color:#4DC3FF;font-family:'Share Tech Mono',monospace;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}
+th{font-family:'Share Tech Mono',monospace;text-transform:uppercase;font-size:10px;color:#8d80a8;text-align:left;padding:6px 4px;border-bottom:1px solid #2b2247;letter-spacing:1px}
+td{padding:5px 4px;border-bottom:1px solid rgba(43,34,71,.5);font-family:'Share Tech Mono',monospace;font-size:12px}
+.quote-block{border-left:3px solid #FF8A1E;padding:8px 12px;margin:8px 0;font-style:italic;color:#D4B078}
+.quote-attr{color:#8d80a8;font-size:12px;font-style:normal}
+.severity-high{color:#FF3D5E}
+.severity-med{color:#FF8A1E}
+.sector-row{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(43,34,71,.3)}
+.sector-dir{font-size:16px;width:24px;text-align:center}
+.sector-name{font-family:'Share Tech Mono',monospace;font-size:12px;color:#E8DCC8;width:100px}
+.sector-comment{font-size:12px;color:#8d80a8;flex:1}
+.footer{text-align:center;padding:20px 0;font-size:12px;color:#8d80a8}
+.footer a{color:#FF8A1E;text-decoration:none}
+.action-item{margin:6px 0;font-size:13px}
+.src-scan{font-size:10px}
+.src-news{font-size:10px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div style="text-align:center;padding:16px 0">
+<div class="title">🔱 MUAD'DIB MARKET INTELLIGENCE</div>
+<div class="subtitle">Monday, August 4, 2026</div>
+<div class="tagline">The Spice Must Flow.</div>
+<div><span class="regime-badge regime-riskon">⚡ RISK-ON</span></div>
+<div style="font-size:11px;color:#8d80a8;margin-top:6px;font-family:'Share Tech Mono',monospace">SPY $747.03 &gt; 50DMA $744.99 &gt; 200DMA $700.39 · VIX 15.72</div>
+</div>
+
+<!-- PLAY OF THE DAY -->
+<div class="section-hdr">⭐ PLAY OF THE DAY</div>
+<div class="play-card">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+<div><span class="play-ticker">MKTX</span> <span style="color:#8d80a8;font-size:13px">MarketAxess Holdings</span></div>
+<div><span class="setup-tag">BREAKOUT</span> <span class="score-tag">5/5</span> <span class="signal-strong" style="font-size:12px;font-family:'Share Tech Mono',monospace">STRONG_BUY</span></div>
+</div>
+<div class="play-row">
+<div class="play-item"><div class="play-label">Entry</div><div class="play-value spice">$162.76</div></div>
+<div class="play-item"><div class="play-label">Stop</div><div class="play-value bear">$154.01</div></div>
+<div class="play-item"><div class="play-label">Target</div><div class="play-value bull">$180.25</div></div>
+<div class="play-item"><div class="play-label">R:R</div><div class="play-value cyan">1:2.0</div></div>
+</div>
+<div style="margin-top:10px;font-size:13px;color:#E8DCC8">#1 RS leader at <span class="bull">+41.59%</span> with RVOL <span class="spice">5.45</span> — massive institutional volume surge. As the dominant electronic bond trading platform, MKTX benefits directly from historic bond market volatility (30Y at 5.19%). Price sits 0.28% from the 63-day pivot. All 5 checklist points clear.</div>
+<div style="margin-top:6px;font-size:11px;color:#8d80a8">ATR14: $5.83 (3.59%) · Source: 🔭📰 scan+news</div>
+</div>
+
+<!-- TL;DR -->
+<div class="section-hdr">📋 TL;DR</div>
+<div class="card" style="border:1px solid #FF8A1E">
+<div style="font-size:13px;font-family:'Share Tech Mono',monospace;color:#FF8A1E;margin-bottom:6px">THE GIST</div>
+<div style="font-size:14px">Iran de-escalation crashed oil 5.68% and lit up futures, but 30Y yields at a 19-year high and KOSPI margin calls create crosscurrents. The scanner tape is the richest in weeks — 19 five-star breakouts — with MKTX leading on monster RVOL and bond-trading tailwinds. AMD/PLTR after the close and Friday's NFP are the week's pivots.</div>
+
+<div style="font-size:13px;font-family:'Share Tech Mono',monospace;color:#FF8A1E;margin:12px 0 6px">ACTIONABLE ITEMS</div>
+<div class="action-item">▸ <span class="setup-tag">BREAKOUT</span> <span class="spice">MKTX</span> — entry break $162.76 · stop $154.01 · target $180.25 — bond trading + yield volatility, RVOL 5.45</div>
+<div class="action-item">▸ <span class="setup-tag">BREAKOUT</span> <span class="spice">MSFT</span> — entry break $464.72 · stop $440.69 · target $512.78 — AI mega-cap at 63d highs, RS +20.76%</div>
+<div class="action-item">▸ <span class="setup-tag">BREAKOUT</span> <span class="spice">DXCM</span> — entry break $83.45 · stop $78.66 · target $93.02 — medical devices uptrend stack, RS +21.02%</div>
+<div class="action-item">▸ <span class="setup-tag">BREAKOUT</span> <span class="spice">WTW</span> — entry break $336.05 · stop $321.78 · target $364.58 — insurance broker at highs, RS +21.96%</div>
+<div class="action-item">▸ <span class="setup-tag">BREAKOUT</span> <span class="spice">AMZN</span> — entry break $274.99 · stop $260.72 · target $303.52 — post-earnings RVOL 2.48, RS +12.19%</div>
+
+<div class="quote-block" style="margin-top:12px">
+"The impediment to action advances action. What stands in the way becomes the way."
+<div class="quote-attr">— Marcus Aurelius</div>
+</div>
+</div>
+
+<!-- SENTIMENT -->
+<div class="section-hdr">🎯 SENTIMENT</div>
+<div class="card" style="text-align:center">
+<div class="sentiment-badge sentiment-bullish">CAUTIOUSLY BULLISH</div>
+<div style="font-family:'Share Tech Mono',monospace;font-size:28px;color:#3DFF8A;margin:8px 0">6.5<span style="font-size:14px;color:#8d80a8">/10</span></div>
+<div style="font-size:13px;color:#8d80a8;text-align:left">RISK_ON regime with futures green on Iran de-escalation. But 30Y at 5.19%, KOSPI margin calls, and 64.5% September hike odds limit upside conviction. Scanner tape is the richest in weeks (19 score-5 breakouts) — confirming robust trend breadth — but extended RSIs warn against chasing. Trade the levels.</div>
+</div>
+
+<!-- KEY MACRO EVENTS -->
+<div class="section-hdr">🌍 KEY MACRO EVENTS</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<strong style="color:#E8DCC8;font-size:14px">Trump Halts Iran Attack — Oil -5.68%</strong>
+<span class="impact-high">HIGH BULLISH</span>
+</div>
+<div style="font-size:13px;margin-bottom:6px"><strong class="spice">Chain:</strong> War-risk premium unwinds → crude to $79.86 → lower input costs for industrials/transports → lower inflation expectations → broad risk-on. Airlines/cruise benefit (<span class="ticker-up">DAL▲ UAL▲ BA▲ CCL▲</span>), energy pressured (<span class="ticker-down">XOM▼ OXY▼ BP▼</span>).</div>
+<div class="analog">Analog: Sep 2019 Abqaiq — oil spiked 15% then fully reversed within 2 weeks as supply fears proved overblown.</div>
+<div class="counter">⚖️ Counterargument: Strait of Hormuz chokepoint risk unchanged. Any diplomatic reversal → snap-back oil rally.</div>
+</div>
+
+<div class="card card-alt">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<strong style="color:#E8DCC8;font-size:14px">KOSPI -4% / DRAM ETF -32% — Margin Calls</strong>
+<span class="impact-med">MEDIUM BEARISH</span>
+</div>
+<div style="font-size:13px;margin-bottom:6px"><strong class="spice">Chain:</strong> Memory stock overvaluation → margin calls → forced selling → Samsung & SK Hynix <span class="ticker-down">-8%</span> → potential contagion to US memory (<span class="ticker-down">MU▼ WDC▼</span>). But AI logic chips structurally decoupled (<span class="ticker-neutral">NVDA➜ AVGO➜</span>).</div>
+<div class="analog">Analog: Aug 2022 memory downcycle — DRAM oversupply crushed margins but NVDA diverged upward on AI pivot. Same divergence likely.</div>
+<div class="counter">⚖️ Global semi sales at $120.6B/month (record, +104% YoY) — leverage washout, not demand destruction.</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<strong style="color:#E8DCC8;font-size:14px">30Y Treasury Hits 5.19% — Highest Since 2007</strong>
+<span class="impact-high">HIGH MIXED</span>
+</div>
+<div style="font-size:13px;margin-bottom:6px"><strong class="spice">Chain:</strong> Persistent inflation + fiscal deficits + AI capex demand → structural Treasury supply/demand imbalance → term premium expands → 30Y at 5.19%. Benefits insurers (<span class="ticker-up">MET▲ PRU▲ MKTX▲ MA▲</span>), headwinds for rate-sensitive (<span class="ticker-down">TLT▼ XLU▼ VNQ▼</span>).</div>
+<div class="analog">Analog: 2006-07 yield surge preceded tightening peak. Difference now: AI capex provides genuine growth offset that housing bubble lacked.</div>
+<div class="counter">⚖️ If Friday NFP soft (+100k), could catalyze yields lower and spark growth rotation. Market has been climbing the wall of yields for months.</div>
+</div>
+
+<div class="card card-alt">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<strong style="color:#E8DCC8;font-size:14px">335 Earnings — AMD & PLTR After Close</strong>
+<span class="impact-high">HIGH CATALYST</span>
+</div>
+<div style="font-size:13px;margin-bottom:6px"><strong class="spice">Chain:</strong> CAT premarket (industrial capex bellwether) + BP premarket (energy into oil crash) + SpaceX first earnings → AMD after close (AI GPU demand) + PLTR (AI/gov spending, consensus EPS $0.33, rev $1.81B). AMD sets tone for entire AI semi complex tomorrow.</div>
+<div class="counter">⚖️ Strong AMD guide → NVDA/AVGO sympathy. Weak → sell-the-news risk amplified by KOSPI backdrop.</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<strong style="color:#E8DCC8;font-size:14px">FedWatch: 64.5% September Hike Probability</strong>
+<span class="impact-med">MEDIUM BEARISH</span>
+</div>
+<div style="font-size:13px;margin-bottom:6px"><strong class="spice">Chain:</strong> Fed held July FOMC, Warsh signals willingness to defend 2% target → 64.5% hike odds → 2Y at 4.25%, 10Y at 4.69% → stronger dollar (DXY 99.81). Gold resilient at $4,055 (<span class="ticker-up">GLD▲</span>), BTC pressured (<span class="ticker-down">BTC▼</span>).</div>
+<div class="counter">⚖️ Market has been pricing hikes and rallying anyway. Unless NFP massively surprises, September hike largely discounted.</div>
+</div>
+
+<!-- WATCHLIST -->
+<div class="section-hdr">📊 WATCHLIST</div>
+<div class="card" style="overflow-x:auto;padding:8px">
+<table>
+<thead><tr><th>Ticker</th><th>Setup</th><th>Score</th><th>Signal</th><th>Entry</th><th>Stop</th><th>Target</th><th>Src</th></tr></thead>
+<tbody>
+<tr><td class="spice">MKTX</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$162.76</td><td class="bear">$154.01</td><td class="bull">$180.25</td><td>🔭📰</td></tr>
+<tr><td class="spice">MSFT</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$464.72</td><td class="bear">$440.69</td><td class="bull">$512.78</td><td>🔭</td></tr>
+<tr><td class="spice">DXCM</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$83.45</td><td class="bear">$78.66</td><td class="bull">$93.02</td><td>🔭</td></tr>
+<tr><td class="spice">WTW</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$336.05</td><td class="bear">$321.78</td><td class="bull">$364.58</td><td>🔭</td></tr>
+<tr><td class="spice">GRMN</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$297.55</td><td class="bear">$282.31</td><td class="bull">$328.03</td><td>🔭</td></tr>
+<tr><td class="spice">AMZN</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$274.99</td><td class="bear">$260.72</td><td class="bull">$303.52</td><td>🔭📰</td></tr>
+<tr><td class="spice">LNC</td><td><span class="setup-tag">BREAKOUT</span></td><td class="bull">5/5</td><td class="signal-strong">STRONG_BUY</td><td>$46.02</td><td class="bear">$43.80</td><td class="bull">$50.46</td><td>🔭</td></tr>
+<tr><td class="sand">MET</td><td><span class="setup-tag">PULLBACK</span></td><td>4/5</td><td class="signal-buy">BUY</td><td>$97.49</td><td class="bear">$94.74</td><td class="bull">$102.98</td><td>🔭</td></tr>
+<tr><td class="muted">AMD</td><td><span class="setup-tag">ORB-5</span></td><td>3/5</td><td class="signal-watch">WATCH</td><td>TBD</td><td>TBD</td><td>TBD</td><td>📰</td></tr>
+</tbody>
+</table>
+<div style="font-size:10px;color:#8d80a8;margin-top:4px">🔭 = scanner · 📰 = news-driven · 🔭📰 = both | All levels ATR14-anchored, 1:2 R:R minimum</div>
+</div>
+
+<!-- SECTOR OUTLOOK -->
+<div class="section-hdr">🏢 SECTOR OUTLOOK</div>
+<div class="card" style="padding:10px 14px">
+<div class="sector-row"><div class="sector-dir bull">▲</div><div class="sector-name">Technology</div><div class="sector-comment">AI super-cycle intact — MSFT breakout. KOSPI memory crash headwind for MU/WDC but logic chips decoupled.</div></div>
+<div class="sector-row"><div class="sector-dir bull">▲</div><div class="sector-name">Financials</div><div class="sector-comment">Scanner-rich — MKTX, MET, PRU, LNC, WTW, MA all breaking out. Higher yields boost income & volumes.</div></div>
+<div class="sector-row"><div class="sector-dir bull">▲</div><div class="sector-name">Health Care</div><div class="sector-comment">DXCM and LH breakouts with strong RS. Defensive quality with offensive characteristics.</div></div>
+<div class="sector-row"><div class="sector-dir bull">▲</div><div class="sector-name">Cons Disc</div><div class="sector-comment">AMZN post-earnings breakout. Lower oil benefits consumer. GRMN breaking out on strong RS.</div></div>
+<div class="sector-row"><div class="sector-dir" style="color:#4DC3FF">➜</div><div class="sector-name">Industrials</div><div class="sector-comment">CAT earnings key bellwether. GD, EMR, ITW scanner hits but mixed signals. Wait for guidance.</div></div>
+<div class="sector-row"><div class="sector-dir bull">▲</div><div class="sector-name">Comm Svcs</div><div class="sector-comment">Led gainers Friday. BABA +4.41% on AI model. PLTR earnings catalyst after close.</div></div>
+<div class="sector-row"><div class="sector-dir bear">▼</div><div class="sector-name">Energy</div><div class="sector-comment">Crude -5.68% on Iran de-escalation. BP earnings into weakness. Avoid energy longs.</div></div>
+<div class="sector-row"><div class="sector-dir bear">▼</div><div class="sector-name">Materials</div><div class="sector-comment">Lagged Friday. Dollar strength and commodity weakness. MHK lone breakout (building products).</div></div>
+<div class="sector-row"><div class="sector-dir bear">▼</div><div class="sector-name">Utilities</div><div class="sector-comment">Rate-sensitive, pressured by 30Y at 5.19%. Avoid until yields stabilize.</div></div>
+</div>
+
+<!-- KEY RISKS -->
+<div class="section-hdr">⚠️ KEY RISKS</div>
+<div class="card">
+<div style="margin-bottom:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:13px">Iran headline reversal</strong><span class="severity-high" style="font-size:11px;font-family:'Share Tech Mono',monospace">SEVERITY: HIGH</span></div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Any re-escalation → snap-back oil rally, immediate risk-off. Strait of Hormuz chokepoint risk structurally unchanged.</div>
+</div>
+<div style="margin-bottom:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:13px">Memory margin-call contagion</strong><span class="severity-med" style="font-size:11px;font-family:'Share Tech Mono',monospace">SEVERITY: MEDIUM</span></div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">KOSPI forced selling may spread to US memory (MU, WDC) and semi ETFs (SMH, SOXX), dragging NVDA/AVGO sympathetically.</div>
+</div>
+<div style="margin-bottom:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:13px">Friday NFP miss/surprise</strong><span class="severity-high" style="font-size:11px;font-family:'Share Tech Mono',monospace">SEVERITY: HIGH</span></div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Barclays expects +100k. Significant miss shifts Fed calculus; beat reinforces September hike. Either direction spikes volatility.</div>
+</div>
+<div style="margin-bottom:10px">
+<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:13px">AMD earnings miss after close</strong><span class="severity-med" style="font-size:11px;font-family:'Share Tech Mono',monospace">SEVERITY: MEDIUM</span></div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Weak guide deflates AI narrative, pressures semi complex — amplified by KOSPI crash backdrop.</div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center"><strong style="font-size:13px">30Y yield acceleration above 5.25%</strong><span class="severity-med" style="font-size:11px;font-family:'Share Tech Mono',monospace">SEVERITY: MEDIUM</span></div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Disorderly bond selloff could force cross-asset deleveraging and compress equity risk premium.</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div style="margin-bottom:8px"><a href="https://arrakistacos.github.io/morning-brief/">📊 arrakistacos.github.io/morning-brief</a></div>
+<div>Powered by Anthropic Claude · Muad'Dib Market Intelligence</div>
+<div style="font-size:10px;margin-top:4px">Not financial advice. All levels are computed, not predicted. Trade at your own risk.</div>
+</div>
+
+</body>
+</html>
