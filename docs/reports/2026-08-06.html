@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muad'Dib Market Intelligence — 2026-08-06</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #060410; color: #E8DCC8; font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; padding: 16px; }
+  .container { max-width: 600px; margin: 0 auto; }
+  h1, h2, h3, .section-header { font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 2px; }
+  h1 { color: #FF8A1E; font-size: 18px; letter-spacing: 3px; text-shadow: 0 0 8px rgba(255,138,30,.4); }
+  .subtitle { color: #D4B078; font-size: 13px; font-family: 'Share Tech Mono', monospace; margin-top: 4px; }
+  .tagline { color: #8d80a8; font-style: italic; font-size: 13px; margin-top: 2px; }
+  .section-header { color: #FF8A1E; font-size: 14px; margin: 24px 0 12px 0; text-shadow: 0 0 8px rgba(255,138,30,.4); letter-spacing: 2px; }
+  .card { background: #0d0a1a; border: 1px solid #2b2247; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .card-highlight { border: 2px solid #FF8A1E; background: #141024; }
+  .card-potd { border: 2px solid #FF8A1E; background: linear-gradient(135deg, #141024 0%, #1a1030 100%); }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .badge-riskon { color: #3DFF8A; border: 1px solid #3DFF8A; }
+  .badge-bullish { color: #3DFF8A; border: 1px solid #3DFF8A; }
+  .badge-high-pos { color: #3DFF8A; background: rgba(61,255,138,.1); }
+  .badge-high-neg { color: #FF3D5E; background: rgba(255,61,94,.1); }
+  .badge-medium { color: #FF8A1E; background: rgba(255,138,30,.1); }
+  .badge-setup { color: #4DC3FF; border: 1px solid #4DC3FF; font-size: 11px; padding: 2px 6px; }
+  .badge-strong-buy { color: #3DFF8A; border: 1px solid #3DFF8A; font-size: 11px; padding: 2px 6px; }
+  .badge-buy { color: #4DC3FF; border: 1px solid #4DC3FF; font-size: 11px; padding: 2px 6px; }
+  .bull { color: #3DFF8A; }
+  .bear { color: #FF3D5E; }
+  .neutral { color: #D4B078; }
+  .spice { color: #FF8A1E; }
+  .cyan { color: #4DC3FF; }
+  .sand { color: #D4B078; }
+  .muted { color: #8d80a8; }
+  .ticker-tag { font-family: 'Share Tech Mono', monospace; font-weight: bold; font-size: 13px; }
+  .levels-row { display: flex; justify-content: space-between; margin-top: 8px; padding: 8px; background: #0d0a1a; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 13px; }
+  .levels-row div { text-align: center; }
+  .levels-row .label { font-size: 10px; color: #8d80a8; text-transform: uppercase; }
+  .quote-block { border-left: 3px solid #FF8A1E; padding: 8px 12px; margin-top: 12px; font-style: italic; color: #D4B078; font-size: 14px; }
+  .quote-attr { font-style: normal; color: #8d80a8; font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; color: #8d80a8; text-align: left; padding: 8px 4px; border-bottom: 1px solid #2b2247; }
+  td { padding: 6px 4px; border-bottom: 1px solid #1a1530; }
+  tr:hover { background: #141024; }
+  .action-item { margin-bottom: 8px; padding-left: 16px; position: relative; }
+  .action-item::before { content: '▸'; position: absolute; left: 0; color: #FF8A1E; }
+  .score-display { font-family: 'Share Tech Mono', monospace; font-size: 20px; font-weight: bold; }
+  .sentiment-bar { height: 6px; background: #1a1530; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .sentiment-fill { height: 100%; background: linear-gradient(90deg, #FF3D5E 0%, #FF8A1E 50%, #3DFF8A 100%); border-radius: 3px; }
+  .sector-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #1a1530; }
+  .sector-name { flex: 1; }
+  .sector-dir { width: 30px; text-align: center; font-size: 16px; }
+  .footer { text-align: center; margin-top: 32px; padding: 16px; color: #8d80a8; font-size: 12px; }
+  .footer a { color: #4DC3FF; text-decoration: none; }
+  .event-card { margin-bottom: 12px; }
+  .event-title { font-weight: bold; color: #E8DCC8; }
+  .analog { font-style: italic; color: #D4B078; font-size: 13px; }
+  .counter { color: #8d80a8; font-size: 13px; }
+  .source-tag { font-size: 11px; }
+  .header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div style="text-align:center; margin-bottom: 20px;">
+  <h1>🔱 MUAD'DIB MARKET INTELLIGENCE</h1>
+  <div class="subtitle">Wednesday, August 6, 2026</div>
+  <div class="tagline">The Spice Must Flow.</div>
+  <div style="margin-top: 8px;">
+    <span class="badge badge-riskon">RISK-ON</span>
+  </div>
+  <div class="muted" style="font-size:12px; margin-top:4px;">SPY $769.79 &gt; 50DMA $746.37 &gt; 200DMA $701.94 · VIX 15.92</div>
+</div>
+
+<!-- PLAY OF THE DAY -->
+<h2 class="section-header">⭐ PLAY OF THE DAY</h2>
+<div class="card card-potd">
+  <div class="header-row">
+    <div>
+      <span class="ticker-tag spice" style="font-size:20px;">PSX</span>
+      <span class="badge badge-setup">PULLBACK</span>
+      <span class="badge badge-strong-buy">STRONG_BUY</span>
+    </div>
+    <div>
+      <span class="sand" style="font-family:'Share Tech Mono',monospace; font-size:16px;">5/5</span>
+      <span class="source-tag muted">🔭📰</span>
+    </div>
+  </div>
+  <div class="levels-row" style="margin-top:12px;">
+    <div><div class="label">Entry</div><div class="bull">$202.55</div></div>
+    <div><div class="label">Stop</div><div class="bear">$192.88</div></div>
+    <div><div class="label">Target</div><div class="cyan">$221.90</div></div>
+    <div><div class="label">R:R</div><div class="sand">1:2.0</div></div>
+    <div><div class="label">ATR14</div><div class="muted">$6.45</div></div>
+  </div>
+  <p style="margin-top:12px; font-size:14px;">
+    Phillips 66 is pulling back to its rising 20EMA ($201.92) with RSI(2) at 7.8 — an extreme oversold reading inside a confirmed uptrend. RS vs SPY is +10.3% (1M), confirming sector leadership. The Hormuz deal catalyst is a direct tailwind: lower crude input costs widen refining margins, and PSX's refining-heavy model benefits disproportionately. All five checklist items clear.
+  </p>
+</div>
+
+<!-- TL;DR -->
+<h2 class="section-header">📋 TL;DR</h2>
+<div class="card card-highlight">
+  <div style="margin-bottom:12px;">
+    <strong class="spice">THE GIST:</strong> Hormuz deal imminent — oil down 3%, Dow at record highs. CAT blowout (+11%), LLY obesity drugs soaring (+5%), AMD punished for not exceeding sky-high AI expectations (-7%). Refiners are the best trade: pullback setups with falling crude as direct catalyst.
+  </div>
+  <div style="margin-bottom:12px;">
+    <strong class="cyan">ACTIONABLE:</strong>
+    <div class="action-item"><span class="badge badge-setup" style="font-size:10px;">PULLBACK</span> <strong>PSX</strong> — entry $202.55 · stop $192.88 · target $221.90 — Hormuz deal, refining margins. <span class="spice">⭐ POTD</span></div>
+    <div class="action-item"><span class="badge badge-setup" style="font-size:10px;">BREAKOUT</span> <strong>ANET</strong> — entry $197.31 · stop $180.22 · target $231.48 — RS leader #1, RVOL 2.38.</div>
+    <div class="action-item"><span class="badge badge-setup" style="font-size:10px;">PULLBACK</span> <strong>MPC</strong> — entry $297.75 · stop $282.70 · target $327.86 — refiner pullback, Hormuz tailwind.</div>
+    <div class="action-item"><span class="badge badge-setup" style="font-size:10px;">GAP-GO</span> <strong>LLY</strong> — entry: break 1st-30min high · stop: 1st-30min low · target: 2R — $23B rev (+48%), guidance raised.</div>
+    <div class="action-item"><span class="badge badge-setup" style="font-size:10px;">PULLBACK</span> <strong>VLO</strong> — entry $302.39 · stop $285.56 · target $336.06 — refiner dip, RS +10.6%.</div>
+  </div>
+  <div class="quote-block">
+    "You have power over your mind, not outside events. Realize this, and you will find strength."
+    <div class="quote-attr">— Marcus Aurelius</div>
+  </div>
+</div>
+
+<!-- SENTIMENT -->
+<h2 class="section-header">🎯 SENTIMENT</h2>
+<div class="card">
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div>
+      <span class="badge badge-bullish" style="font-size:16px; padding:6px 16px;">BULLISH</span>
+    </div>
+    <div>
+      <span class="score-display bull">7.5</span><span class="muted">/10</span>
+    </div>
+  </div>
+  <div class="sentiment-bar" style="margin-top:10px;">
+    <div class="sentiment-fill" style="width:75%;"></div>
+  </div>
+  <p style="margin-top:10px; font-size:13px; color:#8d80a8;">
+    Hormuz deal imminent sends crude down 3% and lifts risk appetite. Dow at record highs. Blowout earnings from CAT (+11%), LLY (+5%), PLTR. Tempered by AMD's -7% miss (high AI bar), 30Y yield at 5.20% (highest since 2007), FedWatch pricing 62.7% Sept hike, and China tariff escalation risk.
+  </p>
+</div>
+
+<!-- MACRO EVENTS -->
+<h2 class="section-header">🌍 KEY MACRO EVENTS</h2>
+
+<div class="card event-card">
+  <div class="header-row" style="margin-bottom:8px;">
+    <span class="event-title">Hormuz Strait Deal Imminent</span>
+    <span class="badge badge-high-pos">HIGH — POSITIVE</span>
+  </div>
+  <p style="font-size:13px;">
+    <strong>Chain:</strong> Trump pauses Iran strikes → Bessent signals deal "today or tomorrow" → war-risk premium unwinds → WTI -3% to $77.95, Brent -2% to $81 → refining margins EXPAND (crude input falls faster than products) → <span class="bull ticker-tag">PSX ▲</span> <span class="bull ticker-tag">VLO ▲</span> <span class="bull ticker-tag">MPC ▲</span> <span class="bull ticker-tag">DAL ▲</span> <span class="bear ticker-tag">COP ▼</span>. Lower crude → gasoline falls → consumer purchasing power ↑.
+  </p>
+  <p class="analog" style="margin-top:6px;">Analog: Sep 2019 Abqaiq — oil spiked 15% then unwound in 2 weeks. Geopolitical premiums can unwind completely.</p>
+  <p class="counter" style="margin-top:4px;">⚠ Counter: Deal isn't done — "could come today or tomorrow" is signaling, not commitment. If talks collapse, oil reversal +5-8%.</p>
+</div>
+
+<div class="card event-card">
+  <div class="header-row" style="margin-bottom:8px;">
+    <span class="event-title">Caterpillar Q2 Blowout — +11%, Raised Guidance</span>
+    <span class="badge badge-high-pos">HIGH — POSITIVE</span>
+  </div>
+  <p style="font-size:13px;">
+    <strong>Chain:</strong> CAT beats Q2 + raises revenue guidance → stock +11% to $925 premarket → validates industrial capex cycle → read-across to <span class="bull ticker-tag">EMR ▲</span> <span class="bull ticker-tag">PCAR ▲</span> <span class="bull ticker-tag">DE ▲</span> <span class="bull ticker-tag">ETN ▲</span>. Revenue raise implies forward orders robust → procurement cycle continues.
+  </p>
+  <p class="analog" style="margin-top:6px;">Analog: CAT's April 2024 beat triggered 3-week industrial rally (XLI +4%).</p>
+  <p class="counter" style="margin-top:4px;">⚠ Counter: Strength may be idiosyncratic (backlog execution) vs. broad cycle. +11% leaves CAT extended — trade the read-across, not CAT itself.</p>
+</div>
+
+<div class="card event-card">
+  <div class="header-row" style="margin-bottom:8px;">
+    <span class="event-title">AMD Earnings — 50% Growth Not Enough, -7%</span>
+    <span class="badge badge-medium">MEDIUM — NEGATIVE</span>
+  </div>
+  <p style="font-size:13px;">
+    <strong>Chain:</strong> AMD Q2 rev +50% to $11.5B, EPS $1.66 (beat) → but guidance missed Helios blowout expectations → -7% → capex surged to $808M (from $282M) → Musk: SpaceX builds exclusively with Nvidia → KOSPI -4% (Samsung/SK Hynix -8%) → AI sentiment contagion. The bar is now "exceptional, not good."
+  </p>
+  <p class="analog" style="margin-top:6px;">Analog: Meta Feb 2024 — rev +25% but fell 5% initially. High-expectation misses can be temporary if secular trend holds.</p>
+  <p class="counter" style="margin-top:4px;">⚠ Counter: AMD's actual numbers were strong. Broadcom guidance of 200%+ AI revenue growth validates the broader demand story. Sell-off may be a buying opportunity once Helios narrative clarifies.</p>
+</div>
+
+<div class="card event-card">
+  <div class="header-row" style="margin-bottom:8px;">
+    <span class="event-title">Eli Lilly Q2 — Revenue +48%, Obesity Drug Juggernaut</span>
+    <span class="badge badge-high-pos">HIGH — POSITIVE</span>
+  </div>
+  <p style="font-size:13px;">
+    <strong>Chain:</strong> LLY Q2 rev $23B (+48% YoY) → Mounjaro +91% to $9.9B, Zepbound +44% to $4.9B → raised FY guidance to $85-87B → stock +5% on RVOL 2.1 → validates GLP-1 hyper-growth → <span class="bull ticker-tag">LLY ▲</span> <span class="bull ticker-tag">NVO ▲</span>. Bloomberg floats stock split possibility.
+  </p>
+  <p class="analog" style="margin-top:6px;">Analog: NVO Nov 2024 beat triggered 2-week healthcare rally. Post-earnings drift typically 3-5 sessions.</p>
+  <p class="counter" style="margin-top:4px;">⚠ Counter: At $1,170, valuation requires 40%+ growth to continue. Oral GLP-1 competition (Roche, Pfizer pipeline) could erode share over 12-18 months.</p>
+</div>
+
+<!-- WATCHLIST TABLE -->
+<h2 class="section-header">📊 WATCHLIST</h2>
+<div class="card" style="overflow-x:auto;">
+<table>
+  <thead>
+    <tr>
+      <th>Ticker</th>
+      <th>Setup</th>
+      <th>Score</th>
+      <th>Signal</th>
+      <th>Entry</th>
+      <th>Stop</th>
+      <th>Target</th>
+      <th>Src</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="ticker-tag spice">PSX</td>
+      <td><span class="badge badge-setup">PULLBACK</span></td>
+      <td class="sand">5/5</td>
+      <td class="bull">STRONG_BUY</td>
+      <td>$202.55</td>
+      <td class="bear">$192.88</td>
+      <td class="bull">$221.90</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">ANET</td>
+      <td><span class="badge badge-setup">BREAKOUT</span></td>
+      <td class="sand">5/5</td>
+      <td class="bull">STRONG_BUY</td>
+      <td>$197.31</td>
+      <td class="bear">$180.22</td>
+      <td class="bull">$231.48</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">MPC</td>
+      <td><span class="badge badge-setup">PULLBACK</span></td>
+      <td class="sand">5/5</td>
+      <td class="bull">STRONG_BUY</td>
+      <td>$297.75</td>
+      <td class="bear">$282.70</td>
+      <td class="bull">$327.86</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">LLY</td>
+      <td><span class="badge badge-setup">GAP-GO</span></td>
+      <td class="sand">4/5</td>
+      <td class="cyan">BUY</td>
+      <td>30m high</td>
+      <td class="bear">30m low</td>
+      <td class="bull">2R</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">VLO</td>
+      <td><span class="badge badge-setup">PULLBACK</span></td>
+      <td class="sand">4/5</td>
+      <td class="cyan">BUY</td>
+      <td>$302.39</td>
+      <td class="bear">$285.56</td>
+      <td class="bull">$336.06</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">EMR</td>
+      <td><span class="badge badge-setup">BREAKOUT</span></td>
+      <td class="sand">4/5</td>
+      <td class="cyan">BUY</td>
+      <td>$162.47</td>
+      <td class="bear">$155.15</td>
+      <td class="bull">$177.10</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">COP</td>
+      <td><span class="badge badge-setup">DIP</span></td>
+      <td class="sand">4/5</td>
+      <td class="cyan">BUY</td>
+      <td>$115.04</td>
+      <td class="bear">$108.55</td>
+      <td class="bull">$124.77</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">PCAR</td>
+      <td><span class="badge badge-setup">BREAKOUT</span></td>
+      <td class="sand">4/5</td>
+      <td class="cyan">BUY</td>
+      <td>$133.34</td>
+      <td class="bear">$127.54</td>
+      <td class="bull">$144.94</td>
+      <td class="source-tag">🔭📰</td>
+    </tr>
+    <tr>
+      <td class="ticker-tag">PLTR</td>
+      <td><span class="badge badge-setup">GAP-GO</span></td>
+      <td class="sand">4/5</td>
+      <td class="cyan">BUY</td>
+      <td>$158.43</td>
+      <td class="bear">$145.55</td>
+      <td class="bull">$184.19</td>
+      <td class="source-tag">📰</td>
+    </tr>
+  </tbody>
+</table>
+<div class="muted" style="font-size:11px; margin-top:6px;">🔭 = scanner · 📰 = news catalyst · 🔭📰 = both</div>
+</div>
+
+<!-- SECTOR OUTLOOK -->
+<h2 class="section-header">📈 SECTOR OUTLOOK</h2>
+<div class="card">
+  <div class="sector-row"><div class="sector-name">Information Technology</div><div class="sector-dir bull">▲</div><div class="muted" style="font-size:12px; flex:2;">Record semi sales $120.6B. ANET breakout. AMD idiosyncratic miss.</div></div>
+  <div class="sector-row"><div class="sector-name">Energy</div><div class="sector-dir neutral">⇄</div><div class="muted" style="font-size:12px; flex:2;">Refiners ▲ (lower crude). E&P ▼ (falling oil). Hormuz is swing factor.</div></div>
+  <div class="sector-row"><div class="sector-name">Health Care</div><div class="sector-dir bull">▲</div><div class="muted" style="font-size:12px; flex:2;">LLY obesity drug boom. Q2 +48%. Sector leadership returning.</div></div>
+  <div class="sector-row"><div class="sector-name">Industrials</div><div class="sector-dir bull">▲</div><div class="muted" style="font-size:12px; flex:2;">CAT +11% blowout. Read-across EMR, PCAR, DE, ETN.</div></div>
+  <div class="sector-row"><div class="sector-name">Financials</div><div class="sector-dir neutral">➜</div><div class="muted" style="font-size:12px; flex:2;">Yields support NIM but duration risk increasing. No catalyst today.</div></div>
+  <div class="sector-row"><div class="sector-name">Consumer Disc.</div><div class="sector-dir neutral">➜</div><div class="muted" style="font-size:12px; flex:2;">ABNB reports today. Lower oil = consumer tailwind. Wait for data.</div></div>
+  <div class="sector-row"><div class="sector-name">Comm. Services</div><div class="sector-dir bear">▼</div><div class="muted" style="font-size:12px; flex:2;">GOOGL -4%, META -1.7%. Rotation out of mega-cap growth.</div></div>
+  <div class="sector-row"><div class="sector-name">Materials</div><div class="sector-dir neutral">➜</div><div class="muted" style="font-size:12px; flex:2;">Gold $4,053 steady. Mixed China demand signals.</div></div>
+  <div class="sector-row"><div class="sector-name">Utilities</div><div class="sector-dir bear">▼</div><div class="muted" style="font-size:12px; flex:2;">30Y at 5.20% pressures yield-sensitive sectors.</div></div>
+</div>
+
+<!-- RISKS -->
+<h2 class="section-header">⚠️ KEY RISKS</h2>
+<div class="card">
+  <div style="margin-bottom:12px;">
+    <span class="badge badge-high-neg">HIGH</span> <strong>Hormuz deal collapses — oil reversal +5-8%</strong>
+    <p class="muted" style="font-size:12px; margin-top:4px;">Talks fail → crude snap-back to $83-85 WTI → refiner gains reverse → broad market gives back Monday's rally → VIX spikes above 18.</p>
+  </div>
+  <div style="margin-bottom:12px;">
+    <span class="badge badge-medium">MEDIUM</span> <strong>Fed September hike materializes</strong>
+    <p class="muted" style="font-size:12px; margin-top:4px;">FedWatch 62.7% hike probability → if confirmed, 10Y above 4.75% → growth multiples compress → tech rotation intensifies. <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" style="color:#4DC3FF;">CME FedWatch</a></p>
+  </div>
+  <div style="margin-bottom:12px;">
+    <span class="badge badge-medium">MEDIUM</span> <strong>China retaliatory tariffs escalate</strong>
+    <p class="muted" style="font-size:12px; margin-top:4px;">China executes $60B retaliatory threat → trade talks collapse → supply chain disruption → AAPL/QCOM sell off. <a href="https://gulfnews.com/amp/story/business%2Fchina-us-to-resume-trade-talks-in-late-august-1.2267216" style="color:#4DC3FF;">Gulf News</a></p>
+  </div>
+  <div>
+    <span class="badge" style="color:#FF8A1E; background:rgba(255,138,30,.1);">LOW-MED</span> <strong>AI sentiment contagion from AMD/KOSPI</strong>
+    <p class="muted" style="font-size:12px; margin-top:4px;">AMD -7% + KOSPI -4% (Samsung/SK Hynix -8%) → reassessment of AI capex ROI → rotation out of AI beneficiaries. <a href="https://www.benzinga.com/markets/asia/26/08/60863273/kospi-extends-historic-selloff-after-worst-month-since-2008-as-samsung-sk-hynix-tumble-nearly-8" style="color:#4DC3FF;">Benzinga</a></p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div style="margin-bottom:8px;"><a href="https://arrakistacos.github.io/morning-brief/">📊 Dashboard: arrakistacos.github.io/morning-brief</a></div>
+  <div>Powered by Anthropic Claude · Muad'Dib Market Intelligence</div>
+</div>
+
+</div>
+</body>
+</html>
