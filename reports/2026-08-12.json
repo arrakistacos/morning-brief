@@ -1,0 +1,331 @@
+{
+  "date": "2026-08-12",
+  "is_trading_day": true,
+  "regime": "RISK_ON",
+  "regime_reasoning": "SPY 770.56 > 50DMA 747.84 > 200DMA 703.99; VIX 15.29 < 20. Full uptrend stack with low volatility. All setups live, full size (1% risk/trade).",
+  "overall_sentiment": "CAUTIOUSLY BULLISH",
+  "sentiment_score": 7,
+  "sentiment_reasoning": "RISK_ON regime with 11 scanner names scoring 5/5 and strong post-earnings breakouts (SE +14.6%, ABNB +17.4%) confirm broad market strength. However, July CPI at 8:30 AM is a binary event \u2014 hot print (>0.3% core MoM) could spike 10Y above 4.7% and trigger intraday reversal. Oil geopolitics add inflation stickiness. Net: bullish tape but CPI is the tollgate.",
+  "executive_summary": "Markets enter CPI Wednesday in RISK_ON regime with futures modestly green (SPX +0.11%, NDX +0.25%). The universe scanner surfaced 11 names at perfect 5/5 scores, led by Sea Limited (SE) which gapped +14.6% on a massive Q2 revenue beat (+48% YoY). Airbnb (ABNB) continues its post-earnings breakout (+17.4% since Aug 7). Marathon Petroleum (MPC) breaks to new highs on Strait of Hormuz tensions. July CPI at 8:30 AM ET is the session fulcrum \u2014 core expected +0.24% MoM. AI earnings (NBIS, CBRS premarket; CSCO after close) add sector catalysts. Strategy: respect the CPI tollgate, size down pre-number, deploy into strength on confirmation.",
+  "play_of_the_day": {
+    "ticker": "SE",
+    "setup": "GAP-GO",
+    "score": "5/5",
+    "signal": "STRONG_BUY",
+    "entry": "Break of first-30-min high (est. $132-134)",
+    "stop": "First-30-min low or $123.92 (1.5x ATR14)",
+    "target": "$146.69 (3x ATR14)",
+    "risk_reward": "1:2.0",
+    "atr14": 5.06,
+    "conviction_reasoning": "SE delivered a blowout Q2 \u2014 revenue +48% YoY to $7.79B vs $7.09B expected, with Shopee, Monee, and Garena all accelerating. RVOL 3.4 (highest in the scan) signals massive institutional participation. 1M RS +15.5% vs SPY in a RISK_ON regime. The gap proved itself yesterday (+14.6%); today is the continuation via first-30-min high break.",
+    "source": "scan+news"
+  },
+  "summary": {
+    "gist": "CPI Wednesday with the tape in full RISK_ON mode. Sea Limited's earnings gap is the highest-conviction setup \u2014 RVOL 3.4, revenue beat +48%, institutional footprints everywhere. Marathon Petroleum breaks out on oil geopolitics. JD.com pulls back to the 20EMA with China trade talks resuming as catalyst. Size down pre-CPI, deploy on confirmation.",
+    "actionable_items": [
+      "GAP-GO - SE \u2014 entry break of 1st-30min high - stop 1st-30min low / $123.92 - target $146.69 \u2014 Q2 revenue +48% YoY, RVOL 3.4",
+      "PULLBACK - JD \u2014 entry break above $32.50 - stop $30.82 - target $34.11 \u2014 China trade talks resuming",
+      "BREAKOUT - MPC \u2014 entry $336+ (new 63d high) - stop $319.19 - target $370.89 \u2014 Hormuz tensions, oil premium",
+      "DIP - LNC \u2014 entry $44.43 (RSI2 4.1) - stop $41.70 - target ~$48.50 \u2014 quality insurance dip, HALF SIZE",
+      "BREAKOUT - ABNB \u2014 entry on pullback to $178 - stop $172.31 - target $203.98 \u2014 post-earnings drift, raised guidance"
+    ],
+    "stoic_quote": {
+      "text": "The whole future lies in uncertainty: live immediately.",
+      "attribution": "Seneca"
+    }
+  },
+  "top_themes": [
+    "July CPI release at 8:30 AM ET \u2014 the session's binary event; core expected +0.24% MoM",
+    "Post-earnings breakout cluster: SE (+14.6%), ABNB (+17.4%), MELI (+6.3%) signal broad risk appetite",
+    "Oil geopolitics: Strait of Hormuz tensions keep WTI at ~$78, benefiting energy (MPC breakout 5/5)",
+    "AI earnings day: NBIS and CBRS report premarket, CSCO after close \u2014 AI capex validation watch",
+    "China trade de-escalation: 90-day tariff pause + senior negotiator returning late August lifts JD, BABA"
+  ],
+  "macro_events": [
+    {
+      "event": "July CPI Release (8:30 AM ET)",
+      "impact": "HIGH",
+      "causal_chain": "Core CPI expected +0.24% MoM, driven by services inflation. Hot print (>0.3%) -> 10Y yields breach 4.75% -> growth/tech selloff -> Fed Sept hike prob >60% -> rate-sensitive crushed. Cool print (<0.2%) -> yields drop -> growth rotation up -> risk-on broadens.",
+      "analog": "June 2024: cool CPI triggered sharp growth rotation (+3% NDX in 2 sessions). July 2023: hot CPI (+0.4% core) caused 2-day selloff.",
+      "counterargument": "Market may have pre-positioned for warm print given 10Y already at 4.7% and 51% Fed hike odds.",
+      "tickers_affected": "QQQ, TLT, XLF (if hot), XLU (if cool), XLRE (if cool)",
+      "sources": [
+        {
+          "title": "CPI Preview",
+          "outlet": "Kiplinger",
+          "url": "https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar"
+        },
+        {
+          "title": "Cleveland Fed Inflation Nowcast",
+          "outlet": "Cleveland Fed",
+          "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+        }
+      ]
+    },
+    {
+      "event": "Strait of Hormuz Tensions / Oil Geopolitics",
+      "impact": "MEDIUM",
+      "causal_chain": "Houthi tanker attacks near Qeshm Island + Iranian disruptions -> war-risk premiums on VLCCs -> rerouting adds ~$2M/trip -> Brent/WTI at ~$78 -> refiner margins expand -> MPC/VLO up. Second-order: sustained $80+ oil -> services CPI sticky -> Fed keeps hiking -> EM equities down.",
+      "analog": "Sep 2019 Abqaiq attack: oil spiked +15% overnight, faded within 2 weeks. Current situation is chronic, not acute.",
+      "counterargument": "August surplus forecast +1.2M bbl/day as Persian Gulf supply recovers to ~90% pre-disruption \u2014 caps upside above $80.",
+      "tickers_affected": "MPC up, XOM up, VLO up, DAL down, UAL down",
+      "sources": [
+        {
+          "title": "Oil Prices and Geopolitical Risk",
+          "outlet": "OilPrice.com",
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Prices-Open-2026-Higher-as-Geopolitical-Risk-Rises.html"
+        },
+        {
+          "title": "ING Crude Rethink",
+          "outlet": "ING",
+          "url": "https://think.ing.com/articles/lingering-geopolitical-uncertainty-requires-a-crude-rethink/"
+        }
+      ]
+    },
+    {
+      "event": "China Trade Talks Resumption",
+      "impact": "MEDIUM",
+      "causal_chain": "90-day reciprocal tariff pause to 10% (from 125%) + senior Chinese negotiator returning late August -> de-escalation -> Chinese ADRs rally. If talks progress -> tariff-sensitive supply chains stabilize -> AAPL/NKE recover.",
+      "analog": "May 2024 tariff pause triggered 3-day rally in FXI (+4.2%) before fading.",
+      "counterargument": "Structural decoupling continues \u2014 145% stacked tariffs on EVs/batteries/solar remain. Washington shifting to supply-chain revamps.",
+      "tickers_affected": "JD up, BABA up, PDD up, AAPL up, NKE up",
+      "sources": [
+        {
+          "title": "China-US Tariff Rates",
+          "outlet": "China Briefing",
+          "url": "https://www.china-briefing.com/news/us-china-tariff-rates-2025/"
+        },
+        {
+          "title": "China-US Trade Talks Resume",
+          "outlet": "Gulf News",
+          "url": "https://gulfnews.com/amp/story/business%2Fchina-us-to-resume-trade-talks-in-late-august-1.2267216"
+        }
+      ]
+    },
+    {
+      "event": "AI Earnings Cluster: NBIS, CBRS (premarket), CSCO (after close)",
+      "impact": "MEDIUM",
+      "causal_chain": "CBRS has $20B+ OpenAI deal + AWS partnership -> strong print validates AI inference buildout -> positive read-through to NVDA/AMD/AVGO. NBIS as AI infra play. CSCO (Street: $1.17 EPS, $16.83B rev) -> networking beneficiary of AI data center buildout.",
+      "analog": "NVDA Q1 2024 earnings: AI capex validation triggered 4-week sector rally.",
+      "counterargument": "NBIS expected to report loss \u2014 speculative AI names face profit-taking risk. CSCO AI premium may be in the +60% YTD move.",
+      "tickers_affected": "NBIS, CBRS, CSCO, NVDA up, AMD up, NET up",
+      "sources": [
+        {
+          "title": "Earnings Calendar Aug 12",
+          "outlet": "EarningsWhispers",
+          "url": "https://www.earningswhispers.com/calendar/20260812/1"
+        },
+        {
+          "title": "Cerebras Earnings Preview",
+          "outlet": "TipRanks",
+          "url": "https://www.tipranks.com/news/cerebras-stock-earnings-preview-what-to-expect-on-august-12"
+        }
+      ]
+    }
+  ],
+  "sector_outlook": [
+    {
+      "sector": "Technology",
+      "direction": "up",
+      "reasoning": "AI earnings cluster today; TSMC rev +45% YoY validates semi demand. CPI-sensitive but regime supports."
+    },
+    {
+      "sector": "Energy",
+      "direction": "up",
+      "reasoning": "WTI ~$78 on Hormuz tensions. MPC breakout to new highs (5/5 scan). Refiner margins expanding."
+    },
+    {
+      "sector": "Consumer Discretionary",
+      "direction": "up",
+      "reasoning": "SE (+14.6%), ABNB (+17.4%) post-earnings breakouts. China trade de-escalation helps JD/BABA."
+    },
+    {
+      "sector": "Financials",
+      "direction": "neutral",
+      "reasoning": "10Y at 4.7% supports NIM but higher-for-longer weighs on loan demand. LNC DIP setup attractive."
+    },
+    {
+      "sector": "Industrials",
+      "direction": "up",
+      "reasoning": "WAB breakout (5/5 scan), IR pullback to 20EMA. Infrastructure spending backdrop remains."
+    },
+    {
+      "sector": "Healthcare",
+      "direction": "neutral",
+      "reasoning": "No major catalyst. Defensive positioning if CPI hot."
+    },
+    {
+      "sector": "Materials",
+      "direction": "neutral",
+      "reasoning": "Dollar strength risk if CPI hot. China trade talks could lift industrial metals."
+    },
+    {
+      "sector": "Utilities",
+      "direction": "down",
+      "reasoning": "Rate-sensitive. Hot CPI would pressure yields higher. Avoid pre-CPI."
+    },
+    {
+      "sector": "Real Estate",
+      "direction": "down",
+      "reasoning": "Most rate-sensitive sector. 10Y at 4.7% already pressuring."
+    }
+  ],
+  "commodity_outlook": "WTI crude ~$78 sustained by Hormuz geopolitical premium; Aug surplus +1.2M bbl/day caps upside above $80. Gold steady as inflation hedge bid offsets dollar strength. Copper watching China trade talks.",
+  "currency_outlook": "Dollar firm on 4.7% 10Y and hawkish Fed (51% Sept hike odds). Hot CPI would strengthen USD further. EUR/USD and GBP/USD vulnerable. JPY carry trades under pressure.",
+  "watchlist": [
+    {
+      "ticker": "SE",
+      "setup": "GAP-GO",
+      "score": "5/5",
+      "signal": "STRONG_BUY",
+      "entry": "Break 1st-30min high (~$132-134)",
+      "stop": "$123.92",
+      "target": "$146.69",
+      "atr14": 5.06,
+      "risk_reward": "1:2.0",
+      "source": "scan+news",
+      "catalyst": "Q2 rev +48% YoY, RVOL 3.4"
+    },
+    {
+      "ticker": "ABNB",
+      "setup": "BREAKOUT",
+      "score": "5/5",
+      "signal": "STRONG_BUY",
+      "entry": "Pullback to $178-180",
+      "stop": "$172.31",
+      "target": "$203.98",
+      "atr14": 6.33,
+      "risk_reward": "1:2.0",
+      "source": "scan+news",
+      "catalyst": "Q2 beat, raised FY guidance"
+    },
+    {
+      "ticker": "MPC",
+      "setup": "BREAKOUT",
+      "score": "5/5",
+      "signal": "STRONG_BUY",
+      "entry": "$336+ (new 63d high)",
+      "stop": "$319.19",
+      "target": "$370.89",
+      "atr14": 11.49,
+      "risk_reward": "1:2.0",
+      "source": "scan+news",
+      "catalyst": "Oil geopolitics, Hormuz premium"
+    },
+    {
+      "ticker": "JD",
+      "setup": "PULLBACK",
+      "score": "5/5",
+      "signal": "STRONG_BUY",
+      "entry": "Break above $32.50",
+      "stop": "$30.82",
+      "target": "$34.11",
+      "atr14": 0.73,
+      "risk_reward": "1:2.0",
+      "source": "scan+news",
+      "catalyst": "China trade talks resuming"
+    },
+    {
+      "ticker": "U",
+      "setup": "BREAKOUT",
+      "score": "5/5",
+      "signal": "STRONG_BUY",
+      "entry": "$43.87 (new 63d high)",
+      "stop": "$40.57",
+      "target": "$50.47",
+      "atr14": 2.2,
+      "risk_reward": "1:2.0",
+      "source": "scan",
+      "catalyst": "RS +40% vs SPY"
+    },
+    {
+      "ticker": "LNC",
+      "setup": "DIP",
+      "score": "4/5",
+      "signal": "BUY",
+      "entry": "$44.43 (RSI2 4.1)",
+      "stop": "$41.70",
+      "target": "~$48.50",
+      "atr14": 1.36,
+      "risk_reward": "1:1.5",
+      "source": "scan",
+      "catalyst": "Quality insurance dip, HALF SIZE"
+    },
+    {
+      "ticker": "IR",
+      "setup": "DIP",
+      "score": "4/5",
+      "signal": "BUY",
+      "entry": "$85.02 (RSI2 6.3)",
+      "stop": "$79.37",
+      "target": "~$92",
+      "atr14": 2.83,
+      "risk_reward": "1:1.2",
+      "source": "scan",
+      "catalyst": "Industrial pullback to 20EMA"
+    },
+    {
+      "ticker": "BURL",
+      "setup": "PULLBACK",
+      "score": "4/5",
+      "signal": "BUY",
+      "entry": "Break above $359",
+      "stop": "$342.96",
+      "target": "$390.58",
+      "atr14": 10.58,
+      "risk_reward": "1:2.0",
+      "source": "scan",
+      "catalyst": "Retail strength, sitting on 20EMA"
+    }
+  ],
+  "risks_to_watch": [
+    {
+      "risk": "Hot CPI Print (>0.3% core MoM)",
+      "severity": "HIGH",
+      "causal_chain": "Hotter-than-expected inflation -> 10Y yields spike above 4.75% -> growth stocks sell off -> Fed September hike becomes base case -> all extended breakout positions vulnerable to rapid mean reversion.",
+      "sources": [
+        {
+          "title": "Cleveland Fed Inflation Nowcast",
+          "outlet": "Cleveland Fed",
+          "url": "https://www.clevelandfed.org/indicators-and-data/inflation-nowcasting"
+        }
+      ]
+    },
+    {
+      "risk": "Hormuz Escalation / Oil Spike Above $80",
+      "severity": "MEDIUM",
+      "causal_chain": "Major tanker attack or Iranian naval provocation -> oil gaps above $80 -> inflation expectations spike -> amplifies CPI impact -> broad risk-off except energy.",
+      "sources": [
+        {
+          "title": "ING Crude Rethink",
+          "outlet": "ING",
+          "url": "https://think.ing.com/articles/lingering-geopolitical-uncertainty-requires-a-crude-rethink/"
+        }
+      ]
+    },
+    {
+      "risk": "AI Earnings Disappointment (NBIS/CBRS)",
+      "severity": "MEDIUM",
+      "causal_chain": "NBIS expected to report loss; if capital burn exceeds expectations or CBRS misses -> AI infra narrative questioned -> negative read-through to NET, U, broader AI trade.",
+      "sources": [
+        {
+          "title": "Cerebras Earnings Preview",
+          "outlet": "TipRanks",
+          "url": "https://www.tipranks.com/news/cerebras-stock-earnings-preview-what-to-expect-on-august-12"
+        }
+      ]
+    },
+    {
+      "risk": "Extended RSI2 Reversals",
+      "severity": "LOW",
+      "causal_chain": "SE (97.4), ABNB (98.6), U (99.4), TWLO (99.3) all RSI2 above 95 \u2014 historically mean-reverting 1-3 sessions. CPI selloff could accelerate reversion. Mitigant: use first-30-min setups.",
+      "sources": [
+        {
+          "title": "Market synthesis",
+          "outlet": "Claude analysis",
+          "url": null
+        }
+      ]
+    }
+  ]
+}
