@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muad'Dib Market Intelligence — 2026-08-11</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060410;color:#E8DCC8;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;padding:16px}
+.container{max-width:600px;margin:0 auto}
+h1,h2,h3,.mono{font-family:'Share Tech Mono',monospace}
+h2{font-size:14px;letter-spacing:3px;text-transform:uppercase;color:#FF8A1E;margin-bottom:12px;text-shadow:0 0 8px rgba(255,138,30,.4);border-bottom:1px solid #2b2247;padding-bottom:6px}
+.card{background:#0d0a1a;border:1px solid #2b2247;border-radius:8px;padding:16px;margin-bottom:14px}
+.card-alt{background:#141024}
+.header{text-align:center;padding:20px 0 10px}
+.header h1{font-size:18px;letter-spacing:3px;text-transform:uppercase;color:#FF8A1E;text-shadow:0 0 12px rgba(255,138,30,.5)}
+.header .date{color:#D4B078;font-size:13px;margin-top:4px;font-family:'Share Tech Mono',monospace}
+.header .subtitle{color:#8d80a8;font-size:12px;font-style:italic;margin-top:2px}
+.regime-badge{display:inline-block;padding:4px 14px;border-radius:4px;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-top:8px;font-weight:bold}
+.regime-on{color:#3DFF8A;border:1px solid #3DFF8A}
+.regime-caution{color:#FF8A1E;border:1px solid #FF8A1E}
+.regime-off{color:#FF3D5E;border:1px solid #FF3D5E}
+.potd-card{border:2px solid #FF8A1E !important;background:linear-gradient(135deg,#0d0a1a 0%,#1a1230 100%)}
+.potd-title{color:#FF8A1E;font-family:'Share Tech Mono',monospace;font-size:16px;letter-spacing:2px;text-transform:uppercase;text-shadow:0 0 8px rgba(255,138,30,.4)}
+.potd-ticker{font-size:28px;font-weight:bold;color:#4DC3FF;font-family:'Share Tech Mono',monospace}
+.setup-tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;margin-left:6px}
+.tag-gap{background:rgba(77,195,255,.15);color:#4DC3FF;border:1px solid #4DC3FF}
+.tag-breakout{background:rgba(61,255,138,.15);color:#3DFF8A;border:1px solid #3DFF8A}
+.tag-pullback{background:rgba(212,176,120,.15);color:#D4B078;border:1px solid #D4B078}
+.tag-dip{background:rgba(255,138,30,.15);color:#FF8A1E;border:1px solid #FF8A1E}
+.tag-orb{background:rgba(255,61,94,.15);color:#FF3D5E;border:1px solid #FF3D5E}
+.levels-row{display:flex;justify-content:space-between;margin-top:10px;padding:8px;background:#141024;border-radius:4px;font-family:'Share Tech Mono',monospace;font-size:13px}
+.level-item{text-align:center}
+.level-label{color:#8d80a8;font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.level-val{font-size:15px;margin-top:2px}
+.entry-val{color:#4DC3FF}
+.stop-val{color:#FF3D5E}
+.target-val{color:#3DFF8A}
+.score-val{color:#FF8A1E}
+.signal-strong-buy{color:#3DFF8A;font-weight:bold}
+.signal-buy{color:#4DC3FF}
+.signal-watch{color:#8d80a8}
+.bull{color:#3DFF8A}
+.bear{color:#FF3D5E}
+.neutral{color:#D4B078}
+.muted{color:#8d80a8}
+.spice{color:#FF8A1E}
+.cyan{color:#4DC3FF}
+.sand{color:#D4B078}
+.quote-box{border-left:3px solid #FF8A1E;padding:8px 12px;margin-top:10px;font-style:italic;color:#D4B078;font-size:13px}
+.quote-attr{color:#8d80a8;font-style:normal;font-size:11px}
+.sentiment-badge{text-align:center;padding:12px;margin-bottom:14px}
+.sentiment-label{font-size:20px;font-family:'Share Tech Mono',monospace;letter-spacing:2px;text-transform:uppercase}
+.sentiment-score{font-size:36px;font-weight:bold;font-family:'Share Tech Mono',monospace;margin:4px 0}
+.impact-high{color:#FF3D5E;font-weight:bold}
+.impact-medium{color:#FF8A1E}
+.impact-low{color:#D4B078}
+.ticker-up{color:#3DFF8A;font-weight:bold}
+.ticker-down{color:#FF3D5E;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:12px;font-family:'Share Tech Mono',monospace}
+th{color:#8d80a8;text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:6px 4px;border-bottom:1px solid #2b2247;text-align:left}
+td{padding:6px 4px;border-bottom:1px solid #141024}
+.sector-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #141024;font-size:13px}
+.sector-name{flex:1}
+.sector-dir{width:30px;text-align:center;font-size:16px}
+.risk-card{border-left:3px solid #FF3D5E;margin-bottom:8px;padding:8px 12px;background:#141024;border-radius:0 4px 4px 0}
+.risk-sev{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px}
+.footer{text-align:center;padding:20px 0;font-size:11px;color:#8d80a8}
+.footer a{color:#4DC3FF;text-decoration:none}
+.actionable-item{padding:6px 0;border-bottom:1px solid #141024;font-size:13px}
+.actionable-item:last-child{border-bottom:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+<h1>🔱 MUAD'DIB MARKET INTELLIGENCE</h1>
+<div class="date">TUESDAY · AUGUST 11, 2026</div>
+<div class="subtitle">The Spice Must Flow.</div>
+<div><span class="regime-badge regime-on">⚡ RISK-ON</span></div>
+<div class="muted" style="font-size:11px;margin-top:6px;font-family:'Share Tech Mono',monospace">SPY 770.56 &gt; 50DMA 747.84 &gt; 200DMA 703.99 · VIX 15.28</div>
+</div>
+
+<!-- PLAY OF THE DAY -->
+<div class="card potd-card">
+<div class="potd-title">⭐ PLAY OF THE DAY</div>
+<div style="margin-top:8px">
+<span class="potd-ticker">SE</span>
+<span class="setup-tag tag-gap">GAP-GO</span>
+<span style="margin-left:8px;color:#FF8A1E;font-family:'Share Tech Mono',monospace;font-size:14px">5/5</span>
+<span class="signal-strong-buy" style="margin-left:8px;font-family:'Share Tech Mono',monospace;font-size:13px">STRONG BUY</span>
+</div>
+<div class="levels-row">
+<div class="level-item"><div class="level-label">Entry</div><div class="level-val entry-val">1st-30m High</div></div>
+<div class="level-item"><div class="level-label">Stop</div><div class="level-val stop-val">$123.99</div></div>
+<div class="level-item"><div class="level-label">Target</div><div class="level-val target-val">$146.55</div></div>
+<div class="level-item"><div class="level-label">R:R</div><div class="level-val score-val">1:2.0</div></div>
+</div>
+<div style="margin-top:10px;font-size:13px;color:#E8DCC8">Perfect 5/5 scanner score with Q2 earnings catalyst this morning. RVOL 3.3× confirms institutional participation at 63-day highs, +16% 1M relative strength vs SPY. Full uptrend stack. The scan+news convergence is the prime material.</div>
+<div style="margin-top:4px;font-size:11px;color:#8d80a8">Source: 🔭📰 scan+news</div>
+</div>
+
+<!-- TL;DR -->
+<div class="card" style="border:1px solid #FF8A1E">
+<h2>📋 TL;DR</h2>
+<div style="font-size:14px;margin-bottom:12px"><strong class="spice">THE GIST:</strong> Regime is RISK_ON with seven 5/5 scanner hits — unusual breadth in consumer and tech breakouts. SE tops the board with a perfect scanner score, Q2 earnings catalyst, and 3.3× relative volume at 63-day highs. CPI Wednesday is the landmine — position into breakouts today but keep stops tight. The AI infrastructure build-out scored another chapter with RIOT's $9.1B Anthropic data center deal.</div>
+
+<div style="font-size:12px;color:#8d80a8;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;font-family:'Share Tech Mono',monospace">ACTIONABLE ITEMS</div>
+<div class="actionable-item">▸ <span class="setup-tag tag-gap">GAP-GO</span> <strong class="cyan">SE</strong> — entry break of 1st-30m high · stop $123.99 · target $146.55 (2R) — Q2 earnings + 63d breakout, RVOL 3.3×</div>
+<div class="actionable-item">▸ <span class="setup-tag tag-breakout">BREAKOUT</span> <strong class="cyan">ABNB</strong> — entry break of $185.00 · stop $175.48 · target $203.98 (2R) — 63d high breakout, RS +23.6%</div>
+<div class="actionable-item">▸ <span class="setup-tag tag-pullback">PULLBACK</span> <strong class="cyan">JD</strong> — entry $31.92 near 20EMA · stop $30.82 · target $34.11 (2R) — China tariff extension catalyst</div>
+<div class="actionable-item">▸ <span class="setup-tag tag-pullback">PULLBACK</span> <strong class="cyan">BURL</strong> — entry $358.83 at 20EMA · stop $342.96 · target $390.58 (2R) — textbook pullback, uptrend stack</div>
+<div class="actionable-item">▸ <span class="setup-tag tag-breakout">BREAKOUT</span> <strong class="cyan">NET</strong> — entry break of $310.59 · stop $281.36 · target $358.19 (2R) — cloud/AI demand, RS +11%</div>
+
+<div class="quote-box">
+"The impediment to action advances action. What stands in the way becomes the way."<br>
+<span class="quote-attr">— Marcus Aurelius</span>
+</div>
+</div>
+
+<!-- SENTIMENT -->
+<div class="card card-alt sentiment-badge">
+<div class="sentiment-label bull">CAUTIOUSLY BULLISH</div>
+<div class="sentiment-score bull">7<span style="font-size:16px;color:#8d80a8">/10</span></div>
+<div style="font-size:12px;color:#8d80a8;max-width:500px;margin:0 auto">RISK_ON regime with seven 5/5 scanner hits. Semiconductor supercycle confirms tech leadership. CPI Wednesday creates binary event risk, oil/Hormuz adds cost-push worry, 51% Sep hike probability caps upside. Lean into breakouts with tight stops.</div>
+</div>
+
+<!-- MACRO EVENTS -->
+<div class="card">
+<h2>⚡ KEY MACRO EVENTS</h2>
+
+<div style="margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<strong>July CPI Release (Wed Aug 13)</strong>
+<span class="impact-high" style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px">HIGH</span>
+</div>
+<div style="font-size:13px;margin-top:4px">July CPI → if hot (core &gt;0.3% MoM) confirms Fed Sep hike → yields spike, growth/tech sells off → if cool (&lt;0.2% MoM) rate cut hopes revive → tech/growth rallies. Oil at $78 adds cost-push energy contribution but core services ex-shelter trending lower.</div>
+<div style="font-size:12px;font-style:italic;color:#8d80a8;margin-top:4px">Analog: July 2024 cool CPI sparked summer rally in growth names</div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Counter: Core services ex-shelter has been decelerating for 3 months; one print won't alter disinflationary trajectory</div>
+<div style="margin-top:4px;font-size:12px"><span class="ticker-up">QQQ▲ TLT▲ ABNB▲ SE▲</span> <span class="ticker-down">XLE▼ XLF▼</span> (if cool)</div>
+</div>
+
+<div style="margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<strong>Strait of Hormuz Shipping Disruptions</strong>
+<span class="impact-medium" style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px">MEDIUM</span>
+</div>
+<div style="font-size:13px;margin-top:4px">Houthi attacks near Qeshm Island → shipping insurance premiums spike → VLCC rerouting adds $2M+/trip → Brent/WTI at $78. Supply recovery: 90% Aug → 97% Oct → near-full Nov.</div>
+<div style="font-size:12px;font-style:italic;color:#8d80a8;margin-top:4px">Analog: Sep 2019 Abqaiq attack — oil spiked 15% intraday then fully reversed in 2 weeks</div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Counter: Supply recovery trajectory already priced; any deal to reopen lanes would collapse premium rapidly</div>
+<div style="margin-top:4px;font-size:12px"><span class="ticker-up">XOM▲ CVX▲ FRO▲</span> <span class="ticker-down">DAL▼ UAL▼ JBLU▼</span></div>
+</div>
+
+<div style="margin-bottom:16px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<strong>RIOT/Anthropic $9.1B AI Data Center Deal</strong>
+<span class="impact-medium" style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px">MEDIUM</span>
+</div>
+<div style="font-size:13px;margin-top:4px">20-year contract validates mining-to-AI pivot → re-rates data center-capable miners. Differentiation emerging: actual contracts vs. hopes. AI compute demand far outstrips existing supply.</div>
+<div style="font-size:12px;font-style:italic;color:#8d80a8;margin-top:4px">Analog: CoreWeave IPO (Mar 2025) sparked similar re-rating of GPU cloud providers</div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Counter: 20-year execution risk enormous; RIOT unprofitable and below key MAs</div>
+<div style="margin-top:4px;font-size:12px"><span class="ticker-up">RIOT▲ CLSK▲ HUT▲ CIFR▲</span> <span class="ticker-down">EQIX▼ DLR▼</span></div>
+</div>
+
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<strong>China 125% Tariff Postponed 90 Days</strong>
+<span class="impact-medium" style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px">MEDIUM</span>
+</div>
+<div style="font-size:13px;margin-top:4px">Near-term relief → Chinese e-commerce + US retailers importing from China see margin stability. But structural 33% avg tariff persists; EV/battery/solar at 145%+ rates.</div>
+<div style="font-size:12px;font-style:italic;color:#8d80a8;margin-top:4px">Analog: May 2025 first 90-day pause sparked 4% S&P 500 rally over 3 weeks</div>
+<div style="font-size:12px;color:#8d80a8;margin-top:2px">Counter: Aug 23 $16B tit-for-tat tariffs could re-escalate; China talks have long collapse history</div>
+<div style="margin-top:4px;font-size:12px"><span class="ticker-up">JD▲ PDD▲ BABA▲ BURL▲ TPR▲</span></div>
+</div>
+</div>
+
+<!-- WATCHLIST TABLE -->
+<div class="card">
+<h2>📊 WATCHLIST</h2>
+<div style="overflow-x:auto">
+<table>
+<thead><tr><th>Ticker</th><th>Setup</th><th>Score</th><th>Signal</th><th>Entry</th><th>Stop</th><th>Target</th><th>Src</th></tr></thead>
+<tbody>
+<tr><td class="cyan" style="font-weight:bold">SE</td><td><span class="setup-tag tag-gap" style="font-size:9px">GAP-GO</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>1st-30m</td><td class="bear">123.99</td><td class="bull">146.55</td><td>🔭📰</td></tr>
+<tr><td class="cyan" style="font-weight:bold">ABNB</td><td><span class="setup-tag tag-breakout" style="font-size:9px">BREAKOUT</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>185.00</td><td class="bear">175.48</td><td class="bull">203.98</td><td>🔭</td></tr>
+<tr><td class="cyan" style="font-weight:bold">NET</td><td><span class="setup-tag tag-breakout" style="font-size:9px">BREAKOUT</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>310.59</td><td class="bear">281.36</td><td class="bull">358.19</td><td>🔭</td></tr>
+<tr><td class="cyan" style="font-weight:bold">JD</td><td><span class="setup-tag tag-pullback" style="font-size:9px">PULLBACK</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>31.92</td><td class="bear">30.82</td><td class="bull">34.11</td><td>🔭📰</td></tr>
+<tr><td class="cyan" style="font-weight:bold">TPR</td><td><span class="setup-tag tag-breakout" style="font-size:9px">BREAKOUT</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>164.78</td><td class="bear">153.37</td><td class="bull">174.88</td><td>🔭</td></tr>
+<tr><td class="cyan" style="font-weight:bold">DDS</td><td><span class="setup-tag tag-breakout" style="font-size:9px">BREAKOUT</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>646.04</td><td class="bear">611.00</td><td class="bull">716.12</td><td>🔭</td></tr>
+<tr><td class="cyan" style="font-weight:bold">TSCO</td><td><span class="setup-tag tag-breakout" style="font-size:9px">BREAKOUT</span></td><td class="spice">5/5</td><td class="signal-strong-buy">STRONG BUY</td><td>35.29</td><td class="bear">33.54</td><td class="bull">38.79</td><td>🔭</td></tr>
+<tr><td class="cyan">MELI</td><td><span class="setup-tag tag-breakout" style="font-size:9px">BREAKOUT</span></td><td>4/5</td><td class="signal-buy">BUY</td><td>1940.00</td><td class="bear">1844.53</td><td class="bull">2130.94</td><td>🔭</td></tr>
+<tr><td class="cyan">LNC</td><td><span class="setup-tag tag-dip" style="font-size:9px">DIP</span></td><td>4/5</td><td class="signal-buy">BUY</td><td>44.43</td><td class="bear">41.70</td><td class="bull">48.53</td><td>🔭</td></tr>
+<tr><td class="cyan">BURL</td><td><span class="setup-tag tag-pullback" style="font-size:9px">PULLBACK</span></td><td>4/5</td><td class="signal-buy">BUY</td><td>358.83</td><td class="bear">342.96</td><td class="bull">390.58</td><td>🔭</td></tr>
+<tr><td class="cyan">IR</td><td><span class="setup-tag tag-pullback" style="font-size:9px">PULLBACK</span></td><td>4/5</td><td class="signal-buy">BUY</td><td>85.02</td><td class="bear">79.37</td><td class="bull">93.50</td><td>🔭</td></tr>
+<tr><td class="cyan">NIQ</td><td><span class="setup-tag tag-gap" style="font-size:9px">GAP-GO</span></td><td>4/5</td><td class="signal-buy">BUY</td><td>1st-30m</td><td class="bear">15.33</td><td class="bull">19.08</td><td>📰</td></tr>
+<tr><td class="muted">RIOT</td><td><span class="setup-tag tag-gap" style="font-size:9px">GAP-GO</span></td><td class="muted">2/5</td><td class="signal-watch">WATCH</td><td>22.95</td><td class="bear">16.83</td><td class="bull">27.07</td><td>📰</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- SECTOR OUTLOOK -->
+<div class="card card-alt">
+<h2>🏭 SECTOR OUTLOOK</h2>
+<div class="sector-row"><div class="sector-name">Technology</div><div class="sector-dir bull">▲</div><div style="flex:2;font-size:12px;color:#8d80a8">TSMC +45% YoY, AI capex boom, NET breakout</div></div>
+<div class="sector-row"><div class="sector-name">Comm Services</div><div class="sector-dir bull">▲</div><div style="flex:2;font-size:12px;color:#8d80a8">SE breakout + earnings, Meta AI agent</div></div>
+<div class="sector-row"><div class="sector-name">Consumer Disc.</div><div class="sector-dir neutral">➜</div><div style="flex:2;font-size:12px;color:#8d80a8">ABNB/TPR strong, ONON crash — stock pick</div></div>
+<div class="sector-row"><div class="sector-name">Energy</div><div class="sector-dir bull">▲</div><div style="flex:2;font-size:12px;color:#8d80a8">Oil $78 on Hormuz, supply recovery caps</div></div>
+<div class="sector-row"><div class="sector-name">Industrials</div><div class="sector-dir bull">▲</div><div style="flex:2;font-size:12px;color:#8d80a8">IR pullback buy, defense mixed</div></div>
+<div class="sector-row"><div class="sector-name">Financials</div><div class="sector-dir neutral">➜</div><div style="flex:2;font-size:12px;color:#8d80a8">10Y 4.73% supports NIM, rate uncertainty</div></div>
+<div class="sector-row"><div class="sector-name">Healthcare</div><div class="sector-dir neutral">➜</div><div style="flex:2;font-size:12px;color:#8d80a8">No catalysts, HIMS margin pressure</div></div>
+<div class="sector-row"><div class="sector-name">Cons. Staples</div><div class="sector-dir neutral">➜</div><div style="flex:2;font-size:12px;color:#8d80a8">Defensive bid ahead of CPI possible</div></div>
+<div class="sector-row" style="border-bottom:none"><div class="sector-name">Real Estate</div><div class="sector-dir bear">▼</div><div style="flex:2;font-size:12px;color:#8d80a8">10Y yield pressure on REITs/cap rates</div></div>
+</div>
+
+<!-- KEY RISKS -->
+<div class="card">
+<h2>⚠️ KEY RISKS</h2>
+<div class="risk-card">
+<div style="display:flex;justify-content:space-between"><strong>Hot CPI Wednesday (core &gt;0.3% MoM)</strong><span class="risk-sev impact-high">HIGH</span></div>
+<div style="font-size:12px;margin-top:4px;color:#8d80a8">Hot inflation → 10Y breaks 4.80% → growth multiples compress 3-5% → breakout setups fail at resistance</div>
+</div>
+<div class="risk-card">
+<div style="display:flex;justify-content:space-between"><strong>Hormuz escalation — attack on commercial vessel</strong><span class="risk-sev impact-medium">MEDIUM</span></div>
+<div style="font-size:12px;margin-top:4px;color:#8d80a8">Oil spikes above $85 → cost-push fears → Fed forced hawkish → equity selloff led by transports</div>
+</div>
+<div class="risk-card">
+<div style="display:flex;justify-content:space-between"><strong>Aug 23 China tariff escalation ($16B tit-for-tat)</strong><span class="risk-sev impact-medium">MEDIUM</span></div>
+<div style="font-size:12px;margin-top:4px;color:#8d80a8">New tariffs → supply chain cost spike → consumer disc. margin compression → JD/BURL/TPR reverse</div>
+</div>
+<div class="risk-card" style="border-left-color:#D4B078">
+<div style="display:flex;justify-content:space-between"><strong>After-hours: SMCI, LITE earnings</strong><span class="risk-sev impact-low">LOW</span></div>
+<div style="font-size:12px;margin-top:4px;color:#8d80a8">SMCI miss → AI infra sentiment wobble → drags NVDA/AMD/NET sympathy</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<a href="https://arrakistacos.github.io/morning-brief/">📊 Live Dashboard</a><br>
+<span style="margin-top:6px;display:inline-block">Powered by Anthropic Claude · Muad'Dib Market Intelligence</span>
+</div>
+
+</div>
+</body>
+</html>
