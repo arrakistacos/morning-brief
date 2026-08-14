@@ -1,0 +1,6 @@
+# Regenerable every morning — never commit (4MB+/day)
+data/cache/levels-*.json
+data/cache/news-*.json
+__pycache__/
+*.pyc
+.venv/

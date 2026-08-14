@@ -1,0 +1,157 @@
+{
+ "session": "2026-08-14",
+ "generated_at": "2026-08-14T17:46:27-05:00",
+ "session_note": "",
+ "tickers": {
+  "JACK": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "SNEX": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "MLTX": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VCYT": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AMIX": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NRGV": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MRX": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "ANF": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "IMMX": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NBIX": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "MSGS": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "FTAI": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "RVMD": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WFG": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WSM": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "BATRK": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EYE": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "AXSM": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "ARWR": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TNDM": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "HD": {
+   "rating": "flagged",
+   "reason": "going_concern",
+   "source": "keyword"
+  },
+  "MCK": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "MAGN": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "EPC": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "OC": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "STIM": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AXGN": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BJRI": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "TRIN": {
+   "rating": "clear",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CNK": {
+   "rating": "caution",
+   "reason": "downgrade",
+   "source": "keyword"
+  }
+ }
+}

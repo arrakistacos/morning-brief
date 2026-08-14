@@ -1,5 +1,5 @@
-# Timezone: Eastern Time (UTC-4 DST / UTC-5 EST)
-# Cron runs at 10:00 UTC = 6:00 AM ET (gives buffer before markets open at 9:30 AM ET)
-TIMEZONE = "America/New_York"
-RECIPIENT_EMAIL = "capt.computermail@gmail.com"
+# SNEAK — sneaky-buy opening range scanner
+TIMEZONE = "America/Chicago"
 DASHBOARD_URL = "https://arrakistacos.github.io/morning-brief/"
+STALK_TIME_CT = "08:45"   # first 15m candle (09:30-09:45 ET) has closed
+STRIKE_TIME_CT = "09:00"  # second 15m candle (09:45-10:00 ET) has closed
