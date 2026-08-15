@@ -1,35 +1,45 @@
 {
  "session": "2026-08-14",
- "generated_at": "2026-08-14T17:46:27-05:00",
+ "generated_at": "2026-08-14T23:15:54-05:00",
  "session_note": "",
  "tickers": {
+  "CTMX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ACHC": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
   "JACK": {
    "rating": "caution",
    "reason": "earnings",
    "source": "keyword"
   },
   "SNEX": {
-   "rating": "caution",
-   "reason": "earnings",
-   "source": "keyword"
-  },
-  "MLTX": {
    "rating": "clear",
-   "reason": "no headlines in 48h",
+   "reason": "no material news",
    "source": "keyword"
   },
   "VCYT": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
-  "AMIX": {
+  "LULU": {
    "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "AMIX": {
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
   "NRGV": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
@@ -38,17 +48,32 @@
    "reason": "earnings",
    "source": "keyword"
   },
+  "EDU": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
   "ANF": {
    "rating": "clear",
    "reason": "no material news",
    "source": "keyword"
   },
   "IMMX": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
   "NBIX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ACB": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "SPG": {
    "rating": "clear",
    "reason": "no material news",
    "source": "keyword"
@@ -63,24 +88,19 @@
    "reason": "no material news",
    "source": "keyword"
   },
-  "RVMD": {
-   "rating": "clear",
-   "reason": "no headlines in 48h",
-   "source": "keyword"
-  },
-  "WFG": {
-   "rating": "clear",
-   "reason": "no headlines in 48h",
-   "source": "keyword"
-  },
   "WSM": {
    "rating": "caution",
    "reason": "earnings",
    "source": "keyword"
   },
   "BATRK": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "POST": {
+   "rating": "caution",
+   "reason": "earnings",
    "source": "keyword"
   },
   "EYE": {
@@ -94,7 +114,7 @@
    "source": "keyword"
   },
   "ARWR": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
@@ -104,23 +124,23 @@
    "source": "keyword"
   },
   "HD": {
-   "rating": "flagged",
-   "reason": "going_concern",
-   "source": "keyword"
-  },
-  "MCK": {
    "rating": "caution",
    "reason": "earnings",
    "source": "keyword"
   },
-  "MAGN": {
-   "rating": "caution",
-   "reason": "earnings",
+  "BDC": {
+   "rating": "clear",
+   "reason": "no material news",
    "source": "keyword"
   },
   "EPC": {
    "rating": "caution",
    "reason": "earnings",
+   "source": "keyword"
+  },
+  "ITW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
    "source": "keyword"
   },
   "OC": {
@@ -129,12 +149,12 @@
    "source": "keyword"
   },
   "STIM": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
   "AXGN": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
@@ -144,13 +164,448 @@
    "source": "keyword"
   },
   "TRIN": {
-   "rating": "clear",
+   "rating": "quiet",
    "reason": "no headlines in 48h",
    "source": "keyword"
   },
   "CNK": {
    "rating": "caution",
    "reason": "downgrade",
+   "source": "keyword"
+  },
+  "SGRY": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "WCC": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "LBRX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GPGI": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "ALKS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PRAX": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "SWK": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "ZWS": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "EPAC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SYK": {
+   "rating": "caution",
+   "reason": "earnings, downgrade",
+   "source": "keyword"
+  },
+  "VSXY": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "SBET": {
+   "rating": "flagged",
+   "reason": "going_concern",
+   "source": "keyword"
+  },
+  "FUN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DAL": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "SHOO": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "MDXG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CLYM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PFLT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ISRG": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "FELE": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "CGEM": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "ARHS": {
+   "rating": "caution",
+   "reason": "earnings, macro_sector",
+   "source": "keyword"
+  },
+  "CAL": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "APPS": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "PH": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "LW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SMG": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "PKG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FSS": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "CNM": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "GEF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BRKR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NGVT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GRBK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ANNX": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "UAL": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "JAZZ": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MRNA": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "TILE": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "CRVS": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "BEN": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "QXO": {
+   "rating": "flagged",
+   "reason": "offering",
+   "source": "keyword"
+  },
+  "RHLD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TEL": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "TRV": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "UAA": {
+   "rating": "caution",
+   "reason": "downgrade",
+   "source": "keyword"
+  },
+  "MEI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IPW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SANM": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "LPLA": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "IART": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "GENB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SNA": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "FTK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TNON": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "QTTB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CMCO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NAD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ETN": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "GRDN": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "APEI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TIGO": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "MAIR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LIVN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RDNT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CUBI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OPY": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "IRTC": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "LAD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RJF": {
+   "rating": "caution",
+   "reason": "earnings",
+   "source": "keyword"
+  },
+  "CSTM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PNTG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LKFN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FHB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "KYMR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BHE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PRSU": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ABG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VMI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PII": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NBHC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NPKI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "KAI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WS": {
+   "rating": "clear",
+   "reason": "no material news",
+   "source": "keyword"
+  },
+  "BWFG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SFST": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BH": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
    "source": "keyword"
   }
  }

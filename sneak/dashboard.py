@@ -380,10 +380,35 @@ PLAYBOOK = """
 """
 
 
-def build(day: date | None = None) -> Path:
+def _latest_session_with_data(before_or_on: date) -> date | None:
+    """Most recent session that actually has a stalk file on disk."""
+    days = []
+    for p in CACHE_DIR.glob("stalk-*.json"):
+        try:
+            d = date.fromisoformat(p.stem.split("stalk-", 1)[1])
+        except Exception:
+            continue
+        if d <= before_or_on:
+            days.append(d)
+    return max(days) if days else None
+
+
+def build(day: date | None = None, explicit: bool = False) -> Path:
     day = day or yahoo.now_et().date()
     strike = _load("strike", day)
     stalk = _load("stalk", day)
+
+    # Nothing scanned for `day` yet — pre-open, a weekend, or a holiday. Fall
+    # back to the last session that has data instead of publishing a blank page
+    # over a good one. Without this, the 08:00 prep run would wipe the front
+    # page every morning and leave it empty until the stalk lands at 08:45.
+    if not strike and not stalk and not explicit:
+        prior = _latest_session_with_data(day)
+        if prior and prior != day:
+            print(f"[dashboard] no data for {day}; showing last session {prior}", flush=True)
+            day = prior
+            strike = _load("strike", day)
+            stalk = _load("stalk", day)
     newsd = (_load("news", day) or {}).get("tickers", {}) or {}
     ratings = load_ratings(day)
 
@@ -566,7 +591,7 @@ def main() -> int:
     ap.add_argument("--date", type=str, default=None)
     a = ap.parse_args()
     day = datetime.strptime(a.date, "%Y-%m-%d").date() if a.date else None
-    build(day)
+    build(day, explicit=bool(a.date))
     return 0
 
 
