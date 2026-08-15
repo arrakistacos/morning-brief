@@ -1,26 +1,26 @@
-name: SNEAK — opening range scanner
+name: SNEAK ??? opening range scanner
 
-# ── Timing ───────────────────────────────────────────────────────────────────
+# ?????? Timing ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
 # Everything is anchored to the 15-minute candle boundaries in ET:
 #
-#   bar 1  09:30–09:45 ET  =  08:30–08:45 CT   → the stalk runs when it closes
-#   bar 2  09:45–10:00 ET  =  08:45–09:00 CT   → the strike runs when it closes
+#   bar 1  09:30???09:45 ET  =  08:30???08:45 CT   ??? the stalk runs when it closes
+#   bar 2  09:45???10:00 ET  =  08:45???09:00 CT   ??? the strike runs when it closes
 #
 # GitHub's cron is UTC-only and can drift several minutes under load, so each
-# stage is scheduled TWICE — once for CDT and once for CST — and starts ~25
+# stage is scheduled TWICE ??? once for CDT and once for CST ??? and starts ~25
 # minutes early. A guard step exits whichever firing is the wrong one for the
 # current offset, and the scanner itself then sleeps until the exact second the
 # candle closes. Drift therefore costs idle runner time, never a late list.
 
 on:
   schedule:
-    # prep — universe + previous-day levels. Not time critical.
+    # prep ??? universe + previous-day levels. Not time critical.
     - cron: "0 12 * * 1-5"    # 08:00 ET (CDT) / 07:00 ET (CST)
     - cron: "0 13 * * 1-5"    # 09:00 ET (CDT) / 08:00 ET (CST)
-    # stalk — fires ~09:20 ET under one of the two offsets
+    # stalk ??? fires ~09:20 ET under one of the two offsets
     - cron: "20 13 * * 1-5"
     - cron: "20 14 * * 1-5"
-    # strike — fires ~09:50 ET under one of the two offsets
+    # strike ??? fires ~09:50 ET under one of the two offsets
     - cron: "50 13 * * 1-5"
     - cron: "50 14 * * 1-5"
   workflow_dispatch:
@@ -59,77 +59,39 @@ jobs:
       - name: Install dependencies
         run: pip install -q -r requirements.txt
 
-      # Decide which stage this firing is for, using ET wall clock rather than
-      # the cron string, so DST is handled by the calendar and not by us.
+      # All the logic lives in sneak/stage.py. Keeping it out of the YAML avoids
+      # the heredoc trap where a ::notice:: printed to stdout gets redirected
+      # into $GITHUB_OUTPUT and fails the step.
       - name: Resolve stage
         id: stage
-        run: |
-          python3 - <<'PY' >> "$GITHUB_OUTPUT"
-          import os, sys
-          from datetime import datetime
-          from zoneinfo import ZoneInfo
-          sys.path.insert(0, "sneak")
-
-          manual = os.environ.get("MANUAL", "").strip()
-          now = datetime.now(ZoneInfo("America/New_York"))
-          mins = now.hour * 60 + now.minute
-
-          try:
-              from market_calendar import is_trading_day
-              trading = is_trading_day()
-          except Exception as e:
-              print(f"::warning::calendar unavailable ({e}); assuming trading day")
-              trading = now.weekday() < 5
-
-          if not trading:
-              print("stage=skip")
-              print(f"::notice::NYSE closed {now:%Y-%m-%d} — skipping")
-              raise SystemExit(0)
-
-          if manual and manual != "all":
-              stage = manual
-          elif manual == "all":
-              stage = "all"
-          elif mins < 9 * 60 + 5:                 # before 09:05 ET
-              stage = "prep"
-          elif 9 * 60 + 5 <= mins < 9 * 60 + 45:  # 09:05–09:45 ET
-              stage = "stalk"
-          elif 9 * 60 + 45 <= mins < 10 * 60 + 6: # 09:45–10:06 ET
-              stage = "strike"
-          else:
-              stage = "skip"
-              print(f"::notice::fired at {now:%H:%M} ET — outside every stage window")
-
-          print(f"stage={stage}")
-          print(f"::notice::stage={stage} at {now:%Y-%m-%d %H:%M:%S %Z}")
-          PY
+        run: python3 -m sneak.stage
         env:
           MANUAL: ${{ github.event.inputs.stage }}
 
       # Proves the API key and both model tiers work without needing a live
-      # session — a normal out-of-hours run makes zero API calls.
-      - name: Self-test — API key and model tiers
+      # session ??? a normal out-of-hours run makes zero API calls.
+      - name: Self-test ??? API key and model tiers
         if: steps.stage.outputs.stage == 'selftest'
         run: python3 -m sneak.triage --selftest
 
-      - name: Prep — universe and previous-day levels
+      - name: Prep ??? universe and previous-day levels
         if: steps.stage.outputs.stage == 'prep' || steps.stage.outputs.stage == 'all'
         run: python3 -m sneak.prep
 
       # scan_open sleeps until 09:45:25 ET before reading the tape.
-      - name: Stalk — 08:45 CT red breaks
+      - name: Stalk ??? 08:45 CT red breaks
         if: steps.stage.outputs.stage == 'stalk' || steps.stage.outputs.stage == 'all'
         run: |
           test -f "data/cache/levels-$(TZ=America/New_York date +%F).json" || python3 -m sneak.prep
           python3 -m sneak.scan_open
 
       # confirm sleeps until 10:00:25 ET before reading the tape.
-      - name: Strike — 09:00 CT sneaky confirmations
+      - name: Strike ??? 09:00 CT sneaky confirmations
         if: steps.stage.outputs.stage == 'strike' || steps.stage.outputs.stage == 'all'
         run: |
           python3 -m sneak.confirm
-          python3 -m sneak.news --top 30
-          python3 -m sneak.triage --top 12
+          python3 -m sneak.news --top 200
+          python3 -m sneak.triage --top 200
 
       - name: Build dashboard
         if: steps.stage.outputs.stage != 'skip' && steps.stage.outputs.stage != 'selftest'
@@ -145,10 +107,10 @@ jobs:
           find data/cache -name '*.json' -mtime +30 -delete 2>/dev/null || true
           git add -A docs data/cache data/universe.txt
           git diff --cached --quiet && { echo "nothing to commit"; exit 0; }
-          git commit -m "🥷 SNEAK ${{ steps.stage.outputs.stage }} $(TZ=America/Chicago date '+%Y-%m-%d %H:%M %Z')"
+          git commit -m "???? SNEAK ${{ steps.stage.outputs.stage }} $(TZ=America/Chicago date '+%Y-%m-%d %H:%M %Z')"
           for i in 1 2 3; do
             git push && exit 0
-            echo "push rejected, rebasing…"; git pull --rebase --autostash; sleep $((i*5))
+            echo "push rejected, rebasing???"; git pull --rebase --autostash; sleep $((i*5))
           done
           echo "::error::push failed after 3 attempts"; exit 1
 
