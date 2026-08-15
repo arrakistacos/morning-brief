@@ -150,3 +150,40 @@ def compute_levels(sym: str, daily: list[dict], today: date | None = None) -> di
         "avg_vol20": int(avg_vol),
         "avg_dollar_vol20": int(avg_dollar_vol),
     }
+
+
+def rsi_series(closes: list[float], n: int = 14) -> list[float | None]:
+    """
+    Wilder RSI across a close series. Index-aligned with `closes`; entries before
+    the average is seeded are None.
+
+    Used on 15-minute bars to test the sneaky-pivot RSI signature: momentum
+    driven DOWN across the red opening candle, then back UP across the green
+    one — a V-shaped trough. A drop that rolls momentum over and immediately
+    recovers it is showing genuine resistance rather than a pause on the way
+    lower.
+    """
+    if len(closes) < n + 1:
+        return [None] * len(closes)
+
+    out: list[float | None] = [None] * len(closes)
+    gains, losses = [], []
+    for i in range(1, n + 1):
+        d = closes[i] - closes[i - 1]
+        gains.append(max(d, 0.0))
+        losses.append(max(-d, 0.0))
+    avg_g, avg_l = sum(gains) / n, sum(losses) / n
+
+    def _rsi(g: float, l: float) -> float:
+        if l == 0:
+            return 100.0
+        rs = g / l
+        return 100.0 - (100.0 / (1.0 + rs))
+
+    out[n] = _rsi(avg_g, avg_l)
+    for i in range(n + 1, len(closes)):
+        d = closes[i] - closes[i - 1]
+        avg_g = (avg_g * (n - 1) + max(d, 0.0)) / n
+        avg_l = (avg_l * (n - 1) + max(-d, 0.0)) / n
+        out[i] = _rsi(avg_g, avg_l)
+    return out

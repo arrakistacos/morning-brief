@@ -6,16 +6,19 @@ The second 15-minute candle (09:45–10:00 ET) has closed. Of everything the
 08:45 stalk flagged, keep only the names where the drop has visibly hit
 resistance — the sneaky candle.
 
-Confirmation gate:
+Confirmation gate — every condition must hold:
     bar2.close > bar2.open      the candle is green
     bar2.low  >= bar1.low       its wick never took out the red candle's low
+    RSI(14) traces a V          momentum fell across the red candle and rose
+                                across the green one
+    target is the RANGE HIGH    i.e. the red candle broke the range low but
+                                held above the swing low, so structure is intact
 
 Trade maths (long only — cash account, no shorting):
 
     entry   = green candle's close
     stop    = low of the initial red candle          (that wick IS the stop)
-    target  = previous day RANGE LOW   if the red candle broke the swing low
-              previous day RANGE HIGH  if it only broke the range low
+    target  = previous day RANGE HIGH  (range-low targets are filtered out)
 
     risk    = entry - stop
     reward  = target - entry
@@ -23,6 +26,9 @@ Trade maths (long only — cash account, no shorting):
 
 Sorted by R:R, best first. Setups whose target already sits at or below the
 entry are separated out as `expired` rather than shown with a negative ratio.
+
+The dashboard applies one further gate the scanner cannot: the news rating must
+come back `clear`. See sneak/dashboard.py.
 
 Usage:
     python -m sneak.confirm                # waits for the 10:00 ET bar
@@ -39,6 +45,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 from . import yahoo
+from .levels import rsi_series
 from .prep import CACHE_DIR
 from .scan_open import wait_for_bar
 
@@ -48,16 +55,13 @@ BAR2_CLOSE_ET = (10, 0)
 # Below this the "green candle" is really a doji and the resistance read is noise.
 MIN_GREEN_BODY_PCT = 0.05
 
-# Tradability floors on the stop distance.
-#
-# When the green candle closes a penny above the red candle's low, the maths
-# says 20:1 — but the stop is then sitting inside the bid/ask spread and normal
-# noise takes it out before the trade breathes. Those setups are real pattern
-# hits, so they are not discarded; they are bucketed as `hair_trigger` and kept
-# out of the main ranking so they cannot crowd out genuinely tradable ratios.
-MIN_RISK_PCT = 0.50        # stop at least 0.5% below entry
-MIN_RISK_VS_RED_RANGE = 0.08   # and at least 8% of the red candle's own range
-MIN_RISK_ABS = 0.05            # and at least a nickel in absolute terms
+# RSI period, on the 15-minute series.
+RSI_N = 14
+
+# Reference threshold only — no longer used to bucket anything out. A stop
+# closer than this to the entry sits inside the spread, so the row is tagged
+# `tight_stop` and the dashboard marks it, but it still ranks on its R:R.
+MIN_RISK_PCT = 0.50
 
 
 def load_stalk(day: date) -> dict:
@@ -65,6 +69,44 @@ def load_stalk(day: date) -> dict:
     if not p.exists():
         raise SystemExit(f"[strike] no stalk file for {day} — run `python -m sneak.scan_open` first.")
     return json.loads(p.read_text())
+
+
+def _rsi_signature(bars: list[dict], bar1: dict, bar2: dict) -> dict | None:
+    """
+    RSI(14) on the 15-minute series, read across the two opening candles.
+
+    Returns the three readings plus `trough`: True when RSI fell across the red
+    candle and rose across the green one — the V that marks momentum turning
+    rather than merely pausing.
+
+    `prior` is the last bar of the previous session, so the red candle's RSI
+    move is measured against where momentum stood going into the open.
+    """
+    closes = [b["c"] for b in bars]
+    if len(closes) < RSI_N + 3:
+        return None
+    series = rsi_series(closes, RSI_N)
+
+    try:
+        i1 = next(i for i, b in enumerate(bars) if b["t"] == bar1["t"])
+        i2 = next(i for i, b in enumerate(bars) if b["t"] == bar2["t"])
+    except StopIteration:
+        return None
+    if i1 == 0:
+        return None
+
+    prior, r1, r2 = series[i1 - 1], series[i1], series[i2]
+    if prior is None or r1 is None or r2 is None:
+        return None
+
+    return {
+        "prior": round(prior, 2),
+        "after_red": round(r1, 2),
+        "after_green": round(r2, 2),
+        "drop": round(prior - r1, 2),
+        "recovery": round(r2 - r1, 2),
+        "trough": bool(r1 < prior and r2 > r1),
+    }
 
 
 def _evaluate(cand: dict, bar1: dict, bar2: dict) -> dict:
@@ -116,10 +158,19 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
     if wait:
         wait_for_bar(*BAR2_CLOSE_ET)
 
-    ch = yahoo.charts(list(cands), rng="1d", interval="15m", workers=workers)
+    # 5 days of 15-minute bars rather than 1: RSI(14) needs history behind the
+    # open, otherwise the reading at 09:30 is unseeded. Same number of calls.
+    ch = yahoo.charts(list(cands), rng="5d", interval="15m", workers=workers)
 
-    confirmed, expired, hair_trigger = [], [], []
-    rejected = {"no_bar2": 0, "not_green": 0, "doji": 0, "undercut_red_low": 0}
+    confirmed, expired = [], []
+    rejected = {
+        "no_bar2": 0,
+        "not_green": 0,
+        "doji": 0,
+        "undercut_red_low": 0,
+        "rsi_no_trough": 0,
+        "target_is_range_low": 0,
+    }
 
     for sym, cand in cands.items():
         bars = ch.get(sym)
@@ -145,7 +196,25 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
             rejected["doji"] += 1
             continue
 
+        # ── RSI trough ──────────────────────────────────────────────────────
+        # The red candle must push momentum DOWN and the green candle must pull
+        # it back UP: a V in RSI across the two bars. A drop that rolls RSI over
+        # and immediately recovers it is hitting real resistance; a drop that
+        # keeps RSI sliding is still falling and the green bar is just a pause.
+        rsi = _rsi_signature(bars, bar1, bar2)
+        if rsi is None or not rsi["trough"]:
+            rejected["rsi_no_trough"] += 1
+            continue
+
+        # ── target must be the previous day's range HIGH ─────────────────────
+        # i.e. the red candle broke the range low but held above the swing low,
+        # so the structure is intact and the full retrace is the play.
+        if cand["bar1"]["broke_swing_low"]:
+            rejected["target_is_range_low"] += 1
+            continue
+
         trade = _evaluate(cand, bar1, bar2)
+        trade["rsi"] = rsi
         row = {
             "symbol": sym,
             "levels": cand["levels"],
@@ -154,13 +223,13 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
             "trade": trade,
         }
         red_range = max(bar1["h"] - bar1["l"], 1e-9)
-        too_tight = (
-            trade["risk_pct"] is None
-            or trade["risk_pct"] < MIN_RISK_PCT
-            or trade["risk_per_share"] < MIN_RISK_ABS
-            or trade["risk_per_share"] / red_range < MIN_RISK_VS_RED_RANGE
-        )
         trade["risk_vs_red_range"] = round(trade["risk_per_share"] / red_range, 4)
+        # Hair-trigger stops are no longer bucketed out — they rank alongside
+        # everything else. `risk_pct` stays on the row so a stop sitting inside
+        # the spread is still visible on the dashboard.
+        trade["tight_stop"] = (
+            trade["risk_pct"] is not None and trade["risk_pct"] < MIN_RISK_PCT
+        )
 
         if trade["rr"] is None or trade["rr"] <= 0:
             row["expired_reason"] = (
@@ -169,17 +238,10 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
                 else "no risk distance (entry at stop)"
             )
             expired.append(row)
-        elif too_tight:
-            row["note"] = (
-                f"stop only {trade['risk_pct']:.2f}% below entry — inside the spread; "
-                "ratio is arithmetically true but not executable"
-            )
-            hair_trigger.append(row)
         else:
             confirmed.append(row)
 
     confirmed.sort(key=lambda r: (-r["trade"]["rr"], r["bar1"]["wick_pct"]))
-    hair_trigger.sort(key=lambda r: -r["trade"]["rr"])
     expired.sort(key=lambda r: -r["stalk_score"])
 
     payload = {
@@ -191,19 +253,18 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         "rejected": rejected,
         "confirmed_count": len(confirmed),
         "expired_count": len(expired),
-        "hair_trigger_count": len(hair_trigger),
-        "risk_floor": {"min_risk_pct": MIN_RISK_PCT, "min_risk_vs_red_range": MIN_RISK_VS_RED_RANGE},
+        "filters": {"rsi_period": RSI_N, "rsi_trough_required": True,
+                    "target_must_be": "prev day range high", "news_must_be": "clear"},
         "elapsed_sec": round(time.time() - t0, 1),
         "stalk_meta": {k: stalk[k] for k in ("scanned", "quoted", "narrowed", "generated_at")},
         "confirmed": confirmed,
-        "hair_trigger": hair_trigger,
         "expired": expired,
     }
 
     out = CACHE_DIR / f"strike-{day.isoformat()}.json"
     out.write_text(json.dumps(payload, separators=(",", ":")))
     print(
-        f"[strike] {len(confirmed)} confirmed, {len(hair_trigger)} hair-trigger, {len(expired)} expired · "
+        f"[strike] {len(confirmed)} confirmed (RSI-V + range-high), {len(expired)} expired · "
         f"rejected {rejected} · {payload['elapsed_sec']}s → {out.name}",
         flush=True,
     )

@@ -54,7 +54,7 @@ def run(day: date) -> int:
               f'{s}: broke_swing_low={b["broke_swing_low"]} but recomputed {expect_swing}')
 
     # ── strike gates and trade maths ────────────────────────────────────────
-    for r in strike["confirmed"] + strike["hair_trigger"]:
+    for r in strike["confirmed"]:
         t, b1, lv, s = r["trade"], r["bar1"], r["levels"], r["symbol"]
         b2 = t["bar2"]
         checks += 7
@@ -77,6 +77,24 @@ def run(day: date) -> int:
             _fail(problems, abs(t["rr"] - reward / risk) < 0.01,
                   f'{s}: rr {t["rr"]} != recomputed {reward/risk:.3f}')
 
+        # ── the two gates added on top of the base pattern ──────────────────
+        checks += 5
+        _fail(problems, t["broke_swing_low"] is False,
+              f"{s}: broke the swing low, so its target is the range low — "
+              "should have been filtered out")
+        _fail(problems, t["target_kind"] == "prev day range high",
+              f'{s}: target_kind is {t["target_kind"]}, expected prev day range high')
+
+        rsi = t.get("rsi")
+        _fail(problems, isinstance(rsi, dict), f"{s}: no RSI signature recorded")
+        if isinstance(rsi, dict):
+            _fail(problems, rsi["after_red"] < rsi["prior"],
+                  f'{s}: RSI did not fall across the red candle '
+                  f'({rsi["prior"]} -> {rsi["after_red"]})')
+            _fail(problems, rsi["after_green"] > rsi["after_red"],
+                  f'{s}: RSI did not recover across the green candle '
+                  f'({rsi["after_red"]} -> {rsi["after_green"]})')
+
     # ── ordering ────────────────────────────────────────────────────────────
     rrs = [r["trade"]["rr"] for r in strike["confirmed"]]
     checks += 1
@@ -85,7 +103,7 @@ def run(day: date) -> int:
 
     # ── no overlap between buckets ──────────────────────────────────────────
     a = {r["symbol"] for r in strike["confirmed"]}
-    b = {r["symbol"] for r in strike["hair_trigger"]}
+    b = set()
     c = {r["symbol"] for r in strike["expired"]}
     checks += 1
     _fail(problems, not (a & b or a & c or b & c), "a symbol appears in two buckets")

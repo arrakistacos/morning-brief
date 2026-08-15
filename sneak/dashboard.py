@@ -23,7 +23,7 @@ from datetime import date, datetime
 from html import escape
 from pathlib import Path
 
-from . import charts, yahoo
+from . import yahoo
 from .news import load_ratings
 from .prep import CACHE_DIR
 from .quotes import quote_for
@@ -33,6 +33,14 @@ DOCS = ROOT / "docs"
 SESSIONS = DOCS / "sessions"
 
 TOP_CARDS = 25
+
+# Ratings that survive the final gate.
+#
+# `clear` alone. It means headlines were found, read, and judged harmless —
+# checked and fine. `quiet` (no headlines at all) is NOT clear: nobody checked
+# anything, there was nothing to check. Absence of news is not a clean bill of
+# health, so those are held back with caution and flagged.
+CLEAR_RATINGS = {"clear"}
 
 SHURIKEN = (
     '<svg viewBox="0 0 100 100" fill="none" aria-hidden="true">'
@@ -227,6 +235,13 @@ def _card(i: int, row: dict, news: dict, ratings: dict) -> str:
     if b1.get("vol_burst"):
         meta.append(f'open vol {b1["vol_burst"]*100:.0f}% of 20d avg')
     meta.append(f'reclaim {t["bar2"]["reclaim_pct"]*100:.0f}%')
+    rsi = t.get("rsi") or {}
+    if rsi:
+        meta.append(
+            f'RSI {rsi["prior"]:.0f} → {rsi["after_red"]:.0f} → {rsi["after_green"]:.0f}'
+        )
+    if t.get("tight_stop"):
+        meta.append("tight stop — inside the spread")
 
     news_html = ""
     if hl:
@@ -245,37 +260,32 @@ def _card(i: int, row: dict, news: dict, ratings: dict) -> str:
     <span class="rank">#{i}</span>
     <span class="sym">{escape(sym)}</span>
     {_rating_chip(sym, news, ratings)}
-    <span class="chip {'info' if t['broke_swing_low'] else 'mut'}">
-      {'broke swing low' if t['broke_swing_low'] else 'range break only'}</span>
+    <span class="chip mut">RSI V-trough</span>
     <span class="rr">{t['rr']:.2f}R<small>risk : reward</small></span>
   </div>
-  <div class="grid2">
-    <div>
-      <table class="kv">
-        <tr><td>Entry — green candle close</td><td class="ent">{t['entry']:,.2f}</td></tr>
-        <tr><td>Stop — red candle low</td><td class="stp">{t['stop']:,.2f} &nbsp;(-{t['risk_pct']:.2f}%)</td></tr>
-        <tr><td>Target — {escape(t['target_kind'])}</td><td class="tgt">{t['target']:,.2f} &nbsp;(+{t['reward_pct']:.2f}%)</td></tr>
-        <tr><td>Risk / reward per share</td><td>{t['risk_per_share']:,.2f} : {t['reward_per_share']:,.2f}</td></tr>
-        <tr><td>Prev day range</td><td>{lv['range_low']:,.2f} – {lv['range_high']:,.2f}</td></tr>
-        <tr><td>Prev day swing low</td><td>{f"{lv['swing_low']:,.2f}" if lv.get('swing_low') is not None else 'none in 60d'}</td></tr>
-      </table>
-      {charts.rr_bar_svg(t)}
-      <div class="meta">{''.join(f'<span>{escape(m)}</span>' for m in meta)}</div>
-      {news_html}
-    </div>
-    <div>{charts.candle_setup_svg(row)}</div>
-  </div>
+  <table class="kv">
+    <tr><td>Entry — green candle close</td><td class="ent">{t['entry']:,.2f}</td></tr>
+    <tr><td>Stop — red candle low</td><td class="stp">{t['stop']:,.2f} &nbsp;(-{t['risk_pct']:.2f}%)</td></tr>
+    <tr><td>Target — {escape(t['target_kind'])}</td><td class="tgt">{t['target']:,.2f} &nbsp;(+{t['reward_pct']:.2f}%)</td></tr>
+    <tr><td>Risk / reward per share</td><td>{t['risk_per_share']:,.2f} : {t['reward_per_share']:,.2f}</td></tr>
+    <tr><td>Prev day range</td><td>{lv['range_low']:,.2f} – {lv['range_high']:,.2f}</td></tr>
+    <tr><td>Prev day swing low</td><td>{f"{lv['swing_low']:,.2f}" if lv.get('swing_low') is not None else 'none in 60d'}</td></tr>
+  </table>
+  <div class="meta">{''.join(f'<span>{escape(m)}</span>' for m in meta)}</div>
+  {news_html}
 </article>"""
 
 
 def _table(rows: list[dict], news: dict, ratings: dict) -> str:
     head = (
         "<tr><th>#</th><th>Symbol</th><th>R:R</th><th>Entry</th><th>Stop</th><th>Target</th>"
-        "<th>Risk %</th><th>Reward %</th><th>Target basis</th><th>News</th></tr>"
+        "<th>Risk %</th><th>Reward %</th><th>RSI prior</th><th>after red</th>"
+        "<th>after green</th><th>News</th></tr>"
     )
     body = []
     for i, r in enumerate(rows, 1):
         t = r["trade"]
+        rsi = t.get("rsi") or {}
         rat = (ratings.get(r["symbol"]) or {}).get("rating") or (
             news.get(r["symbol"], {}) or {}
         ).get("preflag", "—")
@@ -283,7 +293,8 @@ def _table(rows: list[dict], news: dict, ratings: dict) -> str:
             f"<tr><td>{i}</td><td><b>{escape(r['symbol'])}</b></td><td>{t['rr']:.2f}</td>"
             f"<td>{t['entry']:,.2f}</td><td>{t['stop']:,.2f}</td><td>{t['target']:,.2f}</td>"
             f"<td>{t['risk_pct']:.2f}%</td><td>{t['reward_pct']:.2f}%</td>"
-            f"<td>{escape(t['target_kind'])}</td><td>{escape(str(rat))}</td></tr>"
+            f"<td>{rsi.get('prior','—')}</td><td>{rsi.get('after_red','—')}</td>"
+            f"<td>{rsi.get('after_green','—')}</td><td>{escape(str(rat))}</td></tr>"
         )
     return f'<div class="scroll"><table class="full"><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
 
@@ -376,9 +387,20 @@ def build(day: date | None = None) -> Path:
     newsd = (_load("news", day) or {}).get("tickers", {}) or {}
     ratings = load_ratings(day)
 
-    confirmed = (strike or {}).get("confirmed", []) or []
-    hair = (strike or {}).get("hair_trigger", []) or []
+    passed = (strike or {}).get("confirmed", []) or []
     stalk_c = (stalk or {}).get("candidates", []) or []
+
+    # Final gate: the news read must come back clear. `caution`, `flagged` and
+    # anything unrated are held back — a chart that looks perfect on a name with
+    # a live catalyst is the red herring this whole step exists to catch.
+    def _rating(sym: str) -> str:
+        r = (ratings.get(sym) or {}).get("rating")
+        if r:
+            return str(r).lower()
+        return str((newsd.get(sym, {}) or {}).get("preflag") or "unrated").lower()
+
+    confirmed = [r for r in passed if _rating(r["symbol"]) in CLEAR_RATINGS]
+    held_back = [r for r in passed if _rating(r["symbol"]) not in CLEAR_RATINGS]
 
     archive_idx = _update_archive(day, confirmed, len(stalk_c))
     qt, qa = quote_for(day)
@@ -402,7 +424,7 @@ def build(day: date | None = None) -> Path:
     pills.append(f'<span class="pill">built <b>{escape(str(gen))}</b></span>')
 
     stats = [
-        ("Confirmed setups", f"{len(confirmed)}", "green candle held the red low"),
+        ("Qualifying setups", f"{len(confirmed)}", "passed all four gates"),
         ("Best risk/reward", f"{best:.2f}R" if best else "—", "top of the strike list"),
         ("Stalked at 08:45", f"{len(stalk_c)}", "red break under range low"),
         ("Universe scanned", f'{(strike or stalk or {}).get("stalk_meta", {}).get("scanned", (stalk or {}).get("scanned", 0)):,}', "liquid US common stock"),
@@ -413,53 +435,70 @@ def build(day: date | None = None) -> Path:
         for k, v, n in stats
     )
 
+    criteria = (
+        '<p class="note">Every row below cleared all four gates: green sneaky candle '
+        'holding above the red candle\u2019s low, RSI(14) tracing a V across the two '
+        'candles, target on the previous day\u2019s <b>range high</b>, and a <b>clear</b> '
+        'news read. Ranked by risk/reward, best first.</p>'
+    )
+
     if confirmed:
         cards = "".join(_card(i, r, newsd, ratings) for i, r in enumerate(confirmed[:TOP_CARDS], 1))
-        strike_body = (
-            f'<p class="note">Ranked by risk/reward, best first. '
-            f'Showing the top {min(TOP_CARDS, len(confirmed))} of {len(confirmed)}; '
-            f'the full list is in the table below.</p>'
-            f'<div class="legend">'
-            f'<span><i style="background:{charts.BEAR}"></i>red opening candle (filled)</span>'
-            f'<span><i style="background:{charts.BULL}"></i>green sneaky candle (hollow)</span>'
-            f'<span><i style="background:{charts.LVL_RANGE_HIGH}"></i>prev range high</span>'
-            f'<span><i style="background:{charts.LVL_RANGE_LOW}"></i>prev range low</span>'
-            f'<span><i style="background:{charts.LVL_SWING}"></i>prev swing low</span>'
-            f"</div>{cards}"
-            f'<h2 class="sec">All {len(confirmed)} confirmed setups</h2>'
+        more = (
+            f'<h2 class="sec">All {len(confirmed)} qualifying setups</h2>'
             f"{_table(confirmed, newsd, ratings)}"
-        )
+        ) if len(confirmed) > TOP_CARDS else _table(confirmed, newsd, ratings)
+        strike_body = criteria + cards + more
     else:
-        strike_body = (
-            '<div class="empty">No confirmed sneaky setups this session.<br>'
-            "The stalk list either never printed a green second candle, or every green "
-            "candle undercut the red candle's low. Nothing to trade is a position.</div>"
+        strike_body = criteria + (
+            '<div class="empty">Nothing cleared every gate this session.<br>'
+            "Nothing to trade is a position.</div>"
         )
 
-    if hair:
+    if held_back:
+        by = {}
+        for r in held_back:
+            by[_rating(r["symbol"])] = by.get(_rating(r["symbol"]), 0) + 1
+        detail = ", ".join(f"{v} {k}" for k, v in sorted(by.items(), key=lambda kv: -kv[1]))
         strike_body += (
-            f'<h2 class="sec">Hair-trigger — {len(hair)} held back</h2>'
-            f'<p class="note">Pattern confirmed, but the stop sits inside the spread. '
-            f'The ratio is real arithmetic and fake execution.</p>'
-            f"{_table(hair, newsd, ratings)}"
+            f'<h2 class="sec">Held back by the news gate — {len(held_back)}</h2>'
+            f'<p class="note">Chart and RSI qualified; the news read did not come back '
+            f'clear ({escape(detail)}). Listed for the record, not for trading.</p>'
+            f"{_table(held_back, newsd, ratings)}"
         )
 
-    funnel = ""
+    funnel_rows = []
     if strike:
-        funnel = charts.funnel_svg(
-            [
-                ("universe scanned", strike["stalk_meta"]["scanned"]),
-                ("under range low", strike["stalk_meta"]["narrowed"]),
-                ("red break (08:45)", strike["from_stalk"]),
-                ("green sneaky (09:00)", strike["confirmed_count"]),
-            ]
+        rej = strike.get("rejected", {})
+        funnel_rows = [
+            ("Universe scanned", strike["stalk_meta"]["scanned"]),
+            ("Trading under prev range low", strike["stalk_meta"]["narrowed"]),
+            ("Red break confirmed (08:45)", strike["from_stalk"]),
+            ("Green sneaky candle (09:00)", strike["from_stalk"] - rej.get("not_green", 0)
+             - rej.get("undercut_red_low", 0) - rej.get("doji", 0) - rej.get("no_bar2", 0)),
+            ("RSI V-trough", None),
+            ("Target = prev range high", None),
+            ("News clear", len(confirmed)),
+        ]
+        funnel_rows[4] = ("RSI V-trough", funnel_rows[3][1] - rej.get("rsi_no_trough", 0))
+        funnel_rows[5] = ("Target = prev range high",
+                          funnel_rows[4][1] - rej.get("target_is_range_low", 0))
+        funnel_rows = [(k, v) for k, v in funnel_rows if v is not None]
+
+    funnel_html = ""
+    if funnel_rows:
+        funnel_html = (
+            '<div class="scroll"><table class="full"><thead><tr><th>Stage</th>'
+            "<th>Remaining</th></tr></thead><tbody>"
+            + "".join(
+                f"<tr><td>{escape(k)}</td><td>{v:,}</td></tr>" for k, v in funnel_rows
+            )
+            + "</tbody></table></div>"
         )
-    hist = charts.rr_hist_svg([r["trade"]["rr"] for r in confirmed]) if confirmed else ""
 
     intel = (
         '<h2 class="sec">How the market narrowed</h2>'
-        + (funnel or '<p class="note">Not available.</p>')
-        + ('<h2 class="sec">Risk/reward distribution</h2>' + hist if hist else "")
+        + (funnel_html or '<p class="note">Not available.</p>')
         + PLAYBOOK
     )
 
@@ -470,7 +509,7 @@ def build(day: date | None = None) -> Path:
     )
 
     html = f"""<!DOCTYPE html>
-<html lang="en" data-palette="{','.join(charts.CAT)}">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">

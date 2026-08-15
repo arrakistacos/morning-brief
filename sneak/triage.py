@@ -44,6 +44,12 @@ DEEP_MODELS = ["claude-opus-5", "claude-opus-4-6", "claude-opus-4-5", "claude-so
 
 VALID = {"clear", "caution", "flagged"}
 
+# `quiet` is assigned by this module, never by a model: it means no headlines
+# were found at all. That is the absence of evidence, not evidence of absence,
+# so it is kept distinct from `clear` — which means headlines WERE read and
+# judged harmless. The dashboard publishes `clear` only.
+QUIET = "quiet"
+
 
 def _call(model: str, system: str, user: str, key: str, max_tokens: int = 1400) -> str | None:
     try:
@@ -135,8 +141,8 @@ def run(day: date | None = None, top: int = 12, workers: int = 8) -> dict:
     # deterministic baseline for every ticker we pulled news for
     for sym, rec in news.items():
         out[sym] = {
-            "rating": {"green": "clear", "amber": "caution", "red": "flagged", "quiet": "clear"}
-            .get(rec.get("preflag"), "caution"),
+            "rating": {"green": "clear", "amber": "caution", "red": "flagged",
+                       "quiet": QUIET}.get(rec.get("preflag"), "caution"),
             "reason": (
                 ", ".join(rec.get("hard_flags") or rec.get("soft_flags") or [])
                 or ("no headlines in 48h" if rec.get("preflag") == "quiet" else "no material news")
@@ -148,7 +154,16 @@ def run(day: date | None = None, top: int = 12, workers: int = 8) -> dict:
     if not key:
         print("[triage] no CLAUDE_API_KEY — keyword pre-flags only", flush=True)
     else:
-        syms = [r["symbol"] for r in confirmed[:top]]
+        # Tickers with no headlines are pinned at `quiet` and never sent to a
+        # model — there is nothing to read, and a model asked to rate an empty
+        # list will confabulate reassurance.
+        syms = [
+            r["symbol"] for r in confirmed[:top]
+            if (news.get(r["symbol"]) or {}).get("headlines")
+        ]
+        skipped = len(confirmed[:top]) - len(syms)
+        if skipped:
+            print(f"[triage] {skipped} ticker(s) have no headlines — pinned quiet", flush=True)
 
         def fast(sym: str):
             hl = (news.get(sym) or {}).get("headlines") or []
@@ -172,7 +187,7 @@ def run(day: date | None = None, top: int = 12, workers: int = 8) -> dict:
 
         # deep pass over the same set, now with trade maths in view
         lines = []
-        for r in confirmed[:top]:
+        for r in [c for c in confirmed[:top] if c["symbol"] in syms]:
             s, t, b1 = r["symbol"], r["trade"], r["bar1"]
             jr = out.get(s, {})
             lines.append(
@@ -188,6 +203,8 @@ def run(day: date | None = None, top: int = 12, workers: int = 8) -> dict:
         parsed = _json_block(txt)
         if isinstance(parsed, dict):
             for sym, rec in (parsed.get("tickers") or {}).items():
+                if sym not in syms:
+                    continue          # quiet stays quiet; the model never saw it
                 if isinstance(rec, dict) and rec.get("rating") in VALID:
                     out[sym] = {
                         "rating": rec["rating"],

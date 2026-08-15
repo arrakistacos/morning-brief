@@ -7,7 +7,7 @@ Two lists, every trading morning, on the dot:
 | Time (CT) | Stage | What lands on the dashboard |
 |---|---|---|
 | **08:45** | **Stalk** | Every liquid US stock whose first 15-minute candle is a dramatic **red break below the previous day's range low**. |
-| **09:00** | **Strike** | The subset where the second candle came back **green without undercutting the red candle's low** — the sneaky candle — ranked by risk/reward, with a news red-herring rating. |
+| **09:00** | **Strike** | The subset that clears **all four gates** — green sneaky candle, RSI V-trough, range-high target, clear news — ranked by risk/reward. |
 
 Long only. Cash account, no shorting.
 
@@ -29,6 +29,24 @@ Long only. Cash account, no shorting.
 - **Target** — previous day **range low** if the red candle broke below the previous day **swing low**; otherwise the previous day **range high**
 - **R:R** — `(target − entry) / (entry − stop)`, sorted best first
 
+### The four gates
+
+A name is published only if every one holds:
+
+1. **Sneaky candle** — candle 2 is green and its low never undercuts candle 1's low.
+2. **RSI V-trough** — RSI(14) on the 15-minute series falls across the red candle and rises across the green one. Momentum rolling over and immediately recovering is what separates real resistance from a pause on the way lower.
+3. **Target is the range high** — the red candle broke the range low but held above the swing low, so structure is intact. Setups that broke the swing low (target = range low) are filtered out.
+4. **News is clear** — the red-herring read comes back `clear`, meaning headlines were found, read, and judged harmless. Everything else is held back and listed separately.
+
+| Rating | Meaning | Published |
+|---|---|---|
+| `clear` | Headlines read, nothing material against the trade | ✅ |
+| `caution` | Earnings, downgrade, litigation or similar in the last 48h | ❌ |
+| `flagged` | Offering, guidance cut, failed trial, fraud probe, going concern | ❌ |
+| `quiet` | **No headlines found at all** | ❌ |
+
+`quiet` is deliberately not `clear`. No coverage is the absence of evidence, not evidence of absence — nothing was checked because there was nothing to check. Tickers with no headlines are pinned at `quiet` and never sent to a model, since a model asked to rate an empty list will invent reassurance. This is a real filter: on a typical session more than half the qualifying setups are small caps with no news coverage at all, and they do not get published.
+
 ### Level definitions
 
 | Term | Meaning |
@@ -37,9 +55,9 @@ Long only. Cash account, no shorting.
 | Swing low | Nearest fractal pivot low *below* the range low, over the last 60 sessions — the first real structural support beneath yesterday's floor |
 | Universe | All US-listed common stock from the Nasdaq Trader directory (no ETFs, warrants, units, rights, preferreds), price ≥ $3, 20-day average dollar volume ≥ $5M — about 2,800 names |
 
-### Hair-trigger bucket
+### Tight stops
 
-A green candle closing a penny above the red candle's low is arithmetically 20:1 and practically untradable — the stop sits inside the spread. Those are separated out rather than allowed to top the list. Floors: stop ≥ 0.5% below entry, ≥ $0.05, and ≥ 8% of the red candle's own range.
+A green candle closing a penny above the red candle's low is arithmetically 20:1 and practically untradable — the stop sits inside the spread. These are no longer held back; they rank on their R:R like anything else, but any row with a stop under 0.5% from entry is tagged **tight stop — inside the spread** so it is visible at a glance.
 
 ## How it runs
 
@@ -80,7 +98,7 @@ sneak/
   confirm.py     09:00 CT — the strike, targets and R:R
   news.py        per-ticker headline pull + keyword pre-flags
   triage.py      Haiku fan-out + Opus adjudication
-  charts.py      inline SVG — candles, ladders, funnel, histogram
+  charts.py      unused — SVG helpers kept from the pre-tables dashboard
   dashboard.py   builds docs/index.html
   quotes.py      stoic line of the day
   market_calendar.py   NYSE calendar incl. holidays and early closes
@@ -96,7 +114,7 @@ pip install -r requirements.txt
 python -m sneak.prep                                  # build today's levels
 python -m sneak.scan_open --no-wait                   # stalk (skip the sleep)
 python -m sneak.confirm  --no-wait                    # strike
-python -m sneak.news --top 30 && python -m sneak.triage --top 12
+python -m sneak.news --top 200 && python -m sneak.triage --top 200
 python -m sneak.dashboard
 ```
 
@@ -104,7 +122,7 @@ Replay a past session with `--date YYYY-MM-DD` (intraday history is available fo
 
 ## Dashboard notes
 
-Single self-contained HTML file — no CDN, no JS charting library, every graphic is server-rendered inline SVG, so it opens instantly on a phone. Palette is validated for colour-vision deficiency against the dark surface; bull/bear additionally carry shape encoding (bear filled, bull hollow) so direction never depends on colour alone. Every card view has an equivalent table view.
+Single self-contained HTML file — no CDN, no JS, no charts. Numbers are presented as cards and tables only. It opens instantly on a phone and every value is selectable text.
 
 ---
 
