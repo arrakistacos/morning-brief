@@ -1,0 +1,612 @@
+{
+ "session": "2026-08-18",
+ "generated_at": "2026-08-18T09:01:38-05:00",
+ "session_note": "",
+ "tickers": {
+  "RDY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WHR": {
+   "rating": "clear",
+   "reason": "Generic analyst commentary. No structural news disclosed.",
+   "source": "haiku"
+  },
+  "SHBI": {
+   "rating": "clear",
+   "reason": "Headline is generic momentum praise with no negative catalyst.",
+   "source": "haiku"
+  },
+  "GENI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OBDC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DJCO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GTN": {
+   "rating": "flagged",
+   "reason": "Dilutive $750M debt offering; structural refinancing burden.",
+   "source": "haiku"
+  },
+  "FSK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TASK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PLAY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BX": {
+   "rating": "clear",
+   "reason": "Bond upsizing is positive, reflects market demand, not a repricing catalyst.",
+   "source": "haiku"
+  },
+  "HLNE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CG": {
+   "rating": "clear",
+   "reason": "Dividend announcement is routine corporate action, not news that explains gap down.",
+   "source": "haiku"
+  },
+  "ARES": {
+   "rating": "clear",
+   "reason": "Q2 earnings benchmarking article. No specific negative catalyst disclosed.",
+   "source": "haiku"
+  },
+  "MCHB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "STBA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RWT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WSBC": {
+   "rating": "clear",
+   "reason": "Headline is generic market commentary, not company-specific news.",
+   "source": "haiku"
+  },
+  "ZM": {
+   "rating": "clear",
+   "reason": "Valuation debate and billings growth concerns, not structural repricing events.",
+   "source": "haiku"
+  },
+  "SLM": {
+   "rating": "caution",
+   "reason": "Downbeat Wall Street forecasts + regulatory investigation into unlicensed services. Ambiguous impact.",
+   "source": "haiku"
+  },
+  "SFNC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FMNB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CIM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FFIN": {
+   "rating": "clear",
+   "reason": "Dividend article is promotional commentary, not news-driven gap catalyst.",
+   "source": "haiku"
+  },
+  "F": {
+   "rating": "clear",
+   "reason": "No structural repricing catalyst. Strategic positioning news only.",
+   "source": "haiku"
+  },
+  "KSS": {
+   "rating": "clear",
+   "reason": "Back-to-school promo and analyst note; no structural repricing event.",
+   "source": "haiku"
+  },
+  "KWR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BLK": {
+   "rating": "clear",
+   "reason": "Headlines are positive (ARK buying, infrastructure partnerships). No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "CAKE": {
+   "rating": "clear",
+   "reason": "Recent headlines show estimate upgrades and positive momentum, not structural negative catalysts.",
+   "source": "haiku"
+  },
+  "ESQ": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TPG": {
+   "rating": "clear",
+   "reason": "Generic growth stock commentary, no TPG-specific negative catalyst",
+   "source": "haiku"
+  },
+  "JHX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GOOD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PL": {
+   "rating": "caution",
+   "reason": "Unproven vehicle execution risk; competitive headwind from IM award",
+   "source": "haiku"
+  },
+  "BANC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FTDR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FWRG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VST": {
+   "rating": "clear",
+   "reason": "Analyst support and valuation discussion; no structural repricing catalyst",
+   "source": "haiku"
+  },
+  "CUZ": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GCT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "REAL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LEG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "KMX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DGII": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OZK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BMO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SLF": {
+   "rating": "clear",
+   "reason": "Routine ETF distribution announcement. No negative catalyst.",
+   "source": "haiku"
+  },
+  "CALY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SHW": {
+   "rating": "clear",
+   "reason": "Generic industry growth forecasts, no company-specific negative catalyst.",
+   "source": "haiku"
+  },
+  "FCF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BTG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HOPE": {
+   "rating": "clear",
+   "reason": "Generic small-cap coverage article, no negative catalyst disclosed.",
+   "source": "haiku"
+  },
+  "BJRI": {
+   "rating": "clear",
+   "reason": "Insider sale after 104% gain is profit-taking, not structural negative.",
+   "source": "haiku"
+  },
+  "BUSE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HWC": {
+   "rating": "clear",
+   "reason": "Bullish bank sector tailwinds, no negative catalysts reported",
+   "source": "haiku"
+  },
+  "APP": {
+   "rating": "caution",
+   "reason": "Demand-side ad tech weakness, sector headwinds. Valuation debate, not structural event.",
+   "source": "haiku"
+  },
+  "ZWS": {
+   "rating": "clear",
+   "reason": "No structural news. Generic small-cap article + underperformance commentary only.",
+   "source": "haiku"
+  },
+  "FULT": {
+   "rating": "clear",
+   "reason": "Generic cautionary article about sub-$50 stocks. No FULT-specific negative catalyst.",
+   "source": "haiku"
+  },
+  "CBC": {
+   "rating": "clear",
+   "reason": "Options activity is speculative positioning, not fundamental news. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "HASI": {
+   "rating": "clear",
+   "reason": "Infrastructure investment announcement is neutral. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "SN": {
+   "rating": "clear",
+   "reason": "Product launch and analyst buy rating. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "WAL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ESRT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WEN": {
+   "rating": "clear",
+   "reason": "Leadership transition and buyout speculation are positive, not negative catalysts.",
+   "source": "haiku"
+  },
+  "CTBI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VLY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AVTR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AAMI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NRG": {
+   "rating": "clear",
+   "reason": "Portfolio reallocation by external investor, no NRG-specific news.",
+   "source": "haiku"
+  },
+  "DLB": {
+   "rating": "clear",
+   "reason": "Q2 earnings recap article. No negative guidance, failed products, or structural issues disclosed.",
+   "source": "haiku"
+  },
+  "MMED": {
+   "rating": "clear",
+   "reason": "Product launch positive. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "WING": {
+   "rating": "caution",
+   "reason": "62% YoY decline suggests structural issues; rebound speculation unconfirmed by fundamentals",
+   "source": "haiku"
+  },
+  "ROL": {
+   "rating": "clear",
+   "reason": "Generic valuation opinion, no structural news event disclosed.",
+   "source": "haiku"
+  },
+  "MRP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HOG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RY": {
+   "rating": "clear",
+   "reason": "Sponsorship and routine ETF distributions. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "FFBC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PRAA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PEBO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CVBF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HOMB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DNOW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "JPM": {
+   "rating": "clear",
+   "reason": "No structural repricing catalyst. Staffing/tax commentary routine.",
+   "source": "haiku"
+  },
+  "JBTM": {
+   "rating": "clear",
+   "reason": "Strong earnings, raised guidance, buybacks/dividend support\u2014no structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "KT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SBCF": {
+   "rating": "caution",
+   "reason": "Bearish analyst targets signal fundamental concerns; ambiguous without specifics.",
+   "source": "haiku"
+  },
+  "HLMN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WERN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GNRC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TOWN": {
+   "rating": "clear",
+   "reason": "Generic Russell 2000 caution piece, no stock-specific negative catalyst.",
+   "source": "haiku"
+  },
+  "WAFD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CATY": {
+   "rating": "clear",
+   "reason": "Article highlights stock approaching 52-week highs; no negative catalysts mentioned.",
+   "source": "haiku"
+  },
+  "EFC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SNA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TD": {
+   "rating": "clear",
+   "reason": "Survey data and ETF product launch; no material adverse business news.",
+   "source": "haiku"
+  },
+  "MBC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CBSH": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EWBC": {
+   "rating": "clear",
+   "reason": "Positive bank sector tailwinds; no structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "WFC": {
+   "rating": "clear",
+   "reason": "No structural repricing catalysts. Inflation guidance, CSR investment, stock picks, NII outlook typical commentary.",
+   "source": "haiku"
+  },
+  "KRUS": {
+   "rating": "clear",
+   "reason": "Q2 earnings review is routine sector coverage, not new negative catalyst",
+   "source": "haiku"
+  },
+  "FRPT": {
+   "rating": "clear",
+   "reason": "Opinion piece on cash flow metrics. No company-specific news.",
+   "source": "haiku"
+  },
+  "DLX": {
+   "rating": "clear",
+   "reason": "Executive appointment is routine operational news, not structural repricing driver.",
+   "source": "haiku"
+  },
+  "COLB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "USB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BNS": {
+   "rating": "clear",
+   "reason": "Earnings announcement scheduled; no news explaining gap down.",
+   "source": "haiku"
+  },
+  "BLLN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "YUMC": {
+   "rating": "clear",
+   "reason": "Valuation comparison article; no news explaining gap-down move.",
+   "source": "haiku"
+  },
+  "PNFP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TILE": {
+   "rating": "clear",
+   "reason": "Generic analyst recommendation. No structural news explaining gap down.",
+   "source": "haiku"
+  },
+  "ZION": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PB": {
+   "rating": "clear",
+   "reason": "Dividend article is promotional content, not news catalyst for gap down.",
+   "source": "haiku"
+  },
+  "ADAM": {
+   "rating": "clear",
+   "reason": "Sector performance comparison article. No negative catalyst disclosed.",
+   "source": "haiku"
+  },
+  "GGG": {
+   "rating": "clear",
+   "reason": "Earnings preview with mixed signals; no structural catalyst for sustained repricing.",
+   "source": "haiku"
+  },
+  "CWK": {
+   "rating": "clear",
+   "reason": "Positive industry news and business activity. No material adverse events.",
+   "source": "haiku"
+  },
+  "FHN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TSN": {
+   "rating": "flagged",
+   "reason": "Plant closures, 3,200+ layoffs, cattle herd at 75-year low signals structural repricing.",
+   "source": "haiku"
+  },
+  "AIN": {
+   "rating": "clear",
+   "reason": "Generic small-cap critique, no company-specific catalyst disclosed.",
+   "source": "haiku"
+  },
+  "GT": {
+   "rating": "clear",
+   "reason": "Macro industry commentary on China pharma trends. No GT-specific news.",
+   "source": "haiku"
+  },
+  "LIFE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SBUX": {
+   "rating": "clear",
+   "reason": "Record sales weekend, valuation debate, competitive pressure\u2014no structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "KSPI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}

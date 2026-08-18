@@ -24,9 +24,15 @@
   ]
  },
  "2026-08-18": {
-  "best_rr": null,
-  "confirmed": 0,
+  "best_rr": 10.531,
+  "confirmed": 50,
   "stalked": 848,
-  "top": []
+  "top": [
+   "WHR",
+   "SHBI",
+   "BX",
+   "CG",
+   "ARES"
+  ]
  }
 }
