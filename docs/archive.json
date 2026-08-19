@@ -24,15 +24,13 @@
   ]
  },
  "2026-08-18": {
-  "best_rr": 1.462,
-  "confirmed": 78,
-  "stalked": 718,
+  "best_rr": 1.691,
+  "confirmed": 3,
+  "stalked": 66,
   "top": [
-   "MFC",
-   "WING",
-   "CWK",
-   "AGNC",
-   "DLB"
+   "SN",
+   "GCMG",
+   "GOLD"
   ]
  }
 }
