@@ -27,7 +27,34 @@ Long only. Cash account, no shorting.
 - **Entry** — close of the green sneaky candle
 - **Stop** — low of the initial red candle (that wick *is* the stop, so a short wick ranks higher)
 - **Target** — previous day **range low** if the red candle broke below the previous day **swing low**; otherwise the previous day **range high**
-- **R:R** — `(target − entry) / (entry − stop)`, sorted best first
+- **R:R** — `(target − entry) / (entry − stop)`
+
+### Ranking: the momentum score
+
+The list is **ranked by momentum score, not by R:R**. Ranking by R:R put the tightest, least executable stops at the top — a stop a penny under entry reads as 20:1 and is untradable.
+
+The score is a 0–100 percentile within the day's own candidates, built from five scale-free measures of how much damage the opening drop did and how convincingly it recovered: RSI(7) and RSI(14) after the green candle (higher better), how far RSI fell across the red candle, the red candle's body fraction, and its size relative to ATR (all lower better).
+
+Backtested over 9,092 setups and 58 sessions, it sorts win rate monotonically across all ten deciles:
+
+| decile | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| win rate | 33.9% | 38.5% | 43.2% | 48.7% | 49.8% | 52.1% | 58.8% | 63.4% | 67.9% | 73.4% |
+
+Within-day rank correlation against realised R reaches t = +3.92, clearing a Bonferroni threshold of 3.9 across the 35 indicators tested, and is positive on 67% of sessions.
+
+**It ranks probability, not profit.** Mean R per decile stays flat near zero — a higher hit rate comes with a proportionally smaller payoff. Use it to choose between setups on a given morning, never as evidence that a setup is profitable on its own.
+
+### Two targets
+
+| | level | reached | use |
+|---|---|---|---|
+| **Target A** | previous day's close | ~47% same day | if you are flat by 16:00 |
+| **Target B** | previous day's range high | ~13% same day | hold up to 3 trading days |
+
+Target A is blank when the entry is already above the previous close, which is common for the highest-momentum names.
+
+**The 3-day plan.** Entry = green candle close. Stop = red candle low, unmoved. Target = previous day's range high. Hold up to three trading days and exit at the close of day 3 if neither level is touched. This was the only configuration in 58 sessions with positive expectancy (+0.105R, +0.74% per trade, with a 0.5% risk floor and a 10R cap). It is **not statistically significant** — t = 1.61, and ~91 sessions would be needed for t > 2. Size it as an experiment.
 
 ### The four gates
 

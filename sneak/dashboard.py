@@ -130,7 +130,13 @@ h2.sec{font-size:.8rem;color:var(--phos);letter-spacing:.14em;text-transform:upp
 .chead{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-bottom:.7rem}
 .rank{font-size:.66rem;color:var(--bg);background:var(--phos);border-radius:4px;padding:.1rem .4rem;font-weight:700}
 .sym{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:var(--ink)}
-.rr{margin-left:auto;font-size:1.1rem;font-weight:700;color:var(--phos)}
+.mom{margin-left:auto;font-size:1.05rem;font-weight:700;color:var(--c2)}
+.mom small{display:block;font-size:.55rem;color:var(--dim);letter-spacing:.1em;text-align:right;font-weight:400}
+details.howto{margin:0 0 1.2rem;border:1px solid var(--border2);border-radius:6px;padding:.6rem .8rem;background:var(--s1)}
+details.howto summary{cursor:pointer;color:var(--phos);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+details.howto table.kv{margin-top:.6rem}
+details.howto table.kv td:last-child{text-align:left;font-weight:400;color:var(--muted)}
+.rr{font-size:1.1rem;font-weight:700;color:var(--phos)}
 .rr small{display:block;font-size:.58rem;color:var(--dim);letter-spacing:.12em;text-align:right;font-weight:400}
 
 .chip{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.16rem .5rem;
@@ -261,12 +267,14 @@ def _card(i: int, row: dict, news: dict, ratings: dict) -> str:
     <span class="sym">{escape(sym)}</span>
     {_rating_chip(sym, news, ratings)}
     <span class="chip mut">RSI V-trough</span>
-    <span class="rr">{t['rr']:.2f}R<small>risk : reward</small></span>
+    <span class="mom">{row.get('momentum', 0):.0f}<small>momentum</small></span>
+    <span class="rr">{t['rr']:.2f}R<small>3-day R:R</small></span>
   </div>
   <table class="kv">
     <tr><td>Entry — green candle close</td><td class="ent">{t['entry']:,.2f}</td></tr>
     <tr><td>Stop — red candle low</td><td class="stp">{t['stop']:,.2f} &nbsp;(-{t['risk_pct']:.2f}%)</td></tr>
-    <tr><td>Target — {escape(t['target_kind'])}</td><td class="tgt">{t['target']:,.2f} &nbsp;(+{t['reward_pct']:.2f}%)</td></tr>
+    <tr><td>Target A — same day (prev close)</td><td class="tgt">{(f"{t['target_same_day']:,.2f}" if t.get('target_same_day') else '— already above')}</td></tr>
+    <tr><td>Target B — 3-day ({escape(t['target_kind'])})</td><td class="tgt">{t['target']:,.2f} &nbsp;(+{t['reward_pct']:.2f}%)</td></tr>
     <tr><td>Risk / reward per share</td><td>{t['risk_per_share']:,.2f} : {t['reward_per_share']:,.2f}</td></tr>
     <tr><td>Prev day range</td><td>{lv['range_low']:,.2f} – {lv['range_high']:,.2f}</td></tr>
     <tr><td>Prev day swing low</td><td>{f"{lv['swing_low']:,.2f}" if lv.get('swing_low') is not None else 'none in 60d'}</td></tr>
@@ -278,21 +286,25 @@ def _card(i: int, row: dict, news: dict, ratings: dict) -> str:
 
 def _table(rows: list[dict], news: dict, ratings: dict) -> str:
     head = (
-        "<tr><th>#</th><th>Symbol</th><th>R:R</th><th>Entry</th><th>Stop</th><th>Target</th>"
-        "<th>Risk %</th><th>Reward %</th><th>RSI prior</th><th>after red</th>"
-        "<th>after green</th><th>News</th></tr>"
+        "<tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th>"
+        "<th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th>"
+        "<th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr>"
     )
     body = []
     for i, r in enumerate(rows, 1):
         t = r["trade"]
         rsi = t.get("rsi") or {}
+        tsd = f"{t['target_same_day']:,.2f}" if t.get("target_same_day") else "—"
         rat = (ratings.get(r["symbol"]) or {}).get("rating") or (
             news.get(r["symbol"], {}) or {}
         ).get("preflag", "—")
         body.append(
-            f"<tr><td>{i}</td><td><b>{escape(r['symbol'])}</b></td><td>{t['rr']:.2f}</td>"
-            f"<td>{t['entry']:,.2f}</td><td>{t['stop']:,.2f}</td><td>{t['target']:,.2f}</td>"
-            f"<td>{t['risk_pct']:.2f}%</td><td>{t['reward_pct']:.2f}%</td>"
+            f"<tr><td>{i}</td><td><b>{escape(r['symbol'])}</b></td>"
+            f"<td><b>{r.get('momentum',0):.0f}</b></td><td>{t['rr']:.2f}</td>"
+            f"<td>{t['entry']:,.2f}</td><td>{t['stop']:,.2f}</td>"
+            f"<td>{tsd}</td>"
+            f"<td>{t['target']:,.2f}</td>"
+            f"<td>{t['risk_pct']:.2f}%</td>"
             f"<td>{rsi.get('prior','—')}</td><td>{rsi.get('after_red','—')}</td>"
             f"<td>{rsi.get('after_green','—')}</td><td>{escape(str(rat))}</td></tr>"
         )
@@ -315,6 +327,30 @@ def _stalk_table(cands: list[dict]) -> str:
         )
     return f'<div class="scroll"><table class="full"><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
 
+
+HOWTO = """
+<details class="howto"><summary>How to trade a row &mdash; entry, stop, targets</summary>
+<table class="kv">
+<tr><td><b>Entry</b></td><td>Close of the 09:45&ndash;10:00 ET green candle. That is the
+price in the Entry column; it is already fixed by the time you read this.</td></tr>
+<tr><td><b>Stop</b></td><td>Low of the 09:30 red candle. Never moves. This is the whole
+risk of the trade &mdash; the shorter that wick, the tighter the stop.</td></tr>
+<tr><td><b>Target A &mdash; same day</b></td><td>Previous day&rsquo;s close. Reachable inside
+one session (hit ~47% of the time in backtest). Use this if you are flat by 16:00.</td></tr>
+<tr><td><b>Target B &mdash; 3 day</b></td><td>Previous day&rsquo;s range high. Only ~13% of
+setups reach it the same day, but it is the structural objective. <b>Hold up to three
+trading days</b>, keeping the stop at the red candle low, and exit at the close of day 3
+if neither level has been touched. This was the only configuration in 58 sessions of
+backtesting with positive expectancy (+0.105R, +0.74% per trade) &mdash; though not yet
+statistically significant, so size it as an experiment.</td></tr>
+<tr><td><b>Momentum score</b></td><td>0&ndash;100 percentile within today&rsquo;s candidates.
+Sorts win rate 34% (bottom decile) to 73% (top decile). It ranks <i>probability</i>, not
+profit &mdash; use it to choose between setups, not to decide whether to trade at all.</td></tr>
+</table>
+<p class="note">Long only, cash account. T+2 settlement means a 3-day hold ties up the
+cash until it settles &mdash; plan position count accordingly. Not investment advice.</p>
+</details>
+"""
 
 ARCHIVE_INDEX = DOCS / "archive.json"
 
@@ -461,10 +497,11 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
     )
 
     criteria = (
-        '<p class="note">Every row below cleared all four gates: green sneaky candle '
-        'holding above the red candle\u2019s low, RSI(14) tracing a V across the two '
-        'candles, target on the previous day\u2019s <b>range high</b>, and a <b>clear</b> '
-        'news read. Ranked by risk/reward, best first.</p>'
+        '<p class="note">Every row cleared all four gates: green sneaky candle holding '
+        'above the red candle\u2019s low, RSI(14) tracing a V across the two candles, '
+        'target on the previous day\u2019s <b>range high</b>, and a <b>clear</b> news '
+        'read. <b>Ranked by momentum score</b>, not by R:R.</p>'
+        + HOWTO
     )
 
     if confirmed:

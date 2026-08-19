@@ -46,6 +46,7 @@ from pathlib import Path
 
 from . import yahoo
 from .levels import rsi_series
+from .momentum import score_cohort
 from .prep import CACHE_DIR
 from .scan_open import wait_for_bar
 
@@ -55,8 +56,10 @@ BAR2_CLOSE_ET = (10, 0)
 # Below this the "green candle" is really a doji and the resistance read is noise.
 MIN_GREEN_BODY_PCT = 0.05
 
-# RSI period, on the 15-minute series.
+# RSI periods on the 15-minute series. 14 gates the V-trough; 7 feeds the
+# momentum score, where it was the single strongest ranking indicator.
 RSI_N = 14
+RSI_FAST = 7
 
 # Reference threshold only — no longer used to bucket anything out. A stop
 # closer than this to the entry sits inside the spread, so the row is tagged
@@ -86,6 +89,7 @@ def _rsi_signature(bars: list[dict], bar1: dict, bar2: dict) -> dict | None:
     if len(closes) < RSI_N + 3:
         return None
     series = rsi_series(closes, RSI_N)
+    fast = rsi_series(closes, RSI_FAST)
 
     try:
         i1 = next(i for i, b in enumerate(bars) if b["t"] == bar1["t"])
@@ -99,14 +103,20 @@ def _rsi_signature(bars: list[dict], bar1: dict, bar2: dict) -> dict | None:
     if prior is None or r1 is None or r2 is None:
         return None
 
+    f2 = fast[i2] if i2 < len(fast) else None
     return {
         "prior": round(prior, 2),
         "after_red": round(r1, 2),
         "after_green": round(r2, 2),
+        "fast_after_green": round(f2, 2) if f2 is not None else None,
         "drop": round(prior - r1, 2),
         "recovery": round(r2 - r1, 2),
         "trough": bool(r1 < prior and r2 > r1),
     }
+
+
+def lv_pclose(cand: dict) -> float:
+    return cand["levels"]["prev_close"]
 
 
 def _evaluate(cand: dict, bar1: dict, bar2: dict) -> dict:
@@ -215,12 +225,30 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
 
         trade = _evaluate(cand, bar1, bar2)
         trade["rsi"] = rsi
+        # Same-day target. The range high is a 3-day structural objective; over
+        # a single session the previous close is the reachable one.
+        if lv_pclose(cand) > trade["entry"]:
+            trade["target_same_day"] = round(lv_pclose(cand), 4)
+            trade["rr_same_day"] = round(
+                (lv_pclose(cand) - trade["entry"]) / max(trade["risk_per_share"], 1e-9), 2)
+        else:
+            trade["target_same_day"] = None
+            trade["rr_same_day"] = None
         row = {
             "symbol": sym,
             "levels": cand["levels"],
             "bar1": cand["bar1"],
             "stalk_score": cand["stalk_score"],
             "trade": trade,
+            # Raw inputs for the momentum score. Ranked across the whole day's
+            # cohort in score_cohort(), so they are stored, not scored, here.
+            "mom_inputs": {
+                "rsi7_green": rsi.get("fast_after_green") or rsi["after_green"],
+                "rsi14_green": rsi["after_green"],
+                "rsi14_drop": rsi["drop"],
+                "body_frac": cand["bar1"]["body_pct"],
+                "range_atr": cand["bar1"].get("atr_mult") or 1.0,
+            },
         }
         red_range = max(bar1["h"] - bar1["l"], 1e-9)
         trade["risk_vs_red_range"] = round(trade["risk_per_share"] / red_range, 4)
@@ -241,7 +269,16 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         else:
             confirmed.append(row)
 
-    confirmed.sort(key=lambda r: (-r["trade"]["rr"], r["bar1"]["wick_pct"]))
+    # Momentum score is a within-cohort percentile, so it must be computed
+    # across the whole day's confirmed set before any ranking or filtering.
+    score_cohort(confirmed)
+    score_cohort(expired)
+
+    # Primary sort is the momentum score. R:R sorted the list toward the worst
+    # trades: it rewards a stop sitting inside the spread. The momentum score
+    # sorts win probability 34% -> 73% across deciles, so it goes first and
+    # R:R breaks ties.
+    confirmed.sort(key=lambda r: (-r.get("momentum", 0), -r["trade"]["rr"]))
     expired.sort(key=lambda r: -r["stalk_score"])
 
     payload = {

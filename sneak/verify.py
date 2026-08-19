@@ -96,10 +96,14 @@ def run(day: date) -> int:
                   f'({rsi["after_red"]} -> {rsi["after_green"]})')
 
     # ── ordering ────────────────────────────────────────────────────────────
-    rrs = [r["trade"]["rr"] for r in strike["confirmed"]]
-    checks += 1
-    _fail(problems, all(rrs[i] >= rrs[i + 1] for i in range(len(rrs) - 1)),
-          "confirmed list is not sorted by R:R descending")
+    # Primary sort is the momentum score (R:R breaks ties), because ranking by
+    # R:R put the tightest, least executable stops at the top of the list.
+    ms = [r.get("momentum", 0) for r in strike["confirmed"]]
+    checks += 2
+    _fail(problems, all(ms[i] >= ms[i + 1] for i in range(len(ms) - 1)),
+          "confirmed list is not sorted by momentum score descending")
+    _fail(problems, all(0 <= m <= 100 for m in ms),
+          "a momentum score is outside 0-100")
 
     # ── no overlap between buckets ──────────────────────────────────────────
     a = {r["symbol"] for r in strike["confirmed"]}
