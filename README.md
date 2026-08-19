@@ -6,7 +6,7 @@ Two lists, every trading morning, on the dot:
 
 | Time (CT) | Stage | What lands on the dashboard |
 |---|---|---|
-| **08:45** | **Stalk** | Every liquid US stock whose first 15-minute candle is a dramatic **red break below the previous day's range low**. |
+| **08:45** | **Stalk** | Every liquid US stock whose first 15-minute candle is a **dramatic red break below the previous day's range low** — the candle must span at least **0.75× ATR14**. |
 | **09:00** | **Strike** | The subset that clears **all four gates** — green sneaky candle, RSI V-trough, range-high target, clear news — ranked by risk/reward. |
 
 Long only. Cash account, no shorting.
@@ -28,6 +28,21 @@ Long only. Cash account, no shorting.
 - **Stop** — low of the initial red candle (that wick *is* the stop, so a short wick ranks higher)
 - **Target** — previous day **range low** if the red candle broke below the previous day **swing low**; otherwise the previous day **range high**
 - **R:R** — `(target − entry) / (entry − stop)`
+
+### The drama gate
+
+`MIN_CANDLE_ATR` in `sneak/scan_open.py`, default **0.75**. The opening candle's full range must be at least this multiple of the stock's 14-day ATR.
+
+Without it the scan returns ~124 names a day averaging a **0.28% drop at 0.36× ATR** — technically valid range-low breaks that are invisible on a chart and are not the setup being traded. The momentum score made this worse, not better: three of its five components reward a *smaller* candle and a *shallower* RSI dip, so it sorted the least dramatic setups straight to the top.
+
+Effect on the published list:
+
+| floor | 08-14 | 08-17 | 08-18 | avg candle |
+|---|---|---|---|---|
+| 0.50× ATR | 10 | 12 | 29 | 0.80× |
+| **0.75× ATR** (default) | 0 | 2 | 4 | 1.10× |
+
+Lower it to 0.50 for a longer list. The momentum score still ranks correctly inside the dramatic subset — at the 0.75 floor its correlation actually strengthens (ρ 0.125, t 3.90, versus 0.095 unfiltered).
 
 ### Ranking: the momentum score
 

@@ -14,13 +14,17 @@ Speed strategy — the whole market in under a minute:
     2. chart  (full OHLCV) only for the narrowed set. Now we can apply the real
        gate, which needs the candle's low and open, not just its close.
 
-Hard gate (the only pass/fail rule):
-    bar1.low < prev range low      the break actually happened
-    bar1.close < bar1.open         the candle is red
+Hard gates:
+    bar1.low < prev range low       the break actually happened, with margin
+    bar1.close < bar1.open          the candle is red
+    bar1 range >= 0.75x ATR14       the drop is DRAMATIC, not a drift
 
-Everything else — wick tightness, ATR-relative body, volume burst — is ranking,
-not filtering. The wick is the stop, so a short wick is worth real money and is
-weighted accordingly.
+That third gate matters more than it looks. Without it the scan returns ~124
+names a day averaging a 0.28% drop at 0.36x ATR — genuine range-low breaks that
+are invisible on a chart and are not the setup being traded. With it the list is
+~28 names averaging 1.1x ATR.
+
+Wick tightness and volume burst remain ranking inputs, not filters.
 
 Usage:
     python -m sneak.scan_open              # waits for the bar to close, then scans
@@ -43,6 +47,18 @@ from .prep import CACHE_DIR, load_levels
 # Pre-narrow buffer: keep names whose first-bar CLOSE is within 1% above the
 # range low, since a candle can pierce the level intrabar and close back above.
 NARROW_BUFFER = 1.01
+
+# "Dramatic and significant" — the playbook's words, now an actual gate.
+#
+# Measured as the opening candle's full range divided by the stock's 14-day ATR,
+# so it scales to how much that name normally moves rather than using a flat
+# percentage. Without this the scan fills with 0.3% drops at 0.36x ATR: real
+# breaks of the range low, but not the setup being traded, and invisible on a
+# chart. At 0.75 the surviving candles average 1.1x ATR and the list runs
+# ~28 names a day instead of ~124.
+#
+# Set to 0.0 to disable.
+MIN_CANDLE_ATR = 0.75
 
 # A break must actually break. Floating-point noise and sub-cent prints make a
 # candle that merely TOUCHES yesterday's low look like it pierced it, which is a
@@ -156,17 +172,36 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         wait_for_bar(*BAR1_CLOSE_ET)
 
     # ── stage 1: bulk close scan ────────────────────────────────────────────
-    print("[stalk] stage 1 · bulk close scan…", flush=True)
-    sp = yahoo.spark_closes(symbols, rng="1d", interval="15m", workers=workers)
+    # range=1d returns the CURRENT session whatever --date says, so replaying a
+    # past day needs a wider window and an explicit lookup of that day's 09:30
+    # bar. Live runs stay on the cheap 1d path.
+    replay = day != yahoo.now_et().date()
+    print(f"[stalk] stage 1 · bulk close scan{' (replay)' if replay else ''}…", flush=True)
+    sp = yahoo.spark_closes(symbols, rng="1mo" if replay else "1d",
+                            interval="15m", workers=workers)
+    want_open = day.strftime("%Y-%m-%d")
     narrowed = []
     for sym, s in sp.items():
         lv = levels.get(sym)
         if not lv:
             continue
-        closes = [c for c in s["close"] if c is not None]
-        if not closes:
-            continue
-        if closes[0] <= lv["range_low"] * NARROW_BUFFER:
+        if replay:
+            first = None
+            for ts, c in zip(s["timestamp"], s["close"]):
+                if c is None:
+                    continue
+                d = datetime.fromtimestamp(int(ts), yahoo.ET)
+                if d.strftime("%Y-%m-%d") == want_open and (d.hour, d.minute) == BAR1_OPEN_ET:
+                    first = c
+                    break
+            if first is None:
+                continue
+        else:
+            closes = [c for c in s["close"] if c is not None]
+            if not closes:
+                continue
+            first = closes[0]
+        if first <= lv["range_low"] * NARROW_BUFFER:
             narrowed.append(sym)
     print(
         f"[stalk] stage 1 · {len(sp)} quoted → {len(narrowed)} at/under range low "
@@ -176,9 +211,10 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
 
     # ── stage 2: real candles ───────────────────────────────────────────────
     print("[stalk] stage 2 · pulling opening candles…", flush=True)
-    ch = yahoo.charts(narrowed, rng="1d", interval="15m", workers=workers)
+    ch = yahoo.charts(narrowed, rng="1mo" if replay else "1d",
+                      interval="15m", workers=workers)
 
-    candidates, rejected = [], {"not_red": 0, "no_break": 0, "no_bar": 0}
+    candidates, rejected = [], {"not_red": 0, "no_break": 0, "no_bar": 0, "not_dramatic": 0}
     for sym in narrowed:
         bars = ch.get(sym)
         if not bars:
@@ -199,6 +235,11 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         if not bar1["c"] < bar1["o"]:
             rejected["not_red"] += 1
             continue
+        atr = lv.get("atr14") or 0.0
+        if MIN_CANDLE_ATR > 0 and atr > 0:
+            if (bar1["h"] - bar1["l"]) / atr < MIN_CANDLE_ATR:
+                rejected["not_dramatic"] += 1
+                continue
         m = _metrics(bar1, lv)
         candidates.append(
             {

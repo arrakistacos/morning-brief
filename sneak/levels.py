@@ -92,15 +92,20 @@ def compute_levels(sym: str, daily: list[dict], today: date | None = None) -> di
     """
     Build the level set for `sym` from daily OHLCV bars (oldest first).
 
-    The last bar is dropped if it is today's in-progress session, so "previous
-    day" always means the last COMPLETED session.
+    Every bar dated on or after `today` is dropped, so "previous day" always
+    means the last COMPLETED session before the target date.
     """
     if not daily or len(daily) < ATR_N + PIVOT_K * 2 + 5:
         return None
 
     bars = list(daily)
-    if today is not None and bars and bars[-1]["dt"].date() >= today:
-        bars = bars[:-1]
+    if today is not None:
+        # Drop EVERY bar at or after the target date, not just the last one.
+        # Live there is only ever one (today's in-progress bar), but replaying a
+        # past date with --date leaves later sessions in the series, and taking
+        # only the last one off makes the target day its own "previous day" —
+        # a silent, total corruption of every level.
+        bars = [b for b in bars if b["dt"].date() < today]
     if len(bars) < ATR_N + PIVOT_K * 2 + 5:
         return None
 
