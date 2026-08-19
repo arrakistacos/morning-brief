@@ -1,0 +1,42 @@
+{
+ "session": "2026-08-19",
+ "generated_at": "2026-08-19T09:00:43-05:00",
+ "session_note": "Broad early weakness in financials and semis, with opening gaps exceeding proposed stop widths, making tight mean-reversion entries fragile today.",
+ "tickers": {
+  "ADI": {
+   "rating": "caution",
+   "reason": "Post-earnings sell-the-news drift live; gap volatility can override intraday reversion",
+   "source": "claude-opus-5"
+  },
+  "FBP": {
+   "rating": "flagged",
+   "reason": "17c stop is noise on illiquid small-cap; RR is stop artefact",
+   "source": "claude-opus-5"
+  },
+  "ANGX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MS": {
+   "rating": "flagged",
+   "reason": "RR 0.25 unacceptable; target below entry-plus-risk, lawsuit headline still circulating",
+   "source": "claude-opus-5"
+  },
+  "JPM": {
+   "rating": "caution",
+   "reason": "No catalyst but drop exceeds stop width; RR thin at 1.4",
+   "source": "claude-opus-5"
+  },
+  "PURR": {
+   "rating": "flagged",
+   "reason": "4% gap versus 1.3% stop; RR inflated, Druckenmiller news is stale",
+   "source": "claude-opus-5"
+  },
+  "GS": {
+   "rating": "caution",
+   "reason": "1.9% gap more than twice stop distance; selling pressure likely still live",
+   "source": "claude-opus-5"
+  }
+ }
+}
