@@ -1,0 +1,432 @@
+{
+ "session": "2026-08-17",
+ "generated_at": "2026-08-17T09:01:05-05:00",
+ "session_note": "",
+ "tickers": {
+  "BN": {
+   "rating": "clear",
+   "reason": "Positive news on insurance/AI infrastructure expansion. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "MPT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FSK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WKC": {
+   "rating": "clear",
+   "reason": "Generic value investing article; no WKC-specific news",
+   "source": "haiku"
+  },
+  "HPQ": {
+   "rating": "clear",
+   "reason": "Generic watchlist inclusion; no material news explaining gap-down.",
+   "source": "haiku"
+  },
+  "JOBY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DOMO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NEXN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CRI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VITL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AMN": {
+   "rating": "clear",
+   "reason": "Advisory council join and Q2 earnings recap. No structural negative catalyst.",
+   "source": "haiku"
+  },
+  "GILT": {
+   "rating": "clear",
+   "reason": "Contract win is positive; no structural repricing catalyst evident.",
+   "source": "haiku"
+  },
+  "TWLO": {
+   "rating": "clear",
+   "reason": "Generic commentary on cash positions. No news event explaining gap down.",
+   "source": "haiku"
+  },
+  "NXG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VZLA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ADX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PSO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CCEP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WIX": {
+   "rating": "clear",
+   "reason": "Positive macro catalyst (flat PPI). No company-specific negative news.",
+   "source": "haiku"
+  },
+  "MANE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DXYZ": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "STAA": {
+   "rating": "clear",
+   "reason": "Strong Q2 earnings beat, 111% YoY growth, return to profitability, new CEO appointment positive.",
+   "source": "haiku"
+  },
+  "AMBA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BETR": {
+   "rating": "caution",
+   "reason": "Leadership dispute with former CEO creates uncertainty; operational distraction likely.",
+   "source": "haiku"
+  },
+  "BMRN": {
+   "rating": "clear",
+   "reason": "Raised guidance and shelf offering are constructive, not dilutive catalyst.",
+   "source": "haiku"
+  },
+  "DNN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FSLY": {
+   "rating": "clear",
+   "reason": "Analyst opinion piece. No fundamental news, earnings, guidance, or structural catalyst.",
+   "source": "haiku"
+  },
+  "HPE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NXT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "COCO": {
+   "rating": "clear",
+   "reason": "Watchlist mention is promotional commentary, not material news.",
+   "source": "haiku"
+  },
+  "PAYS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EQBK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CLF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SVM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MNST": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WLTH": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NXST": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BHVN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HDB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EL": {
+   "rating": "clear",
+   "reason": "Guidance confirmation is neutral; no structural repricing catalyst present.",
+   "source": "haiku"
+  },
+  "M": {
+   "rating": "clear",
+   "reason": "Generic valuation commentary, no fundamental catalyst for sustained repricing",
+   "source": "haiku"
+  },
+  "NP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IMAX": {
+   "rating": "clear",
+   "reason": "Strong box office performance supports recovery, no structural damage.",
+   "source": "haiku"
+  },
+  "PLTR": {
+   "rating": "clear",
+   "reason": "Valuation discussion, no structural repricing event. Growth remains intact.",
+   "source": "haiku"
+  },
+  "UNH": {
+   "rating": "caution",
+   "reason": "CEO assassination creates uncertainty; guilty plea reduces but doesn't eliminate reputational/operational risk.",
+   "source": "haiku"
+  },
+  "MLM": {
+   "rating": "clear",
+   "reason": "Generic analyst caution piece, not company-specific news.",
+   "source": "haiku"
+  },
+  "AVO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DJCO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AD": {
+   "rating": "clear",
+   "reason": "Q2 earnings beat; no structural repricing catalyst identified.",
+   "source": "haiku"
+  },
+  "TILE": {
+   "rating": "clear",
+   "reason": "Q2 earnings beat with revenue growth and margin expansion. Positive market reaction supports recovery potential.",
+   "source": "haiku"
+  },
+  "SNOW": {
+   "rating": "clear",
+   "reason": "No negative news; only valuation comparisons and third-party product launches.",
+   "source": "haiku"
+  },
+  "BVN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SMCI": {
+   "rating": "clear",
+   "reason": "Positive AI revenue forecast and macro tailwind (cooler inflation). No structural repricing news.",
+   "source": "haiku"
+  },
+  "EXK": {
+   "rating": "flagged",
+   "reason": "Mine suspension due to blockade; structural production loss, not temporary.",
+   "source": "haiku"
+  },
+  "FROG": {
+   "rating": "clear",
+   "reason": "Generic opinion piece on unprofitable stocks, no FROG-specific news.",
+   "source": "haiku"
+  },
+  "MBUU": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "A": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RVLV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CMC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FELE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "UUUU": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AAPL": {
+   "rating": "caution",
+   "reason": "Strong earnings but 7% drop suggests valuation/growth concerns. Upgrade offsets. No structural repricing.",
+   "source": "haiku"
+  },
+  "FSLR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ORA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DRI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CARE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SENS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FIGS": {
+   "rating": "clear",
+   "reason": "Recent headlines highlight Q2 earnings strength and 42% upside. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "NOVT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PLSE": {
+   "rating": "flagged",
+   "reason": "Dilutive $75M equity offering announced; wider losses reported.",
+   "source": "haiku"
+  },
+  "UNFI": {
+   "rating": "caution",
+   "reason": "Analyst warning signals risk; earnings/valuation concerns warrant retrace skepticism",
+   "source": "haiku"
+  },
+  "DLTR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AAP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MFG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FLGT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HSIC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DCOM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MBWM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CVCO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BOOT": {
+   "rating": "clear",
+   "reason": "Generic growth-stock commentary, no company-specific catalyst.",
+   "source": "haiku"
+  },
+  "ANGO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FIVE": {
+   "rating": "clear",
+   "reason": "Headlines are generic momentum/fundamentals commentary. No material news explaining gap down.",
+   "source": "haiku"
+  },
+  "NHP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IDCC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}

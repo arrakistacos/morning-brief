@@ -10,5 +10,29 @@
    "ANF",
    "ACB"
   ]
+ },
+ "2026-08-17": {
+  "best_rr": 19.556,
+  "confirmed": 24,
+  "stalked": 687,
+  "top": [
+   "BN",
+   "WKC",
+   "HPQ",
+   "AMN",
+   "GILT"
+  ]
+ },
+ "2026-08-18": {
+  "best_rr": 10.531,
+  "confirmed": 50,
+  "stalked": 848,
+  "top": [
+   "WHR",
+   "SHBI",
+   "BX",
+   "CG",
+   "ARES"
+  ]
  }
 }
