@@ -40,9 +40,12 @@
   "top": []
  },
  "2026-08-20": {
-  "best_rr": null,
-  "confirmed": 0,
+  "best_rr": 2.684,
+  "confirmed": 2,
   "stalked": 50,
-  "top": []
+  "top": [
+   "L",
+   "ZS"
+  ]
  }
 }
