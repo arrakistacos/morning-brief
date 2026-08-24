@@ -53,5 +53,14 @@
   "confirmed": 0,
   "stalked": 20,
   "top": []
+ },
+ "2026-08-24": {
+  "best_rr": 1.861,
+  "confirmed": 2,
+  "stalked": 89,
+  "top": [
+   "PLTR",
+   "A"
+  ]
  }
 }

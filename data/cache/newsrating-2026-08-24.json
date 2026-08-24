@@ -1,0 +1,117 @@
+{
+ "session": "2026-08-24",
+ "generated_at": "2026-08-24T09:34:23-05:00",
+ "session_note": "Broad risk-off open with biotech and miners gapping hardest; several ratios flattered by stops far tighter than today's actual volatility.",
+ "tickers": {
+  "PBLS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IPI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IVR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TMO": {
+   "rating": "caution",
+   "reason": "Reward below risk; drop benign but setup not worth taking",
+   "source": "claude-opus-5"
+  },
+  "PSUS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EXK": {
+   "rating": "caution",
+   "reason": "0.66% stop on 3.6% gap-down miner; ratio is stop artifact",
+   "source": "claude-opus-5"
+  },
+  "RVTY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ARCB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NUVB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CP": {
+   "rating": "flagged",
+   "reason": "Tariff/trade-war headwind unresolved and still live at entry",
+   "source": "claude-opus-5"
+  },
+  "QTTB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TXG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PLTR": {
+   "rating": "clear",
+   "reason": "Rebalance flow, no structural news; stop sized to gap",
+   "source": "claude-opus-5"
+  },
+  "PLSE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MRNA": {
+   "rating": "flagged",
+   "reason": "6.4% drop contradicts bullish read; target 18% away, unreachable",
+   "source": "claude-opus-5"
+  },
+  "BWA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "A": {
+   "rating": "clear",
+   "reason": "Macro-driven dip, stock-specific news absent, modest but honest ratio",
+   "source": "claude-opus-5"
+  },
+  "CRSP": {
+   "rating": "caution",
+   "reason": "Sub-1% stop on volatile biotech; 9% target inflates ratio",
+   "source": "claude-opus-5"
+  },
+  "ARQQ": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NEOV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ORIC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ABSI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
