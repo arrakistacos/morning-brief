@@ -1,0 +1,27 @@
+{
+ "session": "2026-08-21",
+ "generated_at": "2026-08-21T09:00:43-05:00",
+ "session_note": "Quiet tape for income CEFs; shallow 0.3% opening drop is drift, not a genuine dislocation worth chasing.",
+ "tickers": {
+  "PDI": {
+   "rating": "caution",
+   "reason": "Drop cause benign and stale, but stop sits inside normal CEF noise",
+   "source": "claude-opus-5"
+  },
+  "ATEC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LNT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CNP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
