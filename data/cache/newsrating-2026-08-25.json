@@ -1,0 +1,62 @@
+{
+ "session": "2026-08-25",
+ "generated_at": "2026-08-25T09:05:46-05:00",
+ "session_note": "Retail-heavy tape gapping lower into a cluster of earnings prints; several setups rely on stops too tight to survive normal intraday noise.",
+ "tickers": {
+  "BBW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ASC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SIG": {
+   "rating": "flagged",
+   "reason": "Reward 0.17x risk; target barely above entry, unattractive regardless of news",
+   "source": "claude-opus-5"
+  },
+  "URBN": {
+   "rating": "flagged",
+   "reason": "Reward 0.15x risk; drop unexplained by valuation commentary, no edge",
+   "source": "claude-opus-5"
+  },
+  "ALG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VSXY": {
+   "rating": "caution",
+   "reason": "Acceptable RR but 2.9% drop unexplained; cause unknown, possibly still live",
+   "source": "claude-opus-5"
+  },
+  "PICS": {
+   "rating": "caution",
+   "reason": "Benign news, but 4.6% stop is wide; size down accordingly",
+   "source": "claude-opus-5"
+  },
+  "ANF": {
+   "rating": "flagged",
+   "reason": "Sub-1 RR plus imminent earnings gap; drop reason live into print",
+   "source": "claude-opus-5"
+  },
+  "MSA": {
+   "rating": "flagged",
+   "reason": "0.24% stop is inside noise; RR 8 is arithmetic illusion",
+   "source": "claude-opus-5"
+  },
+  "KSS": {
+   "rating": "flagged",
+   "reason": "Peer guidance cut and earnings Wednesday; drop cause fully live",
+   "source": "claude-opus-5"
+  },
+  "ARHS": {
+   "rating": "flagged",
+   "reason": "4% gap down with no explanation; 0.94% stop inflates RR falsely",
+   "source": "claude-opus-5"
+  }
+ }
+}
