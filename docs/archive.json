@@ -70,9 +70,12 @@
   "top": []
  },
  "2026-08-26": {
-  "best_rr": null,
-  "confirmed": 0,
+  "best_rr": 1.876,
+  "confirmed": 2,
   "stalked": 40,
-  "top": []
+  "top": [
+   "HRTG",
+   "SF"
+  ]
  }
 }
