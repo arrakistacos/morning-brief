@@ -1,0 +1,92 @@
+{
+ "session": "2026-08-27",
+ "generated_at": "2026-08-27T13:12:00-05:00",
+ "session_note": "",
+ "tickers": {
+  "EXR": {
+   "rating": "clear",
+   "reason": "Earnings were 30 days ago; normal post-earnings drift. No structural news.",
+   "source": "haiku"
+  },
+  "FSUN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "INN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CF": {
+   "rating": "clear",
+   "reason": "Positive capex announcement; no adverse catalyst identified.",
+   "source": "haiku"
+  },
+  "SWIM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GPOR": {
+   "rating": "clear",
+   "reason": "Q2 earnings coverage. No negative guidance, dilution, or structural issues disclosed.",
+   "source": "haiku"
+  },
+  "DLB": {
+   "rating": "caution",
+   "reason": "Leadership transition (CEO retirement) creates uncertainty; offset by gaming/streaming expansion news",
+   "source": "haiku"
+  },
+  "MKL": {
+   "rating": "clear",
+   "reason": "Generic sector commentary, no company-specific negative catalyst identified.",
+   "source": "haiku"
+  },
+  "CAG": {
+   "rating": "clear",
+   "reason": "Generic cash flow commentary, no company-specific catalyst disclosed.",
+   "source": "haiku"
+  },
+  "CAKE": {
+   "rating": "clear",
+   "reason": "No structural repricing catalyst. Positive momentum post-earnings.",
+   "source": "haiku"
+  },
+  "COLM": {
+   "rating": "clear",
+   "reason": "Industry outlook mention only; no negative catalyst disclosed.",
+   "source": "haiku"
+  },
+  "TOST": {
+   "rating": "clear",
+   "reason": "All headlines positive: strong Q2, raised guidance, conference participation, industry survey.",
+   "source": "haiku"
+  },
+  "AWI": {
+   "rating": "clear",
+   "reason": "No negative news. Earnings 30d old, unrelated URI article. No structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "SPOT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "DRI": {
+   "rating": "clear",
+   "reason": "Headlines about CM, BJRI, CBRL unrelated to DRI. No DRI-specific news.",
+   "source": "haiku"
+  },
+  "PCG": {
+   "rating": "clear",
+   "reason": "Headlines discuss valuation, clean energy initiatives, V2X expansion. No structural repricing catalyst.",
+   "source": "haiku"
+  }
+ }
+}
