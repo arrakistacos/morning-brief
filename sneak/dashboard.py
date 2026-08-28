@@ -24,6 +24,7 @@ from html import escape
 from pathlib import Path
 
 from . import yahoo
+from .levels import HEADROOM_BAND, headroom_pct, in_band, projected_move_pct
 from .news import load_ratings
 from .prep import CACHE_DIR
 from .quotes import quote_for
@@ -177,10 +178,41 @@ def _load(prefix: str, day: date) -> dict | None:
         return None
 
 
+def _headroom(row: dict) -> float | None:
+    """Headroom for a row, recomputed if the session predates the stored field."""
+    t = row["trade"]
+    h = t.get("headroom_pct")
+    if h is not None:
+        return h
+    high = t.get("target_full") or (row.get("levels") or {}).get("range_high")
+    return headroom_pct(t["entry"], high) if high else None
+
+
+def _rank_key(row: dict):
+    """Band first, then headroom, then momentum. Mirrors confirm.py so that
+    sessions written before the sort changed still render in the new order."""
+    h = _headroom(row)
+    return (not in_band(h), -(h or 0), -(row.get("momentum") or 0))
+
+
+def _hd(row: dict) -> str:
+    h = _headroom(row)
+    return f"{h:.2f}%" if h is not None else "&mdash;"
+
+
+def _pm(row: dict) -> str:
+    t = row["trade"]
+    p = t.get("projected_move_pct")
+    if p is None:
+        p = projected_move_pct(_headroom(row))
+    return f"+{p:.2f}%" if p is not None else "&mdash;"
+
+
 def _table(rows: list[dict], news: dict, ratings: dict) -> str:
     head = (
         "<tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th>"
-        "<th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th>"
+        "<th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Headroom</th><th>Proj move</th>"
+        "<th>Risk %</th>"
         "<th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr>"
     )
     body = []
@@ -197,6 +229,7 @@ def _table(rows: list[dict], news: dict, ratings: dict) -> str:
             f"<td>{t['entry']:,.2f}</td><td>{t['stop']:,.2f}</td>"
             f"<td>{tsd}</td>"
             f"<td>{t['target']:,.2f}</td>"
+            f"<td>{_hd(r)}</td><td>{_pm(r)}</td>"
             f"<td>{t['risk_pct']:.2f}%</td>"
             f"<td>{rsi.get('prior','—')}</td><td>{rsi.get('after_red','—')}</td>"
             f"<td>{rsi.get('after_green','—')}</td><td>{escape(str(rat))}</td></tr>"
@@ -393,17 +426,44 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         '<p class="note">Every row cleared all four gates: green sneaky candle holding '
         'above the red candle\u2019s low, RSI(14) tracing a V across the two candles, '
         'target on the previous day\u2019s <b>range high</b>, and a <b>clear</b> news '
-        'read. <b>Ranked by momentum score</b>, not by R:R.</p>'
+        'read. <b>Ranked by headroom</b>, band first.</p>'
+        '<p class="note"><b>Headroom</b> is the distance from entry up to yesterday\u2019s '
+        'range high. <b>Proj move</b> is the median excursion that headroom has '
+        'historically produced \u2014 about a third of it \u2014 and is a median, not a '
+        'promise. The traded target sits at 35% of the headroom: the range high itself '
+        'was reached only 10.9% of the time intraday, so the target is now the '
+        'projected move itself. <b>Momentum</b> is shown but no longer ranks the '
+        'list: it is the better guide to a fixed stop-and-target bracket, which '
+        'is not how this list is traded.</p>'
         + HOWTO
     )
 
     if confirmed:
-        strike_body = (
-            criteria
-            + f'<h2 class="sec">{len(confirmed)} qualifying setup'
-              f'{"" if len(confirmed) == 1 else "s"}</h2>'
-            + _table(confirmed, newsd, ratings)
-        )
+        confirmed = sorted(confirmed, key=_rank_key)
+        lo, hi = HEADROOM_BAND
+        band = [r for r in confirmed if in_band(_headroom(r))]
+        rest = [r for r in confirmed if not in_band(_headroom(r))]
+        parts = [criteria]
+        if band:
+            parts.append(f'<h2 class="sec">In the headroom band &mdash; {len(band)}</h2>')
+            parts.append(_table(band, newsd, ratings))
+        else:
+            parts.append(
+                f'<div class="empty">Nothing landed in the {lo:g}&ndash;{hi:g}% '
+                "headroom band this session.<br>Nothing to trade is a position.</div>"
+            )
+        if rest:
+            parts.append(f'<h2 class="sec">Outside the band &mdash; {len(rest)}</h2>')
+            parts.append(
+                f'<p class="note">Headroom under {lo:g}% or over {hi:g}%. Below the band '
+                "the move is no bigger than the drawdown you sit through to get it "
+                "(ratio 1.0&ndash;1.1). Above it the moves are the largest on the board, "
+                "but 77% draw down more than 1% first and only 31% return twice that "
+                "drawdown &mdash; those names are damaged rather than dislocated. "
+                "Listed for the record.</p>"
+            )
+            parts.append(_table(rest, newsd, ratings))
+        strike_body = "".join(parts)
     else:
         strike_body = criteria + (
             '<div class="empty">Nothing cleared every gate this session.<br>'

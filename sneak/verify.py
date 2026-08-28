@@ -23,6 +23,7 @@ from datetime import date, datetime
 
 from . import yahoo
 from .prep import CACHE_DIR
+from .levels import headroom_pct, in_band, projected_move_pct
 from .scan_open import break_margin
 
 
@@ -57,7 +58,7 @@ def run(day: date) -> int:
     for r in strike["confirmed"]:
         t, b1, lv, s = r["trade"], r["bar1"], r["levels"], r["symbol"]
         b2 = t["bar2"]
-        checks += 7
+        checks += 9
         _fail(problems, b2["close"] > b2["open"], f"{s}: sneaky candle is not green")
         _fail(problems, b2["low"] >= b1["low"] - 1e-9,
               f'{s}: green low {b2["low"]} undercut red low {b1["low"]}')
@@ -66,9 +67,22 @@ def run(day: date) -> int:
         _fail(problems, abs(t["stop"] - b1["low"]) < 1e-6,
               f"{s}: stop is not the red candle low")
 
-        want = lv["range_low"] if t["broke_swing_low"] else lv["range_high"]
-        _fail(problems, abs(t["target"] - want) < 1e-6,
-              f'{s}: target {t["target"]} != expected {want} '
+        # Re-derived from the raw levels rather than read back off the row, so a
+        # bad headroom or projection in confirm.py cannot validate itself.
+        structural = lv["range_low"] if t["broke_swing_low"] else lv["range_high"]
+        if t.get("projected_move_pct") is None:
+            # Sessions before the target moved off the structural level.
+            want = structural
+        else:
+            hd = headroom_pct(t["entry"], structural)
+            _fail(problems, abs(t["headroom_pct"] - hd) < 0.01,
+                  f'{s}: headroom_pct {t["headroom_pct"]} != recomputed {hd:.3f}')
+            _fail(problems, t.get("headroom_in_band") is in_band(hd),
+                  f'{s}: headroom_in_band {t.get("headroom_in_band")} '
+                  f'disagrees with headroom {hd:.2f}%')
+            want = t["entry"] * (1 + projected_move_pct(hd) / 100.0)
+        _fail(problems, abs(t["target"] - want) < 1e-3,
+              f'{s}: target {t["target"]} != expected {want:.4f} '
               f'(broke_swing_low={t["broke_swing_low"]})')
 
         risk, reward = t["entry"] - t["stop"], t["target"] - t["entry"]

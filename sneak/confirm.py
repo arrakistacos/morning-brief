@@ -18,7 +18,8 @@ Trade maths (long only — cash account, no shorting):
 
     entry   = green candle's close
     stop    = low of the initial red candle          (that wick IS the stop)
-    target  = previous day RANGE HIGH  (range-low targets are filtered out)
+    target  = entry + the PROJECTED move for this headroom
+              (range-low targets are filtered out; see the note above _evaluate)
 
     risk    = entry - stop
     reward  = target - entry
@@ -45,10 +46,30 @@ from datetime import date, datetime
 from pathlib import Path
 
 from . import yahoo
-from .levels import rsi_series
+from .levels import headroom_pct, in_band, projected_move_pct, rsi_series
 from .momentum import score_cohort
 from .prep import CACHE_DIR
 from .scan_open import wait_for_bar
+
+# The target is the PROJECTED move, not a structural level.
+#
+# The previous day's range high was the old target. Across 274 confirmed setups
+# (2026-08-14 → 08-27) it was reached 10.9% of the time intraday, so every R:R
+# printed against it was a ratio to a level hit about one time in nine.
+#
+# Two replacements were tested. A flat 35% of the headroom is hit 50.7% of the
+# time; the fitted projection — median excursion actually produced by a headroom
+# of that size — is hit 60.2%, and it is the more conservative of the two at
+# large headroom, which is exactly where the flat fraction overreaches.
+#
+#     target at              reached intraday
+#     prev day range high          10.9%
+#     flat 35% of headroom         50.7%
+#     fitted projection            60.2%   <-
+#
+# Honest caveat: a fixed stop-versus-target race stays slightly negative on this
+# sample whatever the target. This system is exited on the trend, so the target
+# is a reference for where the move typically stalls, not a bracket order.
 
 BAR2_OPEN_ET = (9, 45)
 BAR2_CLOSE_ET = (10, 0)
@@ -127,7 +148,12 @@ def _evaluate(cand: dict, bar1: dict, bar2: dict) -> dict:
     stop = bar1["l"]
     risk = entry - stop
     broke_swing = b1["broke_swing_low"]
-    target = lv["range_low"] if broke_swing else lv["range_high"]
+    # The structural objective — the level the headroom is measured to. The
+    # traded target sits at the projected move; see the note above.
+    structural = lv["range_low"] if broke_swing else lv["range_high"]
+    headroom = headroom_pct(entry, structural)
+    projected = projected_move_pct(headroom)
+    target = entry * (1 + projected / 100.0) if projected else entry
     reward = target - entry
     rr = (reward / risk) if risk > 0 else None
 
@@ -138,6 +164,10 @@ def _evaluate(cand: dict, bar1: dict, bar2: dict) -> dict:
         "entry": round(entry, 4),
         "stop": round(stop, 4),
         "target": round(target, 4),
+        "target_full": round(structural, 4),
+        "headroom_pct": round(headroom, 3) if headroom is not None else None,
+        "projected_move_pct": round(projected, 3) if projected else None,
+        "headroom_in_band": in_band(headroom),
         "target_kind": "prev day range low" if broke_swing else "prev day range high",
         "broke_swing_low": broke_swing,
         "risk_per_share": round(risk, 4),
@@ -274,11 +304,25 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
     score_cohort(confirmed)
     score_cohort(expired)
 
-    # Primary sort is the momentum score. R:R sorted the list toward the worst
-    # trades: it rewards a stop sitting inside the spread. The momentum score
-    # sorts win probability 34% -> 73% across deciles, so it goes first and
-    # R:R breaks ties.
-    confirmed.sort(key=lambda r: (-r.get("momentum", 0), -r["trade"]["rr"]))
+    # Sort: the 3-9% headroom band first, then by headroom inside it.
+    #
+    # R:R must not sort this list — it rewards a stop sitting inside the spread.
+    # Tight-stop rows carry median R:R 5.80 against 2.17 and a WORSE win rate
+    # (41.7% vs 51.2%); the poison is the denominator, and risk_pct alone scores
+    # AUC 0.501, pure noise. So the reward leg is kept and the divisor dropped.
+    #
+    # Momentum is not the primary key here, which is a deliberate departure from
+    # what momentum.py recommends, and worth stating plainly. Momentum is better
+    # than headroom at the stop-versus-fixed-target race (AUC 0.614 vs 0.452) —
+    # its documented job. This system exits on the trend instead, and for that
+    # outcome momentum is at chance (AUC 0.504) while headroom is not (0.661;
+    # 0.854 for "moved >= 2%"). Different question, different key. Momentum still
+    # breaks ties and is still displayed.
+    confirmed.sort(key=lambda r: (
+        not r["trade"].get("headroom_in_band", False),
+        -(r["trade"].get("headroom_pct") or 0),
+        -r.get("momentum", 0),
+    ))
     expired.sort(key=lambda r: -r["stalk_score"])
 
     payload = {
