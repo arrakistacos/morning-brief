@@ -103,15 +103,45 @@ A green candle closing a penny above the red candle's low is arithmetically 20:1
 
 ## How it runs
 
-Everything is a GitHub Actions cron in `.github/workflows/sneak.yml`. Nothing depends on a local machine being awake.
+Everything runs in GitHub Actions via `.github/workflows/sneak.yml`. Nothing depends on a local machine being awake.
 
 ```
-prep    ~08:00 ET   universe refresh + previous-day levels for ~2,800 names   (~30s)
-stalk   ~09:20 ET   sleeps until 09:45:25 ET, then scans the tape            (~10s)
-strike  ~09:50 ET   sleeps until 10:00:25 ET, confirms, rates news, publishes (~15s)
+prep    ~07:30 ET   universe refresh + previous-day levels for ~2,800 names   (~30s)
+stalk    09:45 ET   the 09:30-09:45 candle closes; list published ~09:46 ET
+strike   10:00 ET   the 09:45-10:00 candle closes; dashboard live ~10:01 ET
 ```
 
-**Timing.** GitHub's cron is UTC-only and drifts under load, so each stage is scheduled twice — once for CDT, once for CST — starting ~25 minutes early. A guard step reads the ET wall clock and exits whichever firing is wrong for the current offset; the scanner then *sleeps* until the exact second the candle closes. Drift costs idle runner time, never a late list. DST needs no maintenance.
+### When the dashboard actually lands
+
+**The strike candle closes at 10:00:00 ET, which is 09:00:00 CT.** The list cannot exist before that instant, and `confirm.py` then waits 25 seconds for Yahoo to finalise the bar. So the hard floor is ~09:00:25 CT for the data and **~09:01:05 CT for the deployed page** — measured, not estimated. "Complete by 09:00 CT" is not reachable without redefining the strategy to use an earlier candle.
+
+Hitting that floor depends entirely on whether a runner is *already booted and sleeping* when the bar closes:
+
+| | push | Pages live |
+|---|---|---|
+| Pre-warmed — run in flight, sleeping | 09:00:43 CT | **09:01:05 CT** |
+| Cold start after the close | 09:05:46 CT | 09:06:12 CT |
+
+Five minutes of difference, entirely from runner boot and `pip install`.
+
+### Why the crons look early
+
+GitHub's cron drifts 20–50 minutes under normal load, and that drift is not something a schedule can remove — only absorb. So the crons are **not** aimed at the candles. They are aimed 20–50 minutes ahead of them, so that wherever a firing actually lands it is inside an *arming window* in `sneak/stage.py` and can sit and sleep:
+
+```
+stalk   armed 09:00-12:00 ET   sleeps to 09:45:25 ET if it arrives early
+strike  armed 09:15-12:30 ET   sleeps to 10:00:25 ET if it arrives early
+```
+
+Arriving early is free — idle runner minutes cost nothing on a public repo. Arriving late costs minutes on the dashboard. So the whole schedule is biased early, and every stage sleeps to the exact second the candle closes rather than trusting the clock it woke up on.
+
+**The concurrency group does real work here.** Runs are serialised. While the stalk run sleeps toward 09:45, the next firing sits *pending* behind it and starts the moment stalk commits — already booted, with time to sleep toward 10:00. The queue is what pre-warms the strike, which is why the crons continue past the stalk rather than stopping at it.
+
+Simulated across both DST offsets at 20, 35 and 50 minutes of drift, all six cases publish pre-warmed at ~09:01 CT.
+
+**State, not wall clock.** `stage.py` decides what to run by reading the committed `stalk-`/`strike-` artifacts, not by the time it woke up, so a firing runs whatever is still outstanding. An extra firing is a ~15s no-op; a late firing still does useful work, just late. This is what stopped the 2026-08-24 failure mode, where a 46-minute drift pushed the stalk cron into the strike window and the day published nothing.
+
+**Outages are a separate problem.** On 2026-08-26 a GitHub database incident delayed Actions fleet-wide, and on 2026-08-27 the cron scheduler dropped firings entirely — an unrelated repo's hourly cron ran 8 times instead of 24 that day. No schedule survives that. Recover with **Actions → SNEAK → Run workflow**, which bypasses the scheduler.
 
 **Speed.** Scanning ~2,800 names for one 15-minute candle in under a minute uses two passes: Yahoo's `spark` endpoint (20 symbols per call, ~140 calls, ~15s) gets every first-bar close and narrows to the few hundred trading under their range low; only those get a full OHLCV `chart` call. Measured ~25 req/s at 24 workers.
 
@@ -140,13 +170,12 @@ sneak/
   confirm.py     09:00 CT — the strike, targets and R:R
   news.py        per-ticker headline pull + keyword pre-flags
   triage.py      Haiku fan-out + Opus adjudication
-  charts.py      unused — SVG helpers kept from the pre-tables dashboard
   dashboard.py   builds docs/index.html
   quotes.py      stoic line of the day
+  stage.py       decides which stage a firing should run
+  verify.py      independent re-derivation of a session's numbers (manual audit)
   market_calendar.py   NYSE calendar incl. holidays and early closes
-bin/sneak.sh     one entry point per stage (local runs)
 docs/            GitHub Pages output — index.html + sessions/ + archive.json
-legacy/          the previous morning-brief system, kept for reference
 ```
 
 ## Running it by hand

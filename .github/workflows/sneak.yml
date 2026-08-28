@@ -1,28 +1,38 @@
-name: SNEAK ??? opening range scanner
+name: SNEAK — opening range scanner
 
-# ?????? Timing ?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
-# Everything is anchored to the 15-minute candle boundaries in ET:
+# ── Timing ──────────────────────────────────────────────────────────────────
+# The strike candle is 09:45–10:00 ET, so it CLOSES at 10:00:00 ET, which is
+# 09:00:00 CT. confirm.py then waits 25s for Yahoo to finalise the bar. Nothing
+# can publish a strike list before ~09:00:25 CT; the measured floor, deployed to
+# Pages, is 09:01:05 CT. That floor is only reached when a runner is already
+# booted and SLEEPING as the bar closes:
 #
-#   bar 1  09:30???09:45 ET  =  08:30???08:45 CT   ??? the stalk runs when it closes
-#   bar 2  09:45???10:00 ET  =  08:45???09:00 CT   ??? the strike runs when it closes
+#   pre-warmed (run in flight, sleeping)   push 09:00:43 CT   Pages 09:01:05 CT
+#   cold start after the close             push 09:05:46 CT   Pages 09:06:12 CT
 #
-# GitHub's cron is UTC-only and can drift several minutes under load, so each
-# stage is scheduled TWICE ??? once for CDT and once for CST ??? and starts ~25
-# minutes early. A guard step exits whichever firing is the wrong one for the
-# current offset, and the scanner itself then sleeps until the exact second the
-# candle closes. Drift therefore costs idle runner time, never a late list.
+# So the crons below are not aimed at the candle. They are aimed ~20-50 minutes
+# BEFORE it, which is GitHub's normal cron drift, so that whenever a firing
+# actually lands it is inside sneak/stage.py's arming window and can sit and
+# sleep. Firing early costs idle runner time (free on a public repo); firing
+# late costs minutes on the dashboard.
+#
+# Times are UTC and ET is not, so each slot is listed at both offsets. stage.py
+# resolves from committed state rather than the clock, so the "wrong" one of
+# each pair is a ~15s no-op and DST needs no maintenance.
 
 on:
   schedule:
-    # prep ??? universe + previous-day levels. Not time critical.
-    - cron: "0 12 * * 1-5"    # 08:00 ET (CDT) / 07:00 ET (CST)
-    - cron: "0 13 * * 1-5"    # 09:00 ET (CDT) / 08:00 ET (CST)
-    # stalk ??? fires ~09:20 ET under one of the two offsets
-    - cron: "20 13 * * 1-5"
-    - cron: "20 14 * * 1-5"
-    # strike ??? fires ~09:50 ET under one of the two offsets
-    - cron: "50 13 * * 1-5"
-    - cron: "50 14 * * 1-5"
+    - cron: "30 11 * * 1-5"   # 07:30 ET EDT — prep
+    - cron: "30 12 * * 1-5"   # 07:30 ET EST — prep
+    - cron: "15 12 * * 1-5"   # 08:15 ET EDT ─┐
+    - cron: "35 12 * * 1-5"   # 08:35 ET EDT  │ arming band for the stalk:
+    - cron: "55 12 * * 1-5"   # 08:55 ET EDT  │ land in 09:00-09:45 ET and
+    - cron: "15 13 * * 1-5"   # 09:15 ET EDT  │ sleep to the 09:45:25 bar,
+    - cron: "35 13 * * 1-5"   # 09:35 ET EDT ─┘ then the strike run follows
+    - cron: "55 13 * * 1-5"   # 08:55 ET EST
+    - cron: "15 14 * * 1-5"   # 09:15 ET EST
+    - cron: "35 14 * * 1-5"   # 09:35 ET EST
+
   workflow_dispatch:
     inputs:
       stage:
@@ -35,6 +45,10 @@ on:
 permissions:
   contents: write
 
+# Runs are serialised, and that is load-bearing rather than incidental. While
+# the stalk run sleeps toward 09:45, the next firing sits pending behind it and
+# starts the moment stalk commits — already booted, in time to sleep toward
+# 10:00. The queue is what pre-warms the strike.
 concurrency:
   group: sneak-${{ github.ref }}
   cancel-in-progress: false
@@ -42,9 +56,13 @@ concurrency:
 jobs:
   sneak:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    # Generous because a run is *expected* to sit idle: a stalk armed at 09:00 ET
+    # sleeps 45 minutes before it does any work. Worst case is a manual "all"
+    # armed at 09:00 ET, which sleeps through both bars, ~62 minutes.
+    timeout-minutes: 75
     outputs:
       stage: ${{ steps.stage.outputs.stage }}
+      pushed: ${{ steps.push.outputs.pushed }}
     env:
       CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
       PYTHONUNBUFFERED: "1"
@@ -69,24 +87,26 @@ jobs:
           MANUAL: ${{ github.event.inputs.stage }}
 
       # Proves the API key and both model tiers work without needing a live
-      # session ??? a normal out-of-hours run makes zero API calls.
-      - name: Self-test ??? API key and model tiers
+      # session — a normal out-of-hours run makes zero API calls.
+      - name: Self-test — API key and model tiers
         if: steps.stage.outputs.stage == 'selftest'
         run: python3 -m sneak.triage --selftest
 
-      - name: Prep ??? universe and previous-day levels
+      - name: Prep — universe and previous-day levels
         if: steps.stage.outputs.stage == 'prep' || steps.stage.outputs.stage == 'all'
         run: python3 -m sneak.prep
 
       # scan_open sleeps until 09:45:25 ET before reading the tape.
-      - name: Stalk ??? 08:45 CT red breaks
+      - name: Stalk — 08:45 CT red breaks
         if: steps.stage.outputs.stage == 'stalk' || steps.stage.outputs.stage == 'all'
         run: |
           test -f "data/cache/levels-$(TZ=America/New_York date +%F).json" || python3 -m sneak.prep
           python3 -m sneak.scan_open
 
-      # confirm sleeps until 10:00:25 ET before reading the tape.
-      - name: Strike ??? 09:00 CT sneaky confirmations
+      # confirm sleeps until 10:00:25 ET before reading the tape. Everything
+      # from here to the end of the deploy job is on the critical path to the
+      # 09:01 CT dashboard, so nothing slow belongs in between.
+      - name: Strike — 09:00 CT sneaky confirmations
         if: steps.stage.outputs.stage == 'strike' || steps.stage.outputs.stage == 'all'
         run: |
           python3 -m sneak.confirm
@@ -98,6 +118,7 @@ jobs:
         run: python3 -m sneak.dashboard
 
       - name: Commit and push
+        id: push
         if: steps.stage.outputs.stage != 'skip' && steps.stage.outputs.stage != 'selftest'
         run: |
           git config user.name  "sneak-bot"
@@ -106,17 +127,24 @@ jobs:
           # and for 30 days of lookback. docs/archive.json keeps the index forever.
           find data/cache -name '*.json' -mtime +30 -delete 2>/dev/null || true
           git add -A docs data/cache data/universe.txt
-          git diff --cached --quiet && { echo "nothing to commit"; exit 0; }
-          git commit -m "???? SNEAK ${{ steps.stage.outputs.stage }} $(TZ=America/Chicago date '+%Y-%m-%d %H:%M %Z')"
+          if git diff --cached --quiet; then
+            # Normal for a repeated prep: it rebuilds levels-*.json, which is
+            # gitignored, so there is nothing new to publish.
+            echo "nothing to commit"; echo "pushed=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          git commit -m "🥷 SNEAK ${{ steps.stage.outputs.stage }} $(TZ=America/Chicago date '+%Y-%m-%d %H:%M %Z')"
           for i in 1 2 3; do
-            git push && exit 0
-            echo "push rejected, rebasing???"; git pull --rebase --autostash; sleep $((i*5))
+            if git push; then echo "pushed=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+            echo "push rejected, rebasing…"; git pull --rebase --autostash; sleep $((i*5))
           done
           echo "::error::push failed after 3 attempts"; exit 1
 
+  # Deploy only when the scanner actually pushed something. Before this guard
+  # every no-op firing — a skip, or a repeated prep that commits nothing —
+  # burned a full Pages deployment republishing identical bytes.
   deploy:
     needs: sneak
-    if: always() && needs.sneak.result == 'success' && needs.sneak.outputs.stage != 'selftest'
+    if: always() && needs.sneak.result == 'success' && needs.sneak.outputs.pushed == 'true'
     runs-on: ubuntu-latest
     concurrency:
       group: pages
