@@ -32,7 +32,6 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 SESSIONS = DOCS / "sessions"
 
-TOP_CARDS = 25
 
 # Ratings that survive the final gate.
 #
@@ -124,42 +123,15 @@ h2.sec{font-size:.8rem;color:var(--phos);letter-spacing:.14em;text-transform:upp
   margin:1.6rem 0 .8rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
 .note{color:var(--muted);font-size:.78rem;margin-bottom:1rem}
 
-.card{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--c1);
-  border-radius:7px;padding:1rem;margin-bottom:.8rem}
-.card.top{border-left-color:var(--phos);box-shadow:0 0 0 1px rgba(77,255,176,.13),0 10px 34px -24px rgba(77,255,176,.55)}
-.chead{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-bottom:.7rem}
-.rank{font-size:.66rem;color:var(--bg);background:var(--phos);border-radius:4px;padding:.1rem .4rem;font-weight:700}
-.sym{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:var(--ink)}
-.mom{margin-left:auto;font-size:1.05rem;font-weight:700;color:var(--c2)}
-.mom small{display:block;font-size:.55rem;color:var(--dim);letter-spacing:.1em;text-align:right;font-weight:400}
 details.howto{margin:0 0 1.2rem;border:1px solid var(--border2);border-radius:6px;padding:.6rem .8rem;background:var(--s1)}
 details.howto summary{cursor:pointer;color:var(--phos);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
 details.howto table.kv{margin-top:.6rem}
 details.howto table.kv td:last-child{text-align:left;font-weight:400;color:var(--muted)}
-.rr{font-size:1.1rem;font-weight:700;color:var(--phos)}
-.rr small{display:block;font-size:.58rem;color:var(--dim);letter-spacing:.12em;text-align:right;font-weight:400}
-
-.chip{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.16rem .5rem;
-  border-radius:4px;border:1px solid currentColor;display:inline-flex;align-items:center;gap:.3rem}
-.chip.good{color:var(--good)} .chip.warn{color:var(--warn)} .chip.crit{color:var(--crit)}
-.chip.info{color:var(--c2)} .chip.mut{color:var(--muted)}
-
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:1rem;align-items:start}
-@media(max-width:720px){.grid2{grid-template-columns:1fr}}
 
 table.kv{width:100%;border-collapse:collapse;font-size:.78rem}
 table.kv td{padding:.3rem .4rem;border-bottom:1px solid var(--border)}
 table.kv td:first-child{color:var(--dim);white-space:nowrap}
 table.kv td:last-child{text-align:right;color:var(--ink);font-weight:600}
-.tgt{color:var(--good)} .stp{color:var(--crit)} .ent{color:var(--ink)}
-
-.meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
-.meta span{font-size:.65rem;color:var(--muted);background:var(--s2);border:1px solid var(--border);
-  border-radius:4px;padding:.12rem .45rem}
-
-details.news{margin-top:.7rem;border-top:1px dashed var(--border2);padding-top:.5rem}
-details.news summary{cursor:pointer;font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-details.news li{font-size:.75rem;color:var(--muted);margin:.35rem 0 .35rem 1rem}
 
 table.full{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:.6rem}
 table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;text-transform:uppercase;
@@ -167,9 +139,6 @@ table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;
 table.full td{padding:.38rem .4rem;border-bottom:1px solid var(--border);color:var(--ink)}
 table.full tr:hover td{background:var(--s2)}
 .scroll{overflow-x:auto}
-
-.legend{display:flex;flex-wrap:wrap;gap:.8rem;font-size:.66rem;color:var(--muted);margin:.5rem 0 1rem}
-.legend i{display:inline-block;width:16px;height:3px;border-radius:2px;margin-right:.35rem;vertical-align:middle}
 
 .arch{display:grid;gap:.5rem}
 .arch a{display:flex;justify-content:space-between;gap:1rem;background:var(--s1);border:1px solid var(--border);
@@ -206,82 +175,6 @@ def _load(prefix: str, day: date) -> dict | None:
         return json.loads(p.read_text())
     except Exception:
         return None
-
-
-def _rating_chip(sym: str, news: dict, ratings: dict) -> str:
-    r = ratings.get(sym) or {}
-    level = (r.get("rating") or (news.get(sym, {}) or {}).get("preflag") or "unrated").lower()
-    reason = r.get("reason") or ""
-    label, cls, icon = {
-        "green": ("news clear", "good", "✓"),
-        "clear": ("news clear", "good", "✓"),
-        "amber": ("news caution", "warn", "!"),
-        "caution": ("news caution", "warn", "!"),
-        "red": ("news flagged", "crit", "✕"),
-        "flagged": ("news flagged", "crit", "✕"),
-        "quiet": ("no news", "mut", "·"),
-    }.get(level, ("unrated", "mut", "·"))
-    title = f' title="{escape(reason)}"' if reason else ""
-    return f'<span class="chip {cls}"{title}>{icon} {label}</span>'
-
-
-def _card(i: int, row: dict, news: dict, ratings: dict) -> str:
-    t = row["trade"]
-    b1, lv = row["bar1"], row["levels"]
-    sym = row["symbol"]
-    hl = (news.get(sym) or {}).get("headlines") or []
-
-    meta = [
-        f'drop {b1["drop_pct"]:.2f}%',
-        f'wick {b1["wick_pct"]*100:.1f}% of candle',
-        f'break {b1["break_depth_pct"]:.2f}% under range low',
-    ]
-    if b1.get("atr_mult"):
-        meta.append(f'{b1["atr_mult"]:.2f}x ATR')
-    if b1.get("vol_burst"):
-        meta.append(f'open vol {b1["vol_burst"]*100:.0f}% of 20d avg')
-    meta.append(f'reclaim {t["bar2"]["reclaim_pct"]*100:.0f}%')
-    rsi = t.get("rsi") or {}
-    if rsi:
-        meta.append(
-            f'RSI {rsi["prior"]:.0f} → {rsi["after_red"]:.0f} → {rsi["after_green"]:.0f}'
-        )
-    if t.get("tight_stop"):
-        meta.append("tight stop — inside the spread")
-
-    news_html = ""
-    if hl:
-        items = "".join(
-            f'<li><a href="{escape(h["link"])}" target="_blank" rel="noopener">{escape(h["title"])}</a></li>'
-            for h in hl[:5]
-        )
-        news_html = (
-            f'<details class="news"><summary>{len(hl)} headline(s) · last 48h</summary>'
-            f"<ul>{items}</ul></details>"
-        )
-
-    return f"""
-<article class="card{' top' if i <= 3 else ''}">
-  <div class="chead">
-    <span class="rank">#{i}</span>
-    <span class="sym">{escape(sym)}</span>
-    {_rating_chip(sym, news, ratings)}
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">{row.get('momentum', 0):.0f}<small>momentum</small></span>
-    <span class="rr">{t['rr']:.2f}R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">{t['entry']:,.2f}</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">{t['stop']:,.2f} &nbsp;(-{t['risk_pct']:.2f}%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">{(f"{t['target_same_day']:,.2f}" if t.get('target_same_day') else '— already above')}</td></tr>
-    <tr><td>Target B — 3-day ({escape(t['target_kind'])})</td><td class="tgt">{t['target']:,.2f} &nbsp;(+{t['reward_pct']:.2f}%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>{t['risk_per_share']:,.2f} : {t['reward_per_share']:,.2f}</td></tr>
-    <tr><td>Prev day range</td><td>{lv['range_low']:,.2f} – {lv['range_high']:,.2f}</td></tr>
-    <tr><td>Prev day swing low</td><td>{f"{lv['swing_low']:,.2f}" if lv.get('swing_low') is not None else 'none in 60d'}</td></tr>
-  </table>
-  <div class="meta">{''.join(f'<span>{escape(m)}</span>' for m in meta)}</div>
-  {news_html}
-</article>"""
 
 
 def _table(rows: list[dict], news: dict, ratings: dict) -> str:
@@ -505,12 +398,12 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
     )
 
     if confirmed:
-        cards = "".join(_card(i, r, newsd, ratings) for i, r in enumerate(confirmed[:TOP_CARDS], 1))
-        more = (
-            f'<h2 class="sec">All {len(confirmed)} qualifying setups</h2>'
-            f"{_table(confirmed, newsd, ratings)}"
-        ) if len(confirmed) > TOP_CARDS else _table(confirmed, newsd, ratings)
-        strike_body = criteria + cards + more
+        strike_body = (
+            criteria
+            + f'<h2 class="sec">{len(confirmed)} qualifying setup'
+              f'{"" if len(confirmed) == 1 else "s"}</h2>'
+            + _table(confirmed, newsd, ratings)
+        )
     else:
         strike_body = criteria + (
             '<div class="empty">Nothing cleared every gate this session.<br>'

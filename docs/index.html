@@ -79,42 +79,15 @@ h2.sec{font-size:.8rem;color:var(--phos);letter-spacing:.14em;text-transform:upp
   margin:1.6rem 0 .8rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
 .note{color:var(--muted);font-size:.78rem;margin-bottom:1rem}
 
-.card{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--c1);
-  border-radius:7px;padding:1rem;margin-bottom:.8rem}
-.card.top{border-left-color:var(--phos);box-shadow:0 0 0 1px rgba(77,255,176,.13),0 10px 34px -24px rgba(77,255,176,.55)}
-.chead{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-bottom:.7rem}
-.rank{font-size:.66rem;color:var(--bg);background:var(--phos);border-radius:4px;padding:.1rem .4rem;font-weight:700}
-.sym{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:var(--ink)}
-.mom{margin-left:auto;font-size:1.05rem;font-weight:700;color:var(--c2)}
-.mom small{display:block;font-size:.55rem;color:var(--dim);letter-spacing:.1em;text-align:right;font-weight:400}
 details.howto{margin:0 0 1.2rem;border:1px solid var(--border2);border-radius:6px;padding:.6rem .8rem;background:var(--s1)}
 details.howto summary{cursor:pointer;color:var(--phos);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
 details.howto table.kv{margin-top:.6rem}
 details.howto table.kv td:last-child{text-align:left;font-weight:400;color:var(--muted)}
-.rr{font-size:1.1rem;font-weight:700;color:var(--phos)}
-.rr small{display:block;font-size:.58rem;color:var(--dim);letter-spacing:.12em;text-align:right;font-weight:400}
-
-.chip{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.16rem .5rem;
-  border-radius:4px;border:1px solid currentColor;display:inline-flex;align-items:center;gap:.3rem}
-.chip.good{color:var(--good)} .chip.warn{color:var(--warn)} .chip.crit{color:var(--crit)}
-.chip.info{color:var(--c2)} .chip.mut{color:var(--muted)}
-
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:1rem;align-items:start}
-@media(max-width:720px){.grid2{grid-template-columns:1fr}}
 
 table.kv{width:100%;border-collapse:collapse;font-size:.78rem}
 table.kv td{padding:.3rem .4rem;border-bottom:1px solid var(--border)}
 table.kv td:first-child{color:var(--dim);white-space:nowrap}
 table.kv td:last-child{text-align:right;color:var(--ink);font-weight:600}
-.tgt{color:var(--good)} .stp{color:var(--crit)} .ent{color:var(--ink)}
-
-.meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
-.meta span{font-size:.65rem;color:var(--muted);background:var(--s2);border:1px solid var(--border);
-  border-radius:4px;padding:.12rem .45rem}
-
-details.news{margin-top:.7rem;border-top:1px dashed var(--border2);padding-top:.5rem}
-details.news summary{cursor:pointer;font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-details.news li{font-size:.75rem;color:var(--muted);margin:.35rem 0 .35rem 1rem}
 
 table.full{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:.6rem}
 table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;text-transform:uppercase;
@@ -122,9 +95,6 @@ table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;
 table.full td{padding:.38rem .4rem;border-bottom:1px solid var(--border);color:var(--ink)}
 table.full tr:hover td{background:var(--s2)}
 .scroll{overflow-x:auto}
-
-.legend{display:flex;flex-wrap:wrap;gap:.8rem;font-size:.66rem;color:var(--muted);margin:.5rem 0 1rem}
-.legend i{display:inline-block;width:16px;height:3px;border-radius:2px;margin-right:.35rem;vertical-align:middle}
 
 .arch{display:grid;gap:.5rem}
 .arch a{display:flex;justify-content:space-between;gap:1rem;background:var(--s1);border:1px solid var(--border);
@@ -178,238 +148,7 @@ profit &mdash; use it to choose between setups, not to decide whether to trade a
 <p class="note">Long only, cash account. T+2 settlement means a 3-day hold ties up the
 cash until it settles &mdash; plan position count accordingly. Not investment advice.</p>
 </details>
-
-<article class="card top">
-  <div class="chead">
-    <span class="rank">#1</span>
-    <span class="sym">EXR</span>
-    <span class="chip good" title="Earnings were 30 days ago; normal post-earnings drift. No structural news.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">79<small>momentum</small></span>
-    <span class="rr">2.00R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">144.03</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">143.14 &nbsp;(-0.62%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">144.09</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">145.81 &nbsp;(+1.24%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.89 : 1.78</td></tr>
-    <tr><td>Prev day range</td><td>143.82 – 145.81</td></tr>
-    <tr><td>Prev day swing low</td><td>142.78</td></tr>
-  </table>
-  <div class="meta"><span>drop 0.60%</span><span>wick 19.6% of candle</span><span>break 0.47% under range low</span><span>0.78x ATR</span><span>open vol 6% of 20d avg</span><span>reclaim 42%</span><span>RSI 40 → 33 → 42</span></div>
-  <details class="news"><summary>1 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/why-extra-space-storage-exr-153012053.html?.tsrc=rss" target="_blank" rel="noopener">Why Is Extra Space Storage (EXR) Down 5.7% Since Last Earnings Report?</a></li></ul></details>
-</article>
-<article class="card top">
-  <div class="chead">
-    <span class="rank">#2</span>
-    <span class="sym">CF</span>
-    <span class="chip good" title="Positive capex announcement; no adverse catalyst identified.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">62<small>momentum</small></span>
-    <span class="rr">6.74R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">124.16</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">123.48 &nbsp;(-0.54%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">125.70</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">128.67 &nbsp;(+3.64%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.67 : 4.51</td></tr>
-    <tr><td>Prev day range</td><td>124.24 – 128.67</td></tr>
-    <tr><td>Prev day swing low</td><td>119.14</td></tr>
-  </table>
-  <div class="meta"><span>drop 0.89%</span><span>wick 9.1% of candle</span><span>break 0.61% under range low</span><span>0.81x ATR</span><span>open vol 3% of 20d avg</span><span>reclaim 17%</span><span>RSI 41 → 29 → 33</span></div>
-  <details class="news"><summary>2 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/energy/articles/cf-industries-partners-break-ground-155100036.html?.tsrc=rss" target="_blank" rel="noopener">CF Industries &amp; Partners Break Ground on Low-Carbon Ammonia Plant</a></li><li><a href="https://finance.yahoo.com/energy/articles/cf-industries-jera-co-mitsui-184800591.html?.tsrc=rss" target="_blank" rel="noopener">CF Industries, JERA Co., and Mitsui &amp; Co., Ltd., Break Ground on Blue Point One, the World’s Largest Low-Carbon Ammonia Plant in Louisiana</a></li></ul></details>
-</article>
-<article class="card top">
-  <div class="chead">
-    <span class="rank">#3</span>
-    <span class="sym">GPOR</span>
-    <span class="chip good" title="Q2 earnings coverage. No negative guidance, dilution, or structural issues disclosed.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">58<small>momentum</small></span>
-    <span class="rr">1.83R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">173.33</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">171.28 &nbsp;(-1.18%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">174.04</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">177.09 &nbsp;(+2.17%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>2.05 : 3.76</td></tr>
-    <tr><td>Prev day range</td><td>171.32 – 177.09</td></tr>
-    <tr><td>Prev day swing low</td><td>166.52</td></tr>
-  </table>
-  <div class="meta"><span>drop 2.10%</span><span>wick 0.0% of candle</span><span>break 0.02% under range low</span><span>0.79x ATR</span><span>open vol 3% of 20d avg</span><span>reclaim 56%</span><span>RSI 52 → 32 → 47</span></div>
-  <details class="news"><summary>1 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/q2-earnings-highs-lows-gulfport-172907370.html?.tsrc=rss" target="_blank" rel="noopener">Q2 Earnings Highs And Lows: Gulfport Energy (NYSE:GPOR) Vs The Rest Of The Mixed or Offshore Upstream E&amp;P Stocks</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#4</span>
-    <span class="sym">MKL</span>
-    <span class="chip good" title="Generic sector commentary, no company-specific negative catalyst identified.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">50<small>momentum</small></span>
-    <span class="rr">2.36R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">1,808.55</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">1,799.01 &nbsp;(-0.53%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">1,815.57</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">1,831.03 &nbsp;(+1.24%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>9.54 : 22.48</td></tr>
-    <tr><td>Prev day range</td><td>1,808.93 – 1,831.03</td></tr>
-    <tr><td>Prev day swing low</td><td>1,783.00</td></tr>
-  </table>
-  <div class="meta"><span>drop 1.47%</span><span>wick 20.6% of candle</span><span>break 0.55% under range low</span><span>1.03x ATR</span><span>open vol 2% of 20d avg</span><span>reclaim 28%</span><span>RSI 53 → 37 → 41</span></div>
-  <details class="news"><summary>1 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/3-insurance-stocks-risky-150507382.html?.tsrc=rss" target="_blank" rel="noopener">3 Insurance Stocks We Find Risky</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#5</span>
-    <span class="sym">CAG</span>
-    <span class="chip good" title="Generic cash flow commentary, no company-specific catalyst disclosed.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">45<small>momentum</small></span>
-    <span class="rr">4.68R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">15.84</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">15.74 &nbsp;(-0.60%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">16.19</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">16.28 &nbsp;(+2.81%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.10 : 0.45</td></tr>
-    <tr><td>Prev day range</td><td>15.98 – 16.28</td></tr>
-    <tr><td>Prev day swing low</td><td>14.57</td></tr>
-  </table>
-  <div class="meta"><span>drop 0.94%</span><span>wick 20.0% of candle</span><span>break 1.50% under range low</span><span>0.78x ATR</span><span>open vol 5% of 20d avg</span><span>reclaim 27%</span><span>RSI 49 → 24 → 26</span></div>
-  <details class="news"><summary>1 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/3-cash-producing-stocks-fall-140107187.html?.tsrc=rss" target="_blank" rel="noopener">3 Cash-Producing Stocks That Fall Short</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#6</span>
-    <span class="sym">CAKE</span>
-    <span class="chip good" title="No structural repricing catalyst. Positive momentum post-earnings.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">41<small>momentum</small></span>
-    <span class="rr">1.22R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">113.15</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">111.00 &nbsp;(-1.90%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">115.35</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">115.78 &nbsp;(+2.32%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>2.15 : 2.63</td></tr>
-    <tr><td>Prev day range</td><td>113.46 – 115.78</td></tr>
-    <tr><td>Prev day swing low</td><td>102.42</td></tr>
-  </table>
-  <div class="meta"><span>drop 1.79%</span><span>wick 28.1% of candle</span><span>break 2.17% under range low</span><span>0.83x ATR</span><span>open vol 6% of 20d avg</span><span>reclaim 66%</span><span>RSI 59 → 26 → 39</span></div>
-  <details class="news"><summary>3 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/cheesecake-factory-cake-14-1-153008289.html?.tsrc=rss" target="_blank" rel="noopener">Cheesecake Factory (CAKE) Up 14.1% Since Last Earnings Report: Can It Continue?</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/cibc-global-asset-management-expands-131500616.html?.tsrc=rss" target="_blank" rel="noopener">CIBC Global Asset Management expands its Avantis CIBC suite of ETF offerings</a></li><li><a href="https://stocktwits.com/news-articles/markets/equity/no-ai-no-problem-5-consumer-stocks-quietly-outperforming-nvidia-this-year/cZY8qSVRJpm?.tsrc=rss" target="_blank" rel="noopener">No AI, No Problem: 5 Consumer Stocks Quietly Outperforming Nvidia This Year</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#7</span>
-    <span class="sym">COLM</span>
-    <span class="chip good" title="Industry outlook mention only; no negative catalyst disclosed.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">35<small>momentum</small></span>
-    <span class="rr">10.84R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">57.01</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">56.73 &nbsp;(-0.48%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">58.16</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">59.99 &nbsp;(+5.23%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.28 : 2.98</td></tr>
-    <tr><td>Prev day range</td><td>58.07 – 59.99</td></tr>
-    <tr><td>Prev day swing low</td><td>56.00</td></tr>
-  </table>
-  <div class="meta"><span>drop 1.40%</span><span>wick 9.4% of candle</span><span>break 2.30% under range low</span><span>0.89x ATR</span><span>open vol 2% of 20d avg</span><span>reclaim 18%</span><span>RSI 36 → 20 → 24</span><span>tight stop — inside the spread</span></div>
-  <details class="news"><summary>1 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/zacks-industry-outlook-ralph-lauren-091400654.html?.tsrc=rss" target="_blank" rel="noopener">Zacks Industry Outlook Ralph Lauren, Crocs, Columbia   and G-III Apparel</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#8</span>
-    <span class="sym">TOST</span>
-    <span class="chip good" title="All headlines positive: strong Q2, raised guidance, conference participation, industry survey.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">35<small>momentum</small></span>
-    <span class="rr">1.42R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">36.29</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">35.69 &nbsp;(-1.65%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">36.97</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">37.14 &nbsp;(+2.34%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.60 : 0.85</td></tr>
-    <tr><td>Prev day range</td><td>36.28 – 37.14</td></tr>
-    <tr><td>Prev day swing low</td><td>33.84</td></tr>
-  </table>
-  <div class="meta"><span>drop 2.82%</span><span>wick 20.9% of candle</span><span>break 1.63% under range low</span><span>1.23x ATR</span><span>open vol 13% of 20d avg</span><span>reclaim 41%</span><span>RSI 58 → 30 → 40</span></div>
-  <details class="news"><summary>4 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/2-software-stocks-target-week-124907083.html?.tsrc=rss" target="_blank" rel="noopener">2 Software Stocks to Target This Week and 1 We Brush Off</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/could-toast-tost-stock-keep-235541992.html?.tsrc=rss" target="_blank" rel="noopener">Could Toast (TOST) Stock Keep Rising as Its Restaurant Platform Expands?</a></li><li><a href="https://finance.yahoo.com/technology/articles/toast-announces-participation-goldman-sachs-200500349.html?.tsrc=rss" target="_blank" rel="noopener">Toast Announces Participation at Goldman Sachs Communacopia &amp; Technology Conference</a></li><li><a href="https://finance.yahoo.com/small-business/articles/2026-voice-restaurant-industry-survey-120000240.html?.tsrc=rss" target="_blank" rel="noopener">The 2026 Voice of the Restaurant Industry Survey: How U.S. Restaurants are Handling Inflation, Labor, AI, and Revenue Growth</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#9</span>
-    <span class="sym">AWI</span>
-    <span class="chip good" title="No negative news. Earnings 30d old, unrelated URI article. No structural repricing catalyst.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">34<small>momentum</small></span>
-    <span class="rr">5.31R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">176.94</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">176.00 &nbsp;(-0.53%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">177.78</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">181.93 &nbsp;(+2.82%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.94 : 4.99</td></tr>
-    <tr><td>Prev day range</td><td>177.78 – 181.93</td></tr>
-    <tr><td>Prev day swing low</td><td>175.95</td></tr>
-  </table>
-  <div class="meta"><span>drop 2.69%</span><span>wick 7.8% of candle</span><span>break 1.00% under range low</span><span>1.28x ATR</span><span>open vol 6% of 20d avg</span><span>reclaim 18%</span><span>RSI 28 → 19 → 28</span></div>
-  <details class="news"><summary>2 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/armstrong-world-industries-awi-1-153005068.html?.tsrc=rss" target="_blank" rel="noopener">Armstrong World Industries (AWI) Up 1.9% Since Last Earnings Report: Can It Continue?</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/large-infrastructure-projects-fuel-united-132800905.html?.tsrc=rss" target="_blank" rel="noopener">Will Large Infrastructure Projects Fuel United Rentals&#x27; Fleet Growth?</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#10</span>
-    <span class="sym">DRI</span>
-    <span class="chip good" title="Headlines about CM, BJRI, CBRL unrelated to DRI. No DRI-specific news.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">26<small>momentum</small></span>
-    <span class="rr">2.79R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">214.27</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">211.31 &nbsp;(-1.38%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">218.81</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">222.52 &nbsp;(+3.85%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>2.96 : 8.25</td></tr>
-    <tr><td>Prev day range</td><td>216.80 – 222.52</td></tr>
-    <tr><td>Prev day swing low</td><td>207.20</td></tr>
-  </table>
-  <div class="meta"><span>drop 1.63%</span><span>wick 18.9% of candle</span><span>break 2.53% under range low</span><span>1.30x ATR</span><span>open vol 6% of 20d avg</span><span>reclaim 40%</span><span>RSI 35 → 12 → 25</span></div>
-  <details class="news"><summary>3 headline(s) · last 48h</summary><ul><li><a href="https://www.marketbeat.com/instant-alerts/transcript-canadian-imperial-bank-of-commerce-q3-earnings-call-highlights-2026-08-27/?utm_source=yahoofinance&amp;utm_medium=yahoofinance&amp;.tsrc=rss" target="_blank" rel="noopener">Canadian Imperial Bank of Commerce Q3 Earnings Call Highlights</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/bjs-restaurants-stock-gains-44-150000465.html?.tsrc=rss" target="_blank" rel="noopener">BJ&#x27;s Restaurants Stock Gains 44% in 3 Months: Can Momentum Hold?</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/cracker-barrel-stock-jumps-78-153400117.html?.tsrc=rss" target="_blank" rel="noopener">Cracker Barrel Stock Jumps 78% in 6 Months: Can the Rally Continue?</a></li></ul></details>
-</article>
-<article class="card">
-  <div class="chead">
-    <span class="rank">#11</span>
-    <span class="sym">PCG</span>
-    <span class="chip good" title="Headlines discuss valuation, clean energy initiatives, V2X expansion. No structural repricing catalyst.">✓ news clear</span>
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">18<small>momentum</small></span>
-    <span class="rr">6.33R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">17.73</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">17.63 &nbsp;(-0.59%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">18.22</td></tr>
-    <tr><td>Target B — 3-day (prev day range high)</td><td class="tgt">18.40 &nbsp;(+3.75%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>0.10 : 0.67</td></tr>
-    <tr><td>Prev day range</td><td>17.84 – 18.40</td></tr>
-    <tr><td>Prev day swing low</td><td>17.46</td></tr>
-  </table>
-  <div class="meta"><span>drop 2.05%</span><span>wick 6.6% of candle</span><span>break 1.18% under range low</span><span>0.90x ATR</span><span>open vol 6% of 20d avg</span><span>reclaim 23%</span><span>RSI 42 → 16 → 23</span></div>
-  <details class="news"><summary>5 headline(s) · last 48h</summary><ul><li><a href="https://finance.yahoo.com/markets/stocks/articles/pg-e-pcg-stock-trades-031521541.html?.tsrc=rss" target="_blank" rel="noopener">PG&amp;E (PCG) Stock Trades At A Discount On Earnings While Its 101% Return Clouds Fair Value</a></li><li><a href="https://finance.yahoo.com/energy/articles/pg-e-pcg-clean-energy-182148077.html?.tsrc=rss" target="_blank" rel="noopener">PG&amp;E (PCG) Clean Energy Push Keeps Its Fair Value Debate Alive</a></li><li><a href="https://finance.yahoo.com/energy/articles/pg-e-expanded-v2x-community-161903540.html?.tsrc=rss" target="_blank" rel="noopener">Should PG&amp;E’s Expanded V2X and Community Incentives Strategy Reframe the Long-Term Narrative for PCG?</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/why-firstenergy-fe-down-4-153012461.html?.tsrc=rss" target="_blank" rel="noopener">Why Is FirstEnergy (FE) Down 4.9% Since Last Earnings Report?</a></li><li><a href="https://finance.yahoo.com/energy/articles/camus-energy-selected-google-startups-165200469.html?.tsrc=rss" target="_blank" rel="noopener">Camus Energy Selected for Google for Startups Accelerator Program Focused on AI Solutions for the Energy Industry</a></li></ul></details>
-</article><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th><th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th><th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr></thead><tbody><tr><td>1</td><td><b>EXR</b></td><td><b>79</b></td><td>2.00</td><td>144.03</td><td>143.14</td><td>144.09</td><td>145.81</td><td>0.62%</td><td>40.0</td><td>32.83</td><td>42.49</td><td>clear</td></tr><tr><td>2</td><td><b>CF</b></td><td><b>62</b></td><td>6.74</td><td>124.16</td><td>123.48</td><td>125.70</td><td>128.67</td><td>0.54%</td><td>41.07</td><td>29.17</td><td>32.73</td><td>clear</td></tr><tr><td>3</td><td><b>GPOR</b></td><td><b>58</b></td><td>1.83</td><td>173.33</td><td>171.28</td><td>174.04</td><td>177.09</td><td>1.18%</td><td>52.23</td><td>31.53</td><td>47.15</td><td>clear</td></tr><tr><td>4</td><td><b>MKL</b></td><td><b>50</b></td><td>2.36</td><td>1,808.55</td><td>1,799.01</td><td>1,815.57</td><td>1,831.03</td><td>0.53%</td><td>52.67</td><td>36.73</td><td>41.3</td><td>clear</td></tr><tr><td>5</td><td><b>CAG</b></td><td><b>45</b></td><td>4.68</td><td>15.84</td><td>15.74</td><td>16.19</td><td>16.28</td><td>0.60%</td><td>49.14</td><td>23.65</td><td>26.29</td><td>clear</td></tr><tr><td>6</td><td><b>CAKE</b></td><td><b>41</b></td><td>1.22</td><td>113.15</td><td>111.00</td><td>115.35</td><td>115.78</td><td>1.90%</td><td>58.77</td><td>25.91</td><td>38.91</td><td>clear</td></tr><tr><td>7</td><td><b>COLM</b></td><td><b>35</b></td><td>10.84</td><td>57.01</td><td>56.73</td><td>58.16</td><td>59.99</td><td>0.48%</td><td>36.28</td><td>19.84</td><td>23.6</td><td>clear</td></tr><tr><td>8</td><td><b>TOST</b></td><td><b>35</b></td><td>1.42</td><td>36.29</td><td>35.69</td><td>36.97</td><td>37.14</td><td>1.65%</td><td>57.72</td><td>29.9</td><td>39.5</td><td>clear</td></tr><tr><td>9</td><td><b>AWI</b></td><td><b>34</b></td><td>5.31</td><td>176.94</td><td>176.00</td><td>177.78</td><td>181.93</td><td>0.53%</td><td>27.58</td><td>19.1</td><td>28.28</td><td>clear</td></tr><tr><td>10</td><td><b>DRI</b></td><td><b>26</b></td><td>2.79</td><td>214.27</td><td>211.31</td><td>218.81</td><td>222.52</td><td>1.38%</td><td>35.35</td><td>12.23</td><td>25.29</td><td>clear</td></tr><tr><td>11</td><td><b>PCG</b></td><td><b>18</b></td><td>6.33</td><td>17.73</td><td>17.63</td><td>18.22</td><td>18.40</td><td>0.59%</td><td>42.22</td><td>16.48</td><td>23.34</td><td>clear</td></tr></tbody></table></div><h2 class="sec">Held back by the news gate — 6</h2><p class="note">Chart and RSI qualified; the news read did not come back clear (5 quiet, 1 caution). Listed for the record, not for trading.</p><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th><th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th><th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr></thead><tbody><tr><td>1</td><td><b>FSUN</b></td><td><b>78</b></td><td>0.23</td><td>40.53</td><td>39.92</td><td>—</td><td>40.67</td><td>1.50%</td><td>50.15</td><td>29.86</td><td>58.29</td><td>quiet</td></tr><tr><td>2</td><td><b>WS</b></td><td><b>76</b></td><td>0.04</td><td>34.45</td><td>33.49</td><td>—</td><td>34.49</td><td>2.80%</td><td>49.15</td><td>37.69</td><td>60.83</td><td>quiet</td></tr><tr><td>3</td><td><b>INN</b></td><td><b>69</b></td><td>2.85</td><td>6.01</td><td>5.95</td><td>—</td><td>6.20</td><td>1.08%</td><td>28.8</td><td>26.32</td><td>40.9</td><td>quiet</td></tr><tr><td>4</td><td><b>SWIM</b></td><td><b>59</b></td><td>2.82</td><td>7.07</td><td>6.98</td><td>7.12</td><td>7.30</td><td>1.20%</td><td>53.78</td><td>32.13</td><td>44.92</td><td>quiet</td></tr><tr><td>5</td><td><b>DLB</b></td><td><b>52</b></td><td>5.08</td><td>63.22</td><td>62.55</td><td>64.95</td><td>66.62</td><td>1.06%</td><td>30.12</td><td>14.77</td><td>20.7</td><td>caution</td></tr><tr><td>6</td><td><b>SPOT</b></td><td><b>34</b></td><td>1.96</td><td>535.07</td><td>524.90</td><td>550.03</td><td>554.97</td><td>1.90%</td><td>56.53</td><td>21.38</td><td>31.34</td><td>quiet</td></tr></tbody></table></div>
+<h2 class="sec">11 qualifying setups</h2><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th><th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th><th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr></thead><tbody><tr><td>1</td><td><b>EXR</b></td><td><b>79</b></td><td>2.00</td><td>144.03</td><td>143.14</td><td>144.09</td><td>145.81</td><td>0.62%</td><td>40.0</td><td>32.83</td><td>42.49</td><td>clear</td></tr><tr><td>2</td><td><b>CF</b></td><td><b>62</b></td><td>6.74</td><td>124.16</td><td>123.48</td><td>125.70</td><td>128.67</td><td>0.54%</td><td>41.07</td><td>29.17</td><td>32.73</td><td>clear</td></tr><tr><td>3</td><td><b>GPOR</b></td><td><b>58</b></td><td>1.83</td><td>173.33</td><td>171.28</td><td>174.04</td><td>177.09</td><td>1.18%</td><td>52.23</td><td>31.53</td><td>47.15</td><td>clear</td></tr><tr><td>4</td><td><b>MKL</b></td><td><b>50</b></td><td>2.36</td><td>1,808.55</td><td>1,799.01</td><td>1,815.57</td><td>1,831.03</td><td>0.53%</td><td>52.67</td><td>36.73</td><td>41.3</td><td>clear</td></tr><tr><td>5</td><td><b>CAG</b></td><td><b>45</b></td><td>4.68</td><td>15.84</td><td>15.74</td><td>16.19</td><td>16.28</td><td>0.60%</td><td>49.14</td><td>23.65</td><td>26.29</td><td>clear</td></tr><tr><td>6</td><td><b>CAKE</b></td><td><b>41</b></td><td>1.22</td><td>113.15</td><td>111.00</td><td>115.35</td><td>115.78</td><td>1.90%</td><td>58.77</td><td>25.91</td><td>38.91</td><td>clear</td></tr><tr><td>7</td><td><b>COLM</b></td><td><b>35</b></td><td>10.84</td><td>57.01</td><td>56.73</td><td>58.16</td><td>59.99</td><td>0.48%</td><td>36.28</td><td>19.84</td><td>23.6</td><td>clear</td></tr><tr><td>8</td><td><b>TOST</b></td><td><b>35</b></td><td>1.42</td><td>36.29</td><td>35.69</td><td>36.97</td><td>37.14</td><td>1.65%</td><td>57.72</td><td>29.9</td><td>39.5</td><td>clear</td></tr><tr><td>9</td><td><b>AWI</b></td><td><b>34</b></td><td>5.31</td><td>176.94</td><td>176.00</td><td>177.78</td><td>181.93</td><td>0.53%</td><td>27.58</td><td>19.1</td><td>28.28</td><td>clear</td></tr><tr><td>10</td><td><b>DRI</b></td><td><b>26</b></td><td>2.79</td><td>214.27</td><td>211.31</td><td>218.81</td><td>222.52</td><td>1.38%</td><td>35.35</td><td>12.23</td><td>25.29</td><td>clear</td></tr><tr><td>11</td><td><b>PCG</b></td><td><b>18</b></td><td>6.33</td><td>17.73</td><td>17.63</td><td>18.22</td><td>18.40</td><td>0.59%</td><td>42.22</td><td>16.48</td><td>23.34</td><td>clear</td></tr></tbody></table></div><h2 class="sec">Held back by the news gate — 6</h2><p class="note">Chart and RSI qualified; the news read did not come back clear (5 quiet, 1 caution). Listed for the record, not for trading.</p><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th><th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th><th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr></thead><tbody><tr><td>1</td><td><b>FSUN</b></td><td><b>78</b></td><td>0.23</td><td>40.53</td><td>39.92</td><td>—</td><td>40.67</td><td>1.50%</td><td>50.15</td><td>29.86</td><td>58.29</td><td>quiet</td></tr><tr><td>2</td><td><b>WS</b></td><td><b>76</b></td><td>0.04</td><td>34.45</td><td>33.49</td><td>—</td><td>34.49</td><td>2.80%</td><td>49.15</td><td>37.69</td><td>60.83</td><td>quiet</td></tr><tr><td>3</td><td><b>INN</b></td><td><b>69</b></td><td>2.85</td><td>6.01</td><td>5.95</td><td>—</td><td>6.20</td><td>1.08%</td><td>28.8</td><td>26.32</td><td>40.9</td><td>quiet</td></tr><tr><td>4</td><td><b>SWIM</b></td><td><b>59</b></td><td>2.82</td><td>7.07</td><td>6.98</td><td>7.12</td><td>7.30</td><td>1.20%</td><td>53.78</td><td>32.13</td><td>44.92</td><td>quiet</td></tr><tr><td>5</td><td><b>DLB</b></td><td><b>52</b></td><td>5.08</td><td>63.22</td><td>62.55</td><td>64.95</td><td>66.62</td><td>1.06%</td><td>30.12</td><td>14.77</td><td>20.7</td><td>caution</td></tr><tr><td>6</td><td><b>SPOT</b></td><td><b>34</b></td><td>1.96</td><td>535.07</td><td>524.90</td><td>550.03</td><td>554.97</td><td>1.90%</td><td>56.53</td><td>21.38</td><td>31.34</td><td>quiet</td></tr></tbody></table></div>
   </section>
   <section id="p-stalk" class="panel" role="tabpanel"><p class="note">Everything that broke the previous day range low on a red opening candle. This is the 08:45 watch list before the sneaky candle filters it.</p><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Drop %</th><th>Wick %</th><th>ATR x</th><th>Break depth %</th><th>Broke swing</th><th>Open vol vs 20d</th><th>Range low</th></tr></thead><tbody><tr><td>1</td><td><b>BBW</b></td><td>5.49</td><td>4.8</td><td>1.37</td><td>17.13</td><td>yes</td><td>127%</td><td>37.77</td></tr><tr><td>2</td><td><b>HRL</b></td><td>3.59</td><td>4.3</td><td>2.50</td><td>5.83</td><td>yes</td><td>32%</td><td>23.49</td></tr><tr><td>3</td><td><b>GPOR</b></td><td>2.10</td><td>0.0</td><td>0.79</td><td>0.02</td><td>no</td><td>3%</td><td>171.32</td></tr><tr><td>4</td><td><b>YUMC</b></td><td>1.80</td><td>2.2</td><td>1.80</td><td>4.59</td><td>yes</td><td>38%</td><td>47.09</td></tr><tr><td>5</td><td><b>SWIM</b></td><td>3.32</td><td>4.0</td><td>0.77</td><td>0.85</td><td>no</td><td>2%</td><td>7.04</td></tr><tr><td>6</td><td><b>SGI</b></td><td>2.55</td><td>0.0</td><td>0.85</td><td>0.91</td><td>no</td><td>4%</td><td>62.81</td></tr><tr><td>7</td><td><b>PCG</b></td><td>2.05</td><td>6.6</td><td>0.90</td><td>1.18</td><td>no</td><td>6%</td><td>17.84</td></tr><tr><td>8</td><td><b>DCI</b></td><td>0.42</td><td>0.0</td><td>1.41</td><td>1.01</td><td>no</td><td>7%</td><td>94.08</td></tr><tr><td>9</td><td><b>COLM</b></td><td>1.40</td><td>9.4</td><td>0.89</td><td>2.30</td><td>no</td><td>2%</td><td>58.07</td></tr><tr><td>10</td><td><b>AVNT</b></td><td>0.72</td><td>0.0</td><td>0.78</td><td>0.04</td><td>no</td><td>1%</td><td>44.15</td></tr><tr><td>11</td><td><b>GFF</b></td><td>0.06</td><td>1.5</td><td>0.79</td><td>0.74</td><td>no</td><td>2%</td><td>100.26</td></tr><tr><td>12</td><td><b>WS</b></td><td>1.88</td><td>0.0</td><td>1.06</td><td>0.33</td><td>no</td><td>4%</td><td>33.60</td></tr><tr><td>13</td><td><b>CPK</b></td><td>2.26</td><td>3.2</td><td>1.10</td><td>1.20</td><td>no</td><td>3%</td><td>133.89</td></tr><tr><td>14</td><td><b>BLMN</b></td><td>5.27</td><td>6.9</td><td>0.97</td><td>1.99</td><td>no</td><td>4%</td><td>10.78</td></tr><tr><td>15</td><td><b>MCY</b></td><td>3.82</td><td>0.0</td><td>1.58</td><td>2.44</td><td>yes</td><td>8%</td><td>104.55</td></tr><tr><td>16</td><td><b>UHS</b></td><td>1.16</td><td>8.3</td><td>0.84</td><td>1.03</td><td>no</td><td>5%</td><td>176.00</td></tr><tr><td>17</td><td><b>P</b></td><td>11.91</td><td>2.4</td><td>2.76</td><td>5.87</td><td>yes</td><td>40%</td><td>103.16</td></tr><tr><td>18</td><td><b>MOV</b></td><td>3.31</td><td>0.0</td><td>1.17</td><td>2.15</td><td>yes</td><td>11%</td><td>34.15</td></tr><tr><td>19</td><td><b>CF</b></td><td>0.89</td><td>9.1</td><td>0.81</td><td>0.61</td><td>no</td><td>3%</td><td>124.24</td></tr><tr><td>20</td><td><b>AWI</b></td><td>2.69</td><td>7.8</td><td>1.28</td><td>1.00</td><td>no</td><td>6%</td><td>177.78</td></tr><tr><td>21</td><td><b>FSUN</b></td><td>0.23</td><td>0.0</td><td>0.86</td><td>0.40</td><td>no</td><td>2%</td><td>40.08</td></tr><tr><td>22</td><td><b>CM</b></td><td>2.48</td><td>1.0</td><td>1.30</td><td>1.81</td><td>yes</td><td>12%</td><td>117.93</td></tr><tr><td>23</td><td><b>HTO</b></td><td>1.10</td><td>6.7</td><td>0.85</td><td>1.88</td><td>yes</td><td>4%</td><td>63.32</td></tr><tr><td>24</td><td><b>UGI</b></td><td>0.45</td><td>0.0</td><td>1.05</td><td>0.57</td><td>no</td><td>1%</td><td>38.25</td></tr><tr><td>25</td><td><b>XYL</b></td><td>1.16</td><td>7.6</td><td>0.77</td><td>1.71</td><td>yes</td><td>6%</td><td>113.00</td></tr><tr><td>26</td><td><b>DLB</b></td><td>0.53</td><td>31.8</td><td>0.78</td><td>3.61</td><td>no</td><td>8%</td><td>64.89</td></tr><tr><td>27</td><td><b>NOG</b></td><td>0.89</td><td>14.1</td><td>0.79</td><td>1.21</td><td>no</td><td>4%</td><td>25.71</td></tr><tr><td>28</td><td><b>INN</b></td><td>2.21</td><td>15.6</td><td>0.78</td><td>0.50</td><td>no</td><td>2%</td><td>5.98</td></tr><tr><td>29</td><td><b>CAAP</b></td><td>0.39</td><td>11.0</td><td>0.89</td><td>0.33</td><td>no</td><td>4%</td><td>24.58</td></tr><tr><td>30</td><td><b>PAY</b></td><td>5.39</td><td>9.0</td><td>1.17</td><td>4.72</td><td>yes</td><td>15%</td><td>38.76</td></tr><tr><td>31</td><td><b>ABBV</b></td><td>0.76</td><td>18.7</td><td>0.77</td><td>0.89</td><td>no</td><td>4%</td><td>260.31</td></tr><tr><td>32</td><td><b>IOSP</b></td><td>0.38</td><td>15.2</td><td>0.80</td><td>0.06</td><td>no</td><td>16%</td><td>94.16</td></tr><tr><td>33</td><td><b>HQY</b></td><td>5.84</td><td>20.2</td><td>3.29</td><td>13.67</td><td>yes</td><td>30%</td><td>103.56</td></tr><tr><td>34</td><td><b>KEP</b></td><td>2.38</td><td>14.7</td><td>0.96</td><td>3.27</td><td>yes</td><td>7%</td><td>12.22</td></tr><tr><td>35</td><td><b>DRI</b></td><td>1.63</td><td>18.9</td><td>1.30</td><td>2.53</td><td>no</td><td>6%</td><td>216.80</td></tr><tr><td>36</td><td><b>CAG</b></td><td>0.94</td><td>20.0</td><td>0.78</td><td>1.50</td><td>no</td><td>5%</td><td>15.98</td></tr><tr><td>37</td><td><b>RY</b></td><td>1.18</td><td>3.9</td><td>0.99</td><td>1.03</td><td>yes</td><td>11%</td><td>206.38</td></tr><tr><td>38</td><td><b>SCHL</b></td><td>1.03</td><td>0.0</td><td>1.24</td><td>0.95</td><td>yes</td><td>2%</td><td>39.90</td></tr><tr><td>39</td><td><b>NEXA</b></td><td>1.54</td><td>24.1</td><td>1.01</td><td>5.86</td><td>no</td><td>43%</td><td>15.36</td></tr><tr><td>40</td><td><b>FFIN</b></td><td>0.69</td><td>12.1</td><td>0.78</td><td>1.12</td><td>yes</td><td>5%</td><td>33.57</td></tr><tr><td>41</td><td><b>SFBS</b></td><td>0.44</td><td>0.0</td><td>0.78</td><td>0.86</td><td>yes</td><td>4%</td><td>42.94</td></tr><tr><td>42</td><td><b>ZWS</b></td><td>1.16</td><td>0.0</td><td>0.95</td><td>0.80</td><td>yes</td><td>2%</td><td>48.79</td></tr><tr><td>43</td><td><b>EXR</b></td><td>0.60</td><td>19.6</td><td>0.78</td><td>0.47</td><td>no</td><td>6%</td><td>143.82</td></tr><tr><td>44</td><td><b>DASH</b></td><td>1.64</td><td>22.8</td><td>0.78</td><td>1.00</td><td>no</td><td>7%</td><td>232.00</td></tr><tr><td>45</td><td><b>MMSI</b></td><td>0.67</td><td>25.0</td><td>0.77</td><td>0.42</td><td>no</td><td>2%</td><td>88.95</td></tr><tr><td>46</td><td><b>CFR</b></td><td>2.45</td><td>8.0</td><td>1.43</td><td>1.25</td><td>yes</td><td>3%</td><td>162.47</td></tr><tr><td>47</td><td><b>CAKE</b></td><td>1.79</td><td>28.1</td><td>0.83</td><td>2.17</td><td>no</td><td>6%</td><td>113.46</td></tr><tr><td>48</td><td><b>SPOT</b></td><td>1.75</td><td>29.5</td><td>0.99</td><td>3.37</td><td>no</td><td>10%</td><td>543.20</td></tr><tr><td>49</td><td><b>IRT</b></td><td>1.84</td><td>6.1</td><td>0.89</td><td>0.72</td><td>yes</td><td>2%</td><td>16.61</td></tr><tr><td>50</td><td><b>TOST</b></td><td>2.82</td><td>20.9</td><td>1.23</td><td>1.63</td><td>no</td><td>13%</td><td>36.28</td></tr><tr><td>51</td><td><b>NFLX</b></td><td>1.67</td><td>23.1</td><td>0.82</td><td>2.47</td><td>yes</td><td>10%</td><td>81.30</td></tr><tr><td>52</td><td><b>MKL</b></td><td>1.47</td><td>20.6</td><td>1.03</td><td>0.55</td><td>no</td><td>2%</td><td>1,808.93</td></tr><tr><td>53</td><td><b>RITM</b></td><td>0.05</td><td>23.3</td><td>0.76</td><td>0.50</td><td>no</td><td>4%</td><td>10.06</td></tr><tr><td>54</td><td><b>VITL</b></td><td>3.26</td><td>18.1</td><td>0.77</td><td>3.95</td><td>yes</td><td>6%</td><td>10.88</td></tr><tr><td>55</td><td><b>FMX</b></td><td>0.74</td><td>23.2</td><td>0.86</td><td>2.09</td><td>yes</td><td>9%</td><td>122.55</td></tr><tr><td>56</td><td><b>FTS</b></td><td>1.18</td><td>0.0</td><td>1.37</td><td>0.46</td><td>yes</td><td>5%</td><td>54.81</td></tr><tr><td>57</td><td><b>MLKN</b></td><td>0.13</td><td>38.2</td><td>1.00</td><td>0.78</td><td>no</td><td>2%</td><td>22.97</td></tr><tr><td>58</td><td><b>AWR</b></td><td>0.96</td><td>38.9</td><td>0.80</td><td>2.00</td><td>yes</td><td>11%</td><td>89.39</td></tr><tr><td>59</td><td><b>BALL</b></td><td>1.30</td><td>40.6</td><td>1.06</td><td>1.38</td><td>no</td><td>3%</td><td>63.95</td></tr><tr><td>60</td><td><b>IDYA</b></td><td>0.55</td><td>38.5</td><td>0.79</td><td>0.30</td><td>no</td><td>10%</td><td>41.09</td></tr><tr><td>61</td><td><b>FIZZ</b></td><td>0.49</td><td>52.9</td><td>0.95</td><td>2.86</td><td>no</td><td>4%</td><td>32.91</td></tr><tr><td>62</td><td><b>EXEL</b></td><td>0.20</td><td>62.4</td><td>0.78</td><td>2.19</td><td>no</td><td>2%</td><td>56.06</td></tr><tr><td>63</td><td><b>BURL</b></td><td>0.32</td><td>26.7</td><td>1.18</td><td>2.80</td><td>yes</td><td>65%</td><td>310.69</td></tr><tr><td>64</td><td><b>DNP</b></td><td>0.46</td><td>14.2</td><td>1.24</td><td>0.46</td><td>yes</td><td>8%</td><td>10.97</td></tr><tr><td>65</td><td><b>OGS</b></td><td>0.92</td><td>40.6</td><td>0.76</td><td>1.16</td><td>yes</td><td>2%</td><td>80.08</td></tr><tr><td>66</td><td><b>APLE</b></td><td>0.09</td><td>18.0</td><td>0.94</td><td>0.55</td><td>yes</td><td>2%</td><td>16.52</td></tr><tr><td>67</td><td><b>MHK</b></td><td>0.22</td><td>31.1</td><td>0.91</td><td>1.40</td><td>yes</td><td>9%</td><td>131.87</td></tr><tr><td>68</td><td><b>OUT</b></td><td>0.69</td><td>27.3</td><td>0.87</td><td>0.89</td><td>yes</td><td>1%</td><td>30.32</td></tr><tr><td>69</td><td><b>CNX</b></td><td>1.32</td><td>24.6</td><td>0.88</td><td>0.69</td><td>yes</td><td>1%</td><td>35.84</td></tr></tbody></table></div></section>
   <section id="p-intel" class="panel" role="tabpanel"><h2 class="sec">How the market narrowed</h2><div class="scroll"><table class="full"><thead><tr><th>Stage</th><th>Remaining</th></tr></thead><tbody><tr><td>Universe scanned</td><td>2,852</td></tr><tr><td>Trading under prev range low</td><td>1,426</td></tr><tr><td>Red break confirmed (08:45)</td><td>69</td></tr><tr><td>Green sneaky candle (09:00)</td><td>29</td></tr><tr><td>RSI V-trough</td><td>29</td></tr><tr><td>Target = prev range high</td><td>17</td></tr><tr><td>News clear</td><td>11</td></tr></tbody></table></div>
