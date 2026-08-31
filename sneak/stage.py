@@ -26,6 +26,8 @@ later. Hence the generous cutoffs.
 Stage selection
 ---------------
     manual selftest / prep      always run (no market data needed)
+    manual prep-stalk           first half of a morning  (needs a trading day)
+    manual strike-publish       second half of a morning (needs a trading day)
     manual anything else        needs a trading day
     scheduled, not trading day  skip
 
@@ -60,7 +62,11 @@ ET = ZoneInfo("America/New_York")
 CACHE = Path(__file__).resolve().parent.parent / "data" / "cache"
 
 CALENDAR_FREE = {"selftest", "prep"}
-KNOWN = {"selftest", "prep", "stalk", "strike", "publish", "all"}
+# prep-stalk and strike-publish are the two halves of a morning, dispatched by
+# hand. They are manual-only: decide() never returns them for a scheduled run,
+# which resolves from state instead.
+KNOWN = {"selftest", "prep", "stalk", "strike", "publish", "all",
+         "prep-stalk", "strike-publish"}
 
 BAR1_CLOSE = 9 * 60 + 45      # 09:45 ET — the stalk candle closes
 BAR2_CLOSE = 10 * 60          # 10:00 ET — the strike candle closes (09:00 CT)

@@ -40,7 +40,21 @@ on:
         required: true
         default: "all"
         type: choice
-        options: [prep, stalk, strike, publish, selftest, all]
+        # prep-stalk and strike-publish are the two halves of a morning, for
+        # driving a session by hand when the cron scheduler is not firing.
+        # Run prep-stalk any time before 09:45 ET and strike-publish any time
+        # before 10:00 ET — each sleeps to its own candle close, so early is
+        # free. Both publish; every stage but skip/selftest rebuilds the
+        # dashboard and pushes.
+        options:
+          - prep-stalk      # first half  — universe, levels, the 09:45 stalk
+          - strike-publish  # second half — the 10:00 strike, then publish
+          - prep
+          - stalk
+          - strike
+          - publish
+          - selftest
+          - all
 
 permissions:
   contents: write
@@ -93,12 +107,12 @@ jobs:
         run: python3 -m sneak.triage --selftest
 
       - name: Prep — universe and previous-day levels
-        if: steps.stage.outputs.stage == 'prep' || steps.stage.outputs.stage == 'all'
+        if: contains(fromJSON('["prep","prep-stalk","all"]'), steps.stage.outputs.stage)
         run: python3 -m sneak.prep
 
       # scan_open sleeps until 09:45:25 ET before reading the tape.
       - name: Stalk — 08:45 CT red breaks
-        if: steps.stage.outputs.stage == 'stalk' || steps.stage.outputs.stage == 'all'
+        if: contains(fromJSON('["stalk","prep-stalk","all"]'), steps.stage.outputs.stage)
         run: |
           test -f "data/cache/levels-$(TZ=America/New_York date +%F).json" || python3 -m sneak.prep
           python3 -m sneak.scan_open
@@ -107,7 +121,7 @@ jobs:
       # from here to the end of the deploy job is on the critical path to the
       # 09:01 CT dashboard, so nothing slow belongs in between.
       - name: Strike — 09:00 CT sneaky confirmations
-        if: steps.stage.outputs.stage == 'strike' || steps.stage.outputs.stage == 'all'
+        if: contains(fromJSON('["strike","strike-publish","all"]'), steps.stage.outputs.stage)
         run: |
           python3 -m sneak.confirm
           python3 -m sneak.news --top 200
