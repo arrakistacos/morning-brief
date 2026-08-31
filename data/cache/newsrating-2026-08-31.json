@@ -1,0 +1,32 @@
+{
+ "session": "2026-08-31",
+ "generated_at": "2026-08-31T09:01:21-05:00",
+ "session_note": "Mixed tape: one name repricing on a live structural catalyst, the other dipping on constructive news with unattractive reward-to-risk.",
+ "tickers": {
+  "PYPL": {
+   "rating": "flagged",
+   "reason": "Deal collapse repriced valuation floor; catalyst still live, tight stop flatters RR",
+   "source": "claude-opus-5"
+  },
+  "ICUI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GAP": {
+   "rating": "caution",
+   "reason": "Drop reason benign, but RR under 1 on wide stop",
+   "source": "claude-opus-5"
+  },
+  "FLNG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VLTO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
