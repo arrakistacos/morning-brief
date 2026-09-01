@@ -101,5 +101,11 @@
   "confirmed": 0,
   "stalked": 80,
   "top": []
+ },
+ "2026-09-01": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 63,
+  "top": []
  }
 }
