@@ -1,0 +1,177 @@
+{
+ "session": "2026-09-08",
+ "generated_at": "2026-09-08T09:00:48-05:00",
+ "session_note": "Broad 1.5% gap-downs across unrelated sectors suggest market-wide risk-off; prior-day-high targets leave most setups with sub-one reward.",
+ "tickers": {
+  "NFLX": {
+   "rating": "caution",
+   "reason": "RR flattered by 0.6% stop; drop cause benign but noise likely stops out",
+   "source": "claude-opus-5"
+  },
+  "DUOL": {
+   "rating": "caution",
+   "reason": "4.8% gap contradicts bullish read; likely valuation de-rating still live, RR only 1.0",
+   "source": "claude-opus-5"
+  },
+  "HRB": {
+   "rating": "caution",
+   "reason": "3.2% drop unexplained by news; tight 0.57% stop inflates RR",
+   "source": "claude-opus-5"
+  },
+  "MMYT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HAFN": {
+   "rating": "flagged",
+   "reason": "Ex-dividend gap is mechanical, not mean-reverting; sub-1 RR",
+   "source": "claude-opus-5"
+  },
+  "BR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WMG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NWS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ACHV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EXLS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CRAI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SLDB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FOXA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LNG": {
+   "rating": "flagged",
+   "reason": "RR 0.54 with 1.9% risk; no edge regardless of benign news",
+   "source": "claude-opus-5"
+  },
+  "FOX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FBRT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NWSA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ADP": {
+   "rating": "caution",
+   "reason": "Positive catalyst yet gap down unexplained; RR barely above one",
+   "source": "claude-opus-5"
+  },
+  "FVRR": {
+   "rating": "caution",
+   "reason": "0.56% stop inside normal noise on illiquid name; RR overstated",
+   "source": "claude-opus-5"
+  },
+  "APPN": {
+   "rating": "flagged",
+   "reason": "6.1% gap unexplained by awards; real repricing catalyst likely still live",
+   "source": "claude-opus-5"
+  },
+  "PL": {
+   "rating": "flagged",
+   "reason": "Launch failure is live structural repricing; 5.6% stop, RR 0.35",
+   "source": "claude-opus-5"
+  },
+  "CXM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TYL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MCK": {
+   "rating": "flagged",
+   "reason": "RR 0.24 on 0.16% drop; nothing to mean-revert",
+   "source": "claude-opus-5"
+  },
+  "TW": {
+   "rating": "flagged",
+   "reason": "Reward below risk at 0.60; weak sector tone unresolved",
+   "source": "claude-opus-5"
+  },
+  "J": {
+   "rating": "flagged",
+   "reason": "RR 0.46; drop conflicts with positive news, cause unidentified",
+   "source": "claude-opus-5"
+  },
+  "TGT": {
+   "rating": "flagged",
+   "reason": "RR 0.50; gap cause unexplained despite bullish headline framing",
+   "source": "claude-opus-5"
+  },
+  "EXPD": {
+   "rating": "flagged",
+   "reason": "RR 0.58; earnings beat already priced, gap driver unclear",
+   "source": "claude-opus-5"
+  },
+  "SF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AII": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ZWS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EXEL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WMB": {
+   "rating": "flagged",
+   "reason": "RR 0.12 is unusable; target inside spread of risk",
+   "source": "claude-opus-5"
+  }
+ }
+}
