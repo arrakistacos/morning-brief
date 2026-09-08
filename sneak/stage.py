@@ -1,48 +1,35 @@
 #!/usr/bin/env python3
 """
-stage.py — Decide which stage this workflow firing should run.
+stage.py — Decide what this workflow firing should do.
 
-Why this is state-based rather than clock-based
------------------------------------------------
-The first version mapped ET wall-clock time to a stage. That silently assumed
-GitHub fires a cron roughly on time. It does not: measured launch delay on this
-repo ran 42-46 minutes every day of the week of 2026-08-17.
+There is exactly one scheduled behaviour: run the whole morning in one pass.
+prep, stalk and strike execute inside a single job, so a firing either does the
+entire day or does nothing. No state is handed between runs.
 
-The stalk cron is 09:20 ET and its window ended at 09:45, so it tolerated only
-25 minutes of delay. On 2026-08-24 the delay was 46 minutes, the firing landed
-inside the STRIKE window, strike aborted for lack of a stalk file, and no list
-was published at all.
+Why a band of firings for a single behaviour
+--------------------------------------------
+GitHub's measured launch delay on this repo is 42-46 minutes, every day. A lone
+cron at 08:55 CT would therefore start around 09:40 CT and publish ~40 minutes
+late, and one dropped firing would mean no lists at all that day.
 
-So the question a firing asks is no longer "what time is it" but "what has not
-been done yet". stalk-YYYY-MM-DD.json and strike-YYYY-MM-DD.json are committed
-to the repo (only levels-* and news-* are gitignored), so a fresh checkout can
-see exactly how far today got and pick up from there. Any firing can complete
-any outstanding stage, and an extra firing is a cheap no-op.
+So the same rule is offered several chances. Crons fire across 09:00-09:55 ET;
+whichever arrives first while the day is still unpublished runs `all`, and the
+rest find the work done and skip. A firing that lands BEFORE the 10:00 ET strike
+candle closes is the good case — the scanner sleeps and reads the tape the
+instant the bar settles, publishing at ~09:01 CT. One that lands after is simply
+late, not broken.
 
-Running late still beats not running: the scanner reads a CLOSED candle, so a
-stalk executed at 10:30 ET produces the same list it would have at 09:45, just
-later. Hence the generous cutoffs.
+Arming cannot start before 09:00 ET: sleeping to 10:00:25 plus setup has to fit
+inside the workflow's 75-minute timeout.
 
-Stage selection
----------------
-    manual selftest / prep      always run (no market data needed)
-    manual prep-stalk           first half of a morning  (needs a trading day)
-    manual strike-publish       second half of a morning (needs a trading day)
-    manual anything else        needs a trading day
-    scheduled, not trading day  skip
+    scheduled, not a trading day        skip
+    scheduled, both lists published     skip
+    scheduled, before 09:00 ET          skip   (would outlive the timeout)
+    scheduled, 09:00-12:00 ET           ALL    (sleeps to the candles if early)
+    scheduled, after 12:00 ET           skip   (too stale to be useful)
 
-    scheduled, trading day:
-        before 09:00 ET, nothing done    -> prep
-        stalk missing,  09:00-12:00 ET   -> stalk   (sleeps to 09:45:25 if early)
-        stalk done, strike missing,
-                        09:15-12:30 ET   -> strike  (sleeps to 10:00:25 if early)
-        everything done                  -> skip
-
-Arming early is the whole point: the strike candle closes at 10:00:00 ET, which
-IS 09:00:00 CT, so the earliest the list can exist is ~10:00:25 ET. Hitting that
-requires a runner already booted and sleeping when the bar closes, not one that
-starts booting afterwards. Measured: pre-warmed runs deploy at 09:01:05 CT; a
-run that starts cold after the close deploys at 09:06 CT.
+Manual dispatch still reaches every individual stage for debugging; selftest and
+prep need no market data, so they ignore the calendar.
 
 Usage:
     python -m sneak.stage            # reads MANUAL env, writes $GITHUB_OUTPUT
@@ -52,6 +39,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from datetime import datetime
@@ -61,47 +49,19 @@ from zoneinfo import ZoneInfo
 ET = ZoneInfo("America/New_York")
 CACHE = Path(__file__).resolve().parent.parent / "data" / "cache"
 
+# selftest and prep touch no market data, so they run any day.
 CALENDAR_FREE = {"selftest", "prep"}
-# prep-stalk and strike-publish are the two halves of a morning, dispatched by
-# hand. They are manual-only: decide() never returns them for a scheduled run,
-# which resolves from state instead.
+# Manual-only stages. A scheduled firing never resolves to any of these — it
+# resolves to `all` or to `skip`, nothing else.
 KNOWN = {"selftest", "prep", "stalk", "strike", "publish", "all",
          "prep-stalk", "strike-publish"}
 
-BAR1_CLOSE = 9 * 60 + 45      # 09:45 ET — the stalk candle closes
 BAR2_CLOSE = 10 * 60          # 10:00 ET — the strike candle closes (09:00 CT)
 
-# Arming times. A firing that arrives BEFORE its candle closes is the good case:
-# the scanner sleeps and reads the tape the instant the bar settles, so the list
-# publishes at the earliest second it can possibly exist. A firing that arrives
-# after the close still works, it is just late by however late the cron was.
-#
-# Each stage is therefore armed 45 minutes ahead of its close — the whole of
-# GitHub's normal cron drift — so that a drifting firing lands INSIDE the arming
-# window and pre-warms rather than being turned away. 45 minutes of sleep plus
-# setup is bounded well under the workflow's timeout-minutes.
-STALK_ARM = 9 * 60            # 09:00 ET — sleeps to 09:45:25 ET
-STRIKE_ARM = 9 * 60 + 15      # 09:15 ET — sleeps to 10:00:25 ET
-STALK_CUTOFF = 12 * 60        # 12:00 ET — past this, today is a write-off
-STRIKE_CUTOFF = 12 * 60 + 30  # 12:30 ET
-
-# ── the 08:55 CT catch-all ───────────────────────────────────────────────────
-#
-# These two crons are 08:55 America/Chicago on either side of DST (09:55 ET),
-# and a firing from one of them may resolve to "all" — prep, stalk and strike in
-# a single run. Nothing else can: every other scheduled firing resolves from
-# state, one stage at a time.
-#
-# It exists as a safety net, not as the main path. The arming band still
-# publishes the stalk list at 08:45:25 CT and the strike at ~09:01 CT, which an
-# 08:55 run cannot match — by then the 09:45 ET candle is 10 minutes stale. So
-# this only fires the full sequence when the morning produced NOTHING, which is
-# exactly the 2026-08-24 failure it is here to cover. If the stalk already
-# landed, it falls through and behaves like any other firing.
-ALL_CRONS = {
-    "55 13 * * 1-5",   # 09:55 ET during EDT
-    "55 14 * * 1-5",   # 09:55 ET during EST
-}
+# Earliest a runner may arm. Sleeping from here to 10:00:25 ET is ~60 minutes,
+# which fits the workflow's 75-minute timeout with room for setup.
+ALL_ARM = 9 * 60              # 09:00 ET
+ALL_CUTOFF = 12 * 60          # 12:00 ET — past this the morning is a write-off
 
 
 def _is_trading_day(now: datetime) -> tuple[bool, str]:
@@ -116,19 +76,11 @@ def _is_trading_day(now: datetime) -> tuple[bool, str]:
 
 
 def _firing_schedule() -> str:
-    """
-    Which cron launched this run, or "" for a manual dispatch.
-
-    GitHub does not expose the schedule as a plain variable, but it is in the
-    event payload at $GITHUB_EVENT_PATH. Reading it here means the 08:55 CT
-    catch-all needs no change to the workflow beyond adding the cron line.
-    """
+    """Which cron launched this run, or "" for a manual dispatch. Diagnostics only."""
     path = os.environ.get("GITHUB_EVENT_PATH")
     if not path:
         return ""
     try:
-        import json
-
         with open(path, encoding="utf-8") as f:
             return str(json.load(f).get("schedule") or "").strip()
     except Exception:
@@ -140,8 +92,7 @@ def _done(prefix: str, now: datetime) -> bool:
 
 
 def decide(manual: str, now: datetime, trading: bool,
-           have_stalk: bool, have_strike: bool,
-           schedule: str = "") -> tuple[str, str]:
+           have_stalk: bool, have_strike: bool) -> tuple[str, str]:
     """Pure and unit-testable: no clock, no filesystem, no environment."""
     manual = (manual or "").strip().lower()
 
@@ -156,39 +107,19 @@ def decide(manual: str, now: datetime, trading: bool,
 
     if not trading:
         return "skip", f"NYSE closed {now:%Y-%m-%d}"
+    if have_stalk and have_strike:
+        return "skip", "already published today"
 
     mins = now.hour * 60 + now.minute
+    if mins < ALL_ARM:
+        return "skip", "before 09:00 ET — arming now would outlive the job timeout"
+    if mins >= ALL_CUTOFF:
+        return "skip", f"it is {now:%H:%M} ET — too late for today's open to matter"
 
-    # The 08:55 CT catch-all. Only takes over when the morning is a blank sheet;
-    # a half-finished morning is better served by the normal one-stage-at-a-time
-    # path below, which does not redo work that already landed.
-    if schedule in ALL_CRONS and mins >= BAR1_CLOSE and mins < STALK_CUTOFF:
-        if have_stalk and have_strike:
-            return "skip", "08:55 CT catch-all — both lists already published"
-        if not have_stalk and not have_strike:
-            return "all", (f"08:55 CT catch-all — nothing published yet, running the "
-                           f"whole morning in one pass{'' if mins <= BAR2_CLOSE else ' (late)'}")
-        # stalk done, strike outstanding: fall through to the strike branch.
-
-    if not have_stalk:
-        if mins < STALK_ARM:
-            return "prep", "before 09:00 ET and nothing scanned yet"
-        if mins < STALK_CUTOFF:
-            if mins <= BAR1_CLOSE:
-                return "stalk", f"armed for the 09:45 ET candle — sleeping {BAR1_CLOSE - mins}m"
-            return "stalk", f"no stalk list yet (late by {mins - BAR1_CLOSE}m — cron drift)"
-        return "skip", f"no stalk list and it is {now:%H:%M} ET — too late to be useful"
-
-    if not have_strike:
-        if mins < STRIKE_ARM:
-            return "skip", "stalk done; too early to hold a runner for the 10:00 ET candle"
-        if mins < STRIKE_CUTOFF:
-            if mins <= BAR2_CLOSE:
-                return "strike", f"armed for the 10:00 ET candle — sleeping {BAR2_CLOSE - mins}m"
-            return "strike", f"stalk done, strike outstanding (late by {mins - BAR2_CLOSE}m — cron drift)"
-        return "skip", f"strike outstanding but it is {now:%H:%M} ET — too late to be useful"
-
-    return "skip", "stalk and strike both already published today"
+    if mins <= BAR2_CLOSE:
+        return "all", (f"whole morning in one pass — armed, sleeping "
+                       f"{BAR2_CLOSE - mins}m to the 10:00 ET candle")
+    return "all", f"whole morning in one pass (late by {mins - BAR2_CLOSE}m — cron drift)"
 
 
 def main() -> int:
@@ -201,7 +132,7 @@ def main() -> int:
     trading, how = _is_trading_day(now)
     hs, hk = _done("stalk", now), _done("strike", now)
     sched = _firing_schedule()
-    stage, reason = decide(manual, now, trading, hs, hk, sched)
+    stage, reason = decide(manual, now, trading, hs, hk)
 
     print(f"::notice::stage={stage} · {reason} · {now:%Y-%m-%d %H:%M:%S %Z} · "
           f"calendar={how} · stalk={'yes' if hs else 'no'} strike={'yes' if hk else 'no'}"
