@@ -157,6 +157,76 @@ def compute_levels(sym: str, daily: list[dict], today: date | None = None) -> di
     }
 
 
+# ── headroom and the move it projects ────────────────────────────────────────
+#
+# Backtest, 274 confirmed setups over 10 sessions (2026-08-14 → 08-27), 15-minute
+# bars re-fetched and re-labelled; see the research note linked in the README.
+#
+# Headroom is the distance from the entry up to the previous day's range high as
+# a percent of entry. It is the product of two nearly independent things —
+# (range_high - entry)/ATR, the depth of the dislocation, times ATR/price, how
+# much the name moves at all (r = 0.105 between them) — which is why it beats
+# either component alone.
+#
+# It predicts SIZE, not hit rate: AUC 0.837 for "moved >= 2%", 0.739 for a 3-day
+# close above entry, but only 0.452 for winning a stop-versus-fixed-target race.
+# That distinction decides how it should be used. This system exits on the trend
+# rather than on a fixed target, so size is the outcome that matters here.
+#
+# The relationship is an inverted U once drawdown is counted. Raw move size keeps
+# rising with headroom, but the ratio of favourable move to the drawdown suffered
+# BEFORE it peaks does not:
+#
+#     headroom      median move   median drawdown first   move/drawdown
+#     0.0-1.5%          0.48%             0.48%               1.00
+#     1.5-3%            0.53%             0.47%               1.13
+#     3-5%              1.39%             0.49%               2.82   <- band
+#     5-9%              2.09%             0.73%               2.87   <- band
+#     9%+               2.49%             1.41%               1.77
+#
+# Past ~9% the name is not dislocated, it is damaged: 77% of those setups draw
+# down more than 1% before they pay, and only 31% return twice their drawdown.
+HEADROOM_BAND = (3.0, 9.0)
+
+
+def in_band(headroom: float | None) -> bool:
+    """True if this headroom sits in the 3-9% sweet spot.
+
+    Over 274 setups the band lifts the 5-candle-trend rate from 50.4% to 65.7%,
+    doubles the "moved >= 2%" rate (22.3% -> 44.4%), and raises the share
+    returning twice their drawdown from 44.2% to 61.1%. Session-clustered
+    bootstrap on the lift: +15.5pp, 95% CI [+4.3, +26.1], P(>0) = 99.9%.
+    """
+    if headroom is None:
+        return False
+    lo, hi = HEADROOM_BAND
+    return lo <= headroom < hi
+
+# median MFE% = A * headroom%^B, fitted log-log over the 274 setups. Beat a naive
+# constant on 9 of 10 held-out sessions (median abs error 0.49% vs 0.65%).
+PROJECTION_A = 0.349
+PROJECTION_B = 0.734
+
+
+def headroom_pct(entry: float, range_high: float) -> float | None:
+    """Distance from entry up to the previous day's range high, in percent."""
+    if not entry:
+        return None
+    return (range_high - entry) / entry * 100.0
+
+
+def projected_move_pct(headroom: float | None) -> float | None:
+    """Median favourable excursion this headroom has historically produced.
+
+    Roughly a third of the headroom — median capture is 35% and holds at 26-35%
+    across every band above 1%. This is a median, not a promise: the
+    interquartile range around it is wide (at 4-6% headroom, 0.94% to 2.77%).
+    """
+    if headroom is None or headroom <= 0:
+        return None
+    return PROJECTION_A * (headroom ** PROJECTION_B)
+
+
 def rsi_series(closes: list[float], n: int = 14) -> list[float | None]:
     """
     Wilder RSI across a close series. Index-aligned with `closes`; entries before

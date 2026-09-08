@@ -1,0 +1,22 @@
+{
+ "session": "2026-09-04",
+ "generated_at": "2026-09-04T09:00:35-05:00",
+ "session_note": "Broad gap-down opens with prior-day highs sitting close overhead, leaving mean-reversion targets thin relative to stop distance across all three names.",
+ "tickers": {
+  "ALGN": {
+   "rating": "caution",
+   "reason": "Reward below risk; 1.9% gap despite beat suggests guidance concern still live",
+   "source": "claude-opus-5"
+  },
+  "VLO": {
+   "rating": "caution",
+   "reason": "RR flattered by 0.7% stop under a 1.7% gap; crude drop unresolved",
+   "source": "claude-opus-5"
+  },
+  "GTLB": {
+   "rating": "flagged",
+   "reason": "RR 0.18: 3.6% risk for 0.3% target; post-earnings supply still active",
+   "source": "claude-opus-5"
+  }
+ }
+}

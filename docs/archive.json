@@ -53,5 +53,77 @@
   "confirmed": 0,
   "stalked": 20,
   "top": []
+ },
+ "2026-08-24": {
+  "best_rr": 1.861,
+  "confirmed": 2,
+  "stalked": 89,
+  "top": [
+   "PLTR",
+   "A"
+  ]
+ },
+ "2026-08-25": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 66,
+  "top": []
+ },
+ "2026-08-26": {
+  "best_rr": 1.876,
+  "confirmed": 2,
+  "stalked": 40,
+  "top": [
+   "HRTG",
+   "SF"
+  ]
+ },
+ "2026-08-27": {
+  "best_rr": 2.0,
+  "confirmed": 11,
+  "stalked": 69,
+  "top": [
+   "EXR",
+   "CF",
+   "GPOR",
+   "MKL",
+   "CAG"
+  ]
+ },
+ "2026-08-28": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 44,
+  "top": []
+ },
+ "2026-08-31": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 80,
+  "top": []
+ },
+ "2026-09-01": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 63,
+  "top": []
+ },
+ "2026-09-02": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 75,
+  "top": []
+ },
+ "2026-09-03": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 73,
+  "top": []
+ },
+ "2026-09-04": {
+  "best_rr": null,
+  "confirmed": 0,
+  "stalked": 75,
+  "top": []
  }
 }

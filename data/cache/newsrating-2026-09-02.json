@@ -1,0 +1,67 @@
+{
+ "session": "2026-09-02",
+ "generated_at": "2026-09-02T09:00:39-05:00",
+ "session_note": "Earnings-driven idiosyncratic gaps dominate; two setups lack workable reward, and one relies on an unrealistically tight stop.",
+ "tickers": {
+  "CXM": {
+   "rating": "flagged",
+   "reason": "Revenue miss and flat growth still live; RR 0.38 unacceptable with wide stop",
+   "source": "claude-opus-5"
+  },
+  "GIII": {
+   "rating": "caution",
+   "reason": "Good news but 5.3% gap unexplained; 0.5% stop makes RR illusory",
+   "source": "claude-opus-5"
+  },
+  "MRTN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MORN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ESS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CDP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "UDR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VNO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PTC": {
+   "rating": "flagged",
+   "reason": "No real drop to revert; RR 0.25 offers no edge",
+   "source": "claude-opus-5"
+  },
+  "JBGS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TRNO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TFSL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}

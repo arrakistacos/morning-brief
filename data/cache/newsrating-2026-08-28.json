@@ -1,0 +1,87 @@
+{
+ "session": "2026-08-28",
+ "generated_at": "2026-08-28T09:01:58-05:00",
+ "session_note": "Mean-reversion candidates mostly show sub-1 reward-to-risk or stops far tighter than gap-day noise; utilities and consumer names under live pressure.",
+ "tickers": {
+  "DG": {
+   "rating": "caution",
+   "reason": "3% gap-down despite beat unexplained; 0.6% stop far inside gap-day noise",
+   "source": "claude-opus-5"
+  },
+  "TOST": {
+   "rating": "flagged",
+   "reason": "RR under 1; reward below risk, no edge despite benign news",
+   "source": "claude-opus-5"
+  },
+  "RAPP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RIVN": {
+   "rating": "flagged",
+   "reason": "CFO exit risk still live; 11c stop trivial versus RIVN volatility",
+   "source": "claude-opus-5"
+  },
+  "KYMR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BBAR": {
+   "rating": "flagged",
+   "reason": "4.7% gap likely Argentina macro, still live; RR too thin",
+   "source": "claude-opus-5"
+  },
+  "CMPS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OMDA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CRBP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PSMT": {
+   "rating": "caution",
+   "reason": "Unexplained 2.7% drop, RR barely 1:1; cause not confirmed dead",
+   "source": "claude-opus-5"
+  },
+  "LYV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ELVN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "XP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NEE": {
+   "rating": "flagged",
+   "reason": "RR 0.48; target unreachable relative to risk, valuation pressure ongoing",
+   "source": "claude-opus-5"
+  },
+  "D": {
+   "rating": "flagged",
+   "reason": "RR 0.28 is unacceptable; reward negligible against full stop",
+   "source": "claude-opus-5"
+  },
+  "TRS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}

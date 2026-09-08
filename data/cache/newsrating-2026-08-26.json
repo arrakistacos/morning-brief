@@ -1,0 +1,67 @@
+{
+ "session": "2026-08-26",
+ "generated_at": "2026-08-26T09:05:09-05:00",
+ "session_note": "Gap-heavy tape: several names dislocated on live earnings or supply catalysts, while quieter setups offer reward too thin versus stop distance.",
+ "tickers": {
+  "SIBN": {
+   "rating": "caution",
+   "reason": "No real dislocation; RR 0.42 pays too little for risk",
+   "source": "claude-opus-5"
+  },
+  "PINS": {
+   "rating": "caution",
+   "reason": "News benign but RR 0.51 below breakeven on 1.85% stop",
+   "source": "claude-opus-5"
+  },
+  "HRTG": {
+   "rating": "clear",
+   "reason": "Modest drop, bullish news, RR 1.88 on sensible stop",
+   "source": "claude-opus-5"
+  },
+  "BFH": {
+   "rating": "caution",
+   "reason": "Clean news but 2.18% stop for 0.77 RR is unattractive",
+   "source": "claude-opus-5"
+  },
+  "RBCAA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PDS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SF": {
+   "rating": "clear",
+   "reason": "Shallow drift, no catalyst, RR 1.96 with tight-but-fair stop",
+   "source": "claude-opus-5"
+  },
+  "PCG": {
+   "rating": "caution",
+   "reason": "Benign news, poor RR 0.79; utility drift offers little edge",
+   "source": "claude-opus-5"
+  },
+  "BBWI": {
+   "rating": "flagged",
+   "reason": "Weak Q3 guide is live; 5.7 RR is tight-stop illusion",
+   "source": "claude-opus-5"
+  },
+  "XHR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GENB": {
+   "rating": "flagged",
+   "reason": "Lock-up supply persists all session; 11.7% gap, uncontrollable 8% stop",
+   "source": "claude-opus-5"
+  },
+  "SNAP": {
+   "rating": "flagged",
+   "reason": "8% gap unexplained by junior's bullish headlines; read likely stale",
+   "source": "claude-opus-5"
+  }
+ }
+}

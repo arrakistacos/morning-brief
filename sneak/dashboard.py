@@ -24,6 +24,7 @@ from html import escape
 from pathlib import Path
 
 from . import yahoo
+from .levels import HEADROOM_BAND, headroom_pct, in_band, projected_move_pct
 from .news import load_ratings
 from .prep import CACHE_DIR
 from .quotes import quote_for
@@ -32,7 +33,6 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 SESSIONS = DOCS / "sessions"
 
-TOP_CARDS = 25
 
 # Ratings that survive the final gate.
 #
@@ -124,42 +124,15 @@ h2.sec{font-size:.8rem;color:var(--phos);letter-spacing:.14em;text-transform:upp
   margin:1.6rem 0 .8rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
 .note{color:var(--muted);font-size:.78rem;margin-bottom:1rem}
 
-.card{background:var(--s1);border:1px solid var(--border);border-left:3px solid var(--c1);
-  border-radius:7px;padding:1rem;margin-bottom:.8rem}
-.card.top{border-left-color:var(--phos);box-shadow:0 0 0 1px rgba(77,255,176,.13),0 10px 34px -24px rgba(77,255,176,.55)}
-.chead{display:flex;flex-wrap:wrap;align-items:center;gap:.55rem;margin-bottom:.7rem}
-.rank{font-size:.66rem;color:var(--bg);background:var(--phos);border-radius:4px;padding:.1rem .4rem;font-weight:700}
-.sym{font-size:1.15rem;font-weight:700;letter-spacing:.06em;color:var(--ink)}
-.mom{margin-left:auto;font-size:1.05rem;font-weight:700;color:var(--c2)}
-.mom small{display:block;font-size:.55rem;color:var(--dim);letter-spacing:.1em;text-align:right;font-weight:400}
 details.howto{margin:0 0 1.2rem;border:1px solid var(--border2);border-radius:6px;padding:.6rem .8rem;background:var(--s1)}
 details.howto summary{cursor:pointer;color:var(--phos);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
 details.howto table.kv{margin-top:.6rem}
 details.howto table.kv td:last-child{text-align:left;font-weight:400;color:var(--muted)}
-.rr{font-size:1.1rem;font-weight:700;color:var(--phos)}
-.rr small{display:block;font-size:.58rem;color:var(--dim);letter-spacing:.12em;text-align:right;font-weight:400}
-
-.chip{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.16rem .5rem;
-  border-radius:4px;border:1px solid currentColor;display:inline-flex;align-items:center;gap:.3rem}
-.chip.good{color:var(--good)} .chip.warn{color:var(--warn)} .chip.crit{color:var(--crit)}
-.chip.info{color:var(--c2)} .chip.mut{color:var(--muted)}
-
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:1rem;align-items:start}
-@media(max-width:720px){.grid2{grid-template-columns:1fr}}
 
 table.kv{width:100%;border-collapse:collapse;font-size:.78rem}
 table.kv td{padding:.3rem .4rem;border-bottom:1px solid var(--border)}
 table.kv td:first-child{color:var(--dim);white-space:nowrap}
 table.kv td:last-child{text-align:right;color:var(--ink);font-weight:600}
-.tgt{color:var(--good)} .stp{color:var(--crit)} .ent{color:var(--ink)}
-
-.meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
-.meta span{font-size:.65rem;color:var(--muted);background:var(--s2);border:1px solid var(--border);
-  border-radius:4px;padding:.12rem .45rem}
-
-details.news{margin-top:.7rem;border-top:1px dashed var(--border2);padding-top:.5rem}
-details.news summary{cursor:pointer;font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-details.news li{font-size:.75rem;color:var(--muted);margin:.35rem 0 .35rem 1rem}
 
 table.full{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:.6rem}
 table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;text-transform:uppercase;
@@ -167,9 +140,6 @@ table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;
 table.full td{padding:.38rem .4rem;border-bottom:1px solid var(--border);color:var(--ink)}
 table.full tr:hover td{background:var(--s2)}
 .scroll{overflow-x:auto}
-
-.legend{display:flex;flex-wrap:wrap;gap:.8rem;font-size:.66rem;color:var(--muted);margin:.5rem 0 1rem}
-.legend i{display:inline-block;width:16px;height:3px;border-radius:2px;margin-right:.35rem;vertical-align:middle}
 
 .arch{display:grid;gap:.5rem}
 .arch a{display:flex;justify-content:space-between;gap:1rem;background:var(--s1);border:1px solid var(--border);
@@ -208,86 +178,41 @@ def _load(prefix: str, day: date) -> dict | None:
         return None
 
 
-def _rating_chip(sym: str, news: dict, ratings: dict) -> str:
-    r = ratings.get(sym) or {}
-    level = (r.get("rating") or (news.get(sym, {}) or {}).get("preflag") or "unrated").lower()
-    reason = r.get("reason") or ""
-    label, cls, icon = {
-        "green": ("news clear", "good", "✓"),
-        "clear": ("news clear", "good", "✓"),
-        "amber": ("news caution", "warn", "!"),
-        "caution": ("news caution", "warn", "!"),
-        "red": ("news flagged", "crit", "✕"),
-        "flagged": ("news flagged", "crit", "✕"),
-        "quiet": ("no news", "mut", "·"),
-    }.get(level, ("unrated", "mut", "·"))
-    title = f' title="{escape(reason)}"' if reason else ""
-    return f'<span class="chip {cls}"{title}>{icon} {label}</span>'
-
-
-def _card(i: int, row: dict, news: dict, ratings: dict) -> str:
+def _headroom(row: dict) -> float | None:
+    """Headroom for a row, recomputed if the session predates the stored field."""
     t = row["trade"]
-    b1, lv = row["bar1"], row["levels"]
-    sym = row["symbol"]
-    hl = (news.get(sym) or {}).get("headlines") or []
+    h = t.get("headroom_pct")
+    if h is not None:
+        return h
+    high = t.get("target_full") or (row.get("levels") or {}).get("range_high")
+    return headroom_pct(t["entry"], high) if high else None
 
-    meta = [
-        f'drop {b1["drop_pct"]:.2f}%',
-        f'wick {b1["wick_pct"]*100:.1f}% of candle',
-        f'break {b1["break_depth_pct"]:.2f}% under range low',
-    ]
-    if b1.get("atr_mult"):
-        meta.append(f'{b1["atr_mult"]:.2f}x ATR')
-    if b1.get("vol_burst"):
-        meta.append(f'open vol {b1["vol_burst"]*100:.0f}% of 20d avg')
-    meta.append(f'reclaim {t["bar2"]["reclaim_pct"]*100:.0f}%')
-    rsi = t.get("rsi") or {}
-    if rsi:
-        meta.append(
-            f'RSI {rsi["prior"]:.0f} → {rsi["after_red"]:.0f} → {rsi["after_green"]:.0f}'
-        )
-    if t.get("tight_stop"):
-        meta.append("tight stop — inside the spread")
 
-    news_html = ""
-    if hl:
-        items = "".join(
-            f'<li><a href="{escape(h["link"])}" target="_blank" rel="noopener">{escape(h["title"])}</a></li>'
-            for h in hl[:5]
-        )
-        news_html = (
-            f'<details class="news"><summary>{len(hl)} headline(s) · last 48h</summary>'
-            f"<ul>{items}</ul></details>"
-        )
+def _rank_key(row: dict):
+    """Band first, then headroom, then momentum. Mirrors confirm.py so that
+    sessions written before the sort changed still render in the new order."""
+    h = _headroom(row)
+    return (not in_band(h), -(h or 0), -(row.get("momentum") or 0))
 
-    return f"""
-<article class="card{' top' if i <= 3 else ''}">
-  <div class="chead">
-    <span class="rank">#{i}</span>
-    <span class="sym">{escape(sym)}</span>
-    {_rating_chip(sym, news, ratings)}
-    <span class="chip mut">RSI V-trough</span>
-    <span class="mom">{row.get('momentum', 0):.0f}<small>momentum</small></span>
-    <span class="rr">{t['rr']:.2f}R<small>3-day R:R</small></span>
-  </div>
-  <table class="kv">
-    <tr><td>Entry — green candle close</td><td class="ent">{t['entry']:,.2f}</td></tr>
-    <tr><td>Stop — red candle low</td><td class="stp">{t['stop']:,.2f} &nbsp;(-{t['risk_pct']:.2f}%)</td></tr>
-    <tr><td>Target A — same day (prev close)</td><td class="tgt">{(f"{t['target_same_day']:,.2f}" if t.get('target_same_day') else '— already above')}</td></tr>
-    <tr><td>Target B — 3-day ({escape(t['target_kind'])})</td><td class="tgt">{t['target']:,.2f} &nbsp;(+{t['reward_pct']:.2f}%)</td></tr>
-    <tr><td>Risk / reward per share</td><td>{t['risk_per_share']:,.2f} : {t['reward_per_share']:,.2f}</td></tr>
-    <tr><td>Prev day range</td><td>{lv['range_low']:,.2f} – {lv['range_high']:,.2f}</td></tr>
-    <tr><td>Prev day swing low</td><td>{f"{lv['swing_low']:,.2f}" if lv.get('swing_low') is not None else 'none in 60d'}</td></tr>
-  </table>
-  <div class="meta">{''.join(f'<span>{escape(m)}</span>' for m in meta)}</div>
-  {news_html}
-</article>"""
+
+def _hd(row: dict) -> str:
+    h = _headroom(row)
+    return f"{h:.2f}%" if h is not None else "&mdash;"
+
+
+def _pm(row: dict) -> str:
+    t = row["trade"]
+    p = t.get("projected_move_pct")
+    if p is None:
+        p = projected_move_pct(_headroom(row))
+    return f"+{p:.2f}%" if p is not None else "&mdash;"
 
 
 def _table(rows: list[dict], news: dict, ratings: dict) -> str:
     head = (
         "<tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th>"
-        "<th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Risk %</th>"
+        "<th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Headroom</th><th>Proj move</th>"
+        "<th>Risk %</th>"
         "<th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr>"
     )
     body = []
@@ -304,6 +229,7 @@ def _table(rows: list[dict], news: dict, ratings: dict) -> str:
             f"<td>{t['entry']:,.2f}</td><td>{t['stop']:,.2f}</td>"
             f"<td>{tsd}</td>"
             f"<td>{t['target']:,.2f}</td>"
+            f"<td>{_hd(r)}</td><td>{_pm(r)}</td>"
             f"<td>{t['risk_pct']:.2f}%</td>"
             f"<td>{rsi.get('prior','—')}</td><td>{rsi.get('after_red','—')}</td>"
             f"<td>{rsi.get('after_green','—')}</td><td>{escape(str(rat))}</td></tr>"
@@ -500,17 +426,44 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         '<p class="note">Every row cleared all four gates: green sneaky candle holding '
         'above the red candle\u2019s low, RSI(14) tracing a V across the two candles, '
         'target on the previous day\u2019s <b>range high</b>, and a <b>clear</b> news '
-        'read. <b>Ranked by momentum score</b>, not by R:R.</p>'
+        'read. <b>Ranked by headroom</b>, band first.</p>'
+        '<p class="note"><b>Headroom</b> is the distance from entry up to yesterday\u2019s '
+        'range high. <b>Proj move</b> is the median excursion that headroom has '
+        'historically produced \u2014 about a third of it \u2014 and is a median, not a '
+        'promise. The traded target sits at 35% of the headroom: the range high itself '
+        'was reached only 10.9% of the time intraday, so the target is now the '
+        'projected move itself. <b>Momentum</b> is shown but no longer ranks the '
+        'list: it is the better guide to a fixed stop-and-target bracket, which '
+        'is not how this list is traded.</p>'
         + HOWTO
     )
 
     if confirmed:
-        cards = "".join(_card(i, r, newsd, ratings) for i, r in enumerate(confirmed[:TOP_CARDS], 1))
-        more = (
-            f'<h2 class="sec">All {len(confirmed)} qualifying setups</h2>'
-            f"{_table(confirmed, newsd, ratings)}"
-        ) if len(confirmed) > TOP_CARDS else _table(confirmed, newsd, ratings)
-        strike_body = criteria + cards + more
+        confirmed = sorted(confirmed, key=_rank_key)
+        lo, hi = HEADROOM_BAND
+        band = [r for r in confirmed if in_band(_headroom(r))]
+        rest = [r for r in confirmed if not in_band(_headroom(r))]
+        parts = [criteria]
+        if band:
+            parts.append(f'<h2 class="sec">In the headroom band &mdash; {len(band)}</h2>')
+            parts.append(_table(band, newsd, ratings))
+        else:
+            parts.append(
+                f'<div class="empty">Nothing landed in the {lo:g}&ndash;{hi:g}% '
+                "headroom band this session.<br>Nothing to trade is a position.</div>"
+            )
+        if rest:
+            parts.append(f'<h2 class="sec">Outside the band &mdash; {len(rest)}</h2>')
+            parts.append(
+                f'<p class="note">Headroom under {lo:g}% or over {hi:g}%. Below the band '
+                "the move is no bigger than the drawdown you sit through to get it "
+                "(ratio 1.0&ndash;1.1). Above it the moves are the largest on the board, "
+                "but 77% draw down more than 1% first and only 31% return twice that "
+                "drawdown &mdash; those names are damaged rather than dislocated. "
+                "Listed for the record.</p>"
+            )
+            parts.append(_table(rest, newsd, ratings))
+        strike_body = "".join(parts)
     else:
         strike_body = criteria + (
             '<div class="empty">Nothing cleared every gate this session.<br>'

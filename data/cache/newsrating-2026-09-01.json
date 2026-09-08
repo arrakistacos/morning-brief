@@ -1,0 +1,57 @@
+{
+ "session": "2026-09-01",
+ "generated_at": "2026-09-01T09:00:37-05:00",
+ "session_note": "Quiet drift-lower tape with shallow opening gaps; both setups offer targets too close to entry to justify the risk.",
+ "tickers": {
+  "UEC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TROX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MOS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GIII": {
+   "rating": "flagged",
+   "reason": "Earnings tomorrow still ahead; event risk live, sub-1 RR unjustified",
+   "source": "claude-opus-5"
+  },
+  "NPO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RDIB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ERO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IVZ": {
+   "rating": "caution",
+   "reason": "News benign and stale, but 0.32 RR barely covers 2% risk",
+   "source": "claude-opus-5"
+  },
+  "BANF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GRDN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
