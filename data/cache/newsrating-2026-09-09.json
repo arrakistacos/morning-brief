@@ -1,0 +1,72 @@
+{
+ "session": "2026-09-09",
+ "generated_at": "2026-09-09T09:08:21-05:00",
+ "session_note": "Soft, broad-based opening drops with no swing lows broken; most setups offer sub-1 reward and two carry live idiosyncratic catalysts.",
+ "tickers": {
+  "NEU": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HWM": {
+   "rating": "caution",
+   "reason": "GE/CPP competitive read-through still live; sub-1 RR gives no compensation for risk.",
+   "source": "claude-opus-5"
+  },
+  "AMPL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SHIP": {
+   "rating": "caution",
+   "reason": "Cited headlines irrelevant, so drop cause unexplained; RR 0.5 unattractive regardless.",
+   "source": "claude-opus-5"
+  },
+  "DEC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LFST": {
+   "rating": "flagged",
+   "reason": "Priced secondary is live dilution and overhang; tight stop inflates RR optically.",
+   "source": "claude-opus-5"
+  },
+  "ICUI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BRZE": {
+   "rating": "flagged",
+   "reason": "Guidance-miss repricing still live; 1.75% stop too tight for post-earnings volatility.",
+   "source": "claude-opus-5"
+  },
+  "ZIM": {
+   "rating": "flagged",
+   "reason": "Pending takeover revision drives price, not mean reversion; RR 0.45 unacceptable.",
+   "source": "claude-opus-5"
+  },
+  "RNR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HSY": {
+   "rating": "caution",
+   "reason": "No identified catalyst, but 0.88% stop flatters a still sub-1 RR.",
+   "source": "claude-opus-5"
+  },
+  "GCT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MTG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
