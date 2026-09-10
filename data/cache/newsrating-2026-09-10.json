@@ -1,0 +1,82 @@
+{
+ "session": "2026-09-10",
+ "generated_at": "2026-09-10T09:00:46-05:00",
+ "session_note": "Broad 1.5-3% opening gaps across unrelated sectors suggest market-wide risk-off, with sub-1% stops flattering risk/reward on names lacking stock-specific catalysts.",
+ "tickers": {
+  "CHYM": {
+   "rating": "caution",
+   "reason": "RR barely above 1; gap driver unexplained by cited bullish news, still unresolved.",
+   "source": "claude-opus-5"
+  },
+  "ESAB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MTH": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TOL": {
+   "rating": "caution",
+   "reason": "2.5 RR manufactured by 0.43% stop, far inside a 2.6% gap's noise.",
+   "source": "claude-opus-5"
+  },
+  "SDRL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RIG": {
+   "rating": "flagged",
+   "reason": "3.5c stop on $5.70 driller sits inside spread noise; RR illusory.",
+   "source": "claude-opus-5"
+  },
+  "AMBP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LHX": {
+   "rating": "caution",
+   "reason": "Award is old news; drop looks sector-driven and still live, stop tight.",
+   "source": "claude-opus-5"
+  },
+  "VAL": {
+   "rating": "flagged",
+   "reason": "Bid likely makes VAL acquirer; deal-risk repricing live, not a bounce setup.",
+   "source": "claude-opus-5"
+  },
+  "SN": {
+   "rating": "flagged",
+   "reason": "RR 0.29 with 3.3% stop; reward cannot justify risk.",
+   "source": "claude-opus-5"
+  },
+  "IART": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NAC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FNF": {
+   "rating": "flagged",
+   "reason": "RR below 1; no catalyst identified for the drop, no edge.",
+   "source": "claude-opus-5"
+  },
+  "PAGP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MMSI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
