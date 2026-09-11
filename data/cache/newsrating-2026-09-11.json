@@ -1,0 +1,32 @@
+{
+ "session": "2026-09-11",
+ "generated_at": "2026-09-11T09:00:37-05:00",
+ "session_note": "Insurance names gapping down together with no company-specific news, pointing to live sector-wide repricing rather than exhausted single-stock selling.",
+ "tickers": {
+  "XERS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "AON": {
+   "rating": "caution",
+   "reason": "No identified catalyst; 2% gap dwarfs 0.36% stop, drop cause unresolved",
+   "source": "claude-opus-5"
+  },
+  "PGR": {
+   "rating": "flagged",
+   "reason": "RR ~1.0 too thin; bullish headlines fail to explain 1.31% drop",
+   "source": "claude-opus-5"
+  },
+  "MRSH": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
