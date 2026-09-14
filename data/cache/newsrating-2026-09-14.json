@@ -1,0 +1,52 @@
+{
+ "session": "2026-09-14",
+ "generated_at": "2026-09-14T09:00:37-05:00",
+ "session_note": "Shallow gaps with no swing lows broken, but reward profiles are thin and one name carries live dilution risk.",
+ "tickers": {
+  "PBF": {
+   "rating": "flagged",
+   "reason": "Exchangeable notes dilution still live; wide 5% stop, poor 0.29 reward",
+   "source": "claude-opus-5"
+  },
+  "ECAT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SWVL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SCHL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ARMK": {
+   "rating": "caution",
+   "reason": "Gap unexplained by positive news; 0.93% stop invites noise stop-out",
+   "source": "claude-opus-5"
+  },
+  "RGEN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ARR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PTY": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "UFCS": {
+   "rating": "flagged",
+   "reason": "No live catalyst, but 0.17 reward-to-risk far too thin",
+   "source": "claude-opus-5"
+  }
+ }
+}
