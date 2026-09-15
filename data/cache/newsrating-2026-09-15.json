@@ -1,0 +1,107 @@
+{
+ "session": "2026-09-15",
+ "generated_at": "2026-09-15T09:00:42-05:00",
+ "session_note": "Broad shallow gap-downs with few live catalysts, but most setups lean on sub-0.6% stops that manufacture optimistic risk/reward.",
+ "tickers": {
+  "CLOV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PRDO": {
+   "rating": "flagged",
+   "reason": "RR 0.689 below 1; 2.1% gap on acquisition news still repricing",
+   "source": "claude-opus-5"
+  },
+  "DNP": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VVV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EPRT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BRX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ADC": {
+   "rating": "caution",
+   "reason": "RR flattered by 0.5% stop inside normal noise; news benign",
+   "source": "claude-opus-5"
+  },
+  "PPL": {
+   "rating": "caution",
+   "reason": "0.31% stop is noise-level; RR 2.07 is an artifact",
+   "source": "claude-opus-5"
+  },
+  "STRA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TAC": {
+   "rating": "caution",
+   "reason": "0.34% stop on $11 name; RR overstated, catalyst supportive not live",
+   "source": "claude-opus-5"
+  },
+  "HRTG": {
+   "rating": "flagged",
+   "reason": "RR 0.262 unacceptable; wide stop, negligible drop, no edge",
+   "source": "claude-opus-5"
+  },
+  "AEE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WCN": {
+   "rating": "flagged",
+   "reason": "Downgrade drives drop and stays live all session; RR barely 1",
+   "source": "claude-opus-5"
+  },
+  "CVS": {
+   "rating": "caution",
+   "reason": "1.6% drop unexplained by news; tight stop inflates modest RR",
+   "source": "claude-opus-5"
+  },
+  "HR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FTS": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OHI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "HYT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NEE": {
+   "rating": "flagged",
+   "reason": "RR 0.714 below 1 despite benign news; reward insufficient",
+   "source": "claude-opus-5"
+  },
+  "OXLC": {
+   "rating": "flagged",
+   "reason": "RR 0.349; target inside a 1% stop offers no edge",
+   "source": "claude-opus-5"
+  }
+ }
+}
