@@ -1,0 +1,47 @@
+{
+ "session": "2026-09-16",
+ "generated_at": "2026-09-16T09:00:41-05:00",
+ "session_note": "Managed-care names gapping hardest on policy and cost fears; elsewhere shallow dips where tight stops flatter thin risk/reward.",
+ "tickers": {
+  "OSCR": {
+   "rating": "flagged",
+   "reason": "7% gap contradicts benign read; RR 0.28 with 4.2% risk unacceptable",
+   "source": "claude-opus-5"
+  },
+  "EXE": {
+   "rating": "flagged",
+   "reason": "Notes dilution live at entry; 0.64% stop inflates RR",
+   "source": "claude-opus-5"
+  },
+  "ALHC": {
+   "rating": "caution",
+   "reason": "Medicare Advantage policy pressure still live; RR credible but sector-driven drop",
+   "source": "claude-opus-5"
+  },
+  "WYNN": {
+   "rating": "caution",
+   "reason": "Driver not live, but 0.62% stop makes RR noise-dependent",
+   "source": "claude-opus-5"
+  },
+  "GPN": {
+   "rating": "caution",
+   "reason": "No live catalyst, yet target nearer than stop; RR 0.61",
+   "source": "claude-opus-5"
+  },
+  "MANU": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WTFC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GABC": {
+   "rating": "caution",
+   "reason": "Benign 0.74% dip; RR 0.52 offers no edge",
+   "source": "claude-opus-5"
+  }
+ }
+}
