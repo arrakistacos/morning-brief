@@ -1,0 +1,42 @@
+{
+ "session": "2026-09-17",
+ "generated_at": "2026-09-17T09:00:37-05:00",
+ "session_note": "Broad gap-down open with both names showing sub-2% drops; tight stops flatter ratios but sit inside plausible intraday noise.",
+ "tickers": {
+  "NHIC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IIIV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PRGO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IDT": {
+   "rating": "flagged",
+   "reason": "RR under 1; reward below risk. Drop unexplained by benign eSIM news.",
+   "source": "claude-opus-5"
+  },
+  "HELE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "META": {
+   "rating": "caution",
+   "reason": "Court ruling live; 0.5% stop far tighter than 1.9% gap noise.",
+   "source": "claude-opus-5"
+  },
+  "ETD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
