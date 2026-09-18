@@ -1,0 +1,67 @@
+{
+ "session": "2026-09-18",
+ "generated_at": "2026-09-18T10:05:33-05:00",
+ "session_note": "Broad shallow gap-downs with no swing lows broken and mostly benign news, but several setups lean on sub-0.5% stops inflating reward ratios.",
+ "tickers": {
+  "DDS": {
+   "rating": "caution",
+   "reason": "Listing transfer benign, but sub-1 RR gives poor payoff.",
+   "source": "claude-opus-5"
+  },
+  "MLR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "STGW": {
+   "rating": "flagged",
+   "reason": "3.1% stop on $8 name for 0.9% target; unworkable.",
+   "source": "claude-opus-5"
+  },
+  "PD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SATL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NSIT": {
+   "rating": "caution",
+   "reason": "AI-spend sector de-rating still live; RR only marginally above one.",
+   "source": "claude-opus-5"
+  },
+  "DMC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NWSA": {
+   "rating": "flagged",
+   "reason": "5c stop is pure noise; 4.0 RR is arithmetic illusion.",
+   "source": "claude-opus-5"
+  },
+  "AIZ": {
+   "rating": "caution",
+   "reason": "$1 stop on $281 name too tight; RR inflated, news benign.",
+   "source": "claude-opus-5"
+  },
+  "AKR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SKT": {
+   "rating": "flagged",
+   "reason": "Tight 18c stop plus sub-1 RR; no edge either direction.",
+   "source": "claude-opus-5"
+  },
+  "DG": {
+   "rating": "flagged",
+   "reason": "25c target against $2 risk; drop exceeds prior range recovery.",
+   "source": "claude-opus-5"
+  }
+ }
+}
