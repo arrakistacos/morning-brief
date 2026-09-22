@@ -1,0 +1,82 @@
+{
+ "session": "2026-09-22",
+ "generated_at": "2026-09-22T10:35:45-05:00",
+ "session_note": "Tanker complex sold together on unresolved Strait of Hormuz reopening chatter; that driver is still live and most setups show sub-1 RR.",
+ "tickers": {
+  "DHT": {
+   "rating": "flagged",
+   "reason": "Hormuz reopening chatter still live sector-wide; RR sub-1, junior read inconsistent with peers",
+   "source": "claude-opus-5"
+  },
+  "TEN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MNKD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "INSW": {
+   "rating": "flagged",
+   "reason": "Same live tanker-rate catalyst as TNK/TK; RR 0.63 does not compensate",
+   "source": "claude-opus-5"
+  },
+  "TNK": {
+   "rating": "flagged",
+   "reason": "Structural rate repricing unresolved at entry; RR 0.60 far too thin",
+   "source": "claude-opus-5"
+  },
+  "TK": {
+   "rating": "flagged",
+   "reason": "Live Hormuz catalyst, thinnest liquidity of group, RR 0.68 inadequate",
+   "source": "claude-opus-5"
+  },
+  "LPG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SFL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "FLNG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CLB": {
+   "rating": "caution",
+   "reason": "No live catalyst, but 0.83% stop under 2.26% gap invites noise stop-out",
+   "source": "claude-opus-5"
+  },
+  "ECO": {
+   "rating": "flagged",
+   "reason": "Tanker complex sold as one; drop driver live despite upgrade narrative",
+   "source": "claude-opus-5"
+  },
+  "L": {
+   "rating": "caution",
+   "reason": "No catalyst identified, but sub-1 RR and very tight stop",
+   "source": "claude-opus-5"
+  },
+  "RES": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "WTTR": {
+   "rating": "flagged",
+   "reason": "RR 0.30 unacceptable regardless of benign news read",
+   "source": "claude-opus-5"
+  },
+  "PLGO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
