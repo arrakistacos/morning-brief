@@ -191,5 +191,13 @@
   "confirmed": 0,
   "stalked": 93,
   "top": []
+ },
+ "2026-09-24": {
+  "best_rr": 1.298,
+  "confirmed": 1,
+  "stalked": 61,
+  "top": [
+   "NMRK"
+  ]
  }
 }

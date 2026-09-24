@@ -1,0 +1,47 @@
+{
+ "session": "2026-09-24",
+ "generated_at": "2026-09-24T10:53:19-05:00",
+ "session_note": "Soft mean-reversion tape: several setups show sub-1 reward/risk, and the best-looking ratio comes purely from an unworkably tight stop.",
+ "tickers": {
+  "NMRK": {
+   "rating": "clear",
+   "reason": "Negligible gap, benign news; modest but honest RR, sensible stop",
+   "source": "claude-opus-5"
+  },
+  "PATH": {
+   "rating": "flagged",
+   "reason": "Guidance miss and target cuts still live; reward below risk",
+   "source": "claude-opus-5"
+  },
+  "ORC": {
+   "rating": "flagged",
+   "reason": "1.7c stop is noise; 6x RR illusory, news mismatched",
+   "source": "claude-opus-5"
+  },
+  "NE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "APPS": {
+   "rating": "flagged",
+   "reason": "5.8% gap dismissed too readily; CEO change repricing likely still live",
+   "source": "claude-opus-5"
+  },
+  "HYT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TRP": {
+   "rating": "caution",
+   "reason": "News benign but reward below risk; thin edge",
+   "source": "claude-opus-5"
+  },
+  "LSTR": {
+   "rating": "caution",
+   "reason": "Weakest RR on book; target under one risk unit",
+   "source": "claude-opus-5"
+  }
+ }
+}
