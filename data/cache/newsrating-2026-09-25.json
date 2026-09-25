@@ -1,0 +1,27 @@
+{
+ "session": "2026-09-25",
+ "generated_at": "2026-09-25T10:53:32-05:00",
+ "session_note": "Both setups show drops without structural catalysts, but targets sit far too close to entry relative to stop distance.",
+ "tickers": {
+  "MBGL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "EW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PCTY": {
+   "rating": "caution",
+   "reason": "Drop cause benign and not live, but 0.279 RR pays poorly for 1.43% risk.",
+   "source": "claude-opus-5"
+  },
+  "HAPN": {
+   "rating": "flagged",
+   "reason": "Speculative options chatter unresolved; 0.167 RR, 1.97% risk on thin small-cap is unacceptable.",
+   "source": "claude-opus-5"
+  }
+ }
+}
