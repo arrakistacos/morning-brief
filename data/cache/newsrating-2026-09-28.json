@@ -1,0 +1,137 @@
+{
+ "session": "2026-09-28",
+ "generated_at": "2026-09-28T09:00:51-05:00",
+ "session_note": "",
+ "tickers": {
+  "QCOM": {
+   "rating": "clear",
+   "reason": "Apple patent deal and automotive growth are tailwinds, not structural headwinds.",
+   "source": "haiku"
+  },
+  "NWCL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MGM": {
+   "rating": "flagged",
+   "reason": "Major acquisition deal collapse fundamentally reprices valuation expectations.",
+   "source": "haiku"
+  },
+  "INTC": {
+   "rating": "caution",
+   "reason": "Macro headwinds (Iran tensions, oil shock, bond yields) offset AI demand optimism; sustainability questioned.",
+   "source": "haiku"
+  },
+  "AIR": {
+   "rating": "caution",
+   "reason": "Earnings report Tuesday after hours; gap-down timing suggests pre-earnings uncertainty or positioning.",
+   "source": "haiku"
+  },
+  "TRTX": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "SHEN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ABR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "PAR": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CPNG": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OOMA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "LW": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TDS": {
+   "rating": "clear",
+   "reason": "Headline discusses capital structure and Array spin-off; no news that explains or sustains gap-down.",
+   "source": "haiku"
+  },
+  "MNST": {
+   "rating": "caution",
+   "reason": "Key executive departure to competitor signals internal instability, but not structural repricing catalyst.",
+   "source": "haiku"
+  },
+  "KNTK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NMZ": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "GE": {
+   "rating": "clear",
+   "reason": "GE Aerospace wins contracts, completes milestones, $12B acquisition pending. No structural repricing.",
+   "source": "haiku"
+  },
+  "CIM": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "IBN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "RLI": {
+   "rating": "clear",
+   "reason": "Positive analyst coverage on specialty insurance tailwinds. No negative catalysts.",
+   "source": "haiku"
+  },
+  "PCN": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MFA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "VNO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "STWD": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "NEE": {
+   "rating": "clear",
+   "reason": "No structural repricing catalysts. General sector commentary on nuclear/energy.",
+   "source": "haiku"
+  },
+  "MMSI": {
+   "rating": "clear",
+   "reason": "Generic opinion piece; no structural news or catalyst disclosed.",
+   "source": "haiku"
+  }
+ }
+}

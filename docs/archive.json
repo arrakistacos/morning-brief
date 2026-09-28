@@ -205,5 +205,17 @@
   "confirmed": 0,
   "stalked": 24,
   "top": []
+ },
+ "2026-09-28": {
+  "best_rr": 0.879,
+  "confirmed": 6,
+  "stalked": 106,
+  "top": [
+   "QCOM",
+   "TDS",
+   "GE",
+   "RLI",
+   "NEE"
+  ]
  }
 }
