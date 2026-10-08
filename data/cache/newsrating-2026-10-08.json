@@ -1,0 +1,52 @@
+{
+ "session": "2026-10-08",
+ "generated_at": "2026-10-08T09:02:12-05:00",
+ "session_note": "Broad shallow gap-downs with no swing lows broken; bounce targets are thin and several setups lean on noise-width stops.",
+ "tickers": {
+  "ILMN": {
+   "rating": "caution",
+   "reason": "Launch doesn't explain 2.7% gap; cause unidentified, possibly live. Reward below risk.",
+   "source": "claude-opus-5"
+  },
+  "WTS": {
+   "rating": "caution",
+   "reason": "Pending earnings event still live; sub-1% stop inflates RR, sits inside noise.",
+   "source": "claude-opus-5"
+  },
+  "CCS": {
+   "rating": "flagged",
+   "reason": "Drop cause benign, but 2.2% risk for 1% target is unacceptable asymmetry.",
+   "source": "claude-opus-5"
+  },
+  "CTKB": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "ARIS": {
+   "rating": "flagged",
+   "reason": "Production report unverified and possibly still live; RR 0.27 on wide stop.",
+   "source": "claude-opus-5"
+  },
+  "RAL": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CBT": {
+   "rating": "caution",
+   "reason": "News benign, but 0.57% stop manufactures RR; likely stopped by routine noise.",
+   "source": "claude-opus-5"
+  },
+  "RQI": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "CBC": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
