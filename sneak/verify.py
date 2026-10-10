@@ -18,12 +18,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 from datetime import date, datetime
 
 from . import yahoo
 from .prep import CACHE_DIR
-from .levels import headroom_pct, in_band, projected_move_pct
 from .scan_open import break_margin
 
 
@@ -54,77 +54,64 @@ def run(day: date) -> int:
         _fail(problems, b["broke_swing_low"] == expect_swing,
               f'{s}: broke_swing_low={b["broke_swing_low"]} but recomputed {expect_swing}')
 
-    # ── strike gates and trade maths ────────────────────────────────────────
-    for r in strike["confirmed"]:
+    # ── strike gates and trade maths (rules v2) ─────────────────────────────
+    version = int(strike.get("version") or 1)
+    if version < 2:
+        print(f"[verify] {day} was scanned under rules v{version}; checking stalk and levels only")
+    for r in (strike["confirmed"] if version >= 2 else []):
         t, b1, lv, s = r["trade"], r["bar1"], r["levels"], r["symbol"]
         b2 = t["bar2"]
-        checks += 9
+        checks += 12
         _fail(problems, b2["close"] > b2["open"], f"{s}: sneaky candle is not green")
+        _fail(problems, (b2["close"] - b2["open"]) / max(b2["high"] - b2["low"], 1e-9) >= 0.05 - 1e-9,
+              f"{s}: sneaky candle body under 5% of its range")
         _fail(problems, b2["low"] >= b1["low"] - 1e-9,
               f'{s}: green low {b2["low"]} undercut red low {b1["low"]}')
-        _fail(problems, abs(t["entry"] - b2["close"]) < 1e-6,
-              f"{s}: entry is not the green candle close")
+
+        # Re-derived from first principles rather than imported from the
+        # scanner, so a bug there cannot validate itself.
+        # first whole cent strictly above the stored sneaky high
+        want_trigger = (math.floor(b2["high"] * 100 + 1e-6) + 1) / 100
+        _fail(problems, abs(t["trigger"] - want_trigger) < 1e-6 and abs(t["entry"] - want_trigger) < 1e-6,
+              f'{s}: trigger {t["trigger"]} is not the sneaky high + $0.01 ({want_trigger})')
         _fail(problems, abs(t["stop"] - b1["low"]) < 1e-6,
               f"{s}: stop is not the red candle low")
+        hd = (lv["range_high"] - want_trigger) / want_trigger * 100.0
+        _fail(problems, abs(t["headroom_pct"] - hd) < 0.01,
+              f'{s}: headroom_pct {t["headroom_pct"]} != recomputed {hd:.3f}')
+        _fail(problems, 0.0 < hd < 9.0, f"{s}: headroom {hd:.2f}% is outside 0-9%")
+        want_target = want_trigger * (1 + 0.349 * max(hd, 0.0) ** 0.734 / 100.0)
+        _fail(problems, abs(t["target"] - want_target) < 1e-3,
+              f'{s}: target {t["target"]} != expected {want_target:.4f}')
 
-        # Re-derived from the raw levels rather than read back off the row, so a
-        # bad headroom or projection in confirm.py cannot validate itself.
-        structural = lv["range_low"] if t["broke_swing_low"] else lv["range_high"]
-        if t.get("projected_move_pct") is None:
-            # Sessions before the target moved off the structural level.
-            want = structural
-        else:
-            hd = headroom_pct(t["entry"], structural)
-            _fail(problems, abs(t["headroom_pct"] - hd) < 0.01,
-                  f'{s}: headroom_pct {t["headroom_pct"]} != recomputed {hd:.3f}')
-            _fail(problems, t.get("headroom_in_band") is in_band(hd),
-                  f'{s}: headroom_in_band {t.get("headroom_in_band")} '
-                  f'disagrees with headroom {hd:.2f}%')
-            want = t["entry"] * (1 + projected_move_pct(hd) / 100.0)
-        _fail(problems, abs(t["target"] - want) < 1e-3,
-              f'{s}: target {t["target"]} != expected {want:.4f} '
-              f'(broke_swing_low={t["broke_swing_low"]})')
-
-        risk, reward = t["entry"] - t["stop"], t["target"] - t["entry"]
+        risk, reward = want_trigger - b1["low"], want_target - want_trigger
         _fail(problems, risk > 0, f"{s}: non-positive risk")
         if risk > 0:
             _fail(problems, abs(t["rr"] - reward / risk) < 0.01,
                   f'{s}: rr {t["rr"]} != recomputed {reward/risk:.3f}')
 
-        # ── the two gates added on top of the base pattern ──────────────────
-        checks += 5
-        _fail(problems, t["broke_swing_low"] is False,
-              f"{s}: broke the swing low, so its target is the range low — "
-              "should have been filtered out")
-        _fail(problems, t["target_kind"] == "prev day range high",
-              f'{s}: target_kind is {t["target_kind"]}, expected prev day range high')
-
+        if risk > 0:
+            _fail(problems, reward / risk >= 0.35 - 1e-3,
+                  f"{s}: reward/risk {reward/risk:.3f} is under the 0.35 floor")
+        _fail(problems, b1["broke_swing_low"] is False,
+              f"{s}: broke the swing low — should have been filtered out")
         rsi = t.get("rsi")
-        _fail(problems, isinstance(rsi, dict), f"{s}: no RSI signature recorded")
-        if isinstance(rsi, dict):
-            _fail(problems, rsi["after_red"] < rsi["prior"],
-                  f'{s}: RSI did not fall across the red candle '
-                  f'({rsi["prior"]} -> {rsi["after_red"]})')
-            _fail(problems, rsi["after_green"] > rsi["after_red"],
-                  f'{s}: RSI did not recover across the green candle '
-                  f'({rsi["after_red"]} -> {rsi["after_green"]})')
+        _fail(problems, isinstance(rsi, dict) and rsi.get("after_green", 0) >= 40.0,
+              f'{s}: RSI(14) after green {(rsi or {}).get("after_green")} is under the floor of 40')
+        _fail(problems, t.get("valid_from_et") == "10:00" and t.get("valid_until_et") == "10:15",
+              f"{s}: order window is not candle 3 (10:00-10:15 ET)")
 
-    # ── ordering ────────────────────────────────────────────────────────────
-    # Primary sort is the momentum score (R:R breaks ties), because ranking by
-    # R:R put the tightest, least executable stops at the top of the list.
-    ms = [r.get("momentum", 0) for r in strike["confirmed"]]
-    checks += 2
-    _fail(problems, all(ms[i] >= ms[i + 1] for i in range(len(ms) - 1)),
-          "confirmed list is not sorted by momentum score descending")
-    _fail(problems, all(0 <= m <= 100 for m in ms),
-          "a momentum score is outside 0-100")
-
-    # ── no overlap between buckets ──────────────────────────────────────────
-    a = {r["symbol"] for r in strike["confirmed"]}
-    b = set()
-    c = {r["symbol"] for r in strike["expired"]}
-    checks += 1
-    _fail(problems, not (a & b or a & c or b & c), "a symbol appears in two buckets")
+    # ── ordering: momentum descending ───────────────────────────────────────
+    if version >= 2:
+        ms = [r.get("momentum", 0) for r in strike["confirmed"]]
+        checks += 2
+        _fail(problems, all(ms[i] >= ms[i + 1] for i in range(len(ms) - 1)),
+              "confirmed list is not sorted by momentum score descending")
+        _fail(problems, all(0 <= m <= 100 for m in ms),
+              "a momentum score is outside 0-100")
+        syms = [r["symbol"] for r in strike["confirmed"]]
+        checks += 1
+        _fail(problems, len(syms) == len(set(syms)), "a symbol appears twice in the list")
 
     # ── spot-check levels against a live re-fetch ───────────────────────────
     sample = [r["symbol"] for r in strike["confirmed"][:5]]

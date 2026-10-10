@@ -34,6 +34,13 @@ given morning, never as evidence that a setup is profitable in isolation.
 The score is relative to the day's cohort: it is a percentile within this
 morning's candidates, so 70 means "better than 70% of today's setups", not an
 absolute quality bar.
+
+Out-of-sample check (2026-10-10 re-test, 5-minute bars, sessions after the fit):
+the top half of each day's cohort won 59.3% against 46.0% for the bottom half
+under the old close-entry rules, and inside the current rules (candle-3 entry,
+RSI floor, headroom cap) 69.5% against 65.1%. The ranking held up; the "flat
+mean R" caveat held up too. That is why it orders the list but gates nothing —
+the RSI(14) floor it partly measures does the gating. See research/README.md.
 """
 
 from __future__ import annotations

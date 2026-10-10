@@ -2,92 +2,83 @@
 
 **[📊 Live dashboard](https://arrakistacos.github.io/morning-brief/)**
 
-Two lists, every trading morning, on the dot:
+Two lists, every trading morning:
 
 | Time (CT) | Stage | What lands on the dashboard |
 |---|---|---|
 | **08:45** | **Stalk** | Every liquid US stock whose first 15-minute candle is a **dramatic red break below the previous day's range low** — the candle must span at least **0.75× ATR14**. |
-| **09:00** | **Strike** | The subset that clears **all four gates** — green sneaky candle, RSI V-trough, range-high target, clear news — ranked by risk/reward. |
+| **09:00** | **Orders** | The subset where the second candle is a **sneaky candle** and every gate holds, each turned into a **buy-stop order for candle 3**, ranked by momentum. |
+| **09:15** | — | The entry window closes. Cancel anything unfilled. |
 
 Long only. Cash account, no shorting.
 
 ## The setup
 
 ```
-        prev day range high ──────────────  ← target if only the range low broke
-        prev day range low  ──────────────  ← target if the swing low ALSO broke
-   ┃                                          and the level that must be broken
-   ┃ ▼ 09:30  the dramatic red candle
-   ┃    low  ─────────────────────────────  ← STOP. always. short wick = tight stop
-        ▲ 09:45  the sneaky green candle
-             close ────────────────────────  ← ENTRY
-        prev day swing low ───────────────
+        prev day range high ──────────────  ← headroom is measured up to here
+                                               (target = projected move toward it)
+   ┃
+   ┃ ▼ 09:30  candle 1 — the dramatic red candle, breaks the range low
+        prev day range low  ──────────────
+   ┃    low  ─────────────────────────────  ← STOP. always.
+        ▲ 09:45  candle 2 — the sneaky green candle
+             high ─────────────────────────  ← BUY-STOP one cent above (candle 3)
+        prev day swing low ───────────────  ← must NOT be broken by candle 1
 ```
 
-- **Entry** — close of the green sneaky candle
-- **Stop** — low of the initial red candle (that wick *is* the stop, so a short wick ranks higher)
-- **Target** — previous day **range low** if the red candle broke below the previous day **swing low**; otherwise the previous day **range high**
-- **R:R** — `(target − entry) / (entry − stop)`
+- **Candle 1 (09:30–09:45 ET)** — the opening range: red, its low breaks yesterday's range low, its range is ≥ 0.75× ATR14
+- **Candle 2 (09:45–10:00 ET)** — the sneaky candle: green, holds above candle 1's low
+- **Candle 3 (10:00–10:15 ET)** — the entry candle: **buy-stop at the first cent above candle 2's high**, live for this candle only (09:00–09:15 CT). Cancel it if unfilled at the close of candle 3, or if price trades below the stop first.
+- **Stop** — the low of candle 1. Never moved.
+- **Target** — the buy-stop price plus the **projected move** for its headroom: the median excursion that much headroom has historically produced, about a third of the way to the range high. Flat by the close if neither is hit.
+- **R:R** — `(target − buy stop) / (buy stop − stop)`
 
-### The drama gate
+### The gates
 
-`MIN_CANDLE_ATR` in `sneak/scan_open.py`, default **0.75**. The opening candle's full range must be at least this multiple of the stock's 14-day ATR.
+A name becomes an order only if every one holds:
 
-Without it the scan returns ~124 names a day averaging a **0.28% drop at 0.36× ATR** — technically valid range-low breaks that are invisible on a chart and are not the setup being traded. The momentum score made this worse, not better: three of its five components reward a *smaller* candle and a *shallower* RSI dip, so it sorted the least dramatic setups straight to the top.
+1. **Dramatic red break** — candle 1 is red, its low clears yesterday's range low by a cent (or 2bp), its range ≥ 0.75× ATR14.
+2. **Sneaky candle** — candle 2 is green, its body is ≥ 5% of its range, and its low never undercuts candle 1's low.
+3. **RSI floor** — RSI(14) on the 15-minute series, read after candle 2, is **≥ 40**.
+4. **Structure intact** — candle 1 broke the range low but held above the swing low.
+5. **Headroom** — from the buy-stop up to yesterday's range high is **above 0 and under 9%**.
+6. **Payoff** — the projected reward is at least **0.35× the risk**.
+7. **News** — the headline read comes back `quiet` or `clear` (see below).
 
-Effect on the published list:
+Then the list is **ranked by momentum score**; shallower breaks of the range low break ties. Stops under 0.5% from entry are tagged *tight stop*, not removed.
 
-| floor | 08-14 | 08-17 | 08-18 | avg candle |
-|---|---|---|---|---|
-| 0.50× ATR | 10 | 12 | 29 | 0.80× |
-| **0.75× ATR** (default) | 0 | 2 | 4 | 1.10× |
+### What the backtest says
 
-Lower it to 0.50 for a longer list. The momentum score still ranks correctly inside the dramatic subset — at the 0.75 floor its correlation actually strengthens (ρ 0.125, t 3.90, versus 0.095 unfiltered).
+56 sessions (2026-07-23 → 10-09), every setup replayed on 5-minute bars with a 0.05% round-trip cost. The rules were chosen on the first 26 sessions and checked on the last 30. A *win* is a trade that closes with R > 0. Full method, every variant tested and the caveats are in [`research/README.md`](research/README.md); re-run it with `python research/backtest.py`.
 
-### Ranking: the momentum score
+| | old rules | **v2 rules** |
+|---|---|---|
+| Entry | candle 2 close | buy-stop above candle 2's high, candle 3 only |
+| Win rate, all 56 sessions | 56.0% | **69.0%** |
+| Win rate, 30 held-out sessions | 52.7% | **65.8%** (95% CI 45–83%) |
+| Mean R, held-out | −0.065 | **+0.130** (95% CI −0.19…+0.40) |
+| Orders per day | ~14 | ~1.5 (none on ~30% of days) |
 
-The list is **ranked by momentum score, not by R:R**. Ranking by R:R put the tightest, least executable stops at the top — a stop a penny under entry reads as 20:1 and is untradable.
+**Read the confidence intervals.** The win-rate improvement is consistent across both halves of the data and across every variant tested. The positive mean R is not yet statistically distinguishable from zero. Treat v2 as a better list, not a proven edge, and size it as an experiment.
 
-The score is a 0–100 percentile within the day's own candidates, built from five scale-free measures of how much damage the opening drop did and how convincingly it recovered: RSI(7) and RSI(14) after the green candle (higher better), how far RSI fell across the red candle, the red candle's body fraction, and its size relative to ATR (all lower better).
+### Why each rule is there
 
-Backtested over 9,092 setups and 58 sessions, it sorts win rate monotonically across all ten deciles:
+- **Candle-3 buy-stop.** About 40% of setups never trigger, and those are disproportionately the ones that roll over. With the same stop and target, the break entry won ~3–6 points more often than the close entry on both halves.
+- **RSI(14) ≥ 40 after the green candle** replaced the old RSI *V-trough*. The V added nothing — setups without it won as often as setups with it. The RSI *level* was the strongest single filter, and the win rate climbs with the threshold on the held-out sessions (≥35: 62%, ≥40: 65%, ≥45: 69%), so 40 is a point on a slope, not a lucky cut.
+- **Headroom under 9%.** Setups at 9%+ won ~35% in both halves. The old *3–9% band* that used to rank the list did **not** survive: on the held-out sessions in-band setups won 46.5% against 57.3% outside it. It no longer ranks anything.
+- **Reward/risk ≥ 0.35.** Without it, half of the qualifying trades risked 4× what they could make — they won often and lost money. The floor (chosen on the training sessions) keeps the win rate where it was and moves mean R from −0.02 to +0.13 on the held-out sessions.
+- **Momentum ranks, it does not gate.** Above the day's median it won 69.5% against 65.1% below (held-out, within v2). It ranks *probability*, not profit.
 
-| decile | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| win rate | 33.9% | 38.5% | 43.2% | 48.7% | 49.8% | 52.1% | 58.8% | 63.4% | 67.9% | 73.4% |
-
-Within-day rank correlation against realised R reaches t = +3.92, clearing a Bonferroni threshold of 3.9 across the 35 indicators tested, and is positive on 67% of sessions.
-
-**It ranks probability, not profit.** Mean R per decile stays flat near zero — a higher hit rate comes with a proportionally smaller payoff. Use it to choose between setups on a given morning, never as evidence that a setup is profitable on its own.
-
-### Two targets
-
-| | level | reached | use |
-|---|---|---|---|
-| **Target A** | previous day's close | ~47% same day | if you are flat by 16:00 |
-| **Target B** | previous day's range high | ~13% same day | hold up to 3 trading days |
-
-Target A is blank when the entry is already above the previous close, which is common for the highest-momentum names.
-
-**The 3-day plan.** Entry = green candle close. Stop = red candle low, unmoved. Target = previous day's range high. Hold up to three trading days and exit at the close of day 3 if neither level is touched. This was the only configuration in 58 sessions with positive expectancy (+0.105R, +0.74% per trade, with a 0.5% risk floor and a 10R cap). It is **not statistically significant** — t = 1.61, and ~91 sessions would be needed for t > 2. Size it as an experiment.
-
-### The four gates
-
-A name is published only if every one holds:
-
-1. **Sneaky candle** — candle 2 is green and its low never undercuts candle 1's low.
-2. **RSI V-trough** — RSI(14) on the 15-minute series falls across the red candle and rises across the green one. Momentum rolling over and immediately recovering is what separates real resistance from a pause on the way lower.
-3. **Target is the range high** — the red candle broke the range low but held above the swing low, so structure is intact. Setups that broke the swing low (target = range low) are filtered out.
-4. **News is clear** — the red-herring read comes back `clear`, meaning headlines were found, read, and judged harmless. Everything else is held back and listed separately.
+### The news gate
 
 | Rating | Meaning | Published |
 |---|---|---|
-| `clear` | Headlines read, nothing material against the trade | ✅ |
-| `caution` | Earnings, downgrade, litigation or similar in the last 48h | ❌ |
-| `flagged` | Offering, guidance cut, failed trial, fraud probe, going concern | ❌ |
-| `quiet` | **No headlines found at all** | ❌ |
+| `quiet` | No headlines in the last 48h | ✅ |
+| `clear` | Headlines, but generic — market wraps, listicles, routine PR; nothing that explains the drop | ✅ |
+| `caution` | A company-specific event in the window: earnings, downgrade, deal, litigation, management change | ❌ |
+| `flagged` | A structural repricing: offering, guidance cut, failed trial/CRL, fraud probe, going concern | ❌ |
 
-`quiet` is deliberately not `clear`. No coverage is the absence of evidence, not evidence of absence — nothing was checked because there was nothing to check. Tickers with no headlines are pinned at `quiet` and never sent to a model, since a model asked to rate an empty list will invent reassurance. This is a real filter: on a typical session more than half the qualifying setups are small caps with no news coverage at all, and they do not get published.
+This is the reverse of the old gate, which published `clear` only and treated `quiet` as a risk. The live record says the opposite. Over 31 sessions of live ratings, setups whose drop came with company-specific headlines won ~10 points less often than setups with no headlines at all (60% vs 49% with the candle-3 entry; session bootstrap P ≈ 0.95). A drop with a reason tends to keep going; a drop without one tends to come back. Without a model read, a name with unread headlines stays `caution`.
 
 ### Level definitions
 
@@ -95,88 +86,68 @@ A name is published only if every one holds:
 |---|---|
 | Range high / low | Previous completed session's daily high / low |
 | Swing low | Nearest fractal pivot low *below* the range low, over the last 60 sessions — the first real structural support beneath yesterday's floor |
+| Headroom | Distance from the buy-stop price up to the range high, as a percent of the price |
 | Universe | All US-listed common stock from the Nasdaq Trader directory (no ETFs, warrants, units, rights, preferreds), price ≥ $3, 20-day average dollar volume ≥ $5M — about 2,800 names |
-
-### Tight stops
-
-A green candle closing a penny above the red candle's low is arithmetically 20:1 and practically untradable — the stop sits inside the spread. These are no longer held back; they rank on their R:R like anything else, but any row with a stop under 0.5% from entry is tagged **tight stop — inside the spread** so it is visible at a glance.
 
 ## How it runs
 
-Everything runs in GitHub Actions via `.github/workflows/sneak.yml`. Nothing depends on a local machine being awake.
+Everything runs in GitHub Actions via `.github/workflows/sneak.yml`, in a single job:
 
 ```
-prep    ~07:30 ET   universe refresh + previous-day levels for ~2,800 names   (~30s)
-stalk    09:45 ET   the 09:30-09:45 candle closes; list published ~09:46 ET
-strike   10:00 ET   the 09:45-10:00 candle closes; dashboard live ~10:01 ET
+prep      universe refresh + previous-day levels for ~2,800 names      (~30s)
+stalk     sleeps to 09:45:25 ET, reads candle 1 for the whole market   (~1 min)
+strike    sleeps to 10:00:25 ET, reads candle 2, builds the orders     (~5s)
+news      headlines + Haiku/Opus read for the orders                   (~30s)
+publish   dashboard → commit → GitHub Pages                            (~40s)
 ```
 
-### When the dashboard actually lands
+`sneak/stage.py` decides from committed state whether a firing should run the whole morning (`all`) or skip, so extra firings are cheap no-ops.
 
-**The strike candle closes at 10:00:00 ET, which is 09:00:00 CT.** The list cannot exist before that instant, and `confirm.py` then waits 25 seconds for Yahoo to finalise the bar. So the hard floor is ~09:00:25 CT for the data and **~09:01:05 CT for the deployed page** — measured, not estimated. "Complete by 09:00 CT" is not reachable without redefining the strategy to use an earlier candle.
+**The strike candle closes at 10:00:00 ET (09:00:00 CT).** Pre-warmed — the job already running and sleeping when the bar closes — the deployed page lands at ~09:01 CT, leaving ~14 minutes of the candle-3 window. A list built after 10:15 ET is stamped *published after the entry window* on the dashboard, and its orders are void.
 
-Hitting that floor depends entirely on whether a runner is *already booted and sleeping* when the bar closes:
-
-| | push | Pages live |
-|---|---|---|
-| Pre-warmed — run in flight, sleeping | 09:00:43 CT | **09:01:05 CT** |
-| Cold start after the close | 09:05:46 CT | 09:06:12 CT |
-
-Five minutes of difference, entirely from runner boot and `pip install`.
-
-### Why the crons look early
-
-GitHub's cron drifts 20–50 minutes under normal load, and that drift is not something a schedule can remove — only absorb. So the crons are **not** aimed at the candles. They are aimed 20–50 minutes ahead of them, so that wherever a firing actually lands it is inside an *arming window* in `sneak/stage.py` and can sit and sleep:
-
-```
-stalk   armed 09:00-12:00 ET   sleeps to 09:45:25 ET if it arrives early
-strike  armed 09:15-12:30 ET   sleeps to 10:00:25 ET if it arrives early
-```
-
-Arriving early is free — idle runner minutes cost nothing on a public repo. Arriving late costs minutes on the dashboard. So the whole schedule is biased early, and every stage sleeps to the exact second the candle closes rather than trusting the clock it woke up on.
-
-**The concurrency group does real work here.** Runs are serialised. While the stalk run sleeps toward 09:45, the next firing sits *pending* behind it and starts the moment stalk commits — already booted, with time to sleep toward 10:00. The queue is what pre-warms the strike, which is why the crons continue past the stalk rather than stopping at it.
-
-Simulated across both DST offsets at 20, 35 and 50 minutes of drift, all six cases publish pre-warmed at ~09:01 CT.
-
-**State, not wall clock.** `stage.py` decides what to run by reading the committed `stalk-`/`strike-` artifacts, not by the time it woke up, so a firing runs whatever is still outstanding. An extra firing is a ~15s no-op; a late firing still does useful work, just late. This is what stopped the 2026-08-24 failure mode, where a 46-minute drift pushed the stalk cron into the strike window and the day published nothing.
-
-**Outages are a separate problem.** On 2026-08-26 a GitHub database incident delayed Actions fleet-wide, and on 2026-08-27 the cron scheduler dropped firings entirely — an unrelated repo's hourly cron ran 8 times instead of 24 that day. No schedule survives that. Recover with **Actions → SNEAK → Run workflow**, which bypasses the scheduler.
-
-**Speed.** Scanning ~2,800 names for one 15-minute candle in under a minute uses two passes: Yahoo's `spark` endpoint (20 symbols per call, ~140 calls, ~15s) gets every first-bar close and narrows to the few hundred trading under their range low; only those get a full OHLCV `chart` call. Measured ~25 req/s at 24 workers.
+**Scheduling is being fixed.** GitHub's cron is not reliable for this. Since late August, scheduled runs on this repo have started 3½–6 hours late, so every on-time session came from a manual start, and since 2026-09-29 every scheduled firing has landed after the 12:00 ET cutoff and skipped. The replacement is an external clock that starts the workflow through the GitHub API at a fixed time. Until it is in place, start a morning by hand: **Actions → SNEAK → Run workflow → `all`**, any time between **08:00 and 08:55 CT**. Earlier than that, the sleep outlives the 75-minute job timeout; after 08:45 the stalk simply runs late, which is harmless — it still reads candle 1.
 
 ## Model usage
 
-Deliberately lopsided — the model is spent only where it changes a decision.
+Deliberately lopsided — the model is spent only where it changes a decision, and it reads news, never the trade.
 
 | Step | Engine | Why |
 |---|---|---|
-| Universe, levels, candle classification, targets, R:R | **Plain Python** | Deterministic arithmetic. A model here would add cost, latency and error. |
-| Per-ticker news triage | **Haiku** | Bulk classification of short headline text, one cheap call per candidate, run in parallel. |
-| Final red-herring adjudication | **Opus** | One call over the top candidates, seeing the trade maths and the junior reads together. The judgement that actually gates a trade. |
+| Universe, levels, candles, gates, targets, R:R, ranking | **Plain Python** | Deterministic arithmetic. A model here would add cost, latency and error. |
+| Per-ticker headline read | **Haiku** | Bulk classification of short headline text, one cheap call per ticker that has headlines, run in parallel. |
+| Final headline adjudication | **Opus** | One call over every ticker with headlines, seeing the headlines and the Haiku reads together. |
 
-Needs the `CLAUDE_API_KEY` repo secret. Without it the deterministic keyword flagger still runs (offerings, guidance cuts, failed trials, fraud probes, downgrades) and the dashboard says the ratings are keyword-derived.
+The models are shown headlines only. When Opus was also shown the trade maths it rated on risk/reward instead of news, and the published list was empty on 19 of 21 sessions from 08-28 to 10-08. Reward/risk is now a deterministic gate in the scanner.
 
-Verify the key any time with **Actions → SNEAK → Run workflow → stage: `selftest`**. It exercises both tiers on a throwaway prompt and prints which model answered, so you can confirm the wiring without waiting for a session that has candidates in it. A green tick means both tiers answered; a red X means the key or the model access is wrong, and the log says which. Roughly 2–3¢ per trading day in normal use.
+Needs the `CLAUDE_API_KEY` repo secret. Without it, keyword flags still catch red flags (offerings, guidance cuts, failed trials, fraud probes), names with no headlines still publish as `quiet`, and names with unread headlines are held back as `caution`.
+
+The model IDs are a hard-coded fallback chain in `sneak/triage.py` — the next one is only tried if the previous one errors, and **the list does not update itself**. Check which tier answers with **Actions → SNEAK → Run workflow → stage: `selftest`**. Roughly 2–3¢ per trading day.
 
 ## Layout
 
 ```
 sneak/
   yahoo.py       Yahoo chart/spark client — browser UA, retry/backoff, thread pool
-  levels.py      previous-day range + fractal swing pivots + ATR
+  levels.py      previous-day range, fractal swing pivots, ATR, headroom, projected move, RSI
   prep.py        universe refresh, level cache, liquidity floor
-  scan_open.py   08:45 CT — the stalk
-  confirm.py     09:00 CT — the strike, targets and R:R
+  scan_open.py   08:45 CT — the stalk (with a Yahoo coverage check)
+  confirm.py     09:00 CT — the strike: gates, buy-stop orders, ranking
+  momentum.py    the within-day momentum score
   news.py        per-ticker headline pull + keyword pre-flags
-  triage.py      Haiku fan-out + Opus adjudication
+  triage.py      Haiku fan-out + Opus adjudication (headlines only)
   dashboard.py   builds docs/index.html
   quotes.py      stoic line of the day
   stage.py       decides which stage a firing should run
+  prune.py       drops per-session cache files older than 30 days (by filename date)
   verify.py      independent re-derivation of a session's numbers (manual audit)
   market_calendar.py   NYSE calendar incl. holidays and early closes
+research/
+  backtest.py    the 5-minute backtest behind the v2 rules
+  README.md      method, results, every variant tested, caveats
 docs/            GitHub Pages output — index.html + sessions/ + archive.json
 ```
+
+`data/cache/` keeps 30 days of stalk/strike JSON. `newsrating-*.json` is kept forever: it is a few KB a day and the only record of what the news gate said live — headlines cannot be re-fetched for a past date.
 
 ## Running it by hand
 
@@ -187,13 +158,14 @@ python -m sneak.scan_open --no-wait                   # stalk (skip the sleep)
 python -m sneak.confirm  --no-wait                    # strike
 python -m sneak.news --top 200 && python -m sneak.triage --top 200
 python -m sneak.dashboard
+python -m sneak.verify                                # audit today's numbers
 ```
 
-Replay a past session with `--date YYYY-MM-DD` (intraday history is available for roughly 60 days).
+Replay a past session with `--date YYYY-MM-DD` on prep, scan_open, confirm, dashboard and verify. Yahoo keeps about 60 days of 15-minute history. Headlines are always *today's*, so a replay's news read means nothing.
 
 ## Dashboard notes
 
-Single self-contained HTML file — no CDN, no JS, no charts. Numbers are presented as cards and tables only. It opens instantly on a phone and every value is selectable text.
+Single self-contained HTML file — no CDN, no charts. It opens instantly on a phone and every value is selectable text. Each session renders under the rules it was scanned with, so old pages and the archive keep what was actually published that morning.
 
 ---
 
