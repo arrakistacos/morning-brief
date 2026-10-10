@@ -1,35 +1,34 @@
 #!/usr/bin/env python3
 """
-stage.py — Decide what this workflow firing should do.
+stage.py — Decide what this workflow run should do.
 
-There is exactly one scheduled behaviour: run the whole morning in one pass.
-prep, stalk and strike execute inside a single job, so a firing either does the
-entire day or does nothing. No state is handed between runs.
+The morning is started by hand: Actions → SNEAK → Run workflow → `all` at
+~08:55 CT. One job runs prep, the stalk and the strike, sleeping to each candle
+close, and publishes once at ~09:01 CT.
 
-Why a band of firings for a single behaviour
---------------------------------------------
-GitHub's measured launch delay on this repo is 42-46 minutes, every day. A lone
-cron at 08:55 CT would therefore start around 09:40 CT and publish ~40 minutes
-late, and one dropped firing would mean no lists at all that day.
+Manual stages
+-------------
+    all, not a trading day                  skip
+    all, today already published            skip   (a second click, or a backup
+                                                     trigger, is a no-op; use
+                                                     `publish` to rebuild the page)
+    any stage that would sleep longer        FAIL   (red X straight away rather
+      than the job timeout allows                    than a run killed mid-sleep)
+    all after 10:15 ET                      run, with a warning: the candle-3
+                                             window has closed, so the list is
+                                             for the record only
+    selftest, prep                          run on any day (no market data)
 
-So the same rule is offered several chances. Crons fire across 09:00-09:55 ET;
-whichever arrives first while the day is still unpublished runs `all`, and the
-rest find the work done and skip. A firing that lands BEFORE the 10:00 ET strike
-candle closes is the good case — the scanner sleeps and reads the tape the
-instant the bar settles, publishing at ~09:01 CT. One that lands after is simply
-late, not broken.
+Scheduled runs
+--------------
+The workflow has no cron schedule. GitHub's scheduler started this repo's runs
+3.5-6 hours late from late August, so a schedule could not hit a 09:00 CT
+candle. The scheduled branch of decide() is kept, state-based, in case a
+schedule is ever added back:
 
-Arming cannot start before 09:00 ET: sleeping to 10:00:25 plus setup has to fit
-inside the workflow's 75-minute timeout.
-
-    scheduled, not a trading day        skip
-    scheduled, both lists published     skip
-    scheduled, before 09:00 ET          skip   (would outlive the timeout)
-    scheduled, 09:00-12:00 ET           ALL    (sleeps to the candles if early)
-    scheduled, after 12:00 ET           skip   (too stale to be useful)
-
-Manual dispatch still reaches every individual stage for debugging; selftest and
-prep need no market data, so they ignore the calendar.
+    scheduled, not a trading day / already published / before 09:00 ET /
+    after 12:00 ET                          skip
+    scheduled, 09:00-12:00 ET               all
 
 Usage:
     python -m sneak.stage            # reads MANUAL env, writes $GITHUB_OUTPUT
@@ -56,7 +55,15 @@ CALENDAR_FREE = {"selftest", "prep"}
 KNOWN = {"selftest", "prep", "stalk", "strike", "publish", "all",
          "prep-stalk", "strike-publish"}
 
+BAR1_CLOSE = 9 * 60 + 45      # 09:45 ET — the stalk candle closes (08:45 CT)
 BAR2_CLOSE = 10 * 60          # 10:00 ET — the strike candle closes (09:00 CT)
+WINDOW_CLOSE = 10 * 60 + 15   # 10:15 ET — the candle-3 buy-stop window closes
+
+# Job timeout is 75 minutes. A stage may not sleep longer than this, leaving
+# room for setup and the work after the bar closes.
+MAX_SLEEP_MIN = 65
+SLEEPS_TO = {"all": BAR2_CLOSE, "strike-publish": BAR2_CLOSE, "strike": BAR2_CLOSE,
+             "prep-stalk": BAR1_CLOSE, "stalk": BAR1_CLOSE}
 
 # Earliest a runner may arm. Sleeping from here to 10:00:25 ET is ~60 minutes,
 # which fits the workflow's 75-minute timeout with room for setup.
@@ -91,6 +98,11 @@ def _done(prefix: str, now: datetime) -> bool:
     return (CACHE / f"{prefix}-{now.date().isoformat()}.json").exists()
 
 
+def _hhmm(mins: float) -> str:
+    m = int(mins)
+    return f"{m // 60:02d}:{m % 60:02d}"
+
+
 def decide(manual: str, now: datetime, trading: bool,
            have_stalk: bool, have_strike: bool) -> tuple[str, str]:
     """Pure and unit-testable: no clock, no filesystem, no environment."""
@@ -103,6 +115,21 @@ def decide(manual: str, now: datetime, trading: bool,
     if manual:
         if not trading:
             return "skip", f"manual {manual} needs a trading day; NYSE closed {now:%Y-%m-%d}"
+        mins = now.hour * 60 + now.minute + now.second / 60
+        target = SLEEPS_TO.get(manual)
+        if target is not None and target - mins > MAX_SLEEP_MIN:
+            return "refuse", (f"manual {manual} at {now:%H:%M} ET would sleep "
+                              f"{target - mins:.0f}m to the candle — longer than the job "
+                              f"timeout allows. Start it after {_hhmm(target - MAX_SLEEP_MIN - 60)} CT.")
+        if manual == "all" and have_stalk and have_strike:
+            return "skip", ("today is already published — run `publish` to rebuild "
+                            "the page, or `strike-publish` to redo the strike")
+        if manual == "all" and mins >= WINDOW_CLOSE:
+            return "all", (f"manual all at {now:%H:%M} ET — the candle-3 window closed at "
+                           "09:15 CT, so today's list is for the record only")
+        if target is not None and mins < target:
+            return manual, (f"manual {manual} — sleeping {target - mins:.0f}m until the "
+                            f"candle closes at {_hhmm(target - 60)} CT")
         return manual, f"manual {manual}"
 
     if not trading:
@@ -134,17 +161,21 @@ def main() -> int:
     sched = _firing_schedule()
     stage, reason = decide(manual, now, trading, hs, hk)
 
-    print(f"::notice::stage={stage} · {reason} · {now:%Y-%m-%d %H:%M:%S %Z} · "
+    level = {"refuse": "error"}.get(stage, "warning" if "for the record" in reason else "notice")
+    print(f"::{level}::stage={stage} · {reason} · {now:%Y-%m-%d %H:%M:%S %Z} · "
           f"calendar={how} · stalk={'yes' if hs else 'no'} strike={'yes' if hk else 'no'}"
           f"{' · cron=' + sched if sched else ''}")
 
+    # A refused start writes `skip` so no later step runs, and exits non-zero so
+    # the run goes red immediately instead of dying at the timeout.
+    out = "skip" if stage == "refuse" else stage
     gh = os.environ.get("GITHUB_OUTPUT")
     if gh and not a.dry_run:
         with open(gh, "a", encoding="utf-8") as f:
-            f.write(f"stage={stage}\n")
+            f.write(f"stage={out}\n")
     else:
-        print(f"stage={stage}")
-    return 0
+        print(f"stage={out}")
+    return 1 if stage == "refuse" else 0
 
 
 if __name__ == "__main__":

@@ -40,6 +40,7 @@ import argparse
 import json
 import os
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime
 
@@ -65,7 +66,16 @@ VALID = {"clear", "caution", "flagged"}
 QUIET = "quiet"
 
 
-def _call(model: str, system: str, user: str, key: str, max_tokens: int = 1400) -> str | None:
+# Everything here sits between the 09:00:25 CT strike and the 09:15 CT close of
+# the buy-stop window, so no call may hang: a per-call timeout, and a deadline
+# across each tier's fallback chain. Typical calls take a few seconds.
+FAST_TIMEOUT = 25
+DEEP_TIMEOUT = 60
+DEEP_DEADLINE = 90
+
+
+def _call(model: str, system: str, user: str, key: str, max_tokens: int = 1400,
+          timeout: float = 60) -> str | None:
     try:
         r = requests.post(
             API,
@@ -80,7 +90,7 @@ def _call(model: str, system: str, user: str, key: str, max_tokens: int = 1400) 
                 "system": system,
                 "messages": [{"role": "user", "content": user}],
             },
-            timeout=90,
+            timeout=timeout,
         )
         if r.status_code != 200:
             print(f"[triage] {model} -> HTTP {r.status_code}: {r.text[:180]}", flush=True)
@@ -91,9 +101,15 @@ def _call(model: str, system: str, user: str, key: str, max_tokens: int = 1400) 
         return None
 
 
-def _call_any(models: list[str], system: str, user: str, key: str, max_tokens: int = 1400):
+def _call_any(models: list[str], system: str, user: str, key: str, max_tokens: int = 1400,
+              timeout: float = 60, deadline: float | None = None):
+    """First model that answers wins. Stops trying once `deadline` seconds pass."""
+    t0 = time.monotonic()
     for m in models:
-        out = _call(m, system, user, key, max_tokens)
+        if deadline is not None and time.monotonic() - t0 > deadline:
+            print(f"[triage] gave up after {deadline:.0f}s without an answer", flush=True)
+            break
+        out = _call(m, system, user, key, max_tokens, timeout)
         if out:
             return out, m
     return None, None
@@ -204,7 +220,8 @@ def run(day: date | None = None, top: int = 12, workers: int = 8) -> dict:
                 return sym, None
             body = "\n".join(f"- {h['title']} :: {h['summary'][:160]}" for h in hl[:6])
             txt, _ = _call_any(
-                FAST_MODELS, FAST_SYSTEM, f"Ticker: {sym}\nHeadlines (last 48h):\n{body}", key, 300
+                FAST_MODELS, FAST_SYSTEM, f"Ticker: {sym}\nHeadlines (last 48h):\n{body}", key, 300,
+                timeout=FAST_TIMEOUT, deadline=FAST_TIMEOUT * 2,
             )
             return sym, _json_block(txt)
 
@@ -236,7 +253,8 @@ def run(day: date | None = None, top: int = 12, workers: int = 8) -> dict:
         budget = min(8000, 300 + 60 * len(blocks))
         txt, used = _call_any(
             DEEP_MODELS, DEEP_SYSTEM,
-            "Session " + day.isoformat() + "\n\n" + "\n\n".join(blocks), key, budget
+            "Session " + day.isoformat() + "\n\n" + "\n\n".join(blocks), key, budget,
+            timeout=DEEP_TIMEOUT, deadline=DEEP_DEADLINE,
         ) if blocks else (None, None)
         parsed = _json_block(txt)
         if isinstance(parsed, dict):

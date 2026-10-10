@@ -1,68 +1,57 @@
 name: SNEAK — opening range scanner
 
-# ── Timing ──────────────────────────────────────────────────────────────────
-# The strike candle is 09:45–10:00 ET, so it CLOSES at 10:00:00 ET, which is
-# 09:00:00 CT. confirm.py then waits 25s for Yahoo to finalise the bar. Nothing
-# can publish a strike list before ~09:00:25 CT; the measured floor, deployed to
-# Pages, is 09:01:05 CT. That floor is only reached when a runner is already
-# booted and SLEEPING as the bar closes:
+# ── How a morning runs ──────────────────────────────────────────────────────
+# By hand: Actions → SNEAK → Run workflow → `all` at ~08:55 CT. One job does the
+# whole morning. Measured from the manual runs on 09-10, 09-16 and 10-08:
 #
-#   pre-warmed (run in flight, sleeping)   push 09:00:43 CT   Pages 09:01:05 CT
-#   cold start after the close             push 09:05:46 CT   Pages 09:06:12 CT
+#   08:55:00 CT  click — runner up, deps installed           ~25s
+#   08:55:50     prep (universe + levels) and stalk done     ~30s
+#   09:00:25     strike reads the closed 09:45-10:00 ET candle (it sleeps until then)
+#   09:00:45     news + model read + commit                  ~20s
+#   09:01:15     Pages live — the buy-stop window runs to 09:15 CT
 #
-# So the crons below are not aimed at the candle. They are aimed ~20-50 minutes
-# BEFORE it, which is GitHub's normal cron drift, so that whenever a firing
-# actually lands it is inside sneak/stage.py's arming window and can sit and
-# sleep. Firing early costs idle runner time (free on a public repo); firing
-# late costs minutes on the dashboard.
+# Click by ~08:59 CT to be on time; until 09:14 it still works, just later. Not
+# before 07:55 CT: the sleep would outlive the 75-minute timeout, and stage.py
+# refuses (red X) rather than letting it die halfway.
 #
-# Times are UTC and ET is not, so each slot is listed at both offsets. stage.py
-# resolves from committed state rather than the clock, so the "wrong" one of
-# each pair is a ~15s no-op and DST needs no maintenance.
+# There is no cron schedule. GitHub's scheduler started this repo's runs 3.5-6
+# hours late from late August on, so every on-time session came from a manual
+# start anyway. To automate later, have an external clock (cron-job.org or
+# similar) POST to
+#   https://api.github.com/repos/arrakistacos/morning-brief/actions/workflows/sneak.yml/dispatches
+# with {"ref":"main","inputs":{"stage":"all"}} at 08:30-08:55 America/Chicago on
+# weekdays, using a fine-grained token with Actions: write on this repo. stage.py
+# skips non-trading days and days already published, so extra calls are no-ops.
 
 on:
-  schedule:
-    - cron: "30 11 * * 1-5"   # 07:30 ET EDT — prep
-    - cron: "30 12 * * 1-5"   # 07:30 ET EST — prep
-    - cron: "15 12 * * 1-5"   # 08:15 ET EDT ─┐
-    - cron: "35 12 * * 1-5"   # 08:35 ET EDT  │ arming band for the stalk:
-    - cron: "55 12 * * 1-5"   # 08:55 ET EDT  │ land in 09:00-09:45 ET and
-    - cron: "15 13 * * 1-5"   # 09:15 ET EDT  │ sleep to the 09:45:25 bar,
-    - cron: "35 13 * * 1-5"   # 09:35 ET EDT ─┘ then the strike run follows
-    - cron: "55 13 * * 1-5"   # 08:55 ET EST
-    - cron: "15 14 * * 1-5"   # 09:15 ET EST
-    - cron: "35 14 * * 1-5"   # 09:35 ET EST
-
   workflow_dispatch:
     inputs:
       stage:
-        description: "Stage to run"
+        description: "Stage to run (all = the whole morning; click at ~08:55 CT)"
         required: true
         default: "all"
         type: choice
-        # prep-stalk and strike-publish are the two halves of a morning, for
-        # driving a session by hand when the cron scheduler is not firing.
-        # Run prep-stalk any time before 09:45 ET and strike-publish any time
-        # before 10:00 ET — each sleeps to its own candle close, so early is
-        # free. Both publish; every stage but skip/selftest rebuilds the
-        # dashboard and pushes.
+        # `all` is the morning. The rest are for debugging, or for driving a
+        # session in two halves: prep-stalk any time before 09:45 ET and
+        # strike-publish any time before 10:00 ET — each sleeps to its own
+        # candle close. Every stage but skip/selftest rebuilds the dashboard
+        # and pushes.
         options:
+          - all
+          - selftest
           - prep-stalk      # first half  — universe, levels, the 09:45 stalk
           - strike-publish  # second half — the 10:00 strike, then publish
           - prep
           - stalk
           - strike
           - publish
-          - selftest
-          - all
 
 permissions:
   contents: write
 
-# Runs are serialised, and that is load-bearing rather than incidental. While
-# the stalk run sleeps toward 09:45, the next firing sits pending behind it and
-# starts the moment stalk commits — already booted, in time to sleep toward
-# 10:00. The queue is what pre-warms the strike.
+# Runs are serialised so two clicks (or a click plus an external trigger) can
+# never commit over each other. The second one waits, then finds the day already
+# published and skips.
 concurrency:
   group: sneak-${{ github.ref }}
   cancel-in-progress: false
@@ -70,9 +59,8 @@ concurrency:
 jobs:
   sneak:
     runs-on: ubuntu-latest
-    # Generous because a run is *expected* to sit idle: a stalk armed at 09:00 ET
-    # sleeps 45 minutes before it does any work. Worst case is a manual "all"
-    # armed at 09:00 ET, which sleeps through both bars, ~62 minutes.
+    # Generous because a run may sit idle: an `all` started early sleeps through
+    # both candles. stage.py refuses any start that would outlive this.
     timeout-minutes: 75
     outputs:
       stage: ${{ steps.stage.outputs.stage }}
@@ -81,7 +69,12 @@ jobs:
       CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
       PYTHONUNBUFFERED: "1"
     steps:
+      # Check out the branch tip as it is when the job STARTS, not the commit the
+      # run was queued at. A run that waited behind another (concurrency) then
+      # sees the morning the first one already committed, and skips.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:

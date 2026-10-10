@@ -2,13 +2,13 @@
 
 **[📊 Live dashboard](https://arrakistacos.github.io/morning-brief/)**
 
-Two lists, every trading morning:
+One click, every trading morning — **Actions → SNEAK → [Run workflow](https://github.com/arrakistacos/morning-brief/actions/workflows/sneak.yml) → `all` at ~08:55 CT** — and two lists land together at ~09:01 CT:
 
-| Time (CT) | Stage | What lands on the dashboard |
+| Candle (CT) | Stage | What lands on the dashboard |
 |---|---|---|
-| **08:45** | **Stalk** | Every liquid US stock whose first 15-minute candle is a **dramatic red break below the previous day's range low** — the candle must span at least **0.75× ATR14**. |
-| **09:00** | **Orders** | The subset where the second candle is a **sneaky candle** and every gate holds, each turned into a **buy-stop order for candle 3**, ranked by momentum. |
-| **09:15** | — | The entry window closes. Cancel anything unfilled. |
+| **08:30–08:45** | **Stalk** | Every liquid US stock whose first 15-minute candle is a **dramatic red break below the previous day's range low** — the candle must span at least **0.75× ATR14**. |
+| **08:45–09:00** | **Orders** | The subset where the second candle is a **sneaky candle** and every gate holds, each turned into a **buy-stop order for candle 3**, ranked by momentum. |
+| **09:00–09:15** | **Entry window** | Candle 3. Buy-stops are live; cancel anything unfilled at 09:15. |
 
 Long only. Cash account, no shorting.
 
@@ -91,21 +91,28 @@ This is the reverse of the old gate, which published `clear` only and treated `q
 
 ## How it runs
 
-Everything runs in GitHub Actions via `.github/workflows/sneak.yml`, in a single job:
+Everything runs in GitHub Actions via `.github/workflows/sneak.yml`, started by hand. **Actions → SNEAK → [Run workflow](https://github.com/arrakistacos/morning-brief/actions/workflows/sneak.yml) → `all`** at about **08:55 CT**. One job does the whole morning:
 
 ```
-prep      universe refresh + previous-day levels for ~2,800 names      (~30s)
-stalk     sleeps to 09:45:25 ET, reads candle 1 for the whole market   (~1 min)
-strike    sleeps to 10:00:25 ET, reads candle 2, builds the orders     (~5s)
-news      headlines + Haiku/Opus read for the orders                   (~30s)
-publish   dashboard → commit → GitHub Pages                            (~40s)
+08:55:00 CT  click — runner up, dependencies installed                 ~25s
+08:55:50     prep (universe + levels for ~2,800 names) and stalk done  ~30s
+09:00:25     strike reads the closed 09:45–10:00 ET candle — it sleeps until then
+09:00:45     news + model read + commit                                ~20s
+09:01:15     Pages live; the buy-stop window runs to 09:15 CT
 ```
 
-`sneak/stage.py` decides from committed state whether a firing should run the whole morning (`all`) or skip, so extra firings are cheap no-ops.
+Measured on the manual runs of 09-10, 09-16 and 10-08. `sneak/stage.py` reads the clock and the committed state and either runs or explains why not:
 
-**The strike candle closes at 10:00:00 ET (09:00:00 CT).** Pre-warmed — the job already running and sleeping when the bar closes — the deployed page lands at ~09:01 CT, leaving ~14 minutes of the candle-3 window. A list built after 10:15 ET is stamped *published after the entry window* on the dashboard, and its orders are void.
+| You click `all` … | What happens |
+|---|---|
+| 07:55 – 08:59 CT | Runs and sleeps to each candle close; on time |
+| 09:00 – 09:14 CT | Runs immediately; the list is a minute or two later |
+| after 09:15 CT | Runs, but the page is stamped *published after the entry window* — today's orders are void |
+| before 07:55 CT | **Refused** with a red X: the sleep would outlive the 75-minute job timeout |
+| a second time | Skips — today is already published (use `publish` to rebuild the page) |
+| weekend / holiday | Skips |
 
-**Scheduling is being fixed.** GitHub's cron is not reliable for this. Since late August, scheduled runs on this repo have started 3½–6 hours late, so every on-time session came from a manual start, and since 2026-09-29 every scheduled firing has landed after the 12:00 ET cutoff and skipped. The replacement is an external clock that starts the workflow through the GitHub API at a fixed time. Until it is in place, start a morning by hand: **Actions → SNEAK → Run workflow → `all`**, any time between **08:00 and 08:55 CT**. Earlier than that, the sleep outlives the 75-minute job timeout; after 08:45 the stalk simply runs late, which is harmless — it still reads candle 1.
+**Why there is no cron.** GitHub's scheduler started this repo's runs 3½–6 hours late from late August on, so every on-time session already came from a manual start. To automate later, have an external clock (cron-job.org or similar) `POST` to `https://api.github.com/repos/arrakistacos/morning-brief/actions/workflows/sneak.yml/dispatches` with `{"ref":"main","inputs":{"stage":"all"}}` at 08:30–08:55 America/Chicago on weekdays, using a fine-grained token with *Actions: write* on this repo. A click on top of it is a no-op, so the two can coexist.
 
 ## Model usage
 
