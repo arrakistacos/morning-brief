@@ -159,51 +159,38 @@ def compute_levels(sym: str, daily: list[dict], today: date | None = None) -> di
 
 # ── headroom and the move it projects ────────────────────────────────────────
 #
-# Backtest, 274 confirmed setups over 10 sessions (2026-08-14 → 08-27), 15-minute
-# bars re-fetched and re-labelled; see the research note linked in the README.
-#
 # Headroom is the distance from the entry up to the previous day's range high as
-# a percent of entry. It is the product of two nearly independent things —
-# (range_high - entry)/ATR, the depth of the dislocation, times ATR/price, how
-# much the name moves at all (r = 0.105 between them) — which is why it beats
-# either component alone.
+# a percent of entry. It sets the size of the projected move (below) and is the
+# one headroom fact that has held up out of sample: past ~9% the name is not
+# dislocated, it is damaged.
 #
-# It predicts SIZE, not hit rate: AUC 0.837 for "moved >= 2%", 0.739 for a 3-day
-# close above entry, but only 0.452 for winning a stop-versus-fixed-target race.
-# That distinction decides how it should be used. This system exits on the trend
-# rather than on a fixed target, so size is the outcome that matters here.
+# History. A 3-9% "sweet spot" band was fitted on 274 setups from 10 sessions
+# (2026-08-14 -> 08-27) and used to rank the list. Re-tested on 56 sessions of
+# 5-minute bars (2026-07-23 -> 10-09), it did not survive the 30 sessions after
+# the fit window (green-close entry, red-low stop, projected target, flat by
+# the close — the rules the band was built for):
 #
-# The relationship is an inverted U once drawdown is counted. Raw move size keeps
-# rising with headroom, but the ratio of favourable move to the drawdown suffered
-# BEFORE it peaks does not:
+#                         train (26 sessions)    test (30 sessions)
+#     headroom 3-9%            59.6% win              46.5% win
+#     outside the band         59.1%                  57.3%
+#     9% and over              34.8%                  36.8%      <- holds
 #
-#     headroom      median move   median drawdown first   move/drawdown
-#     0.0-1.5%          0.48%             0.48%               1.00
-#     1.5-3%            0.53%             0.47%               1.13
-#     3-5%              1.39%             0.49%               2.82   <- band
-#     5-9%              2.09%             0.73%               2.87   <- band
-#     9%+               2.49%             1.41%               1.77
-#
-# Past ~9% the name is not dislocated, it is damaged: 77% of those setups draw
-# down more than 1% before they pay, and only 31% return twice their drawdown.
-HEADROOM_BAND = (3.0, 9.0)
+# So the band no longer ranks anything. What remains is a hard ceiling: setups
+# whose headroom (measured from the buy-stop trigger) is 9% or more are rejected,
+# and so are setups with no headroom at all, since the projected target would sit
+# at or below the entry. See research/README.md for the full backtest.
+HEADROOM_MAX = 9.0
 
 
-def in_band(headroom: float | None) -> bool:
-    """True if this headroom sits in the 3-9% sweet spot.
-
-    Over 274 setups the band lifts the 5-candle-trend rate from 50.4% to 65.7%,
-    doubles the "moved >= 2%" rate (22.3% -> 44.4%), and raises the share
-    returning twice their drawdown from 44.2% to 61.1%. Session-clustered
-    bootstrap on the lift: +15.5pp, 95% CI [+4.3, +26.1], P(>0) = 99.9%.
-    """
-    if headroom is None:
-        return False
-    lo, hi = HEADROOM_BAND
-    return lo <= headroom < hi
+def headroom_ok(headroom: float | None) -> bool:
+    """True if there is room to the range high and the name is not 'damaged'."""
+    return headroom is not None and 0.0 < headroom < HEADROOM_MAX
 
 # median MFE% = A * headroom%^B, fitted log-log over the 274 setups. Beat a naive
 # constant on 9 of 10 held-out sessions (median abs error 0.49% vs 0.65%).
+# Out of sample the fit claimed more than it delivered from the green close —
+# reached 49.5% of the time, not 60.2% — but from the candle-3 trigger, which
+# now sets the entry, it was reached 66.7% of the time on the test sessions.
 PROJECTION_A = 0.349
 PROJECTION_B = 0.734
 
@@ -232,11 +219,11 @@ def rsi_series(closes: list[float], n: int = 14) -> list[float | None]:
     Wilder RSI across a close series. Index-aligned with `closes`; entries before
     the average is seeded are None.
 
-    Used on 15-minute bars to test the sneaky-pivot RSI signature: momentum
-    driven DOWN across the red opening candle, then back UP across the green
-    one — a V-shaped trough. A drop that rolls momentum over and immediately
-    recovers it is showing genuine resistance rather than a pause on the way
-    lower.
+    Used on 15-minute bars. The strike gate reads RSI(14) after the green
+    sneaky candle: a floor of 40 there was the strongest single filter in the
+    56-session backtest. The older "V-trough" shape (down across the red
+    candle, up across the green) is still recorded but no longer gates — setups
+    without it won as often as setups with it.
     """
     if len(closes) < n + 1:
         return [None] * len(closes)

@@ -139,7 +139,7 @@ jobs:
           git config user.email "sneak@users.noreply.github.com"
           # Stalk/strike JSON is only needed to hand state between the two runs
           # and for 30 days of lookback. docs/archive.json keeps the index forever.
-          find data/cache -name '*.json' -mtime +30 -delete 2>/dev/null || true
+          python3 -m sneak.prune --days 30
           git add -A docs data/cache data/universe.txt
           if git diff --cached --quiet; then
             # Normal for a repeated prep: it rebuilds levels-*.json, which is

@@ -8,11 +8,17 @@ session's range low.
 
 Speed strategy — the whole market in under a minute:
 
-    1. spark  (20 symbols/call, ~280 calls, ~15s) gets the first bar's CLOSE
-       for every tradable name. Narrow to those trading at or under the range
-       low. Thousands -> low hundreds.
+    1. spark  (20 symbols/call, ~140 calls, ~15s) gets the first bar's CLOSE
+       for every tradable name. Narrow to those whose close is no more than half
+       an ATR above the range low — wide enough that a candle which pierced the
+       level and closed back above it still reaches the real gate.
     2. chart  (full OHLCV) only for the narrowed set. Now we can apply the real
        gate, which needs the candle's low and open, not just its close.
+
+If Yahoo answers for too few names the scan says so instead of quietly
+reporting a short list: missing symbols are retried once, coverage is stored
+in the artifact and shown on the dashboard, a run under 95% warns and a run
+under 50% fails the workflow.
 
 Hard gates:
     bar1.low < prev range low       the break actually happened, with margin
@@ -44,9 +50,26 @@ from pathlib import Path
 from . import yahoo
 from .prep import CACHE_DIR, load_levels
 
-# Pre-narrow buffer: keep names whose first-bar CLOSE is within 1% above the
-# range low, since a candle can pierce the level intrabar and close back above.
-NARROW_BUFFER = 1.01
+# Pre-narrow buffer. Spark returns closes only, so stage 1 cannot see the low.
+# It used to keep closes within 1% of the range low, which silently dropped
+# dramatic candles that pierced the level and closed back above it — 4.7% of
+# all red breaks in the 56-session backtest. Half an ATR keeps 98.4% of them,
+# and every setup the strike rules went on to trade, for ~50% more chart calls
+# (median ~1,700 a day instead of ~1,140), which the 15 minutes before the
+# strike absorb easily.
+NARROW_ATR = 0.5
+NARROW_PCT = 1.01          # fallback when a name has no ATR
+
+# Yahoo coverage. Below WARN the dashboard flags the list as partial; below FAIL
+# the run exits non-zero so the workflow goes red instead of publishing a list
+# that only looks quiet.
+COVERAGE_WARN = 0.95
+COVERAGE_FAIL = 0.50
+
+
+def narrow_ceiling(lv: dict) -> float:
+    atr = lv.get("atr14") or 0.0
+    return max(lv["range_low"] * NARROW_PCT, lv["range_low"] + NARROW_ATR * atr)
 
 # "Dramatic and significant" — the playbook's words, now an actual gate.
 #
@@ -66,6 +89,12 @@ MIN_CANDLE_ATR = 0.75
 # level, whichever is larger.
 def break_margin(level: float) -> float:
     return max(0.01, 0.0002 * level)
+
+
+# Float tolerance for "low <= level - margin". A low that sits exactly on the
+# boundary must land on the same side here and in verify.py's re-derivation;
+# without a shared epsilon one of them sees 23.4999999 and the other 23.5.
+EPS = 1e-9
 
 
 BAR1_OPEN_ET = (9, 30)
@@ -102,7 +131,7 @@ def _metrics(bar: dict, lv: dict) -> dict:
     avg_vol = lv.get("avg_vol20") or 0
 
     swing_low = lv.get("swing_low")
-    broke_swing = swing_low is not None and l <= swing_low - break_margin(swing_low)
+    broke_swing = swing_low is not None and l <= swing_low - break_margin(swing_low) + EPS
     target = lv["range_low"] if broke_swing else lv["range_high"]
 
     # Provisional R:R using the red close as a stand-in entry. The real number
@@ -176,9 +205,20 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
     # past day needs a wider window and an explicit lookup of that day's 09:30
     # bar. Live runs stay on the cheap 1d path.
     replay = day != yahoo.now_et().date()
+    rng = "60d" if replay else "1d"     # Yahoo keeps ~60 days of 15-minute bars
     print(f"[stalk] stage 1 · bulk close scan{' (replay)' if replay else ''}…", flush=True)
-    sp = yahoo.spark_closes(symbols, rng="1mo" if replay else "1d",
-                            interval="15m", workers=workers)
+    sp = yahoo.spark_closes(symbols, rng=rng, interval="15m", workers=workers)
+    missing = [s for s in symbols if s not in sp]
+    if missing:
+        sp.update(yahoo.spark_closes(missing, rng=rng, interval="15m", workers=workers))
+    coverage = len(sp) / len(symbols) if symbols else 0.0
+    if coverage < COVERAGE_FAIL:
+        print(f"::error::Yahoo answered for only {len(sp)}/{len(symbols)} names "
+              f"({coverage:.0%}) — refusing to publish a list that would look quiet", flush=True)
+        raise SystemExit(1)
+    if coverage < COVERAGE_WARN:
+        print(f"::warning::partial Yahoo coverage: {len(sp)}/{len(symbols)} names "
+              f"({coverage:.0%}) — the stalk list may be incomplete", flush=True)
     want_open = day.strftime("%Y-%m-%d")
     narrowed = []
     for sym, s in sp.items():
@@ -201,7 +241,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
             if not closes:
                 continue
             first = closes[0]
-        if first <= lv["range_low"] * NARROW_BUFFER:
+        if first <= narrow_ceiling(lv):
             narrowed.append(sym)
     print(
         f"[stalk] stage 1 · {len(sp)} quoted → {len(narrowed)} at/under range low "
@@ -211,8 +251,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
 
     # ── stage 2: real candles ───────────────────────────────────────────────
     print("[stalk] stage 2 · pulling opening candles…", flush=True)
-    ch = yahoo.charts(narrowed, rng="1mo" if replay else "1d",
-                      interval="15m", workers=workers)
+    ch = yahoo.charts(narrowed, rng=rng, interval="15m", workers=workers)
 
     candidates, rejected = [], {"not_red": 0, "no_break": 0, "no_bar": 0, "not_dramatic": 0}
     for sym in narrowed:
@@ -229,7 +268,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
             rejected["no_bar"] += 1
             continue
         lv = levels[sym]
-        if round(bar1["l"], 4) > lv["range_low"] - break_margin(lv["range_low"]):
+        if round(bar1["l"], 4) > lv["range_low"] - break_margin(lv["range_low"]) + EPS:
             rejected["no_break"] += 1
             continue
         if not bar1["c"] < bar1["o"]:
@@ -261,6 +300,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         "bar": "09:30-09:45 ET",
         "scanned": len(symbols),
         "quoted": len(sp),
+        "coverage": round(coverage, 4),
         "narrowed": len(narrowed),
         "rejected": rejected,
         "elapsed_sec": round(time.time() - t0, 1),

@@ -16,15 +16,14 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
-import shutil
 import sys
 from datetime import date, datetime
 from html import escape
 from pathlib import Path
 
 from . import yahoo
-from .levels import HEADROOM_BAND, headroom_pct, in_band, projected_move_pct
+from .confirm import ENTRY_WINDOW_ET, rank_key
+from .levels import HEADROOM_MAX, headroom_pct
 from .news import load_ratings
 from .prep import CACHE_DIR
 from .quotes import quote_for
@@ -36,11 +35,15 @@ SESSIONS = DOCS / "sessions"
 
 # Ratings that survive the final gate.
 #
-# `clear` alone. It means headlines were found, read, and judged harmless —
-# checked and fine. `quiet` (no headlines at all) is NOT clear: nobody checked
-# anything, there was nothing to check. Absence of news is not a clean bill of
-# health, so those are held back with caution and flagged.
-CLEAR_RATINGS = {"clear"}
+# `quiet` (no headlines in 48h) and `clear` (headlines, but generic — nothing
+# that explains the drop) publish. `caution` and `flagged` mean the drop has a
+# company-specific reason, and those are held back. This used to be `clear`
+# only, which excluded the no-news names — and over 31 live sessions the
+# no-news names were the ones that bounced: 60% win vs 49% for names with
+# headlines (candle-3 entry), session bootstrap P = 0.95. A drop with a reason
+# tends to keep going; a drop without one tends to come back.
+PUBLISH_RATINGS = {"quiet", "clear"}
+V1_PUBLISH_RATINGS = {"clear"}          # sessions scanned before 2026-10-10
 
 SHURIKEN = (
     '<svg viewBox="0 0 100 100" fill="none" aria-hidden="true">'
@@ -98,6 +101,11 @@ a{color:var(--c2)}
 .pill b{color:var(--ink);font-weight:600}
 .pill.live{border-color:var(--phos-dim);color:var(--phos)}
 .pill.stale{border-color:var(--warn);color:var(--warn)}
+.banner{margin:0 0 1.2rem;padding:.8rem 1rem;border:1px solid var(--warn);border-radius:6px;
+  background:rgba(196,135,10,.08);color:var(--ink);font-size:.82rem}
+.banner b{color:var(--warn)}
+.tag-tight{color:var(--warn);font-size:.68rem;margin-left:.3rem}
+.why{color:var(--dim);font-size:.66rem;line-height:1.35;max-width:22ch;white-space:normal}
 
 .tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);
   background:rgba(16,22,20,.94);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
@@ -178,6 +186,14 @@ def _load(prefix: str, day: date) -> dict | None:
         return None
 
 
+def _ct(h: int, m: int) -> str:
+    """ET wall-clock to CT (always one hour behind, both sides of DST)."""
+    return f"{h - 1:02d}:{m:02d}"
+
+
+WINDOW_CT = f"{_ct(*ENTRY_WINDOW_ET[0])}–{_ct(*ENTRY_WINDOW_ET[1])} CT"
+
+
 def _headroom(row: dict) -> float | None:
     """Headroom for a row, recomputed if the session predates the stored field."""
     t = row["trade"]
@@ -188,51 +204,42 @@ def _headroom(row: dict) -> float | None:
     return headroom_pct(t["entry"], high) if high else None
 
 
-def _rank_key(row: dict):
-    """Band first, then headroom, then momentum. Mirrors confirm.py so that
-    sessions written before the sort changed still render in the new order."""
-    h = _headroom(row)
-    return (not in_band(h), -(h or 0), -(row.get("momentum") or 0))
-
-
 def _hd(row: dict) -> str:
     h = _headroom(row)
     return f"{h:.2f}%" if h is not None else "&mdash;"
 
 
-def _pm(row: dict) -> str:
-    t = row["trade"]
-    p = t.get("projected_move_pct")
-    if p is None:
-        p = projected_move_pct(_headroom(row))
-    return f"+{p:.2f}%" if p is not None else "&mdash;"
+def _money(x) -> str:
+    return f"{x:,.2f}" if isinstance(x, (int, float)) else "&mdash;"
 
 
-def _table(rows: list[dict], news: dict, ratings: dict) -> str:
+def _table(rows: list[dict], news: dict, ratings: dict, rating_of) -> str:
     head = (
-        "<tr><th>#</th><th>Symbol</th><th>Momentum</th><th>3-day R:R</th><th>Entry</th><th>Stop</th>"
-        "<th>Tgt A same-day</th><th>Tgt B 3-day</th><th>Headroom</th><th>Proj move</th>"
-        "<th>Risk %</th>"
-        "<th>RSI prior</th><th>after red</th><th>after green</th><th>News</th></tr>"
+        "<tr><th>#</th><th>Symbol</th><th>Momentum</th><th>Buy stop</th><th>Stop</th>"
+        "<th>Target</th><th>Risk %</th><th>Reward %</th><th>R:R</th><th>Headroom</th>"
+        "<th>RSI after green</th><th>News</th></tr>"
     )
     body = []
     for i, r in enumerate(rows, 1):
         t = r["trade"]
         rsi = t.get("rsi") or {}
-        tsd = f"{t['target_same_day']:,.2f}" if t.get("target_same_day") else "—"
-        rat = (ratings.get(r["symbol"]) or {}).get("rating") or (
-            news.get(r["symbol"], {}) or {}
-        ).get("preflag", "—")
+        sym = r["symbol"]
+        reason = (ratings.get(sym) or {}).get("reason") or ""
+        tight = '<span class="tag-tight">tight stop</span>' if t.get("tight_stop") else ""
+        rr = t.get("rr")
+        rr_cell = f"{rr:.2f}" if rr is not None else "&mdash;"
         body.append(
-            f"<tr><td>{i}</td><td><b>{escape(r['symbol'])}</b></td>"
-            f"<td><b>{r.get('momentum',0):.0f}</b></td><td>{t['rr']:.2f}</td>"
-            f"<td>{t['entry']:,.2f}</td><td>{t['stop']:,.2f}</td>"
-            f"<td>{tsd}</td>"
-            f"<td>{t['target']:,.2f}</td>"
-            f"<td>{_hd(r)}</td><td>{_pm(r)}</td>"
-            f"<td>{t['risk_pct']:.2f}%</td>"
-            f"<td>{rsi.get('prior','—')}</td><td>{rsi.get('after_red','—')}</td>"
-            f"<td>{rsi.get('after_green','—')}</td><td>{escape(str(rat))}</td></tr>"
+            f"<tr><td>{i}</td><td><b>{escape(sym)}</b></td>"
+            f"<td><b>{(r.get('momentum') or 0):.0f}</b></td>"
+            f"<td><b>{_money(t.get('trigger', t.get('entry')))}</b></td>"
+            f"<td>{_money(t.get('stop'))}</td><td>{_money(t.get('target'))}</td>"
+            f"<td>{(t.get('risk_pct') or 0):.2f}%{tight}</td>"
+            f"<td>+{(t.get('reward_pct') or 0):.2f}%</td>"
+            f"<td>{rr_cell}</td>"
+            f"<td>{_hd(r)}</td><td>{rsi.get('after_green', '—')}</td>"
+            f'<td>{escape(rating_of(sym))}'
+            + (f'<div class="why">{escape(reason)}</div>' if reason else "")
+            + "</td></tr>"
         )
     return f'<div class="scroll"><table class="full"><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
 
@@ -254,34 +261,37 @@ def _stalk_table(cands: list[dict]) -> str:
     return f'<div class="scroll"><table class="full"><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
 
 
-HOWTO = """
-<details class="howto"><summary>How to trade a row &mdash; entry, stop, targets</summary>
+HOWTO = f"""
+<details class="howto"><summary>How to trade a row &mdash; the candle-3 order</summary>
 <table class="kv">
-<tr><td><b>Entry</b></td><td>Close of the 09:45&ndash;10:00 ET green candle. That is the
-price in the Entry column; it is already fixed by the time you read this.</td></tr>
-<tr><td><b>Stop</b></td><td>Low of the 09:30 red candle. Never moves. This is the whole
-risk of the trade &mdash; the shorter that wick, the tighter the stop.</td></tr>
-<tr><td><b>Target A &mdash; same day</b></td><td>Previous day&rsquo;s close. Reachable inside
-one session (hit ~47% of the time in backtest). Use this if you are flat by 16:00.</td></tr>
-<tr><td><b>Target B &mdash; 3 day</b></td><td>Previous day&rsquo;s range high. Only ~13% of
-setups reach it the same day, but it is the structural objective. <b>Hold up to three
-trading days</b>, keeping the stop at the red candle low, and exit at the close of day 3
-if neither level has been touched. This was the only configuration in 58 sessions of
-backtesting with positive expectancy (+0.105R, +0.74% per trade) &mdash; though not yet
-statistically significant, so size it as an experiment.</td></tr>
-<tr><td><b>Momentum score</b></td><td>0&ndash;100 percentile within today&rsquo;s candidates.
-Sorts win rate 34% (bottom decile) to 73% (top decile). It ranks <i>probability</i>, not
-profit &mdash; use it to choose between setups, not to decide whether to trade at all.</td></tr>
+<tr><td><b>Order</b></td><td>A <b>buy-stop</b> at the Buy stop price &mdash; one cent above the
+high of the 09:45&ndash;10:00 ET green candle. It fills only if price breaks the sneaky
+candle&rsquo;s high during candle 3.</td></tr>
+<tr><td><b>Window</b></td><td><b>{WINDOW_CT}</b> (10:00&ndash;10:15 ET). Cancel anything still
+unfilled at 09:15 CT. Cancel it early if price trades below the Stop before it fills &mdash;
+the setup is broken.</td></tr>
+<tr><td><b>Stop</b></td><td>Low of the 09:30 red candle. Never moves. Attach it as soon as
+the buy-stop fills.</td></tr>
+<tr><td><b>Target</b></td><td>The projected move: the median excursion this much headroom
+has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell there.</td></tr>
+<tr><td><b>Exit</b></td><td>Flat by the close if neither the stop nor the target is hit.</td></tr>
+<tr><td><b>Momentum</b></td><td>0&ndash;100 percentile within today&rsquo;s list; the list is
+sorted by it. It ranks <i>probability</i>, not profit &mdash; use it to choose between rows.</td></tr>
 </table>
-<p class="note">Long only, cash account. T+2 settlement means a 3-day hold ties up the
-cash until it settles &mdash; plan position count accordingly. Not investment advice.</p>
+<p class="note">In the 56-session backtest (5-minute bars, 0.05% round-trip cost) these rules
+won 69% of filled trades &mdash; 65.8% on the 30 sessions after the rules were chosen,
+against 52.7% for the old rules &mdash; and averaged +0.13R per trade on those sessions. That
+is about 1.5 orders a day, and the confidence interval on the +0.13R still spans zero:
+a better list, not a proven edge. Size accordingly. Long only, cash account. Not
+investment advice.</p>
 </details>
 """
+
 
 ARCHIVE_INDEX = DOCS / "archive.json"
 
 
-def _update_archive(day: date, confirmed: list[dict], stalk_n: int) -> dict:
+def _update_archive(day: date, confirmed: list[dict], stalk_n: int, version: int) -> dict:
     """
     Maintain docs/archive.json so the archive survives cache pruning — the
     per-session JSON only sticks around for 30 days, the index forever.
@@ -295,7 +305,7 @@ def _update_archive(day: date, confirmed: list[dict], stalk_n: int) -> dict:
     idx[day.isoformat()] = {
         "confirmed": len(confirmed),
         "stalked": stalk_n,
-        "best_rr": confirmed[0]["trade"]["rr"] if confirmed else None,
+        "rules": f"v{version}",
         "top": [r["symbol"] for r in confirmed[:5]],
     }
     DOCS.mkdir(parents=True, exist_ok=True)
@@ -309,9 +319,9 @@ def _archive_links(idx: dict) -> str:
     out = []
     for d in sorted(idx, reverse=True)[:250]:
         e = idx[d] or {}
-        bits = [f'{e.get("confirmed", 0)} confirmed']
-        if e.get("best_rr"):
-            bits.append(f'best {e["best_rr"]:.2f}R')
+        bits = [f'{e.get("confirmed", 0)} published']
+        if e.get("rules"):
+            bits.append(f'rules {e["rules"]}')
         if e.get("top"):
             bits.append(" ".join(e["top"][:4]))
         out.append(
@@ -321,22 +331,23 @@ def _archive_links(idx: dict) -> str:
     return f'<div class="arch">{"".join(out)}</div>'
 
 
-PLAYBOOK = """
+PLAYBOOK = f"""
 <h2 class="sec">The setup</h2>
 <p class="note">Long only — cash account, no shorting, no options.</p>
 <table class="full">
-<tr><td><b>08:45 CT · The stalk</b></td><td>First 15-minute candle (09:30–09:45 ET) closes. Keep every liquid US stock whose candle is <b>red</b> and whose <b>low broke under the previous day's range low</b>. The shorter the lower wick the better — that wick is the stop.</td></tr>
-<tr><td><b>09:00 CT · The strike</b></td><td>Second candle (09:45–10:00 ET) closes. Keep only names where it is <b>green</b> and its <b>low never went below the red candle's low</b>. That is the sneaky candle: the drop hit resistance.</td></tr>
-<tr><td><b>Entry</b></td><td>Close of the green candle.</td></tr>
+<tr><td><b>08:45 CT · The stalk</b></td><td>First 15-minute candle (09:30–09:45 ET) closes. Keep every liquid US stock whose candle is <b>red</b>, whose <b>low broke under the previous day's range low</b>, and whose range is at least <b>0.75× its 14-day ATR</b> — a dramatic break, not a drift.</td></tr>
+<tr><td><b>09:00 CT · The strike</b></td><td>Second candle (09:45–10:00 ET) closes. Keep the names where it is <b>green</b> (body ≥ 5% of its range), its <b>low never went below the red candle's low</b>, <b>RSI(14) after it is ≥ 40</b>, the red candle <b>held the swing low</b>, and the headroom to yesterday's range high is <b>above 0 and under {HEADROOM_MAX:g}%</b>, and the projected reward is at least <b>0.35× the risk</b>.</td></tr>
+<tr><td><b>Entry · candle 3</b></td><td>Buy-stop one cent above the green candle's high, live {WINDOW_CT} only.</td></tr>
 <tr><td><b>Stop</b></td><td>Low of the initial red candle. Always.</td></tr>
-<tr><td><b>Target</b></td><td>If the red candle broke below the previous day <b>swing low</b> → target is the previous day <b>range low</b>. If it broke the range low but held above the swing low → target is the previous day <b>range high</b>.</td></tr>
-<tr><td><b>Ranking</b></td><td>Sorted by risk/reward, best first. Setups whose stop lands inside the spread (&lt;0.5% or &lt;8% of the red candle's range) are held back as <i>hair-trigger</i> — the ratio is arithmetically true but not executable.</td></tr>
-<tr><td><b>News check</b></td><td>Each candidate's last 48h of headlines is pulled and triaged. A dilutive offering, a guidance cut, a failed trial or a fraud probe means the bounce is a red herring, whatever the candle says.</td></tr>
+<tr><td><b>Target</b></td><td>Buy-stop price plus the projected move for its headroom (median excursion, fitted). Flat by the close otherwise.</td></tr>
+<tr><td><b>Ranking</b></td><td>Momentum score, a 0–100 percentile within the day's list. Shallower breaks of the range low break ties. Stops under 0.5% from entry are tagged <i>tight stop</i>, not removed.</td></tr>
+<tr><td><b>News check</b></td><td>The last 48h of headlines are read by model. <b>Published:</b> <i>quiet</i> (no headlines) and <i>clear</i> (generic headlines that explain nothing). <b>Held back:</b> <i>caution</i> (a company-specific event — earnings, downgrade, deal, litigation) and <i>flagged</i> (offering, guidance cut, failed trial, fraud probe, going concern). Drops with a reason tend to keep going.</td></tr>
 </table>
 <h2 class="sec">Level definitions</h2>
 <table class="full">
 <tr><td><b>Range high / low</b></td><td>Previous completed session's daily high and low.</td></tr>
 <tr><td><b>Swing low</b></td><td>Nearest fractal pivot low <i>below</i> the range low, searched over the last 60 sessions. The first real structural support underneath yesterday's floor.</td></tr>
+<tr><td><b>Headroom</b></td><td>Distance from the buy-stop price up to yesterday's range high, as a percent of the price.</td></tr>
 <tr><td><b>Universe</b></td><td>All US-listed common stock from the Nasdaq Trader directory (ETFs, warrants, units, rights and preferreds excluded), filtered to price ≥ $3 and 20-day average dollar volume ≥ $5M.</td></tr>
 </table>
 """
@@ -362,8 +373,7 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
 
     # Nothing scanned for `day` yet — pre-open, a weekend, or a holiday. Fall
     # back to the last session that has data instead of publishing a blank page
-    # over a good one. Without this, the 08:00 prep run would wipe the front
-    # page every morning and leave it empty until the stalk lands at 08:45.
+    # over a good one.
     if not strike and not stalk and not explicit:
         prior = _latest_session_with_data(day)
         if prior and prior != day:
@@ -373,28 +383,44 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
             stalk = _load("stalk", day)
     newsd = (_load("news", day) or {}).get("tickers", {}) or {}
     ratings = load_ratings(day)
+    version = int((strike or {}).get("version") or 1)
 
     passed = (strike or {}).get("confirmed", []) or []
     stalk_c = (stalk or {}).get("candidates", []) or []
 
-    # Final gate: the news read must come back clear. `caution`, `flagged` and
-    # anything unrated are held back — a chart that looks perfect on a name with
-    # a live catalyst is the red herring this whole step exists to catch.
+    # Final gate. A model rating wins; without one, fall back to the keyword
+    # pre-flag — where only "no headlines at all" can be trusted as quiet, and
+    # anything with unread headlines stays held back.
     def _rating(sym: str) -> str:
         r = (ratings.get(sym) or {}).get("rating")
         if r:
             return str(r).lower()
-        return str((newsd.get(sym, {}) or {}).get("preflag") or "unrated").lower()
+        pre = (newsd.get(sym, {}) or {}).get("preflag")
+        if pre == "quiet":
+            return "quiet"
+        if pre == "red":
+            return "flagged"
+        return "caution" if pre else "unrated"
 
-    confirmed = [r for r in passed if _rating(r["symbol"]) in CLEAR_RATINGS]
-    held_back = [r for r in passed if _rating(r["symbol"]) not in CLEAR_RATINGS]
+    # A session is always rendered under the rules it was scanned with, so a
+    # rebuild of an old date reproduces what was published that morning and
+    # leaves its archive entry alone.
+    publish = PUBLISH_RATINGS if version >= 2 else V1_PUBLISH_RATINGS
+    confirmed = [r for r in passed if _rating(r["symbol"]) in publish]
+    held_back = [r for r in passed if _rating(r["symbol"]) not in publish]
+    confirmed = sorted(confirmed, key=rank_key)
+    held_back = sorted(held_back, key=rank_key)
 
-    archive_idx = _update_archive(day, confirmed, len(stalk_c))
+    archive_idx = _update_archive(day, confirmed, len(stalk_c), version)
     qt, qa = quote_for(day)
     rating_meta = _load("newsrating", day) or {}
     session_note = rating_meta.get("session_note") or ""
-    best = confirmed[0]["trade"]["rr"] if confirmed else None
     gen = (strike or stalk or {}).get("generated_at", "—")
+    try:
+        gen = datetime.fromisoformat(gen).strftime("%Y-%m-%d %H:%M")
+    except Exception:
+        pass
+    coverage = (stalk or {}).get("coverage")
 
     # stage freshness
     pills = [f'<span class="pill">session <b>{day.isoformat()}</b></span>']
@@ -403,18 +429,21 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         f'<b>{len(stalk_c)}</b></span>'
     )
     pills.append(
-        f'<span class="pill {"live" if strike else "stale"}">09:00 strike '
+        f'<span class="pill {"live" if strike else "stale"}">09:00 orders '
         f'<b>{len(confirmed)}</b></span>'
     )
     if strike:
-        pills.append(f'<span class="pill">scan <b>{strike["stalk_meta"]["scanned"]:,}</b> names</span>')
+        pills.append(f'<span class="pill">scan <b>{(strike.get("stalk_meta") or {}).get("scanned") or 0:,}</b> names</span>')
+    if coverage is not None and coverage < 0.95:
+        pills.append(f'<span class="pill stale">partial data <b>{coverage:.0%}</b></span>')
     pills.append(f'<span class="pill">built <b>{escape(str(gen))}</b></span>')
 
     stats = [
-        ("Qualifying setups", f"{len(confirmed)}", "passed all four gates"),
-        ("Best risk/reward", f"{best:.2f}R" if best else "—", "top of the strike list"),
+        ("Orders today" if version >= 2 else "Published", f"{len(confirmed)}", "passed every gate"),
+        ("Entry window", WINDOW_CT, "buy-stop, then cancel") if version >= 2
+        else ("Entry", "green close", "old rules"),
         ("Stalked at 08:45", f"{len(stalk_c)}", "red break under range low"),
-        ("Universe scanned", f'{(strike or stalk or {}).get("stalk_meta", {}).get("scanned", (stalk or {}).get("scanned", 0)):,}', "liquid US common stock"),
+        ("Universe scanned", f'{((strike or {}).get("stalk_meta") or {}).get("scanned") or (stalk or {}).get("scanned") or 0:,}', "liquid US common stock"),
     ]
     stat_html = "".join(
         f'<div class="stat"><div class="k">{escape(k)}</div><div class="v">{escape(v)}</div>'
@@ -422,50 +451,42 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         for k, v, n in stats
     )
 
-    criteria = (
-        '<p class="note">Every row cleared all four gates: green sneaky candle holding '
-        'above the red candle\u2019s low, RSI(14) tracing a V across the two candles, '
-        'target on the previous day\u2019s <b>range high</b>, and a <b>clear</b> news '
-        'read. <b>Ranked by headroom</b>, band first.</p>'
-        '<p class="note"><b>Headroom</b> is the distance from entry up to yesterday\u2019s '
-        'range high. <b>Proj move</b> is the median excursion that headroom has '
-        'historically produced \u2014 about a third of it \u2014 and is a median, not a '
-        'promise. The traded target sits at 35% of the headroom: the range high itself '
-        'was reached only 10.9% of the time intraday, so the target is now the '
-        'projected move itself. <b>Momentum</b> is shown but no longer ranks the '
-        'list: it is the better guide to a fixed stop-and-target bracket, which '
-        'is not how this list is traded.</p>'
-        + HOWTO
-    )
+    banners = []
+    if strike and strike.get("published_after_window"):
+        banners.append(
+            f'<div class="banner"><b>Published after the entry window.</b> This list was built '
+            f'at {escape(str(gen))}, after the {WINDOW_CT} buy-stop window closed, so today&rsquo;s '
+            f'orders are void. Listed for the record only.</div>'
+        )
+    if coverage is not None and coverage < 0.95:
+        banners.append(
+            f'<div class="banner"><b>Partial data.</b> Yahoo answered for {coverage:.0%} of the '
+            f'universe this morning, so some qualifying names may be missing.</div>'
+        )
+    if version >= 2:
+        criteria = (
+            '<p class="note">Every row cleared all the gates: a dramatic red break of yesterday&rsquo;s '
+            'low, a green sneaky candle holding above it, RSI(14) after it at 40 or better, the swing '
+            f'low intact, headroom under {HEADROOM_MAX:g}%, reward at least 0.35× the risk, and no '
+            'company-specific news behind the drop. '
+            '<b>Ranked by momentum.</b> Each row is a buy-stop order for candle 3.</p>'
+            + HOWTO
+        )
+    else:
+        banners.append(
+            '<div class="banner"><b>Older rules.</b> This session was scanned before 2026-10-10: '
+            'entry at the green candle&rsquo;s close (shown in the Buy stop column), an RSI V-trough '
+            'instead of the RSI floor, no reward/risk floor, and only <i>clear</i> news published. '
+            'It lists the names published that morning, re-ranked by momentum.</div>'
+        )
+        criteria = ""
+    if session_note:
+        criteria += f'<p class="note"><b>News desk:</b> {escape(session_note)}</p>'
 
     if confirmed:
-        confirmed = sorted(confirmed, key=_rank_key)
-        lo, hi = HEADROOM_BAND
-        band = [r for r in confirmed if in_band(_headroom(r))]
-        rest = [r for r in confirmed if not in_band(_headroom(r))]
-        parts = [criteria]
-        if band:
-            parts.append(f'<h2 class="sec">In the headroom band &mdash; {len(band)}</h2>')
-            parts.append(_table(band, newsd, ratings))
-        else:
-            parts.append(
-                f'<div class="empty">Nothing landed in the {lo:g}&ndash;{hi:g}% '
-                "headroom band this session.<br>Nothing to trade is a position.</div>"
-            )
-        if rest:
-            parts.append(f'<h2 class="sec">Outside the band &mdash; {len(rest)}</h2>')
-            parts.append(
-                f'<p class="note">Headroom under {lo:g}% or over {hi:g}%. Below the band '
-                "the move is no bigger than the drawdown you sit through to get it "
-                "(ratio 1.0&ndash;1.1). Above it the moves are the largest on the board, "
-                "but 77% draw down more than 1% first and only 31% return twice that "
-                "drawdown &mdash; those names are damaged rather than dislocated. "
-                "Listed for the record.</p>"
-            )
-            parts.append(_table(rest, newsd, ratings))
-        strike_body = "".join(parts)
+        strike_body = "".join(banners) + criteria + _table(confirmed, newsd, ratings, _rating)
     else:
-        strike_body = criteria + (
+        strike_body = "".join(banners) + criteria + (
             '<div class="empty">Nothing cleared every gate this session.<br>'
             "Nothing to trade is a position.</div>"
         )
@@ -477,27 +498,38 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         detail = ", ".join(f"{v} {k}" for k, v in sorted(by.items(), key=lambda kv: -kv[1]))
         strike_body += (
             f'<h2 class="sec">Held back by the news gate — {len(held_back)}</h2>'
-            f'<p class="note">Chart and RSI qualified; the news read did not come back '
-            f'clear ({escape(detail)}). Listed for the record, not for trading.</p>'
-            f"{_table(held_back, newsd, ratings)}"
+            f'<p class="note">The chart qualified, but the drop came with company-specific news '
+            f'({escape(detail)}). The reason sits under each rating. Listed for the record, not for trading.</p>'
+            f"{_table(held_back, newsd, ratings, _rating)}"
         )
 
     funnel_rows = []
     if strike:
         rej = strike.get("rejected", {})
+        meta = strike.get("stalk_meta") or {}
+        n = strike.get("from_stalk", 0)
         funnel_rows = [
-            ("Universe scanned", strike["stalk_meta"]["scanned"]),
-            ("Trading under prev range low", strike["stalk_meta"]["narrowed"]),
-            ("Red break confirmed (08:45)", strike["from_stalk"]),
-            ("Green sneaky candle (09:00)", strike["from_stalk"] - rej.get("not_green", 0)
-             - rej.get("undercut_red_low", 0) - rej.get("doji", 0) - rej.get("no_bar2", 0)),
-            ("RSI V-trough", None),
-            ("Target = prev range high", None),
-            ("News clear", len(confirmed)),
+            ("Universe scanned", meta.get("scanned")),
+            ("Close within reach of prev range low", meta.get("narrowed")),
+            ("Red break confirmed (08:45)", n),
         ]
-        funnel_rows[4] = ("RSI V-trough", funnel_rows[3][1] - rej.get("rsi_no_trough", 0))
-        funnel_rows[5] = ("Target = prev range high",
-                          funnel_rows[4][1] - rej.get("target_is_range_low", 0))
+        n -= sum(rej.get(k, 0) for k in ("not_green", "undercut_red_low", "doji", "no_bar2"))
+        funnel_rows.append(("Green sneaky candle (09:00)", n))
+        if version >= 2:
+            n -= rej.get("rsi_below_floor", 0)
+            funnel_rows.append(("RSI(14) after green ≥ 40", n))
+            n -= rej.get("target_is_range_low", 0)
+            funnel_rows.append(("Swing low held", n))
+            n -= rej.get("headroom_out_of_range", 0)
+            funnel_rows.append((f"Headroom 0–{HEADROOM_MAX:g}%", n))
+            n -= rej.get("payoff_too_small", 0)
+            funnel_rows.append(("Reward/risk ≥ 0.35", n))
+        else:
+            n -= rej.get("rsi_no_trough", 0)
+            funnel_rows.append(("RSI V-trough (old rule)", n))
+            n -= rej.get("target_is_range_low", 0)
+            funnel_rows.append(("Swing low held", n))
+        funnel_rows.append(("News quiet or clear" if version >= 2 else "News clear", len(confirmed)))
         funnel_rows = [(k, v) for k, v in funnel_rows if v is not None]
 
     funnel_html = ""
@@ -518,7 +550,7 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
     )
 
     stalk_body = (
-        f'<p class="note">Everything that broke the previous day range low on a red opening '
+        f'<p class="note">Everything that broke the previous day range low on a dramatic red opening '
         f'candle. This is the 08:45 watch list before the sneaky candle filters it.</p>'
         + (_stalk_table(stalk_c[:150]) if stalk_c else '<div class="empty">No stalk data.</div>')
     )
@@ -530,7 +562,7 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>SNEAK · {day.isoformat()}</title>
-<meta name="description" content="Sneaky-buy opening range scanner — {len(confirmed)} confirmed setups for {day.isoformat()}">
+<meta name="description" content="Sneaky-buy opening range scanner — {len(confirmed)} candle-3 orders for {day.isoformat()}">
 <style>{CSS}</style>
 </head>
 <body>
@@ -538,11 +570,11 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
   <div class="emblem">{SHURIKEN}</div>
   <h1>Sneak</h1>
   <div class="tag">opening range · sneaky buy protocol</div>
-  <div class="sub">08:45 stalk → 09:00 strike · long only · central time</div>
+  <div class="sub">08:45 stalk → 09:00 orders → 09:15 window closes · long only · central time</div>
 </header>
 <div class="strip">{''.join(pills)}</div>
 <nav class="tabs" role="tablist">
-  <button class="tab" role="tab" aria-selected="true" data-panel="p-strike">09:00 Strike list</button>
+  <button class="tab" role="tab" aria-selected="true" data-panel="p-strike">09:00 Orders</button>
   <button class="tab" role="tab" aria-selected="false" data-panel="p-stalk">08:45 Stalk list</button>
   <button class="tab" role="tab" aria-selected="false" data-panel="p-intel">Intel</button>
   <button class="tab" role="tab" aria-selected="false" data-panel="p-arch">Archive</button>
