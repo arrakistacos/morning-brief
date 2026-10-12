@@ -22,7 +22,7 @@ from html import escape
 from pathlib import Path
 
 from . import yahoo
-from .confirm import ENTRY_WINDOW_ET, rank_key
+from .confirm import ENTRY_WINDOW_ET, rank_key, size_tier
 from .levels import HEADROOM_MAX, headroom_pct
 from .news import load_ratings
 from .prep import CACHE_DIR
@@ -106,6 +106,18 @@ a{color:var(--c2)}
 .banner b{color:var(--warn)}
 .tag-tight{color:var(--warn);font-size:.68rem;margin-left:.3rem}
 .why{color:var(--dim);font-size:.66rem;line-height:1.35;max-width:22ch;white-space:normal}
+.sizer{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;margin:0 0 .9rem;padding:.9rem 1rem;
+  border:1px solid var(--phos-dim);border-radius:6px;background:var(--s1)}
+.sizer label{display:flex;flex-direction:column;gap:.3rem;font-size:.62rem;color:var(--dim);
+  text-transform:uppercase;letter-spacing:.12em}
+.sizer input{width:9.5rem;padding:.5rem .6rem;border:1px solid var(--border2);border-radius:5px;
+  background:var(--s2);color:var(--ink);font-family:var(--mono);font-size:16px}
+.sizer input:focus{outline:none;border-color:var(--phos)}
+.sizer .sum{flex:1 1 16rem;font-size:.76rem;color:var(--muted);line-height:1.45}
+.sizer .sum b{color:var(--warn)}
+table.full td.sh{color:var(--phos);font-weight:700}
+.tier{font-size:.7rem;letter-spacing:.06em;white-space:nowrap}
+.tier.Full{color:var(--phos)} .tier.Light{color:var(--dim)}
 
 .tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);
   background:rgba(16,22,20,.94);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
@@ -161,7 +173,7 @@ footer{border-top:1px solid var(--border);padding:1.4rem 1rem 2.4rem;text-align:
   text-align:center;color:var(--muted);font-size:.85rem}
 """
 
-JS = """
+JS = r"""
 document.querySelectorAll('.tab').forEach(function(t){
   t.addEventListener('click', function(){
     document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-selected','false')});
@@ -171,6 +183,60 @@ document.querySelectorAll('.tab').forEach(function(t){
     if (el) el.classList.add('on');
   });
 });
+
+// Position sizing. Each row risks cash x risk% x its tier, and shares = that
+// risk / (buy stop - stop), so a stop-out costs the Risk $ shown. If the rows
+// together would need more cash than there is, every row is scaled down by the
+// same factor: risk keeps its exact 1.5 : 1 : 0.75 tier ratio and the total
+// fits. With a single order that means all-in.
+// Inputs are remembered in this browser only; storage access is guarded.
+(function(){
+  var cash = document.getElementById('cash'), rp = document.getElementById('riskpct');
+  if (!cash || !rp) return;
+  try {
+    var c = localStorage.getItem('sneak.cash'), r = localStorage.getItem('sneak.riskpct');
+    if (c) cash.value = c;
+    if (r) rp.value = r;
+  } catch (e) {}
+  function num(el){ var v = parseFloat(String(el.value).replace(/[$,\s]/g, '')); return isFinite(v) ? v : 0; }
+  function usd(x){ return '$' + Math.round(x).toLocaleString('en-US'); }
+  function update(){
+    var C = num(cash), P = num(rp) / 100, on = C > 0 && P > 0;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-trig]'));
+    var raw = rows.map(function(tr){
+      var trig = +tr.dataset.trig, per = trig - (+tr.dataset.stop), m = +tr.dataset.mult;
+      return {trig: trig, per: per, sh: (on && per > 0) ? C * P * m / per : 0};
+    });
+    var need = raw.reduce(function(a, x){ return a + x.sh * x.trig; }, 0);
+    var k = need > C ? C / need : 1;
+    var pos = 0, risk = 0, n = 0;
+    rows.forEach(function(tr, i){
+      var x = raw[i], sh = Math.floor(x.sh * k), allin = on && sh * x.trig >= 0.97 * C;
+      tr.querySelector('.sh').textContent = on ? sh.toLocaleString('en-US') : '—';
+      tr.querySelector('.rk').textContent = on ? usd(sh * x.per) : '—';
+      tr.querySelector('.pos').innerHTML = on ? usd(sh * x.trig) +
+        (allin ? '<span class="tag-tight">all-in</span>' : '') : '—';
+      if (sh > 0) { pos += sh * x.trig; risk += sh * x.per; n++; }
+    });
+    var out = document.getElementById('sizesum');
+    if (!on) { out.textContent = 'Enter today’s cash to size each order.'; return save(); }
+    var tail = usd(pos) + ' invested, ' + usd(risk) + ' at risk (' + (100 * risk / C).toFixed(1) + '% of cash).';
+    if (k < 1 && rows.length === 1) {
+      out.innerHTML = 'Your cash is the limit — all-in. If it fills: ' + tail;
+    } else if (k < 1) {
+      out.innerHTML = 'Sized so all ' + n + ' orders fit inside ' + usd(C) + ' together, risk kept in tier ratio. ' +
+        'If all fill: ' + tail + ' <b>If only some trigger, the rest of your cash sits idle</b> — ' +
+        'the price of never being over-committed.';
+    } else {
+      out.innerHTML = (n === 1 ? 'If it fills: ' : 'If all ' + n + ' fill: ') + tail;
+    }
+    save();
+  }
+  function save(){
+    try { localStorage.setItem('sneak.cash', cash.value); localStorage.setItem('sneak.riskpct', rp.value); } catch (e) {}
+  }
+  cash.addEventListener('input', update); rp.addEventListener('input', update); update();
+})();
 """
 
 
@@ -213,12 +279,16 @@ def _money(x) -> str:
     return f"{x:,.2f}" if isinstance(x, (int, float)) else "&mdash;"
 
 
-def _table(rows: list[dict], news: dict, ratings: dict, rating_of) -> str:
-    head = (
-        "<tr><th>#</th><th>Symbol</th><th>Momentum</th><th>Buy stop</th><th>Stop</th>"
-        "<th>Target</th><th>Risk %</th><th>Reward %</th><th>R:R</th><th>Headroom</th>"
-        "<th>RSI after green</th><th>News</th></tr>"
-    )
+def _table(rows: list[dict], news: dict, ratings: dict, rating_of, sizing: bool = False) -> str:
+    """Order table. With `sizing`, the order-entry columns come first and each
+    row carries the numbers the page's sizing script needs."""
+    cols = ["#", "Symbol"]
+    if sizing:
+        cols += ["Shares", "Buy stop", "Stop", "Target", "Size", "Risk $", "Position $"]
+    else:
+        cols += ["Buy stop", "Stop", "Target"]
+    cols += ["R:R", "Momentum", "Risk %", "Reward %", "Headroom", "RSI after green", "News"]
+    head = "<tr>" + "".join(f"<th>{c}</th>" for c in cols) + "</tr>"
     body = []
     for i, r in enumerate(rows, 1):
         t = r["trade"]
@@ -227,21 +297,40 @@ def _table(rows: list[dict], news: dict, ratings: dict, rating_of) -> str:
         reason = (ratings.get(sym) or {}).get("reason") or ""
         tight = '<span class="tag-tight">tight stop</span>' if t.get("tight_stop") else ""
         rr = t.get("rr")
-        rr_cell = f"{rr:.2f}" if rr is not None else "&mdash;"
-        body.append(
-            f"<tr><td>{i}</td><td><b>{escape(sym)}</b></td>"
-            f"<td><b>{(r.get('momentum') or 0):.0f}</b></td>"
-            f"<td><b>{_money(t.get('trigger', t.get('entry')))}</b></td>"
-            f"<td>{_money(t.get('stop'))}</td><td>{_money(t.get('target'))}</td>"
-            f"<td>{(t.get('risk_pct') or 0):.2f}%{tight}</td>"
-            f"<td>+{(t.get('reward_pct') or 0):.2f}%</td>"
-            f"<td>{rr_cell}</td>"
-            f"<td>{_hd(r)}</td><td>{rsi.get('after_green', '—')}</td>"
-            f'<td>{escape(rating_of(sym))}'
-            + (f'<div class="why">{escape(reason)}</div>' if reason else "")
-            + "</td></tr>"
-        )
+        trig = t.get("trigger", t.get("entry"))
+        cells = [f"<td>{i}</td>", f"<td><b>{escape(sym)}</b></td>"]
+        attrs = ""
+        if sizing:
+            label, mult = size_tier(rr)
+            attrs = f' data-trig="{trig}" data-stop="{t.get("stop")}" data-mult="{mult}"'
+            cells += ['<td class="sh">&mdash;</td>', f"<td><b>{_money(trig)}</b></td>",
+                      f"<td>{_money(t.get('stop'))}</td>", f"<td>{_money(t.get('target'))}</td>",
+                      f'<td><span class="tier {label}">{label} {mult:g}×</span></td>',
+                      '<td class="rk">&mdash;</td>', '<td class="pos">&mdash;</td>']
+        else:
+            cells += [f"<td><b>{_money(trig)}</b></td>", f"<td>{_money(t.get('stop'))}</td>",
+                      f"<td>{_money(t.get('target'))}</td>"]
+        cells += [
+            f"<td>{rr:.2f}</td>" if rr is not None else "<td>&mdash;</td>",
+            f"<td>{(r.get('momentum') or 0):.0f}</td>",
+            f"<td>{(t.get('risk_pct') or 0):.2f}%{tight}</td>",
+            f"<td>+{(t.get('reward_pct') or 0):.2f}%</td>",
+            f"<td>{_hd(r)}</td>",
+            f"<td>{rsi.get('after_green', '—')}</td>",
+            f"<td>{escape(rating_of(sym))}"
+            + (f'<div class="why">{escape(reason)}</div>' if reason else "") + "</td>",
+        ]
+        body.append(f"<tr{attrs}>" + "".join(cells) + "</tr>")
     return f'<div class="scroll"><table class="full"><thead>{head}</thead><tbody>{"".join(body)}</tbody></table></div>'
+
+
+SIZER = """
+<div class="sizer">
+  <label>Cash today <input id="cash" inputmode="decimal" autocomplete="off" placeholder="e.g. 5000"></label>
+  <label>Normal risk / trade, % of cash <input id="riskpct" inputmode="decimal" autocomplete="off" value="1"></label>
+  <div class="sum" id="sizesum">Enter today&rsquo;s cash to size each order.</div>
+</div>
+"""
 
 
 def _stalk_table(cands: list[dict]) -> str:
@@ -275,6 +364,12 @@ the buy-stop fills.</td></tr>
 <tr><td><b>Target</b></td><td>The projected move: the median excursion this much headroom
 has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell there.</td></tr>
 <tr><td><b>Exit</b></td><td>Flat by the close if neither the stop nor the target is hit.</td></tr>
+<tr><td><b>Size</b></td><td>Enter today&rsquo;s cash above the list. Each row risks your normal
+risk % times its tier &mdash; <b>Full 1.5&times;</b> for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60,
+<b>Light 0.75&times;</b> below that &mdash; and Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
+costs the Risk $ shown. If the day&rsquo;s orders together would need more than your cash,
+every row shrinks by the same factor &mdash; risk keeps its tier ratio and the total never exceeds
+what you have. A lone order your cash cannot fully cover becomes <i>all-in</i>.</td></tr>
 <tr><td><b>Momentum</b></td><td>0&ndash;100 percentile within today&rsquo;s list; the list is
 sorted by it. It ranks <i>probability</i>, not profit &mdash; use it to choose between rows.</td></tr>
 </table>
@@ -484,7 +579,11 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         criteria += f'<p class="note"><b>News desk:</b> {escape(session_note)}</p>'
 
     if confirmed:
-        strike_body = "".join(banners) + criteria + _table(confirmed, newsd, ratings, _rating)
+        if version >= 2:
+            strike_body = "".join(banners) + criteria + SIZER + _table(
+                confirmed, newsd, ratings, _rating, sizing=True)
+        else:
+            strike_body = "".join(banners) + criteria + _table(confirmed, newsd, ratings, _rating)
     else:
         strike_body = "".join(banners) + criteria + (
             '<div class="empty">Nothing cleared every gate this session.<br>'

@@ -172,7 +172,9 @@ Replay a past session with `--date YYYY-MM-DD` on prep, scan_open, confirm, dash
 
 ## Dashboard notes
 
-Single self-contained HTML file — no CDN, no charts. It opens instantly on a phone and every value is selectable text. Each session renders under the rules it was scanned with, so old pages and the archive keep what was actually published that morning.
+Single self-contained HTML file — no CDN, no charts. It opens instantly on a phone and every value is selectable text.
+
+**Position sizer.** Enter today's cash (and your normal risk per trade, default 1%) above the order list. Each row's risk is that % times its tier — **Full 1.5×** for R:R ≥ 0.60, **Normal 1×** for 0.45–0.60, **Light 0.75×** below — and Shares = risk ÷ (Buy stop − Stop), so a stop-out costs the Risk $ shown. If the day's orders together would need more than your cash, every row shrinks by the same factor (tiers keep their ratio); a lone order your cash can't fully cover becomes *all-in*. In the backtest the tiers lifted the total from +10.0R to +12.4R at the same average risk, better on both halves, from only 28 trades a tier — so the tilt is deliberately mild. The two inputs are remembered in your browser only. Each session renders under the rules it was scanned with, so old pages and the archive keep what was actually published that morning.
 
 ---
 
