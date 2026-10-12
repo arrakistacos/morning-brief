@@ -223,5 +223,13 @@
   "confirmed": 0,
   "stalked": 50,
   "top": []
+ },
+ "2026-10-12": {
+  "confirmed": 1,
+  "rules": "v2",
+  "stalked": 45,
+  "top": [
+   "IRT"
+  ]
  }
 }
