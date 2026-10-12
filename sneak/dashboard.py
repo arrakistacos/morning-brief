@@ -106,7 +106,7 @@ a{color:var(--c2)}
 .banner b{color:var(--warn)}
 .tag-tight{color:var(--warn);font-size:.68rem;margin-left:.3rem}
 .why{color:var(--dim);font-size:.66rem;line-height:1.35;max-width:22ch;white-space:normal}
-.sizer{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;margin:0 0 .9rem;padding:.9rem 1rem;
+.sizer{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-start;margin:0 0 .9rem;padding:.9rem 1rem;
   border:1px solid var(--phos-dim);border-radius:6px;background:var(--s1)}
 .sizer label{display:flex;flex-direction:column;gap:.3rem;font-size:.62rem;color:var(--dim);
   text-transform:uppercase;letter-spacing:.12em}
@@ -114,6 +114,7 @@ a{color:var(--c2)}
   background:var(--s2);color:var(--ink);font-family:var(--mono);font-size:16px}
 .sizer input:focus{outline:none;border-color:var(--phos)}
 .sizer .sum{flex:1 1 16rem;font-size:.76rem;color:var(--muted);line-height:1.45}
+.sizer .echo{font-size:.68rem;color:var(--muted);text-transform:none;letter-spacing:0}
 .sizer .sum b{color:var(--warn)}
 table.full td.sh{color:var(--phos);font-weight:700}
 .tier{font-size:.7rem;letter-spacing:.06em;white-space:nowrap}
@@ -184,7 +185,9 @@ document.querySelectorAll('.tab').forEach(function(t){
   });
 });
 
-// Position sizing. Each row risks cash x risk% x its tier, and shares = that
+// Position sizing. The input is the BASE risk (a Normal trade); each row's R:R
+// tier scales it (Full 1.5x, Normal 1x, Light 0.75x). Each row risks cash x
+// base% x its tier, and shares = that
 // risk / (buy stop - stop), so a stop-out costs the Risk $ shown. If the rows
 // together would need more cash than there is, every row is scaled down by the
 // same factor: risk keeps its exact 1.5 : 1 : 0.75 tier ratio and the total
@@ -200,6 +203,7 @@ document.querySelectorAll('.tab').forEach(function(t){
   } catch (e) {}
   function num(el){ var v = parseFloat(String(el.value).replace(/[$,\s]/g, '')); return isFinite(v) ? v : 0; }
   function usd(x){ return '$' + Math.round(x).toLocaleString('en-US'); }
+  function pct(f){ return parseFloat((f * 100).toFixed(2)) + '%'; }
   function update(){
     var C = num(cash), P = num(rp) / 100, on = C > 0 && P > 0;
     var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-trig]'));
@@ -212,12 +216,19 @@ document.querySelectorAll('.tab').forEach(function(t){
     var pos = 0, risk = 0, n = 0;
     rows.forEach(function(tr, i){
       var x = raw[i], sh = Math.floor(x.sh * k), allin = on && sh * x.trig >= 0.97 * C;
+      var m = +tr.dataset.mult, want = C * P * m, tier = tr.querySelector('.tier');
+      tier.textContent = tier.dataset.label + ' · ' + pct(P * m) + (on ? ' · ' + usd(want) : '');
       tr.querySelector('.sh').textContent = on ? sh.toLocaleString('en-US') : '—';
-      tr.querySelector('.rk').textContent = on ? usd(sh * x.per) : '—';
+      tr.querySelector('.rk').innerHTML = on ? usd(sh * x.per) +
+        (sh * x.per < 0.98 * want ? '<span class="tag-tight">cash-capped</span>' : '') : '—';
       tr.querySelector('.pos').innerHTML = on ? usd(sh * x.trig) +
         (allin ? '<span class="tag-tight">all-in</span>' : '') : '—';
       if (sh > 0) { pos += sh * x.trig; risk += sh * x.per; n++; }
     });
+    var echo = document.getElementById('riskusd');
+    if (echo) echo.textContent = (C > 0 && P > 0)
+      ? pct(P) + ' = ' + usd(C * P) + ' on a Normal trade · Full ' + usd(C * P * 1.5) + ' · Light ' + usd(C * P * 0.75)
+      : 'Full trades risk 1.5×, Light 0.75×';
     var out = document.getElementById('sizesum');
     if (!on) { out.textContent = 'Enter today’s cash to size each order.'; return save(); }
     var tail = usd(pos) + ' invested, ' + usd(risk) + ' at risk (' + (100 * risk / C).toFixed(1) + '% of cash).';
@@ -287,7 +298,7 @@ def _table(rows: list[dict], news: dict, ratings: dict, rating_of, sizing: bool 
         cols += ["Shares", "Buy stop", "Stop", "Target", "Size", "Risk $", "Position $"]
     else:
         cols += ["Buy stop", "Stop", "Target"]
-    cols += ["R:R", "Momentum", "Risk %", "Reward %", "Headroom", "RSI after green", "News"]
+    cols += ["R:R", "Momentum", "Stop distance %", "Reward %", "Headroom", "RSI after green", "News"]
     head = "<tr>" + "".join(f"<th>{c}</th>" for c in cols) + "</tr>"
     body = []
     for i, r in enumerate(rows, 1):
@@ -305,7 +316,7 @@ def _table(rows: list[dict], news: dict, ratings: dict, rating_of, sizing: bool 
             attrs = f' data-trig="{trig}" data-stop="{t.get("stop")}" data-mult="{mult}"'
             cells += ['<td class="sh">&mdash;</td>', f"<td><b>{_money(trig)}</b></td>",
                       f"<td>{_money(t.get('stop'))}</td>", f"<td>{_money(t.get('target'))}</td>",
-                      f'<td><span class="tier {label}">{label} {mult:g}×</span></td>',
+                      f'<td><span class="tier {label}" data-label="{label}">{label} {mult:g}×</span></td>',
                       '<td class="rk">&mdash;</td>', '<td class="pos">&mdash;</td>']
         else:
             cells += [f"<td><b>{_money(trig)}</b></td>", f"<td>{_money(t.get('stop'))}</td>",
@@ -327,7 +338,8 @@ def _table(rows: list[dict], news: dict, ratings: dict, rating_of, sizing: bool 
 SIZER = """
 <div class="sizer">
   <label>Cash today <input id="cash" inputmode="decimal" autocomplete="off" placeholder="e.g. 5000"></label>
-  <label>Normal risk / trade, % of cash <input id="riskpct" inputmode="decimal" autocomplete="off" value="1"></label>
+  <label>Base risk — Normal trade, % of cash <input id="riskpct" inputmode="decimal" autocomplete="off" value="1">
+    <span class="echo" id="riskusd">Full trades risk 1.5×, Light 0.75×</span></label>
   <div class="sum" id="sizesum">Enter today&rsquo;s cash to size each order.</div>
 </div>
 """
@@ -364,10 +376,11 @@ the buy-stop fills.</td></tr>
 <tr><td><b>Target</b></td><td>The projected move: the median excursion this much headroom
 has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell there.</td></tr>
 <tr><td><b>Exit</b></td><td>Flat by the close if neither the stop nor the target is hit.</td></tr>
-<tr><td><b>Size</b></td><td>Enter today&rsquo;s cash above the list. Each row risks your normal
-risk % times its tier &mdash; <b>Full 1.5&times;</b> for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60,
-<b>Light 0.75&times;</b> below that &mdash; and Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
-costs the Risk $ shown. If the day&rsquo;s orders together would need more than your cash,
+<tr><td><b>Size</b></td><td>Enter today&rsquo;s cash and your <b>base risk</b> &mdash; what you would
+lose on a Normal trade &mdash; above the list. Each row&rsquo;s R:R scales that base: <b>Full 1.5&times;</b>
+for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60, <b>Light 0.75&times;</b> below; the Size column
+shows the resulting % and $. Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
+costs the Risk $ shown (marked <i>cash-capped</i> when your cash, not the risk, set the size). If the day&rsquo;s orders together would need more than your cash,
 every row shrinks by the same factor &mdash; risk keeps its tier ratio and the total never exceeds
 what you have. A lone order your cash cannot fully cover becomes <i>all-in</i>.</td></tr>
 <tr><td><b>Momentum</b></td><td>0&ndash;100 percentile within today&rsquo;s list; the list is
