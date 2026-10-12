@@ -58,7 +58,7 @@ a{color:var(--c2)}
 .banner b{color:var(--warn)}
 .tag-tight{color:var(--warn);font-size:.68rem;margin-left:.3rem}
 .why{color:var(--dim);font-size:.66rem;line-height:1.35;max-width:22ch;white-space:normal}
-.sizer{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-end;margin:0 0 .9rem;padding:.9rem 1rem;
+.sizer{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-start;margin:0 0 .9rem;padding:.9rem 1rem;
   border:1px solid var(--phos-dim);border-radius:6px;background:var(--s1)}
 .sizer label{display:flex;flex-direction:column;gap:.3rem;font-size:.62rem;color:var(--dim);
   text-transform:uppercase;letter-spacing:.12em}
@@ -66,6 +66,7 @@ a{color:var(--c2)}
   background:var(--s2);color:var(--ink);font-family:var(--mono);font-size:16px}
 .sizer input:focus{outline:none;border-color:var(--phos)}
 .sizer .sum{flex:1 1 16rem;font-size:.76rem;color:var(--muted);line-height:1.45}
+.sizer .echo{font-size:.68rem;color:var(--muted);text-transform:none;letter-spacing:0}
 .sizer .sum b{color:var(--warn)}
 table.full td.sh{color:var(--phos);font-weight:700}
 .tier{font-size:.7rem;letter-spacing:.06em;white-space:nowrap}
@@ -157,10 +158,11 @@ the buy-stop fills.</td></tr>
 <tr><td><b>Target</b></td><td>The projected move: the median excursion this much headroom
 has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell there.</td></tr>
 <tr><td><b>Exit</b></td><td>Flat by the close if neither the stop nor the target is hit.</td></tr>
-<tr><td><b>Size</b></td><td>Enter today&rsquo;s cash above the list. Each row risks your normal
-risk % times its tier &mdash; <b>Full 1.5&times;</b> for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60,
-<b>Light 0.75&times;</b> below that &mdash; and Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
-costs the Risk $ shown. If the day&rsquo;s orders together would need more than your cash,
+<tr><td><b>Size</b></td><td>Enter today&rsquo;s cash and your <b>base risk</b> &mdash; what you would
+lose on a Normal trade &mdash; above the list. Each row&rsquo;s R:R scales that base: <b>Full 1.5&times;</b>
+for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60, <b>Light 0.75&times;</b> below; the Size column
+shows the resulting % and $. Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
+costs the Risk $ shown (marked <i>cash-capped</i> when your cash, not the risk, set the size). If the day&rsquo;s orders together would need more than your cash,
 every row shrinks by the same factor &mdash; risk keeps its tier ratio and the total never exceeds
 what you have. A lone order your cash cannot fully cover becomes <i>all-in</i>.</td></tr>
 <tr><td><b>Momentum</b></td><td>0&ndash;100 percentile within today&rsquo;s list; the list is
@@ -176,10 +178,11 @@ investment advice.</p>
 
 <div class="sizer">
   <label>Cash today <input id="cash" inputmode="decimal" autocomplete="off" placeholder="e.g. 5000"></label>
-  <label>Normal risk / trade, % of cash <input id="riskpct" inputmode="decimal" autocomplete="off" value="1"></label>
+  <label>Base risk — Normal trade, % of cash <input id="riskpct" inputmode="decimal" autocomplete="off" value="1">
+    <span class="echo" id="riskusd">Full trades risk 1.5×, Light 0.75×</span></label>
   <div class="sum" id="sizesum">Enter today&rsquo;s cash to size each order.</div>
 </div>
-<div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Shares</th><th>Buy stop</th><th>Stop</th><th>Target</th><th>Size</th><th>Risk $</th><th>Position $</th><th>R:R</th><th>Momentum</th><th>Risk %</th><th>Reward %</th><th>Headroom</th><th>RSI after green</th><th>News</th></tr></thead><tbody><tr data-trig="14.66" data-stop="14.51" data-mult="1.0"><td>1</td><td><b>IRT</b></td><td class="sh">&mdash;</td><td><b>14.66</b></td><td>14.51</td><td>14.73</td><td><span class="tier Normal">Normal 1×</span></td><td class="rk">&mdash;</td><td class="pos">&mdash;</td><td>0.47</td><td>58</td><td>1.02%</td><td>+0.49%</td><td>1.57%</td><td>41.6</td><td>quiet<div class="why">no headlines in 48h</div></td></tr></tbody></table></div>
+<div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Shares</th><th>Buy stop</th><th>Stop</th><th>Target</th><th>Size</th><th>Risk $</th><th>Position $</th><th>R:R</th><th>Momentum</th><th>Stop distance %</th><th>Reward %</th><th>Headroom</th><th>RSI after green</th><th>News</th></tr></thead><tbody><tr data-trig="14.66" data-stop="14.51" data-mult="1.0"><td>1</td><td><b>IRT</b></td><td class="sh">&mdash;</td><td><b>14.66</b></td><td>14.51</td><td>14.73</td><td><span class="tier Normal" data-label="Normal">Normal 1×</span></td><td class="rk">&mdash;</td><td class="pos">&mdash;</td><td>0.47</td><td>58</td><td>1.02%</td><td>+0.49%</td><td>1.57%</td><td>41.6</td><td>quiet<div class="why">no headlines in 48h</div></td></tr></tbody></table></div>
   </section>
   <section id="p-stalk" class="panel" role="tabpanel"><p class="note">Everything that broke the previous day range low on a dramatic red opening candle. This is the 08:45 watch list before the sneaky candle filters it.</p><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Drop %</th><th>Wick %</th><th>ATR x</th><th>Break depth %</th><th>Broke swing</th><th>Open vol vs 20d</th><th>Range low</th></tr></thead><tbody><tr><td>1</td><td><b>AIP</b></td><td>4.11</td><td>9.0</td><td>0.89</td><td>3.89</td><td>no</td><td>10%</td><td>22.10</td></tr><tr><td>2</td><td><b>TSCO</b></td><td>2.19</td><td>5.8</td><td>0.78</td><td>0.76</td><td>no</td><td>10%</td><td>33.09</td></tr><tr><td>3</td><td><b>APAM</b></td><td>1.79</td><td>0.7</td><td>0.75</td><td>2.69</td><td>yes</td><td>4%</td><td>33.26</td></tr><tr><td>4</td><td><b>WSM</b></td><td>1.32</td><td>0.0</td><td>0.98</td><td>0.92</td><td>no</td><td>6%</td><td>239.03</td></tr><tr><td>5</td><td><b>TKO</b></td><td>2.08</td><td>8.3</td><td>0.85</td><td>1.45</td><td>no</td><td>2%</td><td>177.17</td></tr><tr><td>6</td><td><b>IRT</b></td><td>1.69</td><td>0.0</td><td>0.81</td><td>0.96</td><td>no</td><td>3%</td><td>14.65</td></tr><tr><td>7</td><td><b>HPQ</b></td><td>2.30</td><td>14.4</td><td>0.84</td><td>1.81</td><td>no</td><td>6%</td><td>29.89</td></tr><tr><td>8</td><td><b>JAN</b></td><td>0.41</td><td>0.0</td><td>0.87</td><td>0.16</td><td>no</td><td>1%</td><td>28.02</td></tr><tr><td>9</td><td><b>UDR</b></td><td>1.45</td><td>0.0</td><td>0.89</td><td>0.09</td><td>no</td><td>2%</td><td>33.61</td></tr><tr><td>10</td><td><b>INVH</b></td><td>1.35</td><td>0.0</td><td>0.86</td><td>0.41</td><td>no</td><td>1%</td><td>26.48</td></tr><tr><td>11</td><td><b>AMH</b></td><td>1.33</td><td>0.0</td><td>0.88</td><td>0.03</td><td>no</td><td>1%</td><td>30.40</td></tr><tr><td>12</td><td><b>WFG</b></td><td>0.77</td><td>0.0</td><td>1.23</td><td>0.33</td><td>no</td><td>1%</td><td>63.78</td></tr><tr><td>13</td><td><b>ESS</b></td><td>1.54</td><td>0.0</td><td>0.92</td><td>0.17</td><td>no</td><td>1%</td><td>269.79</td></tr><tr><td>14</td><td><b>TMC</b></td><td>4.99</td><td>7.7</td><td>0.79</td><td>5.12</td><td>yes</td><td>44%</td><td>3.32</td></tr><tr><td>15</td><td><b>CPT</b></td><td>1.31</td><td>0.0</td><td>0.87</td><td>0.28</td><td>no</td><td>1%</td><td>96.68</td></tr><tr><td>16</td><td><b>HRMY</b></td><td>1.84</td><td>7.5</td><td>1.97</td><td>5.31</td><td>yes</td><td>16%</td><td>39.51</td></tr><tr><td>17</td><td><b>NVR</b></td><td>1.51</td><td>7.0</td><td>0.83</td><td>1.46</td><td>yes</td><td>3%</td><td>5,896.37</td></tr><tr><td>18</td><td><b>LITE</b></td><td>5.34</td><td>18.0</td><td>1.08</td><td>4.56</td><td>no</td><td>16%</td><td>1,077.38</td></tr><tr><td>19</td><td><b>CSR</b></td><td>1.02</td><td>16.1</td><td>0.92</td><td>0.32</td><td>no</td><td>2%</td><td>55.00</td></tr><tr><td>20</td><td><b>CIEN</b></td><td>4.22</td><td>18.6</td><td>1.05</td><td>0.95</td><td>no</td><td>9%</td><td>424.02</td></tr><tr><td>21</td><td><b>VICR</b></td><td>5.09</td><td>12.2</td><td>0.86</td><td>0.22</td><td>no</td><td>11%</td><td>259.10</td></tr><tr><td>22</td><td><b>BLCO</b></td><td>3.22</td><td>22.6</td><td>1.79</td><td>6.20</td><td>yes</td><td>45%</td><td>17.19</td></tr><tr><td>23</td><td><b>FTDR</b></td><td>1.16</td><td>20.9</td><td>0.78</td><td>3.01</td><td>yes</td><td>3%</td><td>79.71</td></tr><tr><td>24</td><td><b>FWONK</b></td><td>1.33</td><td>12.4</td><td>0.84</td><td>1.37</td><td>yes</td><td>10%</td><td>93.62</td></tr><tr><td>25</td><td><b>GAP</b></td><td>1.75</td><td>13.0</td><td>0.93</td><td>2.04</td><td>yes</td><td>5%</td><td>22.99</td></tr><tr><td>26</td><td><b>COLM</b></td><td>1.74</td><td>0.0</td><td>0.77</td><td>0.56</td><td>yes</td><td>2%</td><td>55.92</td></tr><tr><td>27</td><td><b>PEG</b></td><td>2.17</td><td>24.8</td><td>1.67</td><td>2.13</td><td>no</td><td>8%</td><td>71.64</td></tr><tr><td>28</td><td><b>GEF</b></td><td>1.25</td><td>18.0</td><td>0.75</td><td>1.29</td><td>yes</td><td>5%</td><td>81.46</td></tr><tr><td>29</td><td><b>GRDN</b></td><td>2.71</td><td>25.7</td><td>0.93</td><td>3.79</td><td>yes</td><td>4%</td><td>40.67</td></tr><tr><td>30</td><td><b>AAP</b></td><td>3.81</td><td>10.2</td><td>1.05</td><td>1.72</td><td>yes</td><td>2%</td><td>41.63</td></tr><tr><td>31</td><td><b>JJSF</b></td><td>0.69</td><td>60.7</td><td>0.82</td><td>1.71</td><td>no</td><td>2%</td><td>80.71</td></tr><tr><td>32</td><td><b>SOLV</b></td><td>2.15</td><td>15.3</td><td>1.98</td><td>2.42</td><td>yes</td><td>6%</td><td>86.66</td></tr><tr><td>33</td><td><b>ENTG</b></td><td>3.57</td><td>9.4</td><td>0.98</td><td>1.34</td><td>yes</td><td>4%</td><td>159.43</td></tr><tr><td>34</td><td><b>BATRK</b></td><td>0.48</td><td>2.5</td><td>1.02</td><td>0.40</td><td>yes</td><td>4%</td><td>51.93</td></tr><tr><td>35</td><td><b>MCD</b></td><td>0.80</td><td>24.8</td><td>0.79</td><td>0.70</td><td>yes</td><td>6%</td><td>234.14</td></tr><tr><td>36</td><td><b>JBSS</b></td><td>0.38</td><td>73.7</td><td>0.89</td><td>0.47</td><td>no</td><td>24%</td><td>66.80</td></tr><tr><td>37</td><td><b>SOPH</b></td><td>1.81</td><td>61.6</td><td>0.99</td><td>0.85</td><td>no</td><td>2%</td><td>7.07</td></tr><tr><td>38</td><td><b>VPG</b></td><td>1.72</td><td>59.9</td><td>0.83</td><td>3.73</td><td>yes</td><td>4%</td><td>71.62</td></tr><tr><td>39</td><td><b>BURL</b></td><td>1.97</td><td>36.0</td><td>1.32</td><td>2.09</td><td>yes</td><td>3%</td><td>268.36</td></tr><tr><td>40</td><td><b>PLXS</b></td><td>0.00</td><td>95.5</td><td>0.90</td><td>2.87</td><td>yes</td><td>2%</td><td>260.82</td></tr><tr><td>41</td><td><b>MDGL</b></td><td>0.37</td><td>40.3</td><td>0.86</td><td>1.38</td><td>yes</td><td>3%</td><td>470.53</td></tr><tr><td>42</td><td><b>TFIN</b></td><td>0.56</td><td>53.8</td><td>1.23</td><td>1.49</td><td>yes</td><td>2%</td><td>62.12</td></tr><tr><td>43</td><td><b>AMSF</b></td><td>0.12</td><td>66.1</td><td>1.03</td><td>1.27</td><td>yes</td><td>2%</td><td>24.33</td></tr><tr><td>44</td><td><b>ALRS</b></td><td>0.03</td><td>99.2</td><td>1.60</td><td>2.78</td><td>yes</td><td>1%</td><td>30.91</td></tr><tr><td>45</td><td><b>PSIG</b></td><td>3.18</td><td>76.4</td><td>2.19</td><td>8.02</td><td>yes</td><td>4%</td><td>4.73</td></tr></tbody></table></div></section>
   <section id="p-intel" class="panel" role="tabpanel"><h2 class="sec">How the market narrowed</h2><div class="scroll"><table class="full"><thead><tr><th>Stage</th><th>Remaining</th></tr></thead><tbody><tr><td>Universe scanned</td><td>2,831</td></tr><tr><td>Close within reach of prev range low</td><td>1,789</td></tr><tr><td>Red break confirmed (08:45)</td><td>45</td></tr><tr><td>Green sneaky candle (09:00)</td><td>16</td></tr><tr><td>RSI(14) after green ≥ 40</td><td>6</td></tr><tr><td>Swing low held</td><td>5</td></tr><tr><td>Headroom 0–9%</td><td>5</td></tr><tr><td>Reward/risk ≥ 0.35</td><td>1</td></tr><tr><td>News quiet or clear</td><td>1</td></tr></tbody></table></div>
@@ -221,7 +224,9 @@ document.querySelectorAll('.tab').forEach(function(t){
   });
 });
 
-// Position sizing. Each row risks cash x risk% x its tier, and shares = that
+// Position sizing. The input is the BASE risk (a Normal trade); each row's R:R
+// tier scales it (Full 1.5x, Normal 1x, Light 0.75x). Each row risks cash x
+// base% x its tier, and shares = that
 // risk / (buy stop - stop), so a stop-out costs the Risk $ shown. If the rows
 // together would need more cash than there is, every row is scaled down by the
 // same factor: risk keeps its exact 1.5 : 1 : 0.75 tier ratio and the total
@@ -237,6 +242,7 @@ document.querySelectorAll('.tab').forEach(function(t){
   } catch (e) {}
   function num(el){ var v = parseFloat(String(el.value).replace(/[$,\s]/g, '')); return isFinite(v) ? v : 0; }
   function usd(x){ return '$' + Math.round(x).toLocaleString('en-US'); }
+  function pct(f){ return parseFloat((f * 100).toFixed(2)) + '%'; }
   function update(){
     var C = num(cash), P = num(rp) / 100, on = C > 0 && P > 0;
     var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-trig]'));
@@ -249,12 +255,19 @@ document.querySelectorAll('.tab').forEach(function(t){
     var pos = 0, risk = 0, n = 0;
     rows.forEach(function(tr, i){
       var x = raw[i], sh = Math.floor(x.sh * k), allin = on && sh * x.trig >= 0.97 * C;
+      var m = +tr.dataset.mult, want = C * P * m, tier = tr.querySelector('.tier');
+      tier.textContent = tier.dataset.label + ' · ' + pct(P * m) + (on ? ' · ' + usd(want) : '');
       tr.querySelector('.sh').textContent = on ? sh.toLocaleString('en-US') : '—';
-      tr.querySelector('.rk').textContent = on ? usd(sh * x.per) : '—';
+      tr.querySelector('.rk').innerHTML = on ? usd(sh * x.per) +
+        (sh * x.per < 0.98 * want ? '<span class="tag-tight">cash-capped</span>' : '') : '—';
       tr.querySelector('.pos').innerHTML = on ? usd(sh * x.trig) +
         (allin ? '<span class="tag-tight">all-in</span>' : '') : '—';
       if (sh > 0) { pos += sh * x.trig; risk += sh * x.per; n++; }
     });
+    var echo = document.getElementById('riskusd');
+    if (echo) echo.textContent = (C > 0 && P > 0)
+      ? pct(P) + ' = ' + usd(C * P) + ' on a Normal trade · Full ' + usd(C * P * 1.5) + ' · Light ' + usd(C * P * 0.75)
+      : 'Full trades risk 1.5×, Light 0.75×';
     var out = document.getElementById('sizesum');
     if (!on) { out.textContent = 'Enter today’s cash to size each order.'; return save(); }
     var tail = usd(pos) + ' invested, ' + usd(risk) + ' at risk (' + (100 * risk / C).toFixed(1) + '% of cash).';
