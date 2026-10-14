@@ -237,5 +237,13 @@
   "rules": "v2",
   "stalked": 24,
   "top": []
+ },
+ "2026-10-14": {
+  "confirmed": 1,
+  "rules": "v2",
+  "stalked": 71,
+  "top": [
+   "TSCO"
+  ]
  }
 }

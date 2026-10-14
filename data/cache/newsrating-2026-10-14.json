@@ -1,0 +1,13 @@
+{
+ "session": "2026-10-14",
+ "generated_at": "2026-10-14T09:00:29-05:00",
+ "session_note": "No company-specific catalysts today; TSCO's headlines are generic listicles that don't explain the gap below yesterday's low.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "TSCO": {
+   "rating": "clear",
+   "reason": "Only generic listicles on profitability and dividend growth; no company-specific event in window.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
