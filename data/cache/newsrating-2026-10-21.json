@@ -1,0 +1,23 @@
+{
+ "session": "2026-10-21",
+ "generated_at": "2026-10-21T09:00:32-05:00",
+ "session_note": "Neither ticker has a company-specific catalyst; headlines are generic listicles and comparisons that explain nothing about today's drops.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "LOPE": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BOOT": {
+   "rating": "clear",
+   "reason": "Generic growth listicle and competitor feature interview; no BOOT-specific event in window.",
+   "source": "claude-opus-5-5"
+  },
+  "BLMN": {
+   "rating": "clear",
+   "reason": "Generic year-to-date peer performance comparison; no company-specific event explaining the drop.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
