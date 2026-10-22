@@ -277,5 +277,11 @@
    "BOOT",
    "BLMN"
   ]
+ },
+ "2026-10-22": {
+  "confirmed": 0,
+  "rules": "v2",
+  "stalked": 141,
+  "top": []
  }
 }

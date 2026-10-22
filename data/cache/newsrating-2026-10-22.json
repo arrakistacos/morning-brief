@@ -1,0 +1,13 @@
+{
+ "session": "2026-10-22",
+ "generated_at": "2026-10-22T09:00:34-05:00",
+ "session_note": "The only real catalyst is Carrefour's French-unrest guidance cut; Carrier's sole company news is a large capex announcement.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "CARR": {
+   "rating": "caution",
+   "reason": "Carrier announced $600M+ US manufacturing investment; Carrefour guidance-cut headlines are unrelated.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}

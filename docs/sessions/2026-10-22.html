@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SNEAK · 2026-10-22</title>
+<meta name="description" content="Sneaky-buy opening range scanner — 0 candle-3 orders for 2026-10-22">
+<style>
+:root{
+  --bg:#0A0F0D; --s1:#101614; --s2:#16201C; --s3:#1C2925;
+  --border:#1F2E28; --border2:#2A3D36;
+  --ink:#D8E6DF; --muted:#7E9A90; --dim:#5C736B;
+  --phos:#4DFFB0; --phos-dim:#14AD6E;
+  --bull:#35C98A; --bear:#D6455C;
+  --c1:#14AD6E; --c2:#2B8CE8; --c3:#C4870A; --c4:#A85CE8;
+  --good:#14AD6E; --warn:#C4870A; --crit:#D6455C;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:
+    radial-gradient(ellipse 90% 45% at 50% -8%, rgba(77,255,176,.07) 0%, transparent 62%),
+    radial-gradient(ellipse 70% 40% at 50% 108%, rgba(43,140,232,.05) 0%, transparent 60%),
+    var(--bg);
+  color:var(--ink); font-family:var(--mono); font-size:15px; line-height:1.6; min-height:100vh;
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.13) 0 1px,transparent 1px 3px);
+  opacity:.45;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1rem;width:100%}
+a{color:var(--c2)}
+
+.hero{text-align:center;padding:2.4rem 1rem 1.6rem;border-bottom:1px solid var(--phos-dim);
+  box-shadow:0 1px 0 rgba(20,173,110,.3),0 12px 44px -26px rgba(77,255,176,.5);
+  background:linear-gradient(to top,rgba(20,173,110,.09),transparent 42%);}
+.emblem{width:clamp(46px,10vw,64px);margin:0 auto .9rem;color:var(--phos);
+  filter:drop-shadow(0 0 8px rgba(77,255,176,.55));animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.emblem{animation:none}}
+.hero h1{font-size:clamp(1.05rem,3.6vw,1.7rem);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--phos);text-shadow:0 0 14px rgba(77,255,176,.4);font-weight:700}
+.hero .tag{color:var(--phos-dim);letter-spacing:.16em;text-transform:uppercase;font-size:.72rem;margin-top:.5rem}
+.hero .sub{color:var(--dim);font-size:.7rem;margin-top:.35rem;letter-spacing:.06em}
+
+.strip{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;padding:.9rem 1rem;
+  border-bottom:1px solid var(--border);background:var(--s1)}
+.pill{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .7rem;
+  border:1px solid var(--border2);border-radius:99px;color:var(--muted)}
+.pill b{color:var(--ink);font-weight:600}
+.pill.live{border-color:var(--phos-dim);color:var(--phos)}
+.pill.stale{border-color:var(--warn);color:var(--warn)}
+.banner{margin:0 0 1.2rem;padding:.8rem 1rem;border:1px solid var(--warn);border-radius:6px;
+  background:rgba(196,135,10,.08);color:var(--ink);font-size:.82rem}
+.banner b{color:var(--warn)}
+.tag-tight{color:var(--warn);font-size:.68rem;margin-left:.3rem}
+.why{color:var(--dim);font-size:.66rem;line-height:1.35;max-width:22ch;white-space:normal}
+.sizer{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:flex-start;margin:0 0 .9rem;padding:.9rem 1rem;
+  border:1px solid var(--phos-dim);border-radius:6px;background:var(--s1)}
+.sizer label{display:flex;flex-direction:column;gap:.3rem;font-size:.62rem;color:var(--dim);
+  text-transform:uppercase;letter-spacing:.12em}
+.sizer input{width:9.5rem;padding:.5rem .6rem;border:1px solid var(--border2);border-radius:5px;
+  background:var(--s2);color:var(--ink);font-family:var(--mono);font-size:16px}
+.sizer input:focus{outline:none;border-color:var(--phos)}
+.sizer .sum{flex:1 1 16rem;font-size:.76rem;color:var(--muted);line-height:1.45}
+.sizer .echo{font-size:.68rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.sizer .sum b{color:var(--warn)}
+table.full td.sh{color:var(--phos);font-weight:700}
+.tier{font-size:.7rem;letter-spacing:.06em;white-space:nowrap}
+.tier.Full{color:var(--phos)} .tier.Light{color:var(--dim)}
+
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);
+  background:rgba(16,22,20,.94);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:.85rem 1.15rem;white-space:nowrap;background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--muted);font-family:var(--mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;min-height:46px}
+.tab[aria-selected="true"]{color:var(--phos);border-bottom-color:var(--phos);text-shadow:0 0 10px rgba(77,255,176,.35)}
+.panel{display:none;padding:1.4rem 0 3rem}
+.panel.on{display:block}
+
+.quote{border-left:2px solid var(--phos-dim);padding:.55rem 0 .55rem .9rem;margin:0 0 1.3rem;
+  color:var(--muted);font-style:italic;font-size:.86rem}
+.quote span{display:block;font-style:normal;color:var(--dim);font-size:.72rem;margin-top:.3rem}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem;margin-bottom:1.4rem}
+.stat{background:linear-gradient(180deg,var(--s2),var(--s1));border:1px solid var(--border);
+  border-top:2px solid var(--c1);border-radius:6px;padding:.85rem}
+.stat .k{font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.14em}
+.stat .v{font-size:1.35rem;font-weight:700;margin-top:.2rem;color:var(--ink)}
+.stat .n{font-size:.65rem;color:var(--muted);margin-top:.15rem}
+
+h2.sec{font-size:.8rem;color:var(--phos);letter-spacing:.14em;text-transform:uppercase;
+  margin:1.6rem 0 .8rem;padding-bottom:.45rem;border-bottom:1px solid var(--border)}
+.note{color:var(--muted);font-size:.78rem;margin-bottom:1rem}
+
+details.howto{margin:0 0 1.2rem;border:1px solid var(--border2);border-radius:6px;padding:.6rem .8rem;background:var(--s1)}
+details.howto summary{cursor:pointer;color:var(--phos);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+details.howto table.kv{margin-top:.6rem}
+details.howto table.kv td:last-child{text-align:left;font-weight:400;color:var(--muted)}
+
+table.kv{width:100%;border-collapse:collapse;font-size:.78rem}
+table.kv td{padding:.3rem .4rem;border-bottom:1px solid var(--border)}
+table.kv td:first-child{color:var(--dim);white-space:nowrap}
+table.kv td:last-child{text-align:right;color:var(--ink);font-weight:600}
+
+table.full{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:.6rem}
+table.full th{text-align:left;color:var(--dim);font-weight:600;font-size:.63rem;text-transform:uppercase;
+  letter-spacing:.1em;padding:.4rem;border-bottom:1px solid var(--border2)}
+table.full td{padding:.38rem .4rem;border-bottom:1px solid var(--border);color:var(--ink)}
+table.full tr:hover td{background:var(--s2)}
+.scroll{overflow-x:auto}
+
+.arch{display:grid;gap:.5rem}
+.arch a{display:flex;justify-content:space-between;gap:1rem;background:var(--s1);border:1px solid var(--border);
+  border-radius:6px;padding:.7rem .9rem;text-decoration:none;color:var(--ink);font-size:.8rem}
+.arch a:hover{border-color:var(--phos-dim)}
+.arch span{color:var(--muted);font-size:.72rem}
+
+footer{border-top:1px solid var(--border);padding:1.4rem 1rem 2.4rem;text-align:center;
+  color:var(--dim);font-size:.68rem;letter-spacing:.06em}
+.empty{background:var(--s1);border:1px dashed var(--border2);border-radius:7px;padding:2rem 1rem;
+  text-align:center;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="emblem"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><path d="M50 4 L61 39 L96 50 L61 61 L50 96 L39 61 L4 50 L39 39 Z" fill="currentColor" opacity=".92"/><circle cx="50" cy="50" r="9" fill="#0A0F0D"/><circle cx="50" cy="50" r="4" fill="currentColor"/></svg></div>
+  <h1>Sneak</h1>
+  <div class="tag">opening range · sneaky buy protocol</div>
+  <div class="sub">08:45 stalk → 09:00 orders → 09:15 window closes · long only · central time</div>
+</header>
+<div class="strip"><span class="pill">session <b>2026-10-22</b></span><span class="pill live">08:45 stalk <b>141</b></span><span class="pill live">09:00 orders <b>0</b></span><span class="pill">scan <b>2,756</b> names</span><span class="pill">built <b>2026-10-22 09:00</b></span></div>
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-panel="p-strike">09:00 Orders</button>
+  <button class="tab" role="tab" aria-selected="false" data-panel="p-stalk">08:45 Stalk list</button>
+  <button class="tab" role="tab" aria-selected="false" data-panel="p-intel">Intel</button>
+  <button class="tab" role="tab" aria-selected="false" data-panel="p-arch">Archive</button>
+</nav>
+<main class="wrap">
+  <section id="p-strike" class="panel on" role="tabpanel">
+    <blockquote class="quote">We suffer more often in imagination than in reality.<span>— Seneca — Letters</span></blockquote>
+    <div class="stats"><div class="stat"><div class="k">Orders today</div><div class="v">0</div><div class="n">passed every gate</div></div><div class="stat"><div class="k">Entry window</div><div class="v">09:00–09:15 CT</div><div class="n">buy-stop, then cancel</div></div><div class="stat"><div class="k">Stalked at 08:45</div><div class="v">141</div><div class="n">red break under range low</div></div><div class="stat"><div class="k">Universe scanned</div><div class="v">2,756</div><div class="n">liquid US common stock</div></div></div>
+    <p class="note">Every row cleared all the gates: a dramatic red break of yesterday&rsquo;s low, a green sneaky candle holding above it, RSI(14) after it at 40 or better, the swing low intact, headroom under 9%, reward at least 0.35× the risk, and no company-specific news behind the drop. <b>Ranked by momentum.</b> Each row is a buy-stop order for candle 3.</p>
+<details class="howto"><summary>How to trade a row &mdash; the candle-3 order</summary>
+<table class="kv">
+<tr><td><b>Order</b></td><td>A <b>buy-stop</b> at the Buy stop price &mdash; one cent above the
+high of the 09:45&ndash;10:00 ET green candle. It fills only if price breaks the sneaky
+candle&rsquo;s high during candle 3.</td></tr>
+<tr><td><b>Window</b></td><td><b>09:00–09:15 CT</b> (10:00&ndash;10:15 ET). Cancel anything still
+unfilled at 09:15 CT. Cancel it early if price trades below the Stop before it fills &mdash;
+the setup is broken.</td></tr>
+<tr><td><b>Stop</b></td><td>Low of the 09:30 red candle. Never moves. Attach it as soon as
+the buy-stop fills.</td></tr>
+<tr><td><b>Target</b></td><td>The projected move: the median excursion this much headroom
+has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell there.</td></tr>
+<tr><td><b>Exit</b></td><td>Flat by the close if neither the stop nor the target is hit.</td></tr>
+<tr><td><b>Size</b></td><td>Enter today&rsquo;s cash and your <b>base risk</b> &mdash; what you would
+lose on a Normal trade &mdash; above the list. Each row&rsquo;s R:R scales that base: <b>Full 1.5&times;</b>
+for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60, <b>Light 0.75&times;</b> below; the Size column
+shows the resulting % and $. Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
+costs the Risk $ shown (marked <i>cash-capped</i> when your cash, not the risk, set the size). If the day&rsquo;s orders together would need more than your cash,
+every row shrinks by the same factor &mdash; risk keeps its tier ratio and the total never exceeds
+what you have. A lone order your cash cannot fully cover becomes <i>all-in</i>.</td></tr>
+<tr><td><b>Momentum</b></td><td>0&ndash;100 percentile within today&rsquo;s list; the list is
+sorted by it. It ranks <i>probability</i>, not profit &mdash; use it to choose between rows.</td></tr>
+</table>
+<p class="note">In the 56-session backtest (5-minute bars, 0.05% round-trip cost) these rules
+won 69% of filled trades &mdash; 65.8% on the 30 sessions after the rules were chosen,
+against 52.7% for the old rules &mdash; and averaged +0.13R per trade on those sessions. That
+is about 1.5 orders a day, and the confidence interval on the +0.13R still spans zero:
+a better list, not a proven edge. Size accordingly. Long only, cash account. Not
+investment advice.</p>
+</details>
+<p class="note"><b>News desk:</b> The only real catalyst is Carrefour&#x27;s French-unrest guidance cut; Carrier&#x27;s sole company news is a large capex announcement.</p><div class="empty">Nothing cleared every gate this session.<br>Nothing to trade is a position.</div><h2 class="sec">Held back by the news gate — 1</h2><p class="note">The chart qualified, but the drop came with company-specific news (1 caution). The reason sits under each rating. Listed for the record, not for trading.</p><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Buy stop</th><th>Stop</th><th>Target</th><th>R:R</th><th>Momentum</th><th>Stop distance %</th><th>Reward %</th><th>Headroom</th><th>RSI after green</th><th>News</th></tr></thead><tbody><tr><td>1</td><td><b>CARR</b></td><td><b>55.57</b></td><td>54.71</td><td>55.88</td><td>0.36</td><td>37</td><td>1.55%</td><td>+0.56%</td><td>1.91%</td><td>44.09</td><td>caution<div class="why">Carrier announced $600M+ US manufacturing investment; Carrefour guidance-cut headlines are unrelated.</div></td></tr></tbody></table></div>
+  </section>
+  <section id="p-stalk" class="panel" role="tabpanel"><p class="note">Everything that broke the previous day range low on a dramatic red opening candle. This is the 08:45 watch list before the sneaky candle filters it.</p><div class="scroll"><table class="full"><thead><tr><th>#</th><th>Symbol</th><th>Drop %</th><th>Wick %</th><th>ATR x</th><th>Break depth %</th><th>Broke swing</th><th>Open vol vs 20d</th><th>Range low</th></tr></thead><tbody><tr><td>1</td><td><b>CRS</b></td><td>9.04</td><td>3.3</td><td>2.25</td><td>17.62</td><td>yes</td><td>55%</td><td>363.10</td></tr><tr><td>2</td><td><b>MSM</b></td><td>7.83</td><td>3.8</td><td>3.30</td><td>10.50</td><td>yes</td><td>19%</td><td>129.31</td></tr><tr><td>3</td><td><b>KALU</b></td><td>8.00</td><td>3.3</td><td>2.31</td><td>18.37</td><td>yes</td><td>56%</td><td>151.50</td></tr><tr><td>4</td><td><b>NDSN</b></td><td>3.47</td><td>0.0</td><td>1.78</td><td>3.13</td><td>yes</td><td>3%</td><td>327.11</td></tr><tr><td>5</td><td><b>IR</b></td><td>4.48</td><td>0.0</td><td>1.73</td><td>6.22</td><td>yes</td><td>20%</td><td>78.26</td></tr><tr><td>6</td><td><b>TT</b></td><td>4.80</td><td>3.2</td><td>1.89</td><td>4.31</td><td>yes</td><td>6%</td><td>463.87</td></tr><tr><td>7</td><td><b>CR</b></td><td>4.07</td><td>0.0</td><td>1.62</td><td>4.86</td><td>yes</td><td>14%</td><td>202.71</td></tr><tr><td>8</td><td><b>WWD</b></td><td>4.79</td><td>1.2</td><td>1.66</td><td>6.16</td><td>yes</td><td>5%</td><td>323.44</td></tr><tr><td>9</td><td><b>IEX</b></td><td>3.02</td><td>0.0</td><td>1.57</td><td>2.99</td><td>yes</td><td>2%</td><td>233.32</td></tr><tr><td>10</td><td><b>PH</b></td><td>3.40</td><td>0.0</td><td>1.70</td><td>3.69</td><td>yes</td><td>5%</td><td>943.00</td></tr><tr><td>11</td><td><b>AME</b></td><td>3.17</td><td>1.5</td><td>1.58</td><td>3.64</td><td>yes</td><td>6%</td><td>248.09</td></tr><tr><td>12</td><td><b>CSTM</b></td><td>4.89</td><td>0.0</td><td>1.95</td><td>6.98</td><td>yes</td><td>6%</td><td>25.51</td></tr><tr><td>13</td><td><b>OII</b></td><td>5.99</td><td>1.0</td><td>2.15</td><td>15.43</td><td>yes</td><td>21%</td><td>43.79</td></tr><tr><td>14</td><td><b>GGG</b></td><td>3.80</td><td>0.0</td><td>3.05</td><td>12.65</td><td>yes</td><td>25%</td><td>80.52</td></tr><tr><td>15</td><td><b>KMT</b></td><td>4.39</td><td>0.0</td><td>1.41</td><td>5.53</td><td>yes</td><td>3%</td><td>30.92</td></tr><tr><td>16</td><td><b>ESE</b></td><td>4.02</td><td>0.0</td><td>1.32</td><td>4.65</td><td>yes</td><td>3%</td><td>246.07</td></tr><tr><td>17</td><td><b>SPXC</b></td><td>4.02</td><td>0.6</td><td>1.28</td><td>4.96</td><td>yes</td><td>11%</td><td>165.84</td></tr><tr><td>18</td><td><b>RBC</b></td><td>3.03</td><td>0.7</td><td>1.16</td><td>3.48</td><td>yes</td><td>7%</td><td>498.02</td></tr><tr><td>19</td><td><b>GRC</b></td><td>3.48</td><td>2.2</td><td>1.53</td><td>3.08</td><td>yes</td><td>16%</td><td>72.62</td></tr><tr><td>20</td><td><b>EPAC</b></td><td>2.47</td><td>0.0</td><td>1.07</td><td>3.27</td><td>yes</td><td>3%</td><td>35.34</td></tr><tr><td>21</td><td><b>LECO</b></td><td>2.87</td><td>0.0</td><td>1.11</td><td>3.91</td><td>yes</td><td>4%</td><td>261.55</td></tr><tr><td>22</td><td><b>SOLS</b></td><td>3.67</td><td>0.0</td><td>1.10</td><td>3.17</td><td>no</td><td>5%</td><td>63.67</td></tr><tr><td>23</td><td><b>EMR</b></td><td>2.83</td><td>1.4</td><td>1.48</td><td>3.04</td><td>yes</td><td>12%</td><td>161.06</td></tr><tr><td>24</td><td><b>SUNB</b></td><td>4.32</td><td>5.1</td><td>1.64</td><td>2.37</td><td>no</td><td>7%</td><td>76.90</td></tr><tr><td>25</td><td><b>RES</b></td><td>3.56</td><td>4.3</td><td>1.17</td><td>2.32</td><td>no</td><td>7%</td><td>6.24</td></tr><tr><td>26</td><td><b>WCC</b></td><td>4.17</td><td>0.2</td><td>1.28</td><td>5.33</td><td>yes</td><td>3%</td><td>344.09</td></tr><tr><td>27</td><td><b>PRLB</b></td><td>3.62</td><td>0.0</td><td>0.94</td><td>3.82</td><td>no</td><td>1%</td><td>87.91</td></tr><tr><td>28</td><td><b>JCI</b></td><td>3.07</td><td>4.2</td><td>1.32</td><td>3.65</td><td>yes</td><td>6%</td><td>149.03</td></tr><tr><td>29</td><td><b>ATI</b></td><td>4.14</td><td>4.3</td><td>1.04</td><td>9.97</td><td>yes</td><td>31%</td><td>179.58</td></tr><tr><td>30</td><td><b>STLD</b></td><td>3.09</td><td>0.0</td><td>1.14</td><td>2.30</td><td>no</td><td>10%</td><td>241.56</td></tr><tr><td>31</td><td><b>MLI</b></td><td>3.18</td><td>0.0</td><td>1.26</td><td>4.88</td><td>no</td><td>6%</td><td>57.06</td></tr><tr><td>32</td><td><b>XPRO</b></td><td>3.69</td><td>0.0</td><td>0.88</td><td>0.25</td><td>no</td><td>1%</td><td>16.22</td></tr><tr><td>33</td><td><b>NVT</b></td><td>4.76</td><td>2.7</td><td>0.98</td><td>6.93</td><td>yes</td><td>9%</td><td>143.05</td></tr><tr><td>34</td><td><b>ESI</b></td><td>3.57</td><td>1.2</td><td>1.31</td><td>4.82</td><td>yes</td><td>13%</td><td>35.69</td></tr><tr><td>35</td><td><b>FAST</b></td><td>2.38</td><td>3.4</td><td>1.02</td><td>0.91</td><td>no</td><td>3%</td><td>51.49</td></tr><tr><td>36</td><td><b>TKR</b></td><td>2.41</td><td>0.0</td><td>1.04</td><td>3.38</td><td>yes</td><td>3%</td><td>113.71</td></tr><tr><td>37</td><td><b>DNOW</b></td><td>2.55</td><td>0.0</td><td>0.82</td><td>0.38</td><td>no</td><td>1%</td><td>15.74</td></tr><tr><td>38</td><td><b>CLB</b></td><td>3.42</td><td>4.2</td><td>0.96</td><td>3.57</td><td>no</td><td>4%</td><td>10.08</td></tr><tr><td>39</td><td><b>AROC</b></td><td>2.44</td><td>0.0</td><td>0.84</td><td>1.21</td><td>no</td><td>1%</td><td>29.31</td></tr><tr><td>40</td><td><b>SPHL</b></td><td>10.95</td><td>1.5</td><td>0.78</td><td>3.83</td><td>no</td><td>8%</td><td>2.87</td></tr><tr><td>41</td><td><b>LFUS</b></td><td>3.26</td><td>0.0</td><td>1.23</td><td>3.56</td><td>yes</td><td>14%</td><td>385.42</td></tr><tr><td>42</td><td><b>SWBI</b></td><td>2.42</td><td>6.7</td><td>0.97</td><td>0.55</td><td>no</td><td>6%</td><td>14.78</td></tr><tr><td>43</td><td><b>FLS</b></td><td>3.24</td><td>4.2</td><td>1.26</td><td>4.46</td><td>yes</td><td>2%</td><td>70.48</td></tr><tr><td>44</td><td><b>KAI</b></td><td>2.23</td><td>0.0</td><td>0.93</td><td>3.08</td><td>yes</td><td>8%</td><td>263.26</td></tr><tr><td>45</td><td><b>NUE</b></td><td>2.57</td><td>6.8</td><td>1.07</td><td>2.03</td><td>no</td><td>3%</td><td>259.60</td></tr><tr><td>46</td><td><b>GNRC</b></td><td>3.77</td><td>0.0</td><td>0.90</td><td>4.81</td><td>yes</td><td>6%</td><td>198.55</td></tr><tr><td>47</td><td><b>HRI</b></td><td>4.20</td><td>0.0</td><td>1.19</td><td>0.12</td><td>no</td><td>9%</td><td>126.15</td></tr><tr><td>48</td><td><b>FPS</b></td><td>7.01</td><td>10.3</td><td>0.93</td><td>18.57</td><td>yes</td><td>53%</td><td>30.75</td></tr><tr><td>49</td><td><b>HP</b></td><td>2.66</td><td>2.2</td><td>0.83</td><td>1.44</td><td>no</td><td>1%</td><td>37.85</td></tr><tr><td>50</td><td><b>ALNT</b></td><td>3.79</td><td>0.0</td><td>0.83</td><td>4.82</td><td>yes</td><td>12%</td><td>94.91</td></tr><tr><td>51</td><td><b>AEIS</b></td><td>4.41</td><td>1.8</td><td>0.91</td><td>7.90</td><td>yes</td><td>7%</td><td>243.13</td></tr><tr><td>52</td><td><b>GEV</b></td><td>3.21</td><td>2.9</td><td>0.84</td><td>5.26</td><td>yes</td><td>18%</td><td>914.35</td></tr><tr><td>53</td><td><b>ENTG</b></td><td>3.86</td><td>0.0</td><td>0.99</td><td>7.70</td><td>yes</td><td>6%</td><td>145.50</td></tr><tr><td>54</td><td><b>ATMU</b></td><td>2.08</td><td>0.0</td><td>0.88</td><td>2.45</td><td>no</td><td>2%</td><td>44.85</td></tr><tr><td>55</td><td><b>MAIR</b></td><td>2.75</td><td>0.0</td><td>0.82</td><td>3.81</td><td>yes</td><td>5%</td><td>22.95</td></tr><tr><td>56</td><td><b>NPO</b></td><td>2.60</td><td>0.0</td><td>1.02</td><td>4.22</td><td>yes</td><td>6%</td><td>290.54</td></tr><tr><td>57</td><td><b>ST</b></td><td>2.02</td><td>3.0</td><td>0.78</td><td>4.25</td><td>yes</td><td>2%</td><td>42.07</td></tr><tr><td>58</td><td><b>RAL</b></td><td>2.38</td><td>0.4</td><td>1.14</td><td>2.35</td><td>no</td><td>1%</td><td>67.52</td></tr><tr><td>59</td><td><b>KEX</b></td><td>1.42</td><td>0.0</td><td>0.89</td><td>0.64</td><td>no</td><td>8%</td><td>135.17</td></tr><tr><td>60</td><td><b>MTRN</b></td><td>3.52</td><td>0.6</td><td>1.29</td><td>4.95</td><td>yes</td><td>5%</td><td>243.61</td></tr><tr><td>61</td><td><b>CARR</b></td><td>1.63</td><td>5.3</td><td>0.88</td><td>1.72</td><td>no</td><td>4%</td><td>55.67</td></tr><tr><td>62</td><td><b>NESR</b></td><td>4.37</td><td>10.4</td><td>0.85</td><td>4.54</td><td>no</td><td>8%</td><td>21.17</td></tr><tr><td>63</td><td><b>ARXS</b></td><td>2.24</td><td>0.0</td><td>0.76</td><td>3.73</td><td>yes</td><td>2%</td><td>51.28</td></tr><tr><td>64</td><td><b>CNM</b></td><td>1.26</td><td>0.0</td><td>0.85</td><td>1.06</td><td>no</td><td>1%</td><td>41.06</td></tr><tr><td>65</td><td><b>NVEC</b></td><td>3.35</td><td>23.7</td><td>1.20</td><td>29.88</td><td>yes</td><td>77%</td><td>102.28</td></tr><tr><td>66</td><td><b>WSC</b></td><td>1.65</td><td>1.6</td><td>0.86</td><td>0.37</td><td>no</td><td>1%</td><td>16.14</td></tr><tr><td>67</td><td><b>KGS</b></td><td>6.26</td><td>4.3</td><td>1.38</td><td>1.92</td><td>no</td><td>5%</td><td>47.31</td></tr><tr><td>68</td><td><b>WTS</b></td><td>2.99</td><td>0.0</td><td>1.95</td><td>2.82</td><td>yes</td><td>10%</td><td>359.77</td></tr><tr><td>69</td><td><b>ITT</b></td><td>3.38</td><td>1.5</td><td>1.22</td><td>2.79</td><td>yes</td><td>1%</td><td>194.99</td></tr><tr><td>70</td><td><b>ORI</b></td><td>1.93</td><td>3.1</td><td>2.23</td><td>1.14</td><td>no</td><td>5%</td><td>39.63</td></tr><tr><td>71</td><td><b>AVTX</b></td><td>13.79</td><td>13.4</td><td>2.02</td><td>38.52</td><td>yes</td><td>278%</td><td>12.22</td></tr><tr><td>72</td><td><b>ATRO</b></td><td>2.66</td><td>0.0</td><td>0.87</td><td>2.60</td><td>yes</td><td>5%</td><td>60.06</td></tr><tr><td>73</td><td><b>HUBB</b></td><td>3.64</td><td>6.2</td><td>1.37</td><td>4.47</td><td>yes</td><td>11%</td><td>455.46</td></tr><tr><td>74</td><td><b>WFRD</b></td><td>2.71</td><td>8.6</td><td>0.85</td><td>0.57</td><td>no</td><td>8%</td><td>82.59</td></tr><tr><td>75</td><td><b>AIT</b></td><td>3.87</td><td>0.0</td><td>2.22</td><td>2.48</td><td>yes</td><td>4%</td><td>332.01</td></tr><tr><td>76</td><td><b>NAVI</b></td><td>1.02</td><td>3.6</td><td>0.85</td><td>2.56</td><td>yes</td><td>7%</td><td>8.98</td></tr><tr><td>77</td><td><b>FTV</b></td><td>0.91</td><td>0.0</td><td>0.89</td><td>1.42</td><td>no</td><td>1%</td><td>58.27</td></tr><tr><td>78</td><td><b>DOV</b></td><td>3.94</td><td>1.6</td><td>2.27</td><td>2.40</td><td>yes</td><td>6%</td><td>196.57</td></tr><tr><td>79</td><td><b>MDLN</b></td><td>2.37</td><td>0.0</td><td>0.87</td><td>2.31</td><td>yes</td><td>10%</td><td>34.83</td></tr><tr><td>80</td><td><b>INVX</b></td><td>3.28</td><td>6.3</td><td>1.04</td><td>0.70</td><td>no</td><td>1%</td><td>28.61</td></tr><tr><td>81</td><td><b>FELE</b></td><td>2.25</td><td>0.0</td><td>1.10</td><td>2.26</td><td>yes</td><td>2%</td><td>100.49</td></tr><tr><td>82</td><td><b>MOD</b></td><td>3.29</td><td>9.3</td><td>0.76</td><td>7.97</td><td>yes</td><td>7%</td><td>149.00</td></tr><tr><td>83</td><td><b>ITW</b></td><td>3.44</td><td>0.7</td><td>2.23</td><td>2.21</td><td>yes</td><td>5%</td><td>274.10</td></tr><tr><td>84</td><td><b>HLIO</b></td><td>3.20</td><td>0.0</td><td>1.12</td><td>2.09</td><td>yes</td><td>2%</td><td>67.35</td></tr><tr><td>85</td><td><b>CMC</b></td><td>1.83</td><td>0.0</td><td>0.85</td><td>2.07</td><td>yes</td><td>2%</td><td>63.65</td></tr><tr><td>86</td><td><b>TAC</b></td><td>2.17</td><td>9.3</td><td>1.13</td><td>0.38</td><td>no</td><td>1%</td><td>13.06</td></tr><tr><td>87</td><td><b>META</b></td><td>3.62</td><td>9.3</td><td>1.34</td><td>6.01</td><td>yes</td><td>43%</td><td>689.68</td></tr><tr><td>88</td><td><b>AAON</b></td><td>3.98</td><td>7.3</td><td>0.88</td><td>4.81</td><td>yes</td><td>8%</td><td>73.00</td></tr><tr><td>89</td><td><b>FTI</b></td><td>3.04</td><td>0.0</td><td>1.19</td><td>1.83</td><td>yes</td><td>5%</td><td>68.82</td></tr><tr><td>90</td><td><b>ROK</b></td><td>2.21</td><td>5.7</td><td>0.96</td><td>1.91</td><td>yes</td><td>6%</td><td>428.57</td></tr><tr><td>91</td><td><b>ALSN</b></td><td>2.29</td><td>1.1</td><td>0.78</td><td>1.78</td><td>yes</td><td>1%</td><td>108.91</td></tr><tr><td>92</td><td><b>PTEN</b></td><td>3.05</td><td>9.9</td><td>0.82</td><td>0.95</td><td>no</td><td>2%</td><td>11.52</td></tr><tr><td>93</td><td><b>CBRE</b></td><td>2.40</td><td>10.5</td><td>0.99</td><td>1.90</td><td>no</td><td>8%</td><td>132.63</td></tr><tr><td>94</td><td><b>MWA</b></td><td>1.57</td><td>0.0</td><td>0.76</td><td>1.57</td><td>yes</td><td>2%</td><td>21.70</td></tr><tr><td>95</td><td><b>SEI</b></td><td>4.05</td><td>6.3</td><td>0.79</td><td>4.34</td><td>yes</td><td>8%</td><td>65.91</td></tr><tr><td>96</td><td><b>GL</b></td><td>1.64</td><td>14.7</td><td>1.70</td><td>4.54</td><td>yes</td><td>6%</td><td>169.20</td></tr><tr><td>97</td><td><b>TDY</b></td><td>1.19</td><td>22.3</td><td>0.81</td><td>0.02</td><td>no</td><td>6%</td><td>625.01</td></tr><tr><td>98</td><td><b>Q</b></td><td>2.05</td><td>15.8</td><td>0.77</td><td>5.13</td><td>yes</td><td>12%</td><td>119.16</td></tr><tr><td>99</td><td><b>OIS</b></td><td>3.71</td><td>0.0</td><td>1.11</td><td>1.39</td><td>yes</td><td>1%</td><td>8.28</td></tr><tr><td>100</td><td><b>KMI</b></td><td>2.10</td><td>6.4</td><td>1.46</td><td>0.27</td><td>no</td><td>17%</td><td>33.60</td></tr><tr><td>101</td><td><b>GAB</b></td><td>1.24</td><td>0.0</td><td>0.82</td><td>0.48</td><td>no</td><td>8%</td><td>5.20</td></tr><tr><td>102</td><td><b>DXCM</b></td><td>0.98</td><td>39.4</td><td>0.86</td><td>2.12</td><td>no</td><td>53%</td><td>79.92</td></tr><tr><td>103</td><td><b>PCG</b></td><td>0.85</td><td>13.0</td><td>0.80</td><td>3.01</td><td>yes</td><td>8%</td><td>13.14</td></tr><tr><td>104</td><td><b>GWW</b></td><td>2.68</td><td>5.6</td><td>1.44</td><td>1.34</td><td>yes</td><td>3%</td><td>1,332.05</td></tr><tr><td>105</td><td><b>RELL</b></td><td>4.88</td><td>11.6</td><td>1.01</td><td>5.18</td><td>yes</td><td>4%</td><td>18.93</td></tr><tr><td>106</td><td><b>FET</b></td><td>3.96</td><td>16.5</td><td>1.05</td><td>3.10</td><td>no</td><td>9%</td><td>84.59</td></tr><tr><td>107</td><td><b>HON</b></td><td>3.43</td><td>7.7</td><td>2.39</td><td>2.90</td><td>yes</td><td>25%</td><td>211.51</td></tr><tr><td>108</td><td><b>MOH</b></td><td>1.10</td><td>23.7</td><td>1.07</td><td>2.07</td><td>no</td><td>18%</td><td>211.66</td></tr><tr><td>109</td><td><b>NOV</b></td><td>2.46</td><td>7.3</td><td>1.04</td><td>1.45</td><td>yes</td><td>2%</td><td>19.03</td></tr><tr><td>110</td><td><b>PDFS</b></td><td>2.79</td><td>11.5</td><td>0.91</td><td>4.95</td><td>yes</td><td>5%</td><td>42.19</td></tr><tr><td>111</td><td><b>PBA</b></td><td>1.23</td><td>18.4</td><td>0.92</td><td>0.24</td><td>no</td><td>5%</td><td>50.12</td></tr><tr><td>112</td><td><b>WH</b></td><td>5.22</td><td>13.3</td><td>2.74</td><td>3.49</td><td>no</td><td>29%</td><td>77.16</td></tr><tr><td>113</td><td><b>DCI</b></td><td>2.59</td><td>17.0</td><td>1.73</td><td>3.22</td><td>yes</td><td>1%</td><td>87.89</td></tr><tr><td>114</td><td><b>BKR</b></td><td>1.86</td><td>10.8</td><td>0.95</td><td>1.69</td><td>yes</td><td>3%</td><td>55.52</td></tr><tr><td>115</td><td><b>CHH</b></td><td>1.86</td><td>21.1</td><td>1.14</td><td>0.18</td><td>no</td><td>3%</td><td>111.21</td></tr><tr><td>116</td><td><b>TSCO</b></td><td>1.45</td><td>31.5</td><td>1.48</td><td>6.71</td><td>yes</td><td>18%</td><td>32.05</td></tr><tr><td>117</td><td><b>TTMI</b></td><td>2.39</td><td>63.9</td><td>0.76</td><td>19.73</td><td>yes</td><td>82%</td><td>96.67</td></tr><tr><td>118</td><td><b>GTES</b></td><td>1.42</td><td>19.6</td><td>0.93</td><td>2.63</td><td>yes</td><td>1%</td><td>26.27</td></tr><tr><td>119</td><td><b>FNF</b></td><td>0.67</td><td>25.5</td><td>0.97</td><td>0.55</td><td>no</td><td>1%</td><td>40.21</td></tr><tr><td>120</td><td><b>KN</b></td><td>1.68</td><td>23.8</td><td>0.96</td><td>3.33</td><td>yes</td><td>1%</td><td>34.28</td></tr><tr><td>121</td><td><b>BWA</b></td><td>1.06</td><td>32.8</td><td>0.78</td><td>3.06</td><td>yes</td><td>4%</td><td>57.20</td></tr><tr><td>122</td><td><b>DOW</b></td><td>3.11</td><td>16.3</td><td>1.56</td><td>0.32</td><td>no</td><td>12%</td><td>29.93</td></tr><tr><td>123</td><td><b>COCO</b></td><td>5.45</td><td>18.9</td><td>1.86</td><td>5.73</td><td>yes</td><td>26%</td><td>61.43</td></tr><tr><td>124</td><td><b>FCFS</b></td><td>3.51</td><td>44.6</td><td>2.34</td><td>9.39</td><td>yes</td><td>17%</td><td>214.48</td></tr><tr><td>125</td><td><b>KE</b></td><td>1.93</td><td>29.5</td><td>0.89</td><td>3.34</td><td>yes</td><td>10%</td><td>26.06</td></tr><tr><td>126</td><td><b>PUMP</b></td><td>2.57</td><td>12.5</td><td>0.77</td><td>1.87</td><td>yes</td><td>8%</td><td>7.48</td></tr><tr><td>127</td><td><b>LBRT</b></td><td>2.91</td><td>18.4</td><td>1.69</td><td>1.62</td><td>no</td><td>14%</td><td>16.66</td></tr><tr><td>128</td><td><b>BST</b></td><td>0.22</td><td>15.7</td><td>0.82</td><td>0.82</td><td>yes</td><td>2%</td><td>48.00</td></tr><tr><td>129</td><td><b>OLLI</b></td><td>0.19</td><td>42.9</td><td>0.86</td><td>1.15</td><td>no</td><td>1%</td><td>90.89</td></tr><tr><td>130</td><td><b>PRI</b></td><td>0.25</td><td>61.0</td><td>0.81</td><td>0.79</td><td>no</td><td>3%</td><td>282.24</td></tr><tr><td>131</td><td><b>ABBV</b></td><td>0.76</td><td>60.1</td><td>1.13</td><td>1.47</td><td>no</td><td>13%</td><td>282.15</td></tr><tr><td>132</td><td><b>BDC</b></td><td>1.75</td><td>35.8</td><td>1.06</td><td>3.48</td><td>yes</td><td>0%</td><td>105.81</td></tr><tr><td>133</td><td><b>MBRX</b></td><td>2.77</td><td>72.5</td><td>1.35</td><td>9.00</td><td>no</td><td>1%</td><td>6.00</td></tr><tr><td>134</td><td><b>IFF</b></td><td>0.69</td><td>51.5</td><td>0.76</td><td>0.35</td><td>no</td><td>2%</td><td>90.45</td></tr><tr><td>135</td><td><b>EZPW</b></td><td>5.07</td><td>48.0</td><td>2.82</td><td>10.09</td><td>yes</td><td>47%</td><td>32.89</td></tr><tr><td>136</td><td><b>STC</b></td><td>3.35</td><td>45.5</td><td>1.85</td><td>4.99</td><td>yes</td><td>8%</td><td>52.13</td></tr><tr><td>137</td><td><b>CTOS</b></td><td>1.79</td><td>45.6</td><td>0.88</td><td>2.12</td><td>yes</td><td>2%</td><td>9.11</td></tr><tr><td>138</td><td><b>NBR</b></td><td>2.44</td><td>24.0</td><td>0.82</td><td>1.07</td><td>yes</td><td>8%</td><td>78.67</td></tr><tr><td>139</td><td><b>SVV</b></td><td>0.20</td><td>90.0</td><td>0.88</td><td>1.63</td><td>no</td><td>3%</td><td>9.84</td></tr><tr><td>140</td><td><b>OSIS</b></td><td>0.19</td><td>10.1</td><td>0.95</td><td>0.19</td><td>yes</td><td>4%</td><td>195.62</td></tr><tr><td>141</td><td><b>BV</b></td><td>0.29</td><td>58.3</td><td>0.81</td><td>0.87</td><td>yes</td><td>2%</td><td>10.33</td></tr></tbody></table></div></section>
+  <section id="p-intel" class="panel" role="tabpanel"><h2 class="sec">How the market narrowed</h2><div class="scroll"><table class="full"><thead><tr><th>Stage</th><th>Remaining</th></tr></thead><tbody><tr><td>Universe scanned</td><td>2,756</td></tr><tr><td>Close within reach of prev range low</td><td>1,624</td></tr><tr><td>Red break confirmed (08:45)</td><td>141</td></tr><tr><td>Green sneaky candle (09:00)</td><td>43</td></tr><tr><td>RSI(14) after green ≥ 40</td><td>17</td></tr><tr><td>Swing low held</td><td>10</td></tr><tr><td>Headroom 0–9%</td><td>6</td></tr><tr><td>Reward/risk ≥ 0.35</td><td>1</td></tr><tr><td>News quiet or clear</td><td>0</td></tr></tbody></table></div>
+<h2 class="sec">The setup</h2>
+<p class="note">Long only — cash account, no shorting, no options.</p>
+<table class="full">
+<tr><td><b>08:45 CT · The stalk</b></td><td>First 15-minute candle (09:30–09:45 ET) closes. Keep every liquid US stock whose candle is <b>red</b>, whose <b>low broke under the previous day's range low</b>, and whose range is at least <b>0.75× its 14-day ATR</b> — a dramatic break, not a drift.</td></tr>
+<tr><td><b>09:00 CT · The strike</b></td><td>Second candle (09:45–10:00 ET) closes. Keep the names where it is <b>green</b> (body ≥ 5% of its range), its <b>low never went below the red candle's low</b>, <b>RSI(14) after it is ≥ 40</b>, the red candle <b>held the swing low</b>, and the headroom to yesterday's range high is <b>above 0 and under 9%</b>, and the projected reward is at least <b>0.35× the risk</b>.</td></tr>
+<tr><td><b>Entry · candle 3</b></td><td>Buy-stop one cent above the green candle's high, live 09:00–09:15 CT only.</td></tr>
+<tr><td><b>Stop</b></td><td>Low of the initial red candle. Always.</td></tr>
+<tr><td><b>Target</b></td><td>Buy-stop price plus the projected move for its headroom (median excursion, fitted). Flat by the close otherwise.</td></tr>
+<tr><td><b>Ranking</b></td><td>Momentum score, a 0–100 percentile within the day's list. Shallower breaks of the range low break ties. Stops under 0.5% from entry are tagged <i>tight stop</i>, not removed.</td></tr>
+<tr><td><b>News check</b></td><td>The last 48h of headlines are read by model. <b>Published:</b> <i>quiet</i> (no headlines) and <i>clear</i> (generic headlines that explain nothing). <b>Held back:</b> <i>caution</i> (a company-specific event — earnings, downgrade, deal, litigation) and <i>flagged</i> (offering, guidance cut, failed trial, fraud probe, going concern). Drops with a reason tend to keep going.</td></tr>
+</table>
+<h2 class="sec">Level definitions</h2>
+<table class="full">
+<tr><td><b>Range high / low</b></td><td>Previous completed session's daily high and low.</td></tr>
+<tr><td><b>Swing low</b></td><td>Nearest fractal pivot low <i>below</i> the range low, searched over the last 60 sessions. The first real structural support underneath yesterday's floor.</td></tr>
+<tr><td><b>Headroom</b></td><td>Distance from the buy-stop price up to yesterday's range high, as a percent of the price.</td></tr>
+<tr><td><b>Universe</b></td><td>All US-listed common stock from the Nasdaq Trader directory (ETFs, warrants, units, rights and preferreds excluded), filtered to price ≥ $3 and 20-day average dollar volume ≥ $5M.</td></tr>
+</table>
+</section>
+  <section id="p-arch" class="panel" role="tabpanel">
+    <h2 class="sec">Past sessions</h2><div class="arch"><a href="sessions/2026-10-22.html"><b>2026-10-22</b><span>0 published · rules v2</span></a><a href="sessions/2026-10-21.html"><b>2026-10-21</b><span>3 published · rules v2 · LOPE BOOT BLMN</span></a><a href="sessions/2026-10-20.html"><b>2026-10-20</b><span>1 published · rules v2 · HYT</span></a><a href="sessions/2026-10-19.html"><b>2026-10-19</b><span>1 published · rules v2 · BCAX</span></a><a href="sessions/2026-10-16.html"><b>2026-10-16</b><span>0 published · rules v2</span></a><a href="sessions/2026-10-14.html"><b>2026-10-14</b><span>1 published · rules v2 · TSCO</span></a><a href="sessions/2026-10-13.html"><b>2026-10-13</b><span>0 published · rules v2</span></a><a href="sessions/2026-10-12.html"><b>2026-10-12</b><span>1 published · rules v2 · IRT</span></a><a href="sessions/2026-10-08.html"><b>2026-10-08</b><span>0 published</span></a><a href="sessions/2026-09-28.html"><b>2026-09-28</b><span>6 published · QCOM TDS GE RLI</span></a><a href="sessions/2026-09-25.html"><b>2026-09-25</b><span>0 published</span></a><a href="sessions/2026-09-24.html"><b>2026-09-24</b><span>1 published · NMRK</span></a><a href="sessions/2026-09-23.html"><b>2026-09-23</b><span>0 published</span></a><a href="sessions/2026-09-22.html"><b>2026-09-22</b><span>0 published</span></a><a href="sessions/2026-09-18.html"><b>2026-09-18</b><span>0 published</span></a><a href="sessions/2026-09-17.html"><b>2026-09-17</b><span>0 published</span></a><a href="sessions/2026-09-16.html"><b>2026-09-16</b><span>0 published</span></a><a href="sessions/2026-09-15.html"><b>2026-09-15</b><span>0 published</span></a><a href="sessions/2026-09-14.html"><b>2026-09-14</b><span>0 published</span></a><a href="sessions/2026-09-11.html"><b>2026-09-11</b><span>0 published</span></a><a href="sessions/2026-09-10.html"><b>2026-09-10</b><span>0 published</span></a><a href="sessions/2026-09-09.html"><b>2026-09-09</b><span>0 published</span></a><a href="sessions/2026-09-08.html"><b>2026-09-08</b><span>0 published</span></a><a href="sessions/2026-09-04.html"><b>2026-09-04</b><span>0 published</span></a><a href="sessions/2026-09-03.html"><b>2026-09-03</b><span>0 published</span></a><a href="sessions/2026-09-02.html"><b>2026-09-02</b><span>0 published</span></a><a href="sessions/2026-09-01.html"><b>2026-09-01</b><span>0 published</span></a><a href="sessions/2026-08-31.html"><b>2026-08-31</b><span>0 published</span></a><a href="sessions/2026-08-28.html"><b>2026-08-28</b><span>0 published</span></a><a href="sessions/2026-08-27.html"><b>2026-08-27</b><span>11 published · EXR CF GPOR MKL</span></a><a href="sessions/2026-08-26.html"><b>2026-08-26</b><span>2 published · HRTG SF</span></a><a href="sessions/2026-08-25.html"><b>2026-08-25</b><span>0 published</span></a><a href="sessions/2026-08-24.html"><b>2026-08-24</b><span>2 published · PLTR A</span></a><a href="sessions/2026-08-21.html"><b>2026-08-21</b><span>0 published</span></a><a href="sessions/2026-08-20.html"><b>2026-08-20</b><span>2 published · L ZS</span></a><a href="sessions/2026-08-19.html"><b>2026-08-19</b><span>0 published</span></a><a href="sessions/2026-08-18.html"><b>2026-08-18</b><span>3 published · SN GCMG GOLD</span></a><a href="sessions/2026-08-17.html"><b>2026-08-17</b><span>24 published · BN WKC HPQ AMN</span></a><a href="sessions/2026-08-14.html"><b>2026-08-14</b><span>24 published · ACHC SNEX LULU ANF</span></a></div>
+  </section>
+</main>
+<footer>
+  Not investment advice · levels and candles from Yahoo Finance, delayed data possible ·
+  built 2026-10-22 09:00 CT
+</footer>
+<script>
+document.querySelectorAll('.tab').forEach(function(t){
+  t.addEventListener('click', function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.setAttribute('aria-selected','false')});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+    t.setAttribute('aria-selected','true');
+    var el = document.getElementById(t.dataset.panel);
+    if (el) el.classList.add('on');
+  });
+});
+
+// Position sizing. The input is the BASE risk (a Normal trade); each row's R:R
+// tier scales it (Full 1.5x, Normal 1x, Light 0.75x). Each row risks cash x
+// base% x its tier, and shares = that
+// risk / (buy stop - stop), so a stop-out costs the Risk $ shown. If the rows
+// together would need more cash than there is, every row is scaled down by the
+// same factor: risk keeps its exact 1.5 : 1 : 0.75 tier ratio and the total
+// fits. With a single order that means all-in.
+// Inputs are remembered in this browser only; storage access is guarded.
+(function(){
+  var cash = document.getElementById('cash'), rp = document.getElementById('riskpct');
+  if (!cash || !rp) return;
+  try {
+    var c = localStorage.getItem('sneak.cash'), r = localStorage.getItem('sneak.riskpct');
+    if (c) cash.value = c;
+    if (r) rp.value = r;
+  } catch (e) {}
+  function num(el){ var v = parseFloat(String(el.value).replace(/[$,\s]/g, '')); return isFinite(v) ? v : 0; }
+  function usd(x){ return '$' + Math.round(x).toLocaleString('en-US'); }
+  function pct(f){ return parseFloat((f * 100).toFixed(2)) + '%'; }
+  function update(){
+    var C = num(cash), P = num(rp) / 100, on = C > 0 && P > 0;
+    var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-trig]'));
+    var raw = rows.map(function(tr){
+      var trig = +tr.dataset.trig, per = trig - (+tr.dataset.stop), m = +tr.dataset.mult;
+      return {trig: trig, per: per, sh: (on && per > 0) ? C * P * m / per : 0};
+    });
+    var need = raw.reduce(function(a, x){ return a + x.sh * x.trig; }, 0);
+    var k = need > C ? C / need : 1;
+    var pos = 0, risk = 0, n = 0;
+    rows.forEach(function(tr, i){
+      var x = raw[i], sh = Math.floor(x.sh * k), allin = on && sh * x.trig >= 0.97 * C;
+      var m = +tr.dataset.mult, want = C * P * m, tier = tr.querySelector('.tier');
+      tier.textContent = tier.dataset.label + ' · ' + pct(P * m) + (on ? ' · ' + usd(want) : '');
+      tr.querySelector('.sh').textContent = on ? sh.toLocaleString('en-US') : '—';
+      tr.querySelector('.rk').innerHTML = on ? usd(sh * x.per) +
+        (sh * x.per < 0.98 * want ? '<span class="tag-tight">cash-capped</span>' : '') : '—';
+      tr.querySelector('.pos').innerHTML = on ? usd(sh * x.trig) +
+        (allin ? '<span class="tag-tight">all-in</span>' : '') : '—';
+      if (sh > 0) { pos += sh * x.trig; risk += sh * x.per; n++; }
+    });
+    var echo = document.getElementById('riskusd');
+    if (echo) echo.textContent = (C > 0 && P > 0)
+      ? pct(P) + ' = ' + usd(C * P) + ' on a Normal trade · Full ' + usd(C * P * 1.5) + ' · Light ' + usd(C * P * 0.75)
+      : 'Full trades risk 1.5×, Light 0.75×';
+    var out = document.getElementById('sizesum');
+    if (!on) { out.textContent = 'Enter today’s cash to size each order.'; return save(); }
+    var tail = usd(pos) + ' invested, ' + usd(risk) + ' at risk (' + (100 * risk / C).toFixed(1) + '% of cash).';
+    if (k < 1 && rows.length === 1) {
+      out.innerHTML = 'Your cash is the limit — all-in. If it fills: ' + tail;
+    } else if (k < 1) {
+      out.innerHTML = 'Sized so all ' + n + ' orders fit inside ' + usd(C) + ' together, risk kept in tier ratio. ' +
+        'If all fill: ' + tail + ' <b>If only some trigger, the rest of your cash sits idle</b> — ' +
+        'the price of never being over-committed.';
+    } else {
+      out.innerHTML = (n === 1 ? 'If it fills: ' : 'If all ' + n + ' fill: ') + tail;
+    }
+    save();
+  }
+  function save(){
+    try { localStorage.setItem('sneak.cash', cash.value); localStorage.setItem('sneak.riskpct', rp.value); } catch (e) {}
+  }
+  cash.addEventListener('input', update); rp.addEventListener('input', update); update();
+})();
+</script>
+</body>
+</html>
