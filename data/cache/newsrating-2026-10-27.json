@@ -1,0 +1,23 @@
+{
+ "session": "2026-10-27",
+ "generated_at": "2026-10-27T09:00:34-05:00",
+ "session_note": "Both names carry only pre-earnings previews and generic coverage; no actual results or company-specific events explain the drops.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "HSIC": {
+   "rating": "clear",
+   "reason": "Only a Q3 earnings preview; results not yet reported, no event in window.",
+   "source": "claude-opus-5-5"
+  },
+  "CENTA": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "MORN": {
+   "rating": "clear",
+   "reason": "Earnings preview, market wraps and rating mentions; no company event has occurred yet.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
