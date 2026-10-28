@@ -309,5 +309,13 @@
    "CENTA",
    "MORN"
   ]
+ },
+ "2026-10-28": {
+  "confirmed": 1,
+  "rules": "v2",
+  "stalked": 89,
+  "top": [
+   "SPG"
+  ]
  }
 }
