@@ -1,0 +1,10 @@
+{
+ "session": "2026-10-29",
+ "strike_done": true,
+ "rules_version": 3,
+ "strike_generated_at": "2026-10-29T09:00:25-05:00",
+ "built_at": "2026-10-29T09:00:25-05:00",
+ "published_after_window": false,
+ "entry_window_ct": "09:00\u201309:15 CT",
+ "orders": []
+}
