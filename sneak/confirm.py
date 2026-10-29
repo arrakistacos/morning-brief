@@ -11,19 +11,37 @@ Gates — every one must hold:
     bar2.close > bar2.open          the sneaky candle is green
     bar2 body >= 5% of its range    a real candle, not a doji
     bar2.low  >= bar1.low           its wick never took out the red candle's low
-    RSI(14) after bar2 >= 40        momentum on the 15-minute series has turned
     bar1 held the swing low         structure intact — the range high is the objective
     0 < headroom < 9%               room to the range high, but not a damaged name
     reward / risk >= 0.35           the projected move is worth the stop
+    checklist >= 3 of 5             (rules v3, replaces the RSI >= 40 floor)
+
+The checklist — one point each:
+
+    reclaim     bar2 closes >= 0.10 ATR back above yesterday's range low
+    prior_up    yesterday closed at or above the close before it
+    shallow     bar1 broke yesterday's range low by <= 0.25 ATR
+    rsi45       RSI(14) on the 15-minute series after bar2 >= 45
+    solo        <= 25% of the day's stalk names printed a sneaky candle
+                (a stock-specific flush, not a market-wide one)
 
 The order — candle 3 is the entry candle (long only, cash account):
 
     trigger = bar2.high + $0.01     buy-stop: fills only if price breaks the sneaky high
     stop    = bar1.low              the red candle's low, never moved
-    target  = trigger x (1 + projected move for the headroom at the trigger)
+    target1 = trigger x (1 + projected move for the headroom at the trigger)
+                                    sell HALF here, then move the stop on the rest to entry
+    target2 = prev day range high   sell the other half here
     valid   10:00:00-10:15:00 ET    (09:00-09:15 CT) — cancel it unfilled after that,
                                     and cancel it if price trades through the stop first
-    exit    flat by the close if neither the stop nor the target is hit
+    exit    flat by the close on whatever is still open
+
+Why the scale-out (2026-10-29, research/README.md §9). On the 47 v3 trades,
+taking everything at target 1 averaged +0.19R; selling half there and letting
+half run to the range high with a break-even stop averaged +0.28R at the same
+76.6% win rate and the same worst drawdown. A trade that reaches target 1 can
+no longer lose. Of 54 first-target / runner / split variants, 81% beat the
+single target; target 1 itself (the projected move) was the best first leg.
 
 Why the break of the sneaky high rather than its close. In the 56-session
 backtest (research/README.md) the buy-stop leaves ~40% of setups unfilled, and
@@ -34,6 +52,14 @@ could make, and that half lost money. The 0.35 reward/risk floor (chosen on the
 first 26 sessions only) removes them: win rate is unchanged (65.8% on the test
 sessions) and mean R moves from -0.02 to +0.13. The confidence interval on that
 still spans zero; it is a better trade list, not a proven edge.
+
+Why the checklist (2026-10-28, research/README.md "Rules v3"). On 54 sessions
+(08-12 to 10-28) the five points each lifted the win rate in all three
+chronological thirds of the data, and the count is monotonic: 0-1 points won
+33-48%, 3 won 73%, 5 won 89%. With the headroom and reward gates, >= 3 points
+took 47 trades at 76.6% (session-bootstrap 62-88%) and +0.19R against v2's 65
+at 64.6% and +0.09R. The points were chosen on the same data they were tested
+on, so expect less live — closer to 65-70%.
 
 The list is ranked by momentum score. The dashboard applies one further gate:
 the news read must be `quiet` or `clear`. See sneak/dashboard.py.
@@ -74,7 +100,19 @@ MIN_GREEN_BODY_PCT = 0.05
 # median. RSI(7) feeds the momentum score.
 RSI_N = 14
 RSI_FAST = 7
-RSI_MIN_AFTER_GREEN = 40.0
+
+# Rules v3 checklist (see the module docstring). A setup must score at least
+# CHECKLIST_MIN of the five points. The RSI >= 40 floor is gone: RSI is now one
+# point (>= 45) among five.
+CHECKLIST_MIN = 3
+RECLAIM_ATR_MIN = 0.10        # (bar2 close - range low) / ATR14
+SHALLOW_BREAK_ATR_MAX = 0.25  # (range low - bar1 low) / ATR14
+RSI_POINT_MIN = 45.0
+
+# Exit: sell this fraction at target 1, the rest at target 2 (the range high)
+# with its stop moved to the entry once target 1 fills.
+SCALE_OUT_FRACTION = 0.5
+SOLO_FRAC_MAX = 0.25          # sneaky-candle cohort / stalk names, that day
 
 # Reward/risk floor, measured at the trigger before the order is placed. Chosen
 # on the 26 training sessions (0.35 and 0.40 were best; 0.35 keeps more trades)
@@ -201,6 +239,11 @@ def _evaluate(cand: dict, bar1: dict, bar2: dict) -> dict:
         "stop": stop,
         "target": round(target, 4),
         "target_full": round(lv["range_high"], 4),
+        # Target 2 is the range high; in the rare case it is not above target 1
+        # there is nothing to run for, so the whole position exits at target 1.
+        "target2": round(max(lv["range_high"], target), 4),
+        "scale_out": SCALE_OUT_FRACTION if lv["range_high"] > target else 1.0,
+        "reward2_per_share": round(max(lv["range_high"], target) - trigger, 4),
         "headroom_pct": round(headroom, 3) if headroom is not None else None,
         "projected_move_pct": round(projected, 3) if projected else None,
         "target_kind": "projected move toward prev day range high",
@@ -246,11 +289,13 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         "not_green": 0,
         "doji": 0,
         "undercut_red_low": 0,
-        "rsi_below_floor": 0,
+        "no_rsi": 0,
         "target_is_range_low": 0,
         "headroom_out_of_range": 0,
         "payoff_too_small": 0,
+        "checklist_below_3": 0,
     }
+    passed = []
 
     for sym, cand in cands.items():
         raw = ch.get(sym)
@@ -279,7 +324,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
 
         rsi = _rsi_signature(bars, bar1, bar2)
         if rsi is None:
-            rejected["rsi_below_floor"] += 1
+            rejected["no_rsi"] += 1
             continue
         mom_inputs = {
             "rsi7_green": rsi.get("fast_after_green") or rsi["after_green"],
@@ -289,16 +334,11 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
             "range_atr": cand["bar1"].get("atr_mult") or 1.0,
         }
         # The momentum cohort is every sneaky-candle setup with its structure
-        # intact, scored BEFORE the RSI floor and the payoff gates — the same
+        # intact, scored BEFORE the checklist and the payoff gates — the same
         # cohort the backtest ranked. Scoring only the survivors would make a
         # two-name list read 0 and 100 whatever their quality.
         if not cand["bar1"]["broke_swing_low"]:
             mom_pool.append({"symbol": sym, "mom_inputs": mom_inputs})
-
-        # ── RSI floor ───────────────────────────────────────────────────────
-        if rsi["after_green"] < RSI_MIN_AFTER_GREEN:
-            rejected["rsi_below_floor"] += 1
-            continue
 
         # ── structure: the red candle must have held the swing low ──────────
         if cand["bar1"]["broke_swing_low"]:
@@ -324,7 +364,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         trade["break_depth_atr"] = (
             round((lv["range_low"] - bar1["l"]) / atr, 3) if atr else None
         )
-        confirmed.append({
+        passed.append({
             "symbol": sym,
             "levels": lv,
             "bar1": cand["bar1"],
@@ -334,6 +374,17 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
             # cohort in score_cohort(), so they are stored, not scored, here.
             "mom_inputs": mom_inputs,
         })
+
+    # ── the checklist ───────────────────────────────────────────────────────
+    # `solo` needs the whole day's sneaky-candle count, so the checklist runs
+    # after every name has been looked at.
+    solo_frac = len(mom_pool) / max(len(cands), 1)
+    for row in passed:
+        row["trade"]["checklist"] = checklist(row, solo_frac)
+        if row["trade"]["checklist"]["points"] >= CHECKLIST_MIN:
+            confirmed.append(row)
+        else:
+            rejected["checklist_below_3"] += 1
 
     # Momentum is a within-cohort percentile over mom_pool (see above). It still
     # separated winners out of sample inside the new rules (above the day's
@@ -354,7 +405,7 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
 
     payload = {
         "stage": "strike",
-        "version": 2,
+        "version": 3,
         "session": day.isoformat(),
         "generated_at": now_ct.isoformat(timespec="seconds"),
         "replay": replay,
@@ -365,9 +416,15 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         "rejected": rejected,
         "confirmed_count": len(confirmed),
         "momentum_cohort": len(mom_pool),
-        "filters": {"rsi14_after_green_min": RSI_MIN_AFTER_GREEN,
+        "solo_frac": round(solo_frac, 4),
+        "filters": {"checklist_min": CHECKLIST_MIN,
+                    "checklist": {"reclaim_atr_min": RECLAIM_ATR_MIN, "prior_up": True,
+                                  "shallow_break_atr_max": SHALLOW_BREAK_ATR_MAX,
+                                  "rsi14_point_min": RSI_POINT_MIN, "solo_frac_max": SOLO_FRAC_MAX},
                     "headroom_max_pct": HEADROOM_MAX, "rr_min": MIN_RR,
                     "entry": "buy-stop at sneaky high + $0.01, 10:00-10:15 ET",
+                    "exit": "half at target1 (projected move), stop to entry, half at target2 "
+                            "(prev day range high), flat by the close",
                     "target_must_be": "prev day range high", "news_must_be": "quiet or clear"},
         "elapsed_sec": round(time.time() - t0, 1),
         "stalk_meta": {k: stalk.get(k) for k in ("scanned", "quoted", "narrowed", "generated_at", "coverage")},
@@ -388,11 +445,35 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         t = r["trade"]
         print(
             f"  {r['symbol']:<6} mom {r.get('momentum', 0):>5.1f}  buy-stop {t['trigger']:>9.2f}  "
-            f"stop {t['stop']:>9.2f} (-{t['risk_pct']:.2f}%)  tgt {t['target']:>9.2f} "
-            f"(+{t['reward_pct']:.2f}%)  RSI {t['rsi']['after_green']:.1f}",
+            f"stop {t['stop']:>9.2f} (-{t['risk_pct']:.2f}%)  tgt {t['target']:>9.2f}/{t['target2']:.2f} "
+            f"(+{t['reward_pct']:.2f}%)  RSI {t['rsi']['after_green']:.1f}  "
+            f"points {t['checklist']['points']}/5",
             flush=True,
         )
     return payload
+
+
+def checklist(row: dict, solo_frac: float) -> dict:
+    """The five rules-v3 points for one setup. Missing data scores no point."""
+    lv, t = row["levels"], row["trade"]
+    atr = lv.get("atr14") or 0
+    b2c, b1l = t["bar2"]["close"], row["bar1"]["low"]
+    prev2 = lv.get("prev2_close")
+    reclaim = round((b2c - lv["range_low"]) / atr, 3) if atr else None
+    depth = round((lv["range_low"] - b1l) / atr, 3) if atr else None
+    prior_ret = round((lv["prev_close"] / prev2 - 1) * 100, 3) if prev2 else None
+    rsi = (t.get("rsi") or {}).get("after_green")
+    pts = {
+        "reclaim": reclaim is not None and reclaim >= RECLAIM_ATR_MIN,
+        "prior_up": prior_ret is not None and prior_ret >= 0,
+        "shallow": depth is not None and depth <= SHALLOW_BREAK_ATR_MAX,
+        "rsi45": rsi is not None and rsi >= RSI_POINT_MIN,
+        "solo": solo_frac <= SOLO_FRAC_MAX,
+    }
+    return {**pts, "points": sum(pts.values()),
+            "values": {"reclaim_atr": reclaim, "prior_day_ret_pct": prior_ret,
+                       "break_depth_atr": depth, "rsi14_green": rsi,
+                       "solo_frac": round(solo_frac, 4)}}
 
 
 def rank_key(r: dict):

@@ -1,4 +1,4 @@
-# Backtest behind the v2 rules (2026-10-10)
+# Backtest behind the v2 rules (2026-10-10) the v3 checklist (2026-10-28) and the scale-out exit (2026-10-29)
 
 Re-run with `python research/backtest.py`. Yahoo keeps ~60 trading days of intraday bars, so every run sees a window ending on the day it runs. Re-run every few weeks — the hold-out grows, and a growing hold-out is the only real test.
 
@@ -108,6 +108,66 @@ Buy-stop above candle 2's high (10:00–10:15 ET) · RSI(14) ≥ 40 · headroom 
 | v2, all 56 | 84 | 1.5 | 69.0% | 57–79% | +0.119 | −0.06…+0.27 |
 
 Outcomes, all 84 trades: 54 targets, 14 stops, 16 flat at the close. At least one order on 39 of 56 sessions.
+
+## 8. Rules v3 — the checklist (2026-10-28)
+
+**Why.** Re-run on 55 sessions (08-12 → 10-28), v2 won 64.6% (65 trades) — 61.5% on the 13 trades after it was designed. The question was what lifts that.
+
+**Search.** Every sneaky-candle setup (green, held, body ≥ 5%, swing low intact — 733 setups, 389 filled on the candle-3 buy-stop, 54 sessions with 5-minute data) was given ~60 features known by 10:00 ET: candle 1 and 2 shape, wicks, reclaim of the range low, volume (candle 2 vs 1, opening relative volume), VWAP, the 5-minute bars inside candle 2, trigger distance, RSI(14)/RSI(7) levels and change, momentum, yesterday's candle (return, close location, range vs ATR, inside day, NR7), 3/5/10/20-day returns, distance to the 20/50/200-day averages, daily RSI, 52-week position, down-streak, ATR %, liquidity, price, SPY/QQQ/IWM over the first 30 minutes, relative strength, day of week, and the share of the day's stalk names that printed a sneaky candle. Each feature's cutoff was chosen on sessions before 10-01 and read on the 19 after.
+
+**Noise floor.** Shuffling wins within each session and re-running the screen, the best train-set win rate any feature reached by chance was 64% (median) to 70% (max). Most single features sit inside that band; volume, VWAP, intraday detail, trend, day of week and index direction did nothing reliable.
+
+**What held.** Five features lifted the win rate in all three chronological thirds (all sneaky fills, base 58.4%):
+
+| point | rule | n | win | excluded | thirds (kept) |
+|---|---|---|---|---|---|
+| reclaim | candle 2 close ≥ range low + 0.10 ATR | 176 | 70.5% | 48.4% | 63 / 67 / 81% |
+| prior up | yesterday's close ≥ the close before | 154 | 68.2% | 51.9% | 57 / 69 / 77% |
+| shallow | range low − candle-1 low ≤ 0.25 ATR | 150 | 70.0% | 51.0% | 64 / 70 / 75% |
+| RSI 45 | RSI(14) after candle 2 ≥ 45 | 122 | 69.7% | 53.2% | 67 / 63 / 78% |
+| solo | sneaky candles ÷ stalk names that day ≤ 0.25 | 227 | 64.8% | 49.4% | 63 / 52 / 80% |
+
+Reclaim, shallow and RSI 45 are correlated (0.4–0.7); prior up and solo are independent of everything else.
+
+**Points are monotonic** (all sneaky fills): 0 → 32.7%, 1 → 47.6%, 2 → 60.5%, 3 → 72.7%, 4 → 66.7%, 5 → 89.3%.
+
+**The rule.** Headroom 0–9% and R:R ≥ 0.35 kept, RSI ≥ 40 dropped, checklist ≥ 3:
+
+`research/checklist.py` (every filled setup, 437 fills):
+
+| | trades | per day | win | 95% CI | mean R |
+|---|---|---|---|---|---|
+| v2 (same 54 sessions) | 65 | 1.20 | 64.6% | 50–79% | +0.094 |
+| **v3** | 47 | 0.87 | **76.6%** | 62–88% | **+0.189** |
+
+In the screening frame (389 fills — setups with a full 5-minute opening): v2 53 trades 60.4%, v3 40 trades 75.0%; the 26 trades only v2 took won 50.0% (−0.049R), the 13 only v3 took won 84.6%. v3 − v2: win +14.5 points (CI +2…+27, better in 99% of session resamples), mean R +0.15 (CI −0.04…+0.36, better in 94%). Across 243 nearby thresholds (reclaim 0/0.1/0.2, shallow 0.2/0.25/0.35, RSI 40/45/50, solo 0.2/0.25/0.3, prior-day return −0.5/0/+0.5%) the median win rate was 68.9% (5th–95th 62–78%) and 94% kept a positive mean R.
+
+**Caveats specific to v3.** The five points were picked after seeing all 54 sessions, so 75% is optimistic — plan on 65–70%. 40 trades. About 0.75 orders a day. The live solo fraction matches the backtest's to within ~0.03 on the sessions compared (10-12 → 10-28). Re-run: `python research/checklist.py`.
+
+## 9. The exit — scale out (2026-10-29)
+
+**Question.** With the v3 entry fixed, is the projected-move target the best way out?
+
+**Grid.** Every fill replayed on its 5-minute path with the same conventions as §7 (stop wins ties, target on the fill bar only if the bar closes beyond it, gaps fill at the open, 0.05% cost). Single targets: the projected move ×0.5–3, 25–100% of the headroom, 0.25–2R, 0.1–1 ATR, 0.5–3%, candle 1's open and high, yesterday's close, the range high, and none (close). Each with and without a 12:00 or 14:00 ET time exit, a break-even stop after +0.5R, and a 1R/0.5R trail. Then scale-outs: a first target (projection ×0.75/1/1.25) for ⅓, ½ or ⅔ of the shares, the stop on the rest moved to entry, and a runner to the projection ×1.5–3, the range high, or the close — 54 variants.
+
+**Single targets trade win rate for R.** Bigger targets raise the v3 mean R (no target at all: +0.33R) but cut the win rate to 36–55%, and every one of them lost in the middle third of the sessions (−0.29 to −0.47R) where the projected move held flat. Break-even and trailing stops on a single target did nothing reliable.
+
+**Scale-outs keep the win rate and add R.** A trade that reaches target 1 cannot lose afterwards, so the win rate is the single target's; the runner adds the tail. `research/exits.py`:
+
+| exit | v3 (47) mean R | win | total | by third | checklist ≥ 3, no R:R floor (163) mean R | win |
+|---|---|---|---|---|---|---|
+| single target (until 10-29) | +0.189 | 76.6% | +8.9R | +0.07 / +0.01 / +0.39 | +0.008 | 74.8% |
+| **½ at T1, ½ at the range high** | **+0.278** | **76.6%** | **+13.1R** | +0.10 / −0.06 / +0.63 | **+0.048** | 72.4% |
+| ⅓ at T1, ⅔ at the range high | +0.308 | 76.6% | +14.5R | +0.11 / −0.09 / +0.70 | +0.061 | 69.3% |
+| ½ at T1, ½ at 2.5× projection | +0.274 | 76.6% | +12.9R | +0.13 / −0.07 / +0.60 | +0.042 | 72.4% |
+| ½ at T1, ½ to the close | +0.308 | 76.6% | +14.5R | +0.44 / −0.06 / +0.46 | +0.033 | 70.6% |
+| no target, close | +0.331 | 53.2% | +15.6R | +0.86 / −0.47 / +0.48 | −0.026 | 42.3% |
+
+- 81–83% of the 54 scale-out variants beat the single target on both populations; the projected move itself (×1) was the best first leg.
+- ½ / range high beat the single target in 92% of session-bootstrap resamples on v3 (99% on the 163), and with the top three trades removed (+0.18 vs +0.14R), so it is not one outlier.
+- Worst trade and worst drawdown unchanged (−1.32R, −1.54R vs −1.56R). Outcomes on v3: 8 stops, 4 flat at the close below target 1, 15 target 1 then break-even, 12 target 1 then flat at the close, 8 both targets.
+- **Cost.** It gives back a little in the middle third (−0.06 vs +0.01R on v3): when price tags target 1 and fades, half the position now exits at entry instead of at target 1.
+- ½ was chosen over ⅓ although ⅓ scored higher: the gap is inside the noise, and ½ leans less on the runner.
 
 ## Caveats
 

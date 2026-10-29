@@ -283,8 +283,8 @@ def run(day: date | None = None, wait: bool = True, workers: int = 24) -> dict:
         candidates.append(
             {
                 "symbol": sym,
-                "levels": {k: lv[k] for k in
-                           ("range_high", "range_low", "prev_close", "swing_low",
+                "levels": {k: lv.get(k) for k in
+                           ("range_high", "range_low", "prev_close", "prev2_close", "swing_low",
                             "swing_high", "atr14", "avg_vol20", "prev_session")},
                 "bar1": m,
                 "stalk_score": _stalk_score(m),

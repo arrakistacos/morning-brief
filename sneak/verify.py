@@ -54,7 +54,7 @@ def run(day: date) -> int:
         _fail(problems, b["broke_swing_low"] == expect_swing,
               f'{s}: broke_swing_low={b["broke_swing_low"]} but recomputed {expect_swing}')
 
-    # ── strike gates and trade maths (rules v2) ─────────────────────────────
+    # ── strike gates and trade maths (rules v2+) ────────────────────────────
     version = int(strike.get("version") or 1)
     if version < 2:
         print(f"[verify] {day} was scanned under rules v{version}; checking stalk and levels only")
@@ -84,6 +84,10 @@ def run(day: date) -> int:
         _fail(problems, abs(t["target"] - want_target) < 1e-3,
               f'{s}: target {t["target"]} != expected {want_target:.4f}')
 
+        if "target2" in t:
+            checks += 1
+            _fail(problems, abs(t["target2"] - max(lv["range_high"], t["target"])) < 1e-3,
+                  f'{s}: target2 {t["target2"]} is not the range high')
         risk, reward = want_trigger - b1["low"], want_target - want_trigger
         _fail(problems, risk > 0, f"{s}: non-positive risk")
         if risk > 0:
@@ -96,8 +100,26 @@ def run(day: date) -> int:
         _fail(problems, b1["broke_swing_low"] is False,
               f"{s}: broke the swing low — should have been filtered out")
         rsi = t.get("rsi")
-        _fail(problems, isinstance(rsi, dict) and rsi.get("after_green", 0) >= 40.0,
-              f'{s}: RSI(14) after green {(rsi or {}).get("after_green")} is under the floor of 40')
+        if version == 2:
+            _fail(problems, isinstance(rsi, dict) and rsi.get("after_green", 0) >= 40.0,
+                  f'{s}: RSI(14) after green {(rsi or {}).get("after_green")} is under the floor of 40')
+        else:
+            # Rules v3: re-score the five checklist points from the stored bars.
+            ck = t.get("checklist") or {}
+            atr = lv.get("atr14") or 0
+            prev2 = lv.get("prev2_close")
+            solo = strike.get("momentum_cohort", 0) / max(strike.get("from_stalk", 1), 1)
+            want = sum([
+                bool(atr) and (b2["close"] - lv["range_low"]) / atr >= 0.10 - 1e-9,
+                bool(prev2) and lv["prev_close"] >= prev2,
+                bool(atr) and (lv["range_low"] - b1["low"]) / atr <= 0.25 + 1e-9,
+                isinstance(rsi, dict) and (rsi.get("after_green") or 0) >= 45.0,
+                solo <= 0.25 + 1e-9,
+            ])
+            checks += 2
+            _fail(problems, ck.get("points") == want,
+                  f'{s}: checklist points {ck.get("points")} != recomputed {want}')
+            _fail(problems, want >= 3, f"{s}: checklist {want}/5 is under the 3-point gate")
         _fail(problems, t.get("valid_from_et") == "10:00" and t.get("valid_until_et") == "10:15",
               f"{s}: order window is not candle 3 (10:00-10:15 ET)")
 

@@ -188,7 +188,9 @@ document.querySelectorAll('.tab').forEach(function(t){
 // Position sizing. The input is the BASE risk (a Normal trade); each row's R:R
 // tier scales it (Full 1.5x, Normal 1x, Light 0.75x). Each row risks cash x
 // base% x its tier, and shares = that
-// risk / (buy stop - stop), so a stop-out costs the Risk $ shown. If the rows
+// risk / (buy stop - stop), so a stop-out costs the Risk $ shown. With two
+// targets the shares split: the larger half sells at target 1, the rest at
+// target 2, and Reward $ shows "target 1 only / both targets". If the rows
 // together would need more cash than there is, every row is scaled down by the
 // same factor: risk keeps its exact 1.5 : 1 : 0.75 tier ratio and the total
 // fits. With a single order that means all-in.
@@ -209,21 +211,32 @@ document.querySelectorAll('.tab').forEach(function(t){
     var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-trig]'));
     var raw = rows.map(function(tr){
       var trig = +tr.dataset.trig, per = trig - (+tr.dataset.stop), m = +tr.dataset.mult;
-      return {trig: trig, per: per, sh: (on && per > 0) ? C * P * m / per : 0};
+      var g1 = (+tr.dataset.tgt) - trig, t2 = +(tr.dataset.tgt2 || 0);
+      var g2 = t2 > 0 ? t2 - trig : g1, f1 = +(tr.dataset.split || 1);
+      return {trig: trig, per: per, g1: g1, g2: g2, f1: f1,
+              sh: (on && per > 0) ? C * P * m / per : 0};
     });
     var need = raw.reduce(function(a, x){ return a + x.sh * x.trig; }, 0);
     var k = need > C ? C / need : 1;
-    var pos = 0, risk = 0, n = 0;
+    var pos = 0, risk = 0, reward = 0, reward1 = 0, n = 0, split = false;
     rows.forEach(function(tr, i){
       var x = raw[i], sh = Math.floor(x.sh * k), allin = on && sh * x.trig >= 0.97 * C;
       var m = +tr.dataset.mult, want = C * P * m, tier = tr.querySelector('.tier');
       tier.textContent = tier.dataset.label + ' · ' + pct(P * m) + (on ? ' · ' + usd(want) : '');
-      tr.querySelector('.sh').textContent = on ? sh.toLocaleString('en-US') : '—';
+      // Shares for target 1: the larger half (all of them for a single share).
+      var s1 = x.f1 >= 1 ? sh : Math.ceil(sh * x.f1), s2 = sh - s1;
+      var r1 = s1 * x.g1, r2 = s1 * x.g1 + s2 * x.g2;   // T1 then out at entry / both targets
+      tr.querySelector('.sh').innerHTML = !on ? '—' : sh.toLocaleString('en-US') +
+        (s2 > 0 ? '<div class="why">' + s1 + ' T1 · ' + s2 + ' T2</div>' : '');
       tr.querySelector('.rk').innerHTML = on ? usd(sh * x.per) +
         (sh * x.per < 0.98 * want ? '<span class="tag-tight">cash-capped</span>' : '') : '—';
+      tr.querySelector('.rw').innerHTML = !on ? '—' : (s2 > 0
+        ? '+' + usd(r1) + ' <span class="why">T1</span><br>+' + usd(r2) + ' <span class="why">both</span>'
+        : '+' + usd(r1));
       tr.querySelector('.pos').innerHTML = on ? usd(sh * x.trig) +
         (allin ? '<span class="tag-tight">all-in</span>' : '') : '—';
-      if (sh > 0) { pos += sh * x.trig; risk += sh * x.per; n++; }
+      if (sh > 0) { pos += sh * x.trig; risk += sh * x.per; reward1 += r1; reward += r2; n++; }
+      if (s2 > 0) split = true;
     });
     var echo = document.getElementById('riskusd');
     if (echo) echo.textContent = (C > 0 && P > 0)
@@ -231,7 +244,10 @@ document.querySelectorAll('.tab').forEach(function(t){
       : 'Full trades risk 1.5×, Light 0.75×';
     var out = document.getElementById('sizesum');
     if (!on) { out.textContent = 'Enter today’s cash to size each order.'; return save(); }
-    var tail = usd(pos) + ' invested, ' + usd(risk) + ' at risk (' + (100 * risk / C).toFixed(1) + '% of cash).';
+    var tail = usd(pos) + ' invested, ' + usd(risk) + ' at risk (' +
+      (100 * risk / C).toFixed(1) + '% of cash), ' + (split
+        ? usd(reward1) + ' if every first target is reached, ' + usd(reward) + ' if every second one is too.'
+        : usd(reward) + ' if every target is reached.');
     if (k < 1 && rows.length === 1) {
       out.innerHTML = 'Your cash is the limit — all-in. If it fills: ' + tail;
     } else if (k < 1) {
@@ -290,15 +306,36 @@ def _money(x) -> str:
     return f"{x:,.2f}" if isinstance(x, (int, float)) else "&mdash;"
 
 
+_POINT_NAMES = (("reclaim", "Reclaim"), ("prior_up", "Prior up"), ("shallow", "Shallow"),
+                ("rsi45", "RSI 45"), ("solo", "Solo"))
+
+
+def _points(ck: dict | None) -> str:
+    """Checklist score cell, e.g. 4/5 with the points it earned underneath."""
+    if not ck:
+        return "<td>&mdash;</td>"
+    got = [label for key, label in _POINT_NAMES if ck.get(key)]
+    return (f'<td><b>{ck.get("points", len(got))}/5</b>'
+            f'<div class="why">{escape(", ".join(got))}</div></td>')
+
+
+def _t2(t: dict) -> str:
+    """Target 2 cell. Sessions before the scale-out exit had a single target."""
+    if not t.get("target2") or (t.get("scale_out") or 1) >= 1:
+        return "<td>&mdash;</td>"
+    return f"<td>{_money(t['target2'])}</td>"
+
+
 def _table(rows: list[dict], news: dict, ratings: dict, rating_of, sizing: bool = False) -> str:
     """Order table. With `sizing`, the order-entry columns come first and each
     row carries the numbers the page's sizing script needs."""
     cols = ["#", "Symbol"]
     if sizing:
-        cols += ["Shares", "Buy stop", "Stop", "Target", "Size", "Risk $", "Position $"]
+        cols += ["Shares", "Buy stop", "Stop", "Target 1", "Target 2", "Size",
+                 "Risk $", "Reward $", "Position $"]
     else:
-        cols += ["Buy stop", "Stop", "Target"]
-    cols += ["R:R", "Momentum", "Stop distance %", "Reward %", "Headroom", "RSI after green", "News"]
+        cols += ["Buy stop", "Stop", "Target 1", "Target 2"]
+    cols += ["R:R", "Points", "Momentum", "Stop distance %", "Reward %", "Headroom", "RSI after green", "News"]
     head = "<tr>" + "".join(f"<th>{c}</th>" for c in cols) + "</tr>"
     body = []
     for i, r in enumerate(rows, 1):
@@ -313,16 +350,21 @@ def _table(rows: list[dict], news: dict, ratings: dict, rating_of, sizing: bool 
         attrs = ""
         if sizing:
             label, mult = size_tier(rr)
-            attrs = f' data-trig="{trig}" data-stop="{t.get("stop")}" data-mult="{mult}"'
+            attrs = (f' data-trig="{trig}" data-stop="{t.get("stop")}"'
+                     f' data-tgt="{t.get("target")}" data-tgt2="{t.get("target2") or ""}"'
+                     f' data-split="{t.get("scale_out") or 1}" data-mult="{mult}"')
             cells += ['<td class="sh">&mdash;</td>', f"<td><b>{_money(trig)}</b></td>",
                       f"<td>{_money(t.get('stop'))}</td>", f"<td>{_money(t.get('target'))}</td>",
+                      _t2(t),
                       f'<td><span class="tier {label}" data-label="{label}">{label} {mult:g}×</span></td>',
-                      '<td class="rk">&mdash;</td>', '<td class="pos">&mdash;</td>']
+                      '<td class="rk">&mdash;</td>', '<td class="rw">&mdash;</td>',
+                      '<td class="pos">&mdash;</td>']
         else:
             cells += [f"<td><b>{_money(trig)}</b></td>", f"<td>{_money(t.get('stop'))}</td>",
-                      f"<td>{_money(t.get('target'))}</td>"]
+                      f"<td>{_money(t.get('target'))}</td>", _t2(t)]
         cells += [
             f"<td>{rr:.2f}</td>" if rr is not None else "<td>&mdash;</td>",
+            _points(t.get("checklist")),
             f"<td>{(r.get('momentum') or 0):.0f}</td>",
             f"<td>{(t.get('risk_pct') or 0):.2f}%{tight}</td>",
             f"<td>+{(t.get('reward_pct') or 0):.2f}%</td>",
@@ -371,16 +413,21 @@ candle&rsquo;s high during candle 3.</td></tr>
 <tr><td><b>Window</b></td><td><b>{WINDOW_CT}</b> (10:00&ndash;10:15 ET). Cancel anything still
 unfilled at 09:15 CT. Cancel it early if price trades below the Stop before it fills &mdash;
 the setup is broken.</td></tr>
-<tr><td><b>Stop</b></td><td>Low of the 09:30 red candle. Never moves. Attach it as soon as
+<tr><td><b>Stop</b></td><td>Low of the 09:30 red candle, on every share. Attach it as soon as
 the buy-stop fills.</td></tr>
-<tr><td><b>Target</b></td><td>The projected move: the median excursion this much headroom
-has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell there.</td></tr>
-<tr><td><b>Exit</b></td><td>Flat by the close if neither the stop nor the target is hit.</td></tr>
+<tr><td><b>Target 1</b></td><td>The projected move: the median excursion this much headroom
+has produced, about a third of the way to yesterday&rsquo;s range high. A limit sell for
+<b>half</b> the shares (the larger half on an odd count &mdash; the Shares column shows the split).</td></tr>
+<tr><td><b>Target 2</b></td><td>Yesterday&rsquo;s range high. A limit sell for the other half.
+<b>When Target 1 fills, move the stop on the remaining shares up to your Buy stop price</b>
+&mdash; from then on the trade cannot lose.</td></tr>
+<tr><td><b>Exit</b></td><td>Flat by the close on whatever is still open.</td></tr>
 <tr><td><b>Size</b></td><td>Enter today&rsquo;s cash and your <b>base risk</b> &mdash; what you would
 lose on a Normal trade &mdash; above the list. Each row&rsquo;s R:R scales that base: <b>Full 1.5&times;</b>
 for R:R 0.60 and up, <b>Normal 1&times;</b> for 0.45&ndash;0.60, <b>Light 0.75&times;</b> below; the Size column
 shows the resulting % and $. Shares = that risk &divide; (Buy stop &minus; Stop), so a stop-out
-costs the Risk $ shown (marked <i>cash-capped</i> when your cash, not the risk, set the size). If the day&rsquo;s orders together would need more than your cash,
+costs the <b>Risk $</b> shown. <b>Reward $</b> shows two lines: Target 1 alone (the rest
+stopped out at entry) and both targets. R:R is measured to Target 1 (marked <i>cash-capped</i> when your cash, not the risk, set the size). If the day&rsquo;s orders together would need more than your cash,
 every row shrinks by the same factor &mdash; risk keeps its tier ratio and the total never exceeds
 what you have. A lone order your cash cannot fully cover becomes <i>all-in</i>.</td></tr>
 <tr><td><b>Momentum</b></td><td>0&ndash;100 percentile within today&rsquo;s list; the list is
@@ -444,10 +491,11 @@ PLAYBOOK = f"""
 <p class="note">Long only — cash account, no shorting, no options.</p>
 <table class="full">
 <tr><td><b>08:45 CT · The stalk</b></td><td>First 15-minute candle (09:30–09:45 ET) closes. Keep every liquid US stock whose candle is <b>red</b>, whose <b>low broke under the previous day's range low</b>, and whose range is at least <b>0.75× its 14-day ATR</b> — a dramatic break, not a drift.</td></tr>
-<tr><td><b>09:00 CT · The strike</b></td><td>Second candle (09:45–10:00 ET) closes. Keep the names where it is <b>green</b> (body ≥ 5% of its range), its <b>low never went below the red candle's low</b>, <b>RSI(14) after it is ≥ 40</b>, the red candle <b>held the swing low</b>, and the headroom to yesterday's range high is <b>above 0 and under {HEADROOM_MAX:g}%</b>, and the projected reward is at least <b>0.35× the risk</b>.</td></tr>
+<tr><td><b>09:00 CT · The strike</b></td><td>Second candle (09:45–10:00 ET) closes. Keep the names where it is <b>green</b> (body ≥ 5% of its range), its <b>low never went below the red candle's low</b>, the red candle <b>held the swing low</b>, the headroom to yesterday's range high is <b>above 0 and under {HEADROOM_MAX:g}%</b>, the projected reward is at least <b>0.35× the risk</b>, and the setup scores <b>at least 3 of the 5 checklist points</b>.</td></tr>
+<tr><td><b>Checklist · 3 of 5</b></td><td>One point each. <b>Reclaim</b>: the green candle closes at least 0.1 ATR back above yesterday's range low. <b>Prior up</b>: yesterday closed up. <b>Shallow</b>: the red candle broke yesterday's low by no more than 0.25 ATR. <b>RSI 45</b>: RSI(14) after the green candle is 45 or more. <b>Solo</b>: no more than a quarter of the day's stalk names printed a sneaky candle — a stock-specific flush, not the whole market. The Points column shows each row's score.</td></tr>
 <tr><td><b>Entry · candle 3</b></td><td>Buy-stop one cent above the green candle's high, live {WINDOW_CT} only.</td></tr>
 <tr><td><b>Stop</b></td><td>Low of the initial red candle. Always.</td></tr>
-<tr><td><b>Target</b></td><td>Buy-stop price plus the projected move for its headroom (median excursion, fitted). Flat by the close otherwise.</td></tr>
+<tr><td><b>Targets</b></td><td><b>Half</b> at Target 1 — the buy-stop price plus the projected move for its headroom (median excursion, fitted). Then move the stop on the rest to entry and sell it at <b>Target 2</b>, yesterday's range high. Flat by the close otherwise.</td></tr>
 <tr><td><b>Ranking</b></td><td>Momentum score, a 0–100 percentile within the day's list. Shallower breaks of the range low break ties. Stops under 0.5% from entry are tagged <i>tight stop</i>, not removed.</td></tr>
 <tr><td><b>News check</b></td><td>The last 48h of headlines are read by model. <b>Published:</b> <i>quiet</i> (no headlines) and <i>clear</i> (generic headlines that explain nothing). <b>Held back:</b> <i>caution</i> (a company-specific event — earnings, downgrade, deal, litigation) and <i>flagged</i> (offering, guidance cut, failed trial, fraud probe, going concern). Drops with a reason tend to keep going.</td></tr>
 </table>
@@ -572,9 +620,11 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
             f'universe this morning, so some qualifying names may be missing.</div>'
         )
     if version >= 2:
+        gate_text = ("at least 3 of the 5 checklist points" if version >= 3
+                     else "RSI(14) after it at 40 or better")
         criteria = (
             '<p class="note">Every row cleared all the gates: a dramatic red break of yesterday&rsquo;s '
-            'low, a green sneaky candle holding above it, RSI(14) after it at 40 or better, the swing '
+            f'low, a green sneaky candle holding above it, {gate_text}, the swing '
             f'low intact, headroom under {HEADROOM_MAX:g}%, reward at least 0.35× the risk, and no '
             'company-specific news behind the drop. '
             '<b>Ranked by momentum.</b> Each row is a buy-stop order for candle 3.</p>'
@@ -628,14 +678,20 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
         n -= sum(rej.get(k, 0) for k in ("not_green", "undercut_red_low", "doji", "no_bar2"))
         funnel_rows.append(("Green sneaky candle (09:00)", n))
         if version >= 2:
-            n -= rej.get("rsi_below_floor", 0)
-            funnel_rows.append(("RSI(14) after green ≥ 40", n))
+            if version >= 3:
+                n -= rej.get("no_rsi", 0)
+            else:
+                n -= rej.get("rsi_below_floor", 0)
+                funnel_rows.append(("RSI(14) after green ≥ 40", n))
             n -= rej.get("target_is_range_low", 0)
             funnel_rows.append(("Swing low held", n))
             n -= rej.get("headroom_out_of_range", 0)
             funnel_rows.append((f"Headroom 0–{HEADROOM_MAX:g}%", n))
             n -= rej.get("payoff_too_small", 0)
             funnel_rows.append(("Reward/risk ≥ 0.35", n))
+            if version >= 3:
+                n -= rej.get("checklist_below_3", 0)
+                funnel_rows.append(("Checklist ≥ 3 of 5", n))
         else:
             n -= rej.get("rsi_no_trough", 0)
             funnel_rows.append(("RSI V-trough (old rule)", n))

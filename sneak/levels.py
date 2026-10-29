@@ -147,6 +147,8 @@ def compute_levels(sym: str, daily: list[dict], today: date | None = None) -> di
         "range_low": round(range_low, 4),
         "prev_close": round(prev_close, 4),
         "prev_open": round(prev["o"], 4),
+        # The close before yesterday's: did yesterday close up? (checklist, rules v3)
+        "prev2_close": round(bars[-2]["c"], 4),
         "swing_low": round(swing_low, 4) if swing_low is not None else None,
         "swing_low_src": swing_low_src,
         "swing_high": round(swing_high, 4) if swing_high is not None else None,

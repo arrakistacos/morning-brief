@@ -30,8 +30,9 @@ Long only. Cash account, no shorting.
 - **Candle 2 (09:45–10:00 ET)** — the sneaky candle: green, holds above candle 1's low
 - **Candle 3 (10:00–10:15 ET)** — the entry candle: **buy-stop at the first cent above candle 2's high**, live for this candle only (09:00–09:15 CT). Cancel it if unfilled at the close of candle 3, or if price trades below the stop first.
 - **Stop** — the low of candle 1. Never moved.
-- **Target** — the buy-stop price plus the **projected move** for its headroom: the median excursion that much headroom has historically produced, about a third of the way to the range high. Flat by the close if neither is hit.
-- **R:R** — `(target − buy stop) / (buy stop − stop)`
+- **Target 1 — sell half** at the buy-stop price plus the **projected move** for its headroom: the median excursion that much headroom has historically produced, about a third of the way to the range high. **Then move the stop on the rest up to the buy-stop price.**
+- **Target 2 — sell the other half** at yesterday's range high. Flat by the close on anything still open. (Scale-out exit since 2026-10-29: on the 47 v3 trades it averaged +0.28R against +0.19R for a single target, at the same 76.6% win rate and the same worst drawdown — see [`research/README.md`](research/README.md#9-the-exit--scale-out-2026-10-29).)
+- **R:R** — `(target 1 − buy stop) / (buy stop − stop)`; it sets the size tier and the 0.35 floor.
 
 ### The gates
 
@@ -39,10 +40,15 @@ A name becomes an order only if every one holds:
 
 1. **Dramatic red break** — candle 1 is red, its low clears yesterday's range low by a cent (or 2bp), its range ≥ 0.75× ATR14.
 2. **Sneaky candle** — candle 2 is green, its body is ≥ 5% of its range, and its low never undercuts candle 1's low.
-3. **RSI floor** — RSI(14) on the 15-minute series, read after candle 2, is **≥ 40**.
-4. **Structure intact** — candle 1 broke the range low but held above the swing low.
-5. **Headroom** — from the buy-stop up to yesterday's range high is **above 0 and under 9%**.
-6. **Payoff** — the projected reward is at least **0.35× the risk**.
+3. **Structure intact** — candle 1 broke the range low but held above the swing low.
+4. **Headroom** — from the buy-stop up to yesterday's range high is **above 0 and under 9%**.
+5. **Payoff** — the projected reward is at least **0.35× the risk**.
+6. **Checklist ≥ 3 of 5** (rules v3, 2026-10-28 — replaced the RSI ≥ 40 floor). One point each:
+   - **Reclaim** — candle 2 closes at least 0.10 ATR back above yesterday's range low.
+   - **Prior up** — yesterday closed at or above the day before.
+   - **Shallow** — candle 1 broke yesterday's range low by no more than 0.25 ATR.
+   - **RSI 45** — RSI(14) on the 15-minute series, read after candle 2, is ≥ 45.
+   - **Solo** — no more than 25% of the day's stalk names printed a sneaky candle (a stock-specific flush, not a market-wide one).
 7. **News** — the headline read comes back `quiet` or `clear` (see below).
 
 Then the list is **ranked by momentum score**; shallower breaks of the range low break ties. Stops under 0.5% from entry are tagged *tight stop*, not removed.
@@ -59,12 +65,15 @@ Then the list is **ranked by momentum score**; shallower breaks of the range low
 | Mean R, held-out | −0.065 | **+0.130** (95% CI −0.19…+0.40) |
 | Orders per day | ~14 | ~1.5 (none on ~30% of days) |
 
+**Rules v3 (2026-10-28).** On 54 sessions (08-12 → 10-28), headroom + payoff gates with the checklist at ≥ 3 points: **47 trades, 76.6% win** (session-bootstrap 62–88%), **+0.19R**, ~0.9 orders a day — against v2's 65 trades at 64.6% and +0.09R on the same sessions. Better than v2 in 99% of bootstrap resamples on win rate, 94% on mean R. The five points were picked on the same sessions they were tested on, so expect less live (~65–70%). Detail: [`research/README.md`](research/README.md#8-rules-v3--the-checklist-2026-10-28); re-run with `python research/checklist.py`.
+
 **Read the confidence intervals.** The win-rate improvement is consistent across both halves of the data and across every variant tested. The positive mean R is not yet statistically distinguishable from zero. Treat v2 as a better list, not a proven edge, and size it as an experiment.
 
 ### Why each rule is there
 
 - **Candle-3 buy-stop.** About 40% of setups never trigger, and those are disproportionately the ones that roll over. With the same stop and target, the break entry won ~3–6 points more often than the close entry on both halves.
-- **RSI(14) ≥ 40 after the green candle** replaced the old RSI *V-trough*. The V added nothing — setups without it won as often as setups with it. The RSI *level* was the strongest single filter, and the win rate climbs with the threshold on the held-out sessions (≥35: 62%, ≥40: 65%, ≥45: 69%), so 40 is a point on a slope, not a lucky cut.
+- **The checklist (v3).** Of ~60 features screened, these five lifted the win rate in all three chronological thirds of the data; the rest — volume, VWAP, 5-minute detail inside candle 2, multi-day trend, day of week, index direction — were indistinguishable from noise. Points are monotonic: 0–1 won 33–48%, 3 won 73%, all 5 won 89%. RSI is now one point (≥ 45) instead of a floor.
+- *(v2, superseded)* **RSI(14) ≥ 40 after the green candle** replaced the old RSI *V-trough*. The V added nothing — setups without it won as often as setups with it. The RSI *level* was the strongest single filter, and the win rate climbs with the threshold on the held-out sessions (≥35: 62%, ≥40: 65%, ≥45: 69%), so 40 is a point on a slope, not a lucky cut.
 - **Headroom under 9%.** Setups at 9%+ won ~35% in both halves. The old *3–9% band* that used to rank the list did **not** survive: on the held-out sessions in-band setups won 46.5% against 57.3% outside it. It no longer ranks anything.
 - **Reward/risk ≥ 0.35.** Without it, half of the qualifying trades risked 4× what they could make — they won often and lost money. The floor (chosen on the training sessions) keeps the win rate where it was and moves mean R from −0.02 to +0.13 on the held-out sessions.
 - **Momentum ranks, it does not gate.** Above the day's median it won 69.5% against 65.1% below (held-out, within v2). It ranks *probability*, not profit.
