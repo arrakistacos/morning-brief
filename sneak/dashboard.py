@@ -446,6 +446,43 @@ investment advice.</p>
 ARCHIVE_INDEX = DOCS / "archive.json"
 
 
+def _write_orders_feed(day: date, strike: dict | None, confirmed: list[dict],
+                       version: int, rating_of) -> None:
+    """
+    docs/orders.json — the published list in the form the laptop executor reads
+    (sneak/executor.py). Exactly the rows on the page, in rank order, with the
+    size tier's risk multiplier; the executor does the share maths itself from
+    its own cash and risk settings, the same way the page's sizer does.
+    """
+    rows = []
+    for i, r in enumerate(confirmed, 1):
+        t = r["trade"]
+        label, mult = size_tier(t.get("rr"))
+        rows.append({
+            "rank": i, "symbol": r["symbol"],
+            "trigger": t.get("trigger", t.get("entry")), "stop": t.get("stop"),
+            "target1": t.get("target"),
+            "target2": t.get("target2") if (t.get("scale_out") or 1) < 1 else None,
+            "scale_out": t.get("scale_out") or 1.0,
+            "rr": t.get("rr"), "tier": label, "risk_mult": mult,
+            "momentum": round(r.get("momentum") or 0, 1),
+            "points": (t.get("checklist") or {}).get("points"),
+            "news": rating_of(r["symbol"]),
+        })
+    feed = {
+        "session": day.isoformat(),
+        "strike_done": bool(strike),
+        "rules_version": version,
+        "strike_generated_at": (strike or {}).get("generated_at"),
+        "built_at": datetime.now(yahoo.CT).isoformat(timespec="seconds"),
+        "published_after_window": bool((strike or {}).get("published_after_window")),
+        "entry_window_ct": WINDOW_CT,
+        "orders": rows if version >= 2 else [],
+    }
+    DOCS.mkdir(parents=True, exist_ok=True)
+    (DOCS / "orders.json").write_text(json.dumps(feed, indent=1))
+
+
 def _update_archive(day: date, confirmed: list[dict], stalk_n: int, version: int) -> dict:
     """
     Maintain docs/archive.json so the archive survives cache pruning — the
@@ -568,6 +605,8 @@ def build(day: date | None = None, explicit: bool = False) -> Path:
     held_back = sorted(held_back, key=rank_key)
 
     archive_idx = _update_archive(day, confirmed, len(stalk_c), version)
+    if not explicit:
+        _write_orders_feed(day, strike, confirmed, version, _rating)
     qt, qa = quote_for(day)
     rating_meta = _load("newsrating", day) or {}
     session_note = rating_meta.get("session_note") or ""

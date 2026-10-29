@@ -18,6 +18,8 @@ Manual stages
                                              window has closed, so the list is
                                              for the record only
     selftest, prep                          run on any day (no market data)
+    flatten                                 trading days only: the 14:55 CT cloud
+                                             backup that closes today's leftovers
 
 Scheduled runs
 --------------
@@ -53,7 +55,7 @@ CALENDAR_FREE = {"selftest", "prep"}
 # Manual-only stages. A scheduled firing never resolves to any of these — it
 # resolves to `all` or to `skip`, nothing else.
 KNOWN = {"selftest", "prep", "stalk", "strike", "publish", "all",
-         "prep-stalk", "strike-publish"}
+         "prep-stalk", "strike-publish", "flatten"}
 
 BAR1_CLOSE = 9 * 60 + 45      # 09:45 ET — the stalk candle closes (08:45 CT)
 BAR2_CLOSE = 10 * 60          # 10:00 ET — the strike candle closes (09:00 CT)

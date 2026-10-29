@@ -1,0 +1,4 @@
+{
+  "kill": false,
+  "why": "Set kill to true (GitHub web editor works from a phone) to stop the laptop executor placing new entries. Exits already working keep running, and the 14:50 CT flatten still happens."
+}

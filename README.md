@@ -34,6 +34,10 @@ Long only. Cash account, no shorting.
 - **Target 2 — sell the other half** at yesterday's range high. Flat by the close on anything still open. (Scale-out exit since 2026-10-29: on the 47 v3 trades it averaged +0.28R against +0.19R for a single target, at the same 76.6% win rate and the same worst drawdown — see [`research/README.md`](research/README.md#9-the-exit--scale-out-2026-10-29).)
 - **R:R** — `(target 1 − buy stop) / (buy stop − stop)`; it sets the size tier and the 0.35 floor.
 
+### Automation
+
+The scan starts itself at 08:45 CT (cron-job.org), a laptop executor trades the published list on an Alpaca paper account, and Healthchecks.io alerts your phone when anything goes quiet. Setup, schedules and what to do when an alert fires: [`AUTOMATION.md`](AUTOMATION.md).
+
 ### The gates
 
 A name becomes an order only if every one holds:

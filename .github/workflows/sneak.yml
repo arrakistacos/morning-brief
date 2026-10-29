@@ -14,14 +14,16 @@ name: SNEAK — opening range scanner
 # before 07:55 CT: the sleep would outlive the 75-minute timeout, and stage.py
 # refuses (red X) rather than letting it die halfway.
 #
-# There is no cron schedule. GitHub's scheduler started this repo's runs 3.5-6
-# hours late from late August on, so every on-time session came from a manual
-# start anyway. To automate later, have an external clock (cron-job.org or
-# similar) POST to
-#   https://api.github.com/repos/arrakistacos/morning-brief/actions/workflows/sneak.yml/dispatches
-# with {"ref":"main","inputs":{"stage":"all"}} at 08:30-08:55 America/Chicago on
-# weekdays, using a fine-grained token with Actions: write on this repo. stage.py
-# skips non-trading days and days already published, so extra calls are no-ops.
+# There is no GitHub cron schedule: GitHub started this repo's scheduled runs
+# 3.5-6 hours late. The clock is external (see AUTOMATION.md):
+#   cron-job.org  08:45 CT weekdays  POST .../actions/workflows/sneak.yml/dispatches
+#                                    {"ref":"main","inputs":{"stage":"all"}}
+#   laptop        08:50 CT           the executor dispatches again only if no run
+#                                    started in the last 15 minutes
+#   cron-job.org  14:55 CT weekdays  same POST with "stage":"flatten" — the cloud
+#                                    backup that closes today's leftover positions
+# stage.py skips non-trading days and days already published, so extra calls are
+# no-ops. Heartbeats go to Healthchecks.io (secret HC_PING_KEY, check sneak-scan).
 
 on:
   workflow_dispatch:
@@ -41,6 +43,7 @@ on:
           - selftest
           - prep-stalk      # first half  — universe, levels, the 09:45 stalk
           - strike-publish  # second half — the 10:00 strike, then publish
+          - flatten         # 14:55 CT cloud backup: close today's leftover positions
           - prep
           - stalk
           - strike
@@ -67,8 +70,17 @@ jobs:
       pushed: ${{ steps.push.outputs.pushed }}
     env:
       CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+      HC_PING_KEY: ${{ secrets.HC_PING_KEY }}
       PYTHONUNBUFFERED: "1"
     steps:
+      # Heartbeat first, before anything that can fail: Healthchecks then knows
+      # the 08:45 start arrived even if a later step breaks.
+      - name: Heartbeat — scan started
+        if: github.event.inputs.stage == 'all'
+        run: |
+          [ -n "$HC_PING_KEY" ] && curl -fsS -m 10 --retry 3 -o /dev/null \
+            "https://hc-ping.com/$HC_PING_KEY/sneak-scan/start" || true
+
       # Check out the branch tip as it is when the job STARTS, not the commit the
       # run was queued at. A run that waited behind another (concurrency) then
       # sees the morning the first one already committed, and skips.
@@ -120,13 +132,22 @@ jobs:
           python3 -m sneak.news --top 200
           python3 -m sneak.triage --top 200
 
+      # The 14:55 CT cloud backup. The laptop flattens at 14:50; this closes
+      # only positions opened by today's SNEAK orders, and alerts if it had to.
+      - name: Flatten — close today's leftovers
+        if: steps.stage.outputs.stage == 'flatten'
+        run: python3 -m sneak.flatten
+        env:
+          ALPACA_KEY_ID: ${{ secrets.ALPACA_KEY_ID }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+
       - name: Build dashboard
-        if: steps.stage.outputs.stage != 'skip' && steps.stage.outputs.stage != 'selftest'
+        if: ${{ !contains(fromJSON('["skip","selftest","flatten"]'), steps.stage.outputs.stage) }}
         run: python3 -m sneak.dashboard
 
       - name: Commit and push
         id: push
-        if: steps.stage.outputs.stage != 'skip' && steps.stage.outputs.stage != 'selftest'
+        if: ${{ !contains(fromJSON('["skip","selftest","flatten"]'), steps.stage.outputs.stage) }}
         run: |
           git config user.name  "sneak-bot"
           git config user.email "sneak@users.noreply.github.com"
@@ -145,6 +166,17 @@ jobs:
             echo "push rejected, rebasing…"; git pull --rebase --autostash; sleep $((i*5))
           done
           echo "::error::push failed after 3 attempts"; exit 1
+
+      # Success (including a skip on a holiday) or failure — either way
+      # Healthchecks hears how the morning ended.
+      - name: Heartbeat — scan finished
+        if: always() && github.event.inputs.stage == 'all'
+        run: |
+          [ -z "$HC_PING_KEY" ] && exit 0
+          if [ "${{ job.status }}" = "success" ]; then kind=""; else kind="/fail"; fi
+          curl -fsS -m 10 --retry 3 -o /dev/null --data-raw \
+            "stage=${{ steps.stage.outputs.stage }} status=${{ job.status }}" \
+            "https://hc-ping.com/$HC_PING_KEY/sneak-scan$kind" || true
 
   # Deploy only when the scanner actually pushed something. Before this guard
   # every no-op firing — a skip, or a repeated prep that commits nothing —
