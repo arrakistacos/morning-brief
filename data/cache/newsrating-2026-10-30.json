@@ -1,0 +1,13 @@
+{
+ "session": "2026-10-30",
+ "generated_at": "2026-10-30T09:00:29-05:00",
+ "session_note": "The sole catalyst is a quarterly earnings report, with coverage noting credit pressure on a commercial mortgage REIT.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "BRSP": {
+   "rating": "caution",
+   "reason": "Q3 earnings release and call; coverage cites book value and credit strain, no structural event.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
