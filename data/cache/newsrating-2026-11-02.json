@@ -1,0 +1,18 @@
+{
+ "session": "2026-11-02",
+ "generated_at": "2026-11-02T09:00:33-06:00",
+ "session_note": "Neither ticker has a hard catalyst; AHCO's only tie is an upcoming earnings report, and TENB has only generic opinion coverage.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "AHCO": {
+   "rating": "caution",
+   "reason": "Earnings preview only; results due tomorrow, so pre-report positioning may explain some weakness.",
+   "source": "claude-opus-5-5"
+  },
+  "TENB": {
+   "rating": "clear",
+   "reason": "Opinion-style valuation listicle only; no company-specific event in the window.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}

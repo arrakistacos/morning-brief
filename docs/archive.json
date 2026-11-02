@@ -329,5 +329,13 @@
   "rules": "v3",
   "stalked": 111,
   "top": []
+ },
+ "2026-11-02": {
+  "confirmed": 1,
+  "rules": "v3",
+  "stalked": 110,
+  "top": [
+   "TENB"
+  ]
  }
 }
