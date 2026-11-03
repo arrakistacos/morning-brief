@@ -337,5 +337,16 @@
   "top": [
    "TENB"
   ]
+ },
+ "2026-11-03": {
+  "confirmed": 4,
+  "rules": "v3",
+  "stalked": 130,
+  "top": [
+   "ANGO",
+   "OPRT",
+   "BXMT",
+   "INVH"
+  ]
  }
 }

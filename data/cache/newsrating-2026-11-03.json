@@ -1,0 +1,28 @@
+{
+ "session": "2026-11-03",
+ "generated_at": "2026-11-03T09:00:31-06:00",
+ "session_note": "No company-specific catalyst; headlines are generic valuation commentary plus peer REIT earnings strength, which does not explain the drop.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "ANGO": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "OPRT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "BXMT": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "INVH": {
+   "rating": "clear",
+   "reason": "Generic valuation piece and a positive peer (UDR) beat; no INVH-specific event.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
