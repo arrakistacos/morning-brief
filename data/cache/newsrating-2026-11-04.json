@@ -1,0 +1,13 @@
+{
+ "session": "2026-11-04",
+ "generated_at": "2026-11-04T09:00:35-06:00",
+ "session_note": "The only catalyst is DTE's upcoming Q3 report and utility-sector earnings pressure; no structural repricing headlines.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "DTE": {
+   "rating": "caution",
+   "reason": "Q3 earnings imminent; previews cite storm costs and financing pressures; utility peer Otter Tail missed.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}

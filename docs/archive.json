@@ -348,5 +348,11 @@
    "BXMT",
    "INVH"
   ]
+ },
+ "2026-11-04": {
+  "confirmed": 0,
+  "rules": "v3",
+  "stalked": 182,
+  "top": []
  }
 }
