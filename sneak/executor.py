@@ -77,6 +77,12 @@ WINDOW_END = time(10, 15)
 LAST_POLL = time(10, 14, 30)
 FLATTEN_BEFORE_CLOSE = timedelta(minutes=10)
 STOP_CHECK_EVERY = 15            # seconds between stop-through checks per entry
+# When price is already through the buy-stop as the order goes in, Alpaca refuses
+# the stop ("stop price must be greater than current price"). The break has then
+# already happened, so the executor buys with an immediate-or-cancel limit, but
+# never more than this far above the trigger (a fraction of the trade's risk).
+CHASE_CAP_R = 0.10
+NETWORK_RETRY_S = 30
 
 HC_SCAN, HC_LAPTOP, HC_ORDERS, HC_DAY = "sneak-scan", "sneak-laptop", "sneak-orders", "sneak-day"
 
@@ -237,7 +243,15 @@ class Trade:
     t1_hit: bool = False
     outcome: str = ""
     last_stop_check: float = -1e9
+    attempts: int = 0             # extra entry orders after the first (re-armed stop or IOC buys)
+    ioc: bool = False             # the live entry order is an immediate-or-cancel limit
+    last_try: float = -1e9
     notes: list[str] = field(default_factory=list)
+
+    @property
+    def cap(self) -> float:
+        """Highest price the executor will pay when price is already through the trigger."""
+        return floor_cents(self.trigger + max(0.01, CHASE_CAP_R * (self.trigger - self.stop)))
 
     @property
     def risk_per_share(self) -> float:
@@ -296,8 +310,24 @@ class Executor:
         finally:
             self._hb_stop.set()
 
+    def _network(self, fn, until: datetime, what: str):
+        """Retry `fn` through a network outage until `until`, then give up loudly."""
+        warned = False
+        while True:
+            try:
+                return fn()
+            except Exception as e:
+                if getattr(e, "status", None) not in (0, None) and "network" not in str(e):
+                    raise
+                if self.now() >= until:
+                    raise
+                if not warned:
+                    self.say(f"no network ({what}) — retrying every {NETWORK_RETRY_S}s")
+                    warned = True
+                self.sleep(NETWORK_RETRY_S)
+
     def _run(self) -> int:
-        cal = self.broker.calendar(self.day)
+        cal = self._network(lambda: self.broker.calendar(self.day), self.at(LAST_POLL), "broker calendar")
         if not cal:
             self.say(f"{self.day} is not a trading day — idling so the heartbeats stay green")
             self.wait_until(self.at(time(10, 1)))      # pings land inside each check's window
@@ -308,6 +338,7 @@ class Executor:
         close = datetime.combine(self.day, time.fromisoformat(cal["close"]), ET)
         flatten_at = close - FLATTEN_BEFORE_CLOSE
 
+        self._network(lambda: self.broker.account(), self.at(LAST_POLL), "broker account")
         problems = self.preflight()
         if problems:
             self.no_new_entries = True
@@ -321,7 +352,10 @@ class Executor:
 
         feed = self.wait_for_orders()
         self.place_entries(feed)
-        if not problems:
+        rejected = [t for t in self.trades if t.outcome.startswith("entry rejected")]
+        if rejected:
+            self.hc.ping(HC_ORDERS, "fail", self.summary_line("orders"))
+        elif not problems:
             self.hc.ping(HC_ORDERS, msg=self.summary_line("orders"))
 
         if self.mode != "dry":
@@ -412,14 +446,23 @@ class Executor:
         sized = size_orders(rows, float(self.cfg["cash"]), float(self.cfg["base_risk_pct"]),
                             int(self.cfg["max_entries"]), bp)
         late = self.now() >= self.at(WINDOW_END)
+        earlier: dict[str, dict] = {}
+        if self.mode != "dry":
+            for o in self._network(lambda: self.broker.orders_since(self.at(time(0))),
+                                   self.at(WINDOW_END), "broker orders"):
+                cid = str(o.get("client_order_id", ""))
+                if cid.startswith(self.prefix) and o.get("side") == "buy":
+                    earlier[o["symbol"]] = o        # the latest entry order wins
         for r in sized:
             t = Trade(r["symbol"], cents(r["trigger"]), floor_cents(r["stop"]), cents(r["target1"]),
                       cents(r["target2"]) if r.get("target2") else None,
                       float(r.get("scale_out") or 1.0), int(r["qty"]))
             self.trades.append(t)
-            existing = self.broker.order_by_client_id(self.cid(t.symbol, "entry")) if self.mode != "dry" else None
+            existing = earlier.get(t.symbol)
             if existing:
                 t.entry_id, t.state = existing["id"], "entry"
+                t.ioc = existing.get("type") == "limit"
+                t.attempts = 99            # never re-use a client id after a restart
                 self.say(f"{t.symbol}: adopted the entry placed earlier")
                 continue
             if self.mode == "dry":
@@ -431,16 +474,49 @@ class Executor:
             if late or self.no_new_entries:
                 t.state, t.outcome = "skipped", "window closed" if late else "blocked by preflight"
                 continue
+            self.place_stop(t)
+
+    def _entry_cid(self, t: Trade) -> str:
+        leg = "entry" if t.attempts == 0 else f"entry{t.attempts}"
+        t.attempts += 1
+        return self.cid(t.symbol, leg)
+
+    def place_stop(self, t: Trade) -> None:
+        """The buy-stop at the trigger. If price is already through it, arm instead."""
+        while True:
             try:
                 o = self.broker.submit({"symbol": t.symbol, "qty": str(t.qty), "side": "buy",
                                         "type": "stop", "stop_price": str(t.trigger),
-                                        "time_in_force": "day",
-                                        "client_order_id": self.cid(t.symbol, "entry")})
-                t.entry_id, t.state = o["id"], "entry"
+                                        "time_in_force": "day", "client_order_id": self._entry_cid(t)})
+                t.entry_id, t.state, t.ioc = o["id"], "entry", False
                 self.say(f"{t.symbol}: buy-stop {t.qty} @ {t.trigger} placed")
+                return
             except Exception as e:
+                msg = str(e).lower()
+                if "greater than current price" in msg:
+                    t.state = "armed"
+                    self.say(f"{t.symbol}: already trading at/above {t.trigger} — buying up to "
+                             f"{t.cap} with an immediate-or-cancel limit")
+                    self.try_ioc(t)
+                    return
+                if getattr(e, "status", None) == 0 and self.now() < self.at(WINDOW_END):
+                    log.warning("%s: network error placing the entry, retrying: %s", t.symbol, e)
+                    self.sleep(5)
+                    continue
                 t.state, t.outcome = "skipped", f"entry rejected: {e}"
                 log.warning("%s entry rejected: %s", t.symbol, e)
+                return
+
+    def try_ioc(self, t: Trade) -> None:
+        """Price is through the trigger: buy now, but never above the cap."""
+        t.last_try = self.now().timestamp()
+        try:
+            o = self.broker.submit({"symbol": t.symbol, "qty": str(t.qty), "side": "buy",
+                                    "type": "limit", "limit_price": str(t.cap),
+                                    "time_in_force": "ioc", "client_order_id": self._entry_cid(t)})
+            t.entry_id, t.state, t.ioc = o["id"], "entry", True
+        except Exception as e:
+            log.warning("%s: IOC entry refused: %s", t.symbol, e)
 
     # ── management loop ─────────────────────────────────────────────────────
     def manage(self, flatten_at: datetime) -> None:
@@ -475,6 +551,8 @@ class Executor:
                         if t.state == "entry" and not t.filled:
                             self.broker.cancel(t.entry_id)
                             t.state, t.outcome = "cancelling", "kill switch"
+                        elif t.state == "armed":
+                            t.state, t.outcome = "done", "kill switch"
             for t in live:
                 try:
                     self.step(t, now, idx, pos)
@@ -503,6 +581,8 @@ class Executor:
                 # A partial fill: stop buying and protect what we have.
                 self.broker.cancel(t.entry_id)
                 t.state = "cancelling"
+            elif st in ("canceled", "expired", "rejected") and t.ioc and now < self.at(WINDOW_END):
+                t.state, t.ioc = "armed", False        # the IOC found nothing at or under the cap
             elif st in ("canceled", "expired", "rejected"):
                 t.state, t.outcome = "done", t.outcome or f"entry {st}"
             elif now >= self.at(WINDOW_END):
@@ -514,6 +594,32 @@ class Executor:
                 if low is not None and low <= t.stop:
                     self.broker.cancel(t.entry_id)
                     t.state, t.outcome = "cancelling", "traded below the stop first"
+
+        elif t.state == "armed":
+            # Price was through the trigger when we tried. Each pass: give up at
+            # 10:15 ET or on a stop-through; buy (IOC, capped) while price sits
+            # between the trigger and the cap; re-place the buy-stop once price
+            # is back under the trigger, so a fresh break fills it.
+            if now >= self.at(WINDOW_END):
+                t.state, t.outcome = "done", t.outcome or "price ran past the entry cap"
+                return
+            if now.timestamp() - t.last_stop_check >= STOP_CHECK_EVERY:
+                t.last_stop_check = now.timestamp()
+                low = self.broker.low_since(t.symbol, self.at(WINDOW_OPEN))
+                if low is not None and low <= t.stop:
+                    t.state, t.outcome = "done", "traded below the stop first"
+                    return
+            if now.timestamp() - t.last_try < 5:
+                return
+            px = self.broker.last_price(t.symbol)
+            if px is None:
+                return
+            if px < t.trigger:
+                self.place_stop(t)
+            elif px <= t.cap:
+                self.try_ioc(t)
+            else:
+                t.last_try = now.timestamp()
 
         elif t.state == "cancelling":
             o = idx.get(t.entry_id) or {}

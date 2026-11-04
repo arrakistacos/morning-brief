@@ -115,6 +115,10 @@ class FakeBroker:
         self.calls += 1
         if any(o["client_order_id"] == order["client_order_id"] for o in self.orders.values()):
             raise BrokerError(422, "client_order_id must be unique")
+        last = self.last.get(order["symbol"])
+        if order["side"] == "buy" and order["type"] == "stop" and last is not None \
+                and last >= float(order["stop_price"]):
+            raise BrokerError(422, "stop price must be greater than current price")
         oid = f"o{next(self.ids)}"
         o = {"id": oid, "status": "new", "filled_qty": "0", "filled_avg_price": None,
              "symbol": order["symbol"], "side": order["side"], "qty": order["qty"],
@@ -133,8 +137,18 @@ class FakeBroker:
                           "symbol": order["symbol"], "qty": order["qty"], "filled_qty": "0",
                           "stop_price": order["stop_loss"]["stop_price"]}]
         self.orders[oid] = o
+        if order.get("time_in_force") == "ioc":          # immediate-or-cancel buy limit
+            o["limit_price"] = order["limit_price"]
+            if last is not None and last <= float(order["limit_price"]):
+                self._fill(o, int(o["qty"]), last)
+            else:
+                o["status"] = "canceled"
+            return o
         self._match(o["symbol"], self.last.get(o["symbol"], 0) or 0) if o["side"] == "sell" else None
         return o
+
+    def last_price(self, sym):
+        return self.last.get(sym)
 
     def order_by_client_id(self, cid):
         return next((o for o in self.orders.values() if o["client_order_id"] == cid), None)
@@ -202,6 +216,18 @@ SCENARIOS = {
              "no fill by 09:15 CT"),
     "FLAT": ([(T(9, 59), 9.9), (T(10, 3), 10.0), (T(10, 30), 10.1)],
              "flat at close"),
+    # Already through the trigger when the order goes in (Alpaca refuses the
+    # stop): buy at once with an IOC limit, capped at trigger + 0.10R = 10.05.
+    "GAPU": ([(T(9, 59), 9.9), (T(10, 0), 10.02), (T(10, 20), 10.25), (T(11, 0), 10.65)],
+             "target 1 + target 2"),
+    # Through and past the cap (10.30): wait; back under the trigger, the
+    # buy-stop is re-placed and a fresh break fills it.
+    "RUNA": ([(T(9, 59), 9.9), (T(10, 0), 10.30), (T(10, 4), 9.98), (T(10, 6), 10.01),
+              (T(10, 20), 10.25), (T(11, 0), 10.65)],
+             "target 1 + target 2"),
+    # Past the cap and never back under it before 09:15 CT: no trade.
+    "RAN": ([(T(9, 59), 9.9), (T(10, 0), 10.30), (T(10, 30), 10.40)],
+            "price ran past the entry cap"),
     "HALF": ([(T(9, 59), 9.9), (T(10, 3), 10.0), (T(10, 20), 10.25), (T(11, 0), 10.65)],
              "target 1 + target 2"),
 }
@@ -239,5 +265,25 @@ def main() -> int:
     e2.place_entries(FakeFeed(rows).orders())
     if broker.calls != before:
         failures.append("restart placed new entries instead of adopting")
+    # internet down at 08:30, back at 09:20 ET: the executor waits instead of quitting
+    out_paths = {"WIN2": SCENARIOS["WIN2"][0]}
+    flaky = FakeBroker(out_paths)
+    clock2 = Clock(T(8, 30), flaky.tick)
+    real_calendar, real_account = flaky.calendar, flaky.account
+
+    def down(fn):
+        def wrapped(*a, **k):
+            if clock2.now() < T(9, 20):
+                raise BrokerError(0, "network: getaddrinfo failed")
+            return fn(*a, **k)
+        return wrapped
+    flaky.calendar, flaky.account = down(real_calendar), down(real_account)
+    e3 = ex.Executor(cfg, flaky, FakeFeed([row("WIN2", 10.00, 9.50, 10.20, 10.60)]), ex.Pinger(""),
+                     now=clock2.now, sleep=clock2.sleep, heartbeat=False)
+    rc3 = e3.run()
+    got = e3.trades[0].outcome if e3.trades else "no trade"
+    print(f"  {'ok ' if rc3 == 0 and got == 'target 1 + target 2' else 'BAD'} network outage 08:30-09:20 ET -> {got}")
+    if rc3 != 0 or got != "target 1 + target 2":
+        failures.append("network outage at start")
     print(f"\nselftest {'PASSED' if not failures and rc == 0 else 'FAILED: ' + str(failures)}")
     return 0 if not failures and rc == 0 else 1

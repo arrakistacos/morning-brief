@@ -88,7 +88,7 @@ matches the dashboard (symbols, shares, prices), run `setup` again and choose **
 | 08:45 | cron-job.org starts the scan; `sneak-scan` gets its start ping |
 | 08:50 | The executor starts the scan itself if no run began in the last 15 minutes |
 | ~09:01 | The scan publishes `docs/orders.json`. The executor places the buy-stops and pings `sneak-orders` |
-| 09:00–09:15 | An entry is cancelled if price trades at or below its stop first. All unfilled entries are cancelled at 09:15 |
+| 09:00–09:15 | An entry is cancelled if price trades at or below its stop first. All unfilled entries are cancelled at 09:15. If price is already above the buy-stop when it goes in (Alpaca refuses those), the executor buys at once with a limit no higher than buy-stop + 0.10× the risk. If price has run past that, it waits, and re-places the buy-stop if price comes back under it |
 | on fill | Two exits per trade: the larger half at Target 1, the rest at Target 2, both with the red-candle stop |
 | Target 1 fills | The Target 2 exit is re-placed with its stop at the entry price |
 | 14:50 | The executor cancels everything and sells what's left at market (10 minutes before the close, also on half days) |
@@ -118,6 +118,7 @@ Logs: `~\.sneak\logs\YYYY-MM-DD.log`. Journal: `~\.sneak\journal.csv`.
 ## Limits built in
 
 - Paper only. `live` mode is refused until a Schwab adapter exists.
+- No internet at 08:30: the executor retries every 30 seconds until 09:14:30 CT instead of quitting.
 - At most `max_entries` orders a day, in rank order.
 - Total position never exceeds `cash`, the same rule as the dashboard's sizer.
 - After `max_daily_loss_r` (default 3R) of realised loss, everything is cancelled and closed.

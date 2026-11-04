@@ -121,6 +121,21 @@ class Alpaca:
                  "price": float(r["price"])} for r in rows]
 
     # ── market data ─────────────────────────────────────────────────────────
+    def last_price(self, symbol: str, max_age_s: float = 120) -> float | None:
+        """Latest IEX trade, or None if there is none from the last `max_age_s` seconds."""
+        r = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/trades/latest", params={"feed": "iex"})
+        t = (r or {}).get("trade") or {}
+        if not t.get("p"):
+            return None
+        try:
+            head = str(t.get("t", "")).split(".")[0].rstrip("Z")
+            age = (datetime.utcnow() - datetime.fromisoformat(head)).total_seconds()
+            if age > max_age_s:
+                return None
+        except Exception:
+            pass
+        return float(t["p"])
+
     def low_since(self, symbol: str, start: datetime) -> float | None:
         """Lowest 1-minute low since `start` on the free IEX feed (None if no bars)."""
         r = self._req("GET", f"{DATA_URL}/v2/stocks/{symbol}/bars",
