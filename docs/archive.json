@@ -354,5 +354,16 @@
   "rules": "v3",
   "stalked": 182,
   "top": []
+ },
+ "2026-11-05": {
+  "confirmed": 4,
+  "rules": "v3",
+  "stalked": 221,
+  "top": [
+   "IONS",
+   "CLMB",
+   "CSGP",
+   "MTD"
+  ]
  }
 }

@@ -1,0 +1,43 @@
+{
+ "session": "2026-11-05",
+ "generated_at": "2026-11-05T09:00:39-06:00",
+ "session_note": "",
+ "deep_pass": "failed",
+ "tickers": {
+  "ICLR": {
+   "rating": "caution",
+   "reason": "Company product launch (AI video engine) in window; could explain drop.",
+   "source": "haiku"
+  },
+  "IONS": {
+   "rating": "clear",
+   "reason": "Generic estimates preview with no company-specific event; explains nothing about the drop.",
+   "source": "haiku"
+  },
+  "ADBE": {
+   "rating": "caution",
+   "reason": "Citi downgraded to Sell with $207 target; analyst cut is a company-specific explanation.",
+   "source": "haiku"
+  },
+  "CLMB": {
+   "rating": "clear",
+   "reason": "Only positive upgrade coverage and generic listicles; no event explains the drop.",
+   "source": "haiku"
+  },
+  "CSGP": {
+   "rating": "clear",
+   "reason": "Generic tax-loss selling list; positive retail forecast guidance.",
+   "source": "haiku"
+  },
+  "BVS": {
+   "rating": "flagged",
+   "reason": "Q3 results cut revenue outlook, a guidance cut that structurally reprices the stock.",
+   "source": "haiku"
+  },
+  "MTD": {
+   "rating": "clear",
+   "reason": "Headlines are generic market coverage with no MTD-specific event.",
+   "source": "haiku"
+  }
+ }
+}
