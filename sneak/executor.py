@@ -558,6 +558,8 @@ class Executor:
                     self.step(t, now, idx, pos)
                 except Exception as e:
                     log.warning("%s step failed: %s", t.symbol, e)
+                if t.state == "done" and t.outcome and not t.filled:
+                    self.say(f"{t.symbol}: {t.outcome}")      # entries that ended without a fill
             if stamp - last_r > 30 and any(t.state == "done" and t.filled for t in self.trades):
                 last_r = stamp
                 r_now = self.realised_r()
@@ -613,6 +615,13 @@ class Executor:
                 return
             px = self.broker.last_price(t.symbol)
             if px is None:
+                # No recent trade on the free IEX feed (thin names often have
+                # none). Let the broker judge instead: re-place the buy-stop,
+                # which it accepts once price is back under the trigger and
+                # refuses (then we try the capped IOC) while price is above it.
+                if now.timestamp() - t.last_try >= 15:
+                    t.last_try = now.timestamp()
+                    self.place_stop(t)
                 return
             if px < t.trigger:
                 self.place_stop(t)

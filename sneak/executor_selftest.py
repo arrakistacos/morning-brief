@@ -46,6 +46,7 @@ class FakeBroker:
     def __init__(self, paths: dict[str, list[tuple[datetime, float]]], partial: set[str] = frozenset()):
         self.paths = paths
         self.partial = set(partial)
+        self.stale = {"DARK"}            # no fresh IEX trade for this one, all day
         self.orders: dict[str, dict] = {}
         self.pos: dict[str, float] = {}
         self.fill_log: list[dict] = []
@@ -148,7 +149,7 @@ class FakeBroker:
         return o
 
     def last_price(self, sym):
-        return self.last.get(sym)
+        return None if sym in self.stale else self.last.get(sym)
 
     def order_by_client_id(self, cid):
         return next((o for o in self.orders.values() if o["client_order_id"] == cid), None)
@@ -228,6 +229,11 @@ SCENARIOS = {
     # Past the cap and never back under it before 09:15 CT: no trade.
     "RAN": ([(T(9, 59), 9.9), (T(10, 0), 10.30), (T(10, 30), 10.40)],
             "price ran past the entry cap"),
+    # Like RUNA, but the IEX feed has no recent trade for it (CLMB on 11-05):
+    # the executor lets Alpaca's own price check decide by re-trying the stop.
+    "DARK": ([(T(9, 59), 9.9), (T(10, 0), 10.30), (T(10, 4), 9.98), (T(10, 6), 10.01),
+              (T(10, 20), 10.25), (T(11, 0), 10.65)],
+             "target 1 + target 2"),
     "HALF": ([(T(9, 59), 9.9), (T(10, 3), 10.0), (T(10, 20), 10.25), (T(11, 0), 10.65)],
              "target 1 + target 2"),
 }
@@ -239,7 +245,7 @@ def main() -> int:
     paths = {s: p for s, (p, _) in SCENARIOS.items()}
     broker = FakeBroker(paths, partial={"HALF"})
     clock = Clock(T(8, 30), broker.tick)
-    cfg = dict(ex.DEFAULTS, mode="paper", cash=100000.0, base_risk_pct=0.5, max_entries=10)
+    cfg = dict(ex.DEFAULTS, mode="paper", cash=100000.0, base_risk_pct=0.5, max_entries=20)
     e = ex.Executor(cfg, broker, FakeFeed(rows), ex.Pinger(""), now=clock.now,
                     sleep=clock.sleep, heartbeat=False)
     rc = e.run()
