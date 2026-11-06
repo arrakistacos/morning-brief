@@ -1,0 +1,28 @@
+{
+ "session": "2026-11-06",
+ "generated_at": "2026-11-06T09:00:33-06:00",
+ "session_note": "All three names reported Q3 2026 earnings in the window, and none of the headlines shows a structural repricing event.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "MGY": {
+   "rating": "caution",
+   "reason": "Q3 2026 earnings beat, buyback boost and earnings call in window; company-specific event.",
+   "source": "claude-opus-5-5"
+  },
+  "EVV": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "COGT": {
+   "rating": "caution",
+   "reason": "Q3 results show widening net loss; PDUFA dates pending, no CRL reported.",
+   "source": "claude-opus-5-5"
+  },
+  "NXST": {
+   "rating": "caution",
+   "reason": "Q3 2026 record revenue report and earnings call in window; company-specific event.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
