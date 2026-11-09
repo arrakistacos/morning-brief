@@ -1,0 +1,13 @@
+{
+ "session": "2026-11-09",
+ "generated_at": "2026-11-09T09:00:25-06:00",
+ "session_note": "",
+ "deep_pass": "not run",
+ "tickers": {
+  "LIF": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  }
+ }
+}
