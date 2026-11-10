@@ -1,25 +1,25 @@
 {
- "session": "2026-11-09",
+ "session": "2026-11-10",
  "strike_done": true,
  "rules_version": 3,
- "strike_generated_at": "2026-11-09T09:00:25-06:00",
- "built_at": "2026-11-09T09:00:26-06:00",
+ "strike_generated_at": "2026-11-10T09:00:25-06:00",
+ "built_at": "2026-11-10T09:00:25-06:00",
  "published_after_window": false,
  "entry_window_ct": "09:00\u201309:15 CT",
  "orders": [
   {
    "rank": 1,
-   "symbol": "LIF",
-   "trigger": 45.99,
-   "stop": 44.96,
-   "target1": 46.4252,
-   "target2": 47.78,
+   "symbol": "FFIN",
+   "trigger": 30.73,
+   "stop": 30.5,
+   "target1": 30.901,
+   "target2": 31.31,
    "scale_out": 0.5,
-   "rr": 0.423,
-   "tier": "Light",
-   "risk_mult": 0.75,
-   "momentum": 28.6,
-   "points": 4,
+   "rr": 0.743,
+   "tier": "Full",
+   "risk_mult": 1.5,
+   "momentum": 47.5,
+   "points": 3,
    "news": "quiet"
   }
  ]
