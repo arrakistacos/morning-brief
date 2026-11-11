@@ -389,5 +389,13 @@
   "top": [
    "FFIN"
   ]
+ },
+ "2026-11-11": {
+  "confirmed": 1,
+  "rules": "v3",
+  "stalked": 30,
+  "top": [
+   "STOK"
+  ]
  }
 }

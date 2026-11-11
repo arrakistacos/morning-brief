@@ -1,0 +1,23 @@
+{
+ "session": "2026-11-11",
+ "generated_at": "2026-11-11T09:00:34-06:00",
+ "session_note": "Both drops follow fresh quarterly earnings releases with mixed signals, not structural repricing events.",
+ "deep_pass": "claude-opus-5-5",
+ "tickers": {
+  "STOK": {
+   "rating": "quiet",
+   "reason": "no headlines in 48h",
+   "source": "keyword"
+  },
+  "TDG": {
+   "rating": "caution",
+   "reason": "Q4 earnings and new fiscal 2027 guidance; one headline notes lower 2027 earnings outlook.",
+   "source": "claude-opus-5-5"
+  },
+  "ZYME": {
+   "rating": "caution",
+   "reason": "Q3 EPS missed estimates; revenue beat and 2026 revenue guidance raised.",
+   "source": "claude-opus-5-5"
+  }
+ }
+}
